@@ -1,6 +1,7 @@
 package com.litumdesign.LitumDesign.auth;
 
 import com.litumdesign.LitumDesign.Entity.LoginProvider;
+import com.litumdesign.LitumDesign.Entity.UserShopEntity;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,13 +12,14 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 @Data
 @Builder
 public class AppUser implements UserDetails, OidcUser {
-    String username;
+    String login;
     String password;
 
     String sub;
@@ -41,9 +43,11 @@ public class AppUser implements UserDetails, OidcUser {
 
     LoginProvider provider;
 
+    List<UserShopEntity> userShop;
+
     @Override
     public String getName() {
-        return Objects.nonNull(name) ? name : username;
+        return Objects.nonNull(name) ? name : login;
     }
 
     @Override
@@ -63,7 +67,7 @@ public class AppUser implements UserDetails, OidcUser {
 
     @Override
     public String getUsername() {
-        return username;
+        return login;
     }
 
     @Override

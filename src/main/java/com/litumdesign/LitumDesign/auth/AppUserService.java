@@ -3,6 +3,7 @@ package com.litumdesign.LitumDesign.auth;
 import com.litumdesign.LitumDesign.Entity.*;
 //import com.litumdesign.LitumDesign.repository.AuthorityEntityRepository;
 import com.litumdesign.LitumDesign.repository.UserRepository;
+import com.litumdesign.LitumDesign.repository.UserShopRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import lombok.experimental.NonFinal;
@@ -36,11 +37,10 @@ public class AppUserService implements UserDetailsManager {
 
     PasswordEncoder passwordEncoder;
     UserRepository userRepository;
-    //    AuthorityEntityRepository authorityEntityRepository;
+    UserShopRepository userShopRepository;
     Executor executor;
 
-    //TODO change "username" in DB maybe on "login" and make id not EMAIL(maybe SUBJECT )
-    //TODO write APP create/login service.
+    //TODO change "username" in DB maybe on "login" and make id not EMAIL(maybe SUB
 
 
     @Override
@@ -51,7 +51,7 @@ public class AppUserService implements UserDetailsManager {
                 .findById(username)
                 .map(ue -> AppUser
                         .builder()
-                        .username(ue.getUsername())
+                        .login(ue.getLogin())
                         .password(ue.getPassword())
                         .name(ue.getName())
                         .sub(ue.getSub())
@@ -66,6 +66,7 @@ public class AppUserService implements UserDetailsManager {
                         .imageUrl(ue.getImageUrl())
                         .provider(ue.getProvider())
                         .createdAt(ue.getCreatedAt())
+                        .userShop(ue.getUserShop())
                         .authorities(List.of(new SimpleGrantedAuthority("ROLE_" + ue.getAuthorities().name()))
 
 //                                ue
@@ -96,7 +97,7 @@ public class AppUserService implements UserDetailsManager {
                 appUser = AppUser
                         .builder()
                         .provider(provider)
-                        .username(oidcUser.getEmail())
+                        .login(oidcUser.getEmail())
                         .name(oidcUser.getName())
                         .locale(oidcUser.getLocale())
                         .email(oidcUser.getEmail())
@@ -129,33 +130,22 @@ public class AppUserService implements UserDetailsManager {
     private void createUser(AppUser user) {
         UserEntity userEntity = saveUserIfNotExists(user);
 
-//        List<AuthorityEntity> authorities = user
-//                .authorities
-//                .stream()
-//                .map(a -> saveAuthorityIfNotExists(a.getAuthority(), user.getProvider()))
-//                .toList();
-//
-//        userEntity.mergeAuthorities(authorities);
-//
-//        userRepository.save(userEntity);
-
-        System.out.println("STEP -2 ");
+        System.out.println("STEP -2 userEntity create -> " + userEntity);
 
 
     }
 
-//    private AuthorityEntity saveAuthorityIfNotExists(String authority, LoginProvider provider) {
-//        return authorityEntityRepository
-//                .findByName(authority)
-//                .orElseGet(() -> authorityEntityRepository
-//                        .save(
-//                                new AuthorityEntity(authority, provider)
-//                        ));
-//    }
+    private void saveShopEntity(UserEntity userEntity, String shopUrl, String shopName) {
+       UserShopEntity userShopEntity = new UserShopEntity(userEntity, shopUrl, shopName);
+       if (userEntity != null){
+       userShopRepository.save(userShopEntity);
+       }
+    }
+
 
 
     private UserEntity saveUserIfNotExists(AppUser user) {
-        return userRepository
+        UserEntity userEntity = userRepository
                 .findById(user.getUsername())
                 .orElseGet(() -> userRepository
                         .save(new UserEntity(
@@ -176,6 +166,10 @@ public class AppUserService implements UserDetailsManager {
                                 user.getCountOfUploads(),
                                 user.getLocale()
                         )));
+
+        saveShopEntity(userEntity, null, null);
+
+        return userEntity;
     }
 
 
@@ -201,9 +195,10 @@ public class AppUserService implements UserDetailsManager {
         createUser(AppUser
                 .builder()
                 .provider(LoginProvider.APP)
-                .username(user.getUsername())
+                .login(user.getUsername())
                 .password(user.getPassword())
-                .authorities(user.getAuthorities())
+                .imageUrl("https://imgv3.fotor.com/images/cover-photo-image/a-beautiful-girl-with-gray-hair-and-lucxy-neckless-generated-by-Fotor-AI.jpg")
+                .authorities(List.of(new SimpleGrantedAuthority("ROLE_" + Role.USER)))
                 .build());
     }
 
