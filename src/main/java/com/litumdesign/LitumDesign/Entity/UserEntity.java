@@ -58,6 +58,7 @@ public class UserEntity {
     @Column(name = "count_of_uploads")
     int countOfUploads;
 
+    Boolean verified;
     String locale;
 
     @PrePersist
@@ -80,7 +81,8 @@ public class UserEntity {
                       String telegramTag,
                       int countOfDownloads,
                       int countOfUploads,
-                      String locale) {
+                      String locale,
+                      Boolean verified) {
         this.login = login;
         this.sub = sub;
         this.password = password;
@@ -97,5 +99,6 @@ public class UserEntity {
         this.countOfDownloads = countOfDownloads;
         this.countOfUploads = countOfUploads;
         this.locale = locale;
+        this.verified = verified;
     }
 }

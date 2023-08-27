@@ -75,6 +75,7 @@ public class AppUserService implements UserDetailsManager {
 //                                .map(a -> new SimpleGrantedAuthority(a.getAuthority().getName()))
 //                                .toList()
                         )
+                        .verified(ue.getVerified())
                         .build())
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("User %s not found!", username)));
 
@@ -107,6 +108,7 @@ public class AppUserService implements UserDetailsManager {
                         .password(passwordEncoder.encode(UUID.randomUUID().toString()))
                         .attributes(oidcUser.getAttributes())
                         .authorities(List.of(new SimpleGrantedAuthority("ROLE_" + Role.USER)))
+                        .verified(oidcUser.getEmailVerified())
                         .build();
 
             saveOauth2User(appUser);
@@ -145,6 +147,7 @@ public class AppUserService implements UserDetailsManager {
 
 
     private UserEntity saveUserIfNotExists(AppUser user) {
+
         UserEntity userEntity = userRepository
                 .findById(user.getUsername())
                 .orElseGet(() -> userRepository
@@ -164,7 +167,8 @@ public class AppUserService implements UserDetailsManager {
                                 user.getTelegramTag(),
                                 user.getCountOfDownloads(),
                                 user.getCountOfUploads(),
-                                user.getLocale()
+                                user.getLocale(),
+                                user.getVerified()
                         )));
 
         saveShopEntity(userEntity, null, null);

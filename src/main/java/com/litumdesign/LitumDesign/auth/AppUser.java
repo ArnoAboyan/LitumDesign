@@ -39,6 +39,8 @@ public class AppUser implements UserDetails, OidcUser {
     int countOfDownloads;
     int countOfUploads;
     String locale;
+
+    Boolean verified;
     Collection<? extends GrantedAuthority> authorities;
 
     LoginProvider provider;
