@@ -1,113 +1,581 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" data-th-replace="~{fragments/skeleton::layout('home', ~{::#home_content})}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Welcome</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LitumDesign</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<!--    <link rel="stylesheet" href="../static/headerstyle.css">-->
+    <link rel="stylesheet" type="text/css" data-th-href="@{/headerstyle.css}">
 </head>
 <body>
-<div id="home_content">
-  <div class="ui padded segment">
 
-    <div class="ui info message" data-th-if="${param.logout}">
-      <p>You have been successfully logged out!</p>
+<!--HEADER-->
+<div th:insert="~{fragments/header :: header}"></div>
+
+
+<!-- CARUSEL BIG SLIDE  -->
+<div id="carouselExampleCaptions" class="carousel slide  " data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"  aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"  aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3"  aria-label="Slide 4"></button>
     </div>
-
-
-    <h2 class="ui dividing header">How to create this app</h2>
-
-
-
-    <div class="ui link cards">
-      <div class="card">
-        <div class="image">
-          <img src="/images/spring_social_2_cloud_part_3_oauth2.jpg">
+    <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="5000">
+            <a href="#">
+                <img data-th-src="@{/image/5e3bd17765e820213981ad5d80fbce34_L.jpg}" class="d-block w-100" alt="...">
+                <div class="carousel-caption ">
+                    <p class="text-truncate ">Some representative placeholder content for the first slide.Some representative placeholder content for the first slide.Some representative placeholder content for the first slide.Some representative placeholder content for the first slide.Some representative placeholder content for the first slide.Some representative placeholder content for the first slide.</p>
+                </div>
+                <div class="carousel-caption carouselprice ">
+                    <p>$12.55</p>
+                </div>
+            </a>
         </div>
-        <div class="content">
-          <div class="header">OAuth2 sign in</div>
-          <div class="meta">
-            <a>part 3</a>
-          </div>
-          <div class="description">
-            Sign in via google and github using Spring security oauth2 client support
-          </div>
+        <div class="carousel-item" data-bs-interval="5000">
+            <a href="#">
+                <img data-th-src="@{/image/5e3bd17765e820213981ad5d80fbce34_L.jpg}" class="d-block w-100" alt="...">
+                <div class="carousel-caption ">
+                    <p class="text-truncate">Some representative placeholder content for the first slide.aaaaaaaaaaaaaaaa</p>
+                </div>
+                <div class="carousel-caption carouselprice  ">
+                    <p>$12.55</p>
+                </div>
+            </a>
         </div>
-        <div class="extra content">
-          <div class="center aligned meta">
-            <a href="https://youtu.be/40BxatEr5aE" target="_blank"><i class="ui youtube icon"></i></a>
-          </div>
+        <div class="carousel-item" data-bs-interval="5000">
+            <a href="#">
+                <img data-th-src="@{/image/5e3bd17765e820213981ad5d80fbce34_L.jpg}" class="d-block w-100 img-fluid" alt="...">
+                <div class="carousel-caption ">
+                    <p class="text-truncate">Some representative placeholder content for the third slide.</p>
+                </div>
+                <div class="carousel-caption carouselprice ">
+                    <p>$12.55</p>
+                </div>
+            </a>
         </div>
-      </div>
-
-
-      <div class="card">
-        <div class="image">
-          <img src="/images/spring_social_2_cloud_part_2_security_overview.jpg">
+        <div class="carousel-item" data-bs-interval="5000">
+            <a href="#">
+                <img data-th-src="@{/image/5e3bd17765e820213981ad5d80fbce34_L.jpg}" class="d-block w-100 img-fluid" alt="...">
+                <div class="carousel-caption ">
+                    <p class="text-truncate">Some representative placeholder content for the third slide.</p>
+                </div>
+                <div class="carousel-caption carouselprice ">
+                    <p>$12.55</p>
+                </div>
+            </a>
         </div>
-        <div class="content">
-          <div class="header">Spring security overview</div>
-          <div class="meta">
-            <a>part 2</a>
-          </div>
-          <div class="description">
-            Overview of spring security architecture for spring mvc web apps
-          </div>
-        </div>
-        <div class="extra content">
-          <div class="center aligned meta">
-            <a href="https://youtu.be/vQ2B3qAWuAU" target="_blank"><i class="ui youtube icon"></i></a>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="image">
-          <img src="/images/spring_social_2_cloud_part_1.jpg">
-        </div>
-        <div class="content">
-          <div class="header">Deploying spring apps to cloud</div>
-          <div class="meta">
-            <a>part 1</a>
-          </div>
-          <div class="description">
-            Deploying spring web apps to railway.app cloud provider
-          </div>
-        </div>
-        <div class="extra content">
-          <div class="center aligned meta">
-            <a href="https://youtu.be/40BxatEr5aE" target="_blank"><i class="ui youtube icon"></i></a>
-          </div>
-        </div>
-      </div>
-
     </div>
-
-  </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
 </div>
+
+<!-- DIVIDE LINE -->
+<div class="container dividingline ">
+</div>
+
+<!-- MOST POPULAR -->
+<div class="container mostpopular ">
+    <p class="mostpopulartitle ">Most popular</p>
+</div>
+
+
+<!-- MOST POPULAR CARDS-->
+<div class="row  row-cols-2   row-cols-lg-5  row-cols-md-4   py-0 ">
+    <div class="col ">
+        <div class="card  h-100 ">
+            <img data-th-src="@{/image/imagecard.jpg}" class="card-img-top" alt="...">
+            <div class="card-body ">
+                <h5 class="card-title text-truncate">Card title</h5>
+                <p class="card-by text-truncate">By: <a href="#" class="vendorname">1123ssas2</a></p>
+                <div class="container buypanel d-flex justify-content-between align-items-center ">
+                    <div class="text-price ">$34.00</div>
+                    <a class="btn buybutton "  aria-current="page" href="#"><img data-th-src="@{/image/img-download.svg}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col ">
+        <div class="card h-100">
+            <img data-th-src="@{/image/imagecard.jpg}" class="card-img-top" alt="...">
+            <div class="card-body ">
+                <h5 class="card-title text-truncate">Card title</h5>
+                <p class="card-by text-truncate">By: <a href="#" class="vendorname">1123ssas2</a></p>
+                <div class="container buypanel d-flex justify-content-between align-items-center ">
+                    <div class="text-price ">$34.00</div>
+                    <a class="btn  buybutton "  aria-current="page" href="#"><img data-th-src="@{/image/img-download.svg}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col ">
+        <div class="card h-100 ">
+            <img data-th-src="@{/image/imagecard.jpg}" class="card-img-top" alt="...">
+            <div class="card-body ">
+                <h5 class="card-title text-truncate">Card title</h5>
+                <p class="card-by text-truncate">By: <a href="#" class="vendorname">1123ssas2</a></p>
+                <div class="container buypanel d-flex justify-content-between align-items-center ">
+                    <div class="text-price ">$34.00</div>
+                    <a class="btn  buybutton "  aria-current="page" href="#"><img data-th-src="@{/image/img-download.svg}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col ">
+        <div class="card h-100 ">
+            <img data-th-src="@{/image/imagecard.jpg}" class="card-img-top" alt="...">
+            <div class="card-body ">
+                <h5 class="card-title text-truncate">Card title</h5>
+                <p class="card-by text-truncate">By: <a href="#" class="vendorname">1123ssas2</a></p>
+                <div class="container buypanel d-flex justify-content-between align-items-center ">
+                    <div class="text-price ">$34.00</div>
+                    <a class="btn  buybutton "  aria-current="page" href="#"><img data-th-src="@{/image/img-download.svg}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col ">
+        <div class="card h-100 ">
+            <img data-th-src="@{/image/imagecard.jpg}" class="card-img-top" alt="...">
+            <div class="card-body ">
+                <h5 class="card-title text-truncate">Card title</h5>
+                <p class="card-by text-truncate">By: <a href="#" class="vendorname">1123ssas2</a></p>
+                <div class="container buypanel d-flex justify-content-between align-items-center ">
+                    <div class="text-price ">$34.00</div>
+                    <a class="btn  buybutton "  aria-current="page" href="#"><img data-th-src="@{/image/img-download.svg}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<div class="container ">
+    <a class="showmorebutton text-dark "  href="#">Show more</a>
+</div>
+
+<!-- DIVIDE LINE -->
+<div class="container dividingline ">
+</div>
+
+
+<!-- NEW ARRIVAL -->
+<div class="container mostpopular ">
+    <p class="mostpopulartitle ">New arrival</p>
+</div>
+
+
+<!-- MOST POPULAR CARDS-->
+<div class="row  row-cols-2  row-cols-sm-3 row-cols-lg-5  row-cols-md-4   py-0 ">
+    <div class="col ">
+        <div class="card  h-100 ">
+            <img data-th-src="@{/image/imagecard.jpg}" class="card-img-top" alt="...">
+            <div class="card-body ">
+                <h5 class="card-title text-truncate">Card title</h5>
+                <p class="card-by text-truncate">By: <a href="#" class="vendorname">1123ssas2</a></p>
+                <div class="container buypanel d-flex justify-content-between align-items-center ">
+                    <div class="text-price ">$34.00</div>
+                    <a class="btn buybutton "  aria-current="page" href="#"><img data-th-src="@{/image/img-download.svg}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col ">
+        <div class="card h-100">
+            <img data-th-src="@{/image/5e3bd17765e820213981ad5d80fbce34_L.jpg}" class="card-img-top" alt="...">
+            <div class="card-body ">
+                <h5 class="card-title text-truncate">Card title</h5>
+                <p class="card-by text-truncate">By: <a href="#" class="vendorname">1123ssas2</a></p>
+                <div class="container buypanel d-flex justify-content-between align-items-center ">
+                    <div class="text-price ">$34.00</div>
+                    <a class="btn  buybutton "  aria-current="page" href="#"><img data-th-src="@{/image/img-download.svg}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col ">
+        <div class="card h-100 ">
+            <img data-th-src="@{/image/5e3bd17765e820213981ad5d80fbce34_L.jpg}" class="card-img-top" alt="...">
+            <div class="card-body ">
+                <h5 class="card-title text-truncate">Card title</h5>
+                <p class="card-by text-truncate">By: <a href="#" class="vendorname">1123ssas2</a></p>
+                <div class="container buypanel d-flex justify-content-between align-items-center ">
+                    <div class="text-price ">$34.00</div>
+                    <a class="btn  buybutton "  aria-current="page" href="#"><img data-th-src="@{/image/img-download.svg}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col ">
+        <div class="card h-100 ">
+            <img data-th-src="@{/image/5e3bd17765e820213981ad5d80fbce34_L.jpg}" class="card-img-top" alt="...">
+            <div class="card-body ">
+                <h5 class="card-title text-truncate">Card title</h5>
+                <p class="card-by text-truncate">By: <a href="#" class="vendorname">1123ssas2</a></p>
+                <div class="container buypanel d-flex justify-content-between align-items-center ">
+                    <div class="text-price ">$34.00</div>
+                    <a class="btn  buybutton "  aria-current="page" href="#"><img data-th-src="@{/image/img-download.svg}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col ">
+        <div class="card h-100 ">
+            <img data-th-src="@{/image/5e3bd17765e820213981ad5d80fbce34_L.jpg}" class="card-img-top" alt="...">
+            <div class="card-body ">
+                <h5 class="card-title text-truncate">Card title</h5>
+                <p class="card-by text-truncate">By: <a href="#" class="vendorname">1123ssas2</a></p>
+                <div class="container buypanel d-flex justify-content-between align-items-center ">
+                    <div class="text-price ">$34.00</div>
+                    <a class="btn  buybutton "  aria-current="page" href="#"><img data-th-src="@{/image/img-download.svg}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="container ">
+    <a class="showmorebutton text-dark "  href="#">Show more</a>
+</div>
+
+<!-- DIVIDE LINE -->
+<div class="container dividingline ">
+</div>
+
+<!-- PAGINATION -->
+<div class="container containerpagination text-black ">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination ">
+            <li class="page-item ">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+
+<!-- ALL GOODS -->
+<div class="row  row-cols-2  row-cols-sm-3 row-cols-lg-5  row-cols-md-4   py-0 ">
+    <div class="col ">
+        <div class="card  h-100 ">
+            <img data-th-src="@{/image/imagecard.jpg}" class="card-img-top" alt="...">
+            <div class="card-body ">
+                <h5 class="card-title text-truncate">Card title</h5>
+                <p class="card-by text-truncate">By: <a href="#" class="vendorname">1123ssas2</a></p>
+                <div class="container buypanel d-flex justify-content-between align-items-center ">
+                    <div class="text-price ">$34.00</div>
+                    <a class="btn buybutton "  aria-current="page" href="#"><img data-th-src="@{/image/img-download.svg}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col ">
+        <div class="card h-100">
+            <img data-th-src="@{/image/5e3bd17765e820213981ad5d80fbce34_L.jpg}" class="card-img-top" alt="...">
+            <div class="card-body ">
+                <h5 class="card-title text-truncate">Card title</h5>
+                <p class="card-by text-truncate">By: <a href="#" class="vendorname">1123ssas2</a></p>
+                <div class="container buypanel d-flex justify-content-between align-items-center ">
+                    <div class="text-price ">$34.00</div>
+                    <a class="btn  buybutton "  aria-current="page" href="#"><img data-th-src="@{/image/img-download.svg}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col ">
+        <div class="card h-100 ">
+            <img data-th-src="@{/image/5e3bd17765e820213981ad5d80fbce34_L.jpg}" class="card-img-top" alt="...">
+            <div class="card-body ">
+                <h5 class="card-title text-truncate">Card title</h5>
+                <p class="card-by text-truncate">By: <a href="#" class="vendorname">1123ssas2</a></p>
+                <div class="container buypanel d-flex justify-content-between align-items-center ">
+                    <div class="text-price ">$34.00</div>
+                    <a class="btn  buybutton "  aria-current="page" href="#"><img data-th-src="@{/image/img-download.svg}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col ">
+        <div class="card h-100 ">
+            <img data-th-src="@{/image/5e3bd17765e820213981ad5d80fbce34_L.jpg}" class="card-img-top" alt="...">
+            <div class="card-body ">
+                <h5 class="card-title text-truncate">Card title</h5>
+                <p class="card-by text-truncate">By: <a href="#" class="vendorname">1123ssas2</a></p>
+                <div class="container buypanel d-flex justify-content-between align-items-center ">
+                    <div class="text-price ">$34.00</div>
+                    <a class="btn  buybutton "  aria-current="page" href="#"><img data-th-src="@{/image/img-download.svg}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col ">
+        <div class="card h-100 ">
+            <img data-th-src="@{/image/5e3bd17765e820213981ad5d80fbce34_L.jpg}" class="card-img-top" alt="...">
+            <div class="card-body ">
+                <h5 class="card-title text-truncate">Card title</h5>
+                <p class="card-by text-truncate">By: <a href="#" class="vendorname">1123ssas2</a></p>
+                <div class="container buypanel d-flex justify-content-between align-items-center ">
+                    <div class="text-price ">$34.00</div>
+                    <a class="btn  buybutton "  aria-current="page" href="#"><img data-th-src="@{/image/img-download.svg}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col ">
+        <div class="card h-100 ">
+            <img data-th-src="@{/image/5e3bd17765e820213981ad5d80fbce34_L.jpg}" class="card-img-top" alt="...">
+            <div class="card-body ">
+                <h5 class="card-title text-truncate">Card title</h5>
+                <p class="card-by text-truncate">By: <a href="#" class="vendorname">1123ssas2</a></p>
+                <div class="container buypanel d-flex justify-content-between align-items-center ">
+                    <div class="text-price ">$34.00</div>
+                    <a class="btn  buybutton "  aria-current="page" href="#"><img data-th-src="@{/image/img-download.svg}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col ">
+        <div class="card h-100 ">
+            <img data-th-src="@{/image/5e3bd17765e820213981ad5d80fbce34_L.jpg}" class="card-img-top" alt="...">
+            <div class="card-body ">
+                <h5 class="card-title text-truncate">Card title</h5>
+                <p class="card-by text-truncate">By: <a href="#" class="vendorname">1123ssas2</a></p>
+                <div class="container buypanel d-flex justify-content-between align-items-center ">
+                    <div class="text-price ">$34.00</div>
+                    <a class="btn  buybutton "  aria-current="page" href="#"><img data-th-src="@{/image/img-download.svg}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col ">
+        <div class="card h-100 ">
+            <img data-th-src="@{/image/5e3bd17765e820213981ad5d80fbce34_L.jpg}" class="card-img-top" alt="...">
+            <div class="card-body ">
+                <h5 class="card-title text-truncate">Card title</h5>
+                <p class="card-by text-truncate">By: <a href="#" class="vendorname">1123ssas2</a></p>
+                <div class="container buypanel d-flex justify-content-between align-items-center ">
+                    <div class="text-price ">$34.00</div>
+                    <a class="btn  buybutton "  aria-current="page" href="#"><img data-th-src="@{/image/img-download.svg}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col ">
+        <div class="card h-100 ">
+            <img data-th-src="@{/image/5e3bd17765e820213981ad5d80fbce34_L.jpg}" class="card-img-top" alt="...">
+            <div class="card-body ">
+                <h5 class="card-title text-truncate">Card title</h5>
+                <p class="card-by text-truncate">By: <a href="#" class="vendorname">1123ssas2</a></p>
+                <div class="container buypanel d-flex justify-content-between align-items-center ">
+                    <div class="text-price ">$34.00</div>
+                    <a class="btn  buybutton "  aria-current="page" href="#"><img data-th-src="@{/image/img-download.svg}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col ">
+        <div class="card h-100 ">
+            <img data-th-src="@{/image/5e3bd17765e820213981ad5d80fbce34_L.jpg}" class="card-img-top" alt="...">
+            <div class="card-body ">
+                <h5 class="card-title text-truncate">Card title</h5>
+                <p class="card-by text-truncate">By: <a href="#" class="vendorname">1123ssas2</a></p>
+                <div class="container buypanel d-flex justify-content-between align-items-center ">
+                    <div class="text-price ">$34.00</div>
+                    <a class="btn  buybutton "  aria-current="page" href="#"><img data-th-src="@{/image/img-download.svg}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col ">
+        <div class="card h-100 ">
+            <img data-th-src="@{/image/5e3bd17765e820213981ad5d80fbce34_L.jpg}" class="card-img-top" alt="...">
+            <div class="card-body ">
+                <h5 class="card-title text-truncate">Card title</h5>
+                <p class="card-by text-truncate">By: <a href="#" class="vendorname">1123ssas2</a></p>
+                <div class="container buypanel d-flex justify-content-between align-items-center ">
+                    <div class="text-price ">$34.00</div>
+                    <a class="btn  buybutton "  aria-current="page" href="#"><img data-th-src="@{/image/img-download.svg}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col ">
+        <div class="card h-100 ">
+            <img data-th-src="@{/image/5e3bd17765e820213981ad5d80fbce34_L.jpg}" class="card-img-top" alt="...">
+            <div class="card-body ">
+                <h5 class="card-title text-truncate">Card title</h5>
+                <p class="card-by text-truncate">By: <a href="#" class="vendorname">1123ssas2</a></p>
+                <div class="container buypanel d-flex justify-content-between align-items-center ">
+                    <div class="text-price ">$34.00</div>
+                    <a class="btn  buybutton "  aria-current="page" href="#"><img data-th-src="@{/image/img-download.svg}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col ">
+        <div class="card h-100 ">
+            <img data-th-src="@{/image/5e3bd17765e820213981ad5d80fbce34_L.jpg}" class="card-img-top" alt="...">
+            <div class="card-body ">
+                <h5 class="card-title text-truncate">Card title</h5>
+                <p class="card-by text-truncate">By: <a href="#" class="vendorname">1123ssas2</a></p>
+                <div class="container buypanel d-flex justify-content-between align-items-center ">
+                    <div class="text-price ">$34.00</div>
+                    <a class="btn  buybutton "  aria-current="page" href="#"><img data-th-src="@{/image/img-download.svg}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col ">
+        <div class="card h-100 ">
+            <img data-th-src="@{/image/5e3bd17765e820213981ad5d80fbce34_L.jpg}" class="card-img-top" alt="...">
+            <div class="card-body ">
+                <h5 class="card-title text-truncate">Card title</h5>
+                <p class="card-by text-truncate">By: <a href="#" class="vendorname">1123ssas2</a></p>
+                <div class="container buypanel d-flex justify-content-between align-items-center ">
+                    <div class="text-price ">$34.00</div>
+                    <a class="btn  buybutton "  aria-current="page" href="#"><img data-th-src="@{/image/img-download.svg}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col ">
+        <div class="card h-100 ">
+            <img data-th-src="@{/image/5e3bd17765e820213981ad5d80fbce34_L.jpg}" class="card-img-top" alt="...">
+            <div class="card-body ">
+                <h5 class="card-title text-truncate">Card title</h5>
+                <p class="card-by text-truncate">By: <a href="#" class="vendorname">1123ssas2</a></p>
+                <div class="container buypanel d-flex justify-content-between align-items-center ">
+                    <div class="text-price ">$34.00</div>
+                    <a class="btn  buybutton "  aria-current="page" href="#"><img data-th-src="@{/image/img-download.svg}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- PAGINATION -->
+<div class="container containerpagination text-black ">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination ">
+            <li class="page-item ">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+
+<!-- DIVIDE LINE -->
+<div class="container dividingline ">
+</div>
+
+<!-- Footer -->
+<footer class="text-center text-lg-center text-muted ">
+    <section class="">
+        <div class="container text-center text-md-start mt-5 ">
+            <!-- Grid row -->
+            <div class="row mt-3 ">
+                <!-- Grid column -->
+                <div class="col-md-3 col-lg-4 col-xl-5 mx-auto mb-4 ">
+                    <!-- Content -->
+                    <h6 class="text text-start text-black  mb-4 ">
+                        <i class="fas fa-gem "></i>About us
+                    </h6>
+                    <p class="aboutustext">
+                        Here you can use rows and columns to organize your footer content. Lorem ipsum
+                        dolor sit amet, consectetur adipisicing elit.
+                        Here you can use rows and columns to organize your footer content. Lorem ipsum
+                        dolor sit amet, consectetur adipisicing elit.
+                        .
+                    </p>
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4 ">
+                    <!-- Links -->
+                    <h6 class="text text-black fw-bold mb-4 ">
+                        Products
+                    </h6>
+                    <p>
+                        <a href="#!" class="text-socialfooter"><img data-th-src="@{/image/discord-footer.svg}"></a>
+                    </p>
+                    <p>
+                        <a href="#!" class="text-socialfooter"><img data-th-src="@{/image/telegram-footer.svg}"></a>
+                    </p>
+                    <p>
+                        <a href="#!" class="text-socialfooter"><img data-th-src="@{/image/instagram-footer.svg}"></a>
+                    </p>
+                </div>
+                <!-- Grid column -->
+
+
+
+                <!-- Grid column -->
+                <div class="col-md-4 col-lg-3 col-xl-3  mb-md-0 mb-4 ">
+                    <!-- Links -->
+                    <h6 class="text text-black fw-bold mb-4">Information page</h6>
+                    <p><i class="fas fa-home me-3"></i>Privacy Policy</p>
+                    <p>
+                        <i class="fas fa-envelope me-3"></i>
+                        Policies
+                    </p>
+                    <p><i class="fas fa-phone me-3"></i>Cookies</p>
+                </div>
+                <!-- Grid column -->
+            </div>
+            <!-- Grid row -->
+        </div>
+    </section>
+    <!-- Section: Links  -->
+
+    <!-- Copyright -->
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+        © 2023 creator:
+        <a class="text-reset fw-bold" href="https://litumdesign.com/">LitumDesign</a>
+    </div>
+    <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
+
+<script src="../static/js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
 </html>
-
-
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--  <meta charset="UTF-8">-->
-<!--  <title>Simple UI</title>-->
-<!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css">-->
-<!--</head>-->
-<!--<body>-->
-
-<!--<div th:insert="~{header :: header}"></div>-->
-
-<!--<main>-->
-<!--  <div class="ui basic segment">-->
-<!--    <div class="ui huge center aligned header">-->
-<!--      Welcome to Simple UI-->
-<!--    </div>-->
-<!--  </div>-->
-
-<!--</main>-->
-
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>-->
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js"></script>-->
-
-<!--</body>-->
