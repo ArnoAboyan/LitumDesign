@@ -77,7 +77,9 @@ public class WebSecurityConfig {
                         .passwordParameter("pass")
                         .defaultSuccessUrl("/")
                 )
-               .oauth2Login(oc -> oc.loginPage("/login").userInfoEndpoint(ui -> ui.oidcUserService(appUserService.oidcLoginHandler())))
+               .oauth2Login(oc -> oc.loginPage("/login")
+                       .userInfoEndpoint(ui -> ui.oidcUserService(appUserService.oidcLoginHandler()))
+                       .defaultSuccessUrl("/", true ))
                 .logout(logout -> logout.logoutUrl("/logout"))
                 .csrf(AbstractHttpConfigurer::disable)
                 .build();
