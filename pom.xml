@@ -87,6 +87,11 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>htmx.org</artifactId>
+            <version>1.9.5</version>
+        </dependency>
     </dependencies>
 
     <build>
