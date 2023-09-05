@@ -7,6 +7,9 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
+import com.google.api.client.http.ByteArrayContent;
+import com.google.api.client.http.FileContent;
+import com.google.api.client.http.InputStreamContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
@@ -15,7 +18,8 @@ import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
-import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.security.GeneralSecurityException;
@@ -23,11 +27,12 @@ import java.util.Collections;
 import java.util.List;
 
 /* class to demonstrate use of Drive files list API */
-public class DriveQuickstart {
+@Service
+public class GoogleDriveService {
     /**
      * Application name.
      */
-    private static final String APPLICATION_NAME = "Google Drive API Java Quickstart";
+    private static final String APPLICATION_NAME = "LitumDesign";
     /**
      * Global instance of the JSON factory.
      */
@@ -55,7 +60,7 @@ public class DriveQuickstart {
     private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT)
             throws IOException {
         // Load client secrets.
-        InputStream in = DriveQuickstart.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
+        InputStream in = GoogleDriveService.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
         if (in == null) {
             throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
         }
@@ -74,7 +79,17 @@ public class DriveQuickstart {
         return credential;
     }
 
-    public static void main(String... args) throws IOException, GeneralSecurityException {
+    public Drive getInstance() throws GeneralSecurityException, IOException {
+        // Build a new authorized API client service.
+        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+                .setApplicationName(APPLICATION_NAME)
+                .build();
+        return service;
+    }
+
+
+    public static void googleDriveAction() throws IOException, GeneralSecurityException {
         // Build a new authorized API client service.
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
@@ -128,5 +143,56 @@ public class DriveQuickstart {
             e.printStackTrace();
         }
     }
+
+
+    public void uploadFileTest(MultipartFile multipartFile) throws IOException, GeneralSecurityException {
+
+        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+                .setApplicationName(APPLICATION_NAME)
+                .build();
+
+
+        File fileMetadata = new File();
+        fileMetadata.setName(multipartFile.getOriginalFilename());
+
+        // Создайте контент файла из MultipartFile.
+//        FileContent mediaContent = new FileContent(multipartFile.getContentType(), multipartFile.getBytes());
+        ByteArrayContent mediaContent = new ByteArrayContent(multipartFile.getContentType(), multipartFile.getBytes());
+        // Загрузите файл на Google Drive.
+        File uploadedFile = service.files().create(fileMetadata, mediaContent).execute();
+
+        // Выведите информацию о загруженном файле (например, ID файла).
+        System.out.println("Uploaded File ID: " + uploadedFile.getId());
+    }
+
+
+    public String uploadFile(MultipartFile file) throws GeneralSecurityException, IOException {
+
+
+
+        try {
+            System.out.println(file.getOriginalFilename());
+
+            String folderId = "1t31cr9URBYFPLkq5OXLrfnpiviWQh-Hr";
+                File fileMetadata = new File();
+                fileMetadata.setParents(Collections.singletonList(folderId));
+                fileMetadata.setName(file.getOriginalFilename());
+                File uploadFile = getInstance()
+                        .files()
+                        .create(fileMetadata, new InputStreamContent(
+                                file.getContentType(),
+                                new ByteArrayInputStream(file.getBytes()))
+                        )
+                        .setFields("id").execute();
+                System.out.println(uploadFile);
+                return uploadFile.getId();
+
+        } catch (Exception e) {
+            System.out.printf("Error: "+ e);
+        }
+        return null;
+    }
 }
+
 

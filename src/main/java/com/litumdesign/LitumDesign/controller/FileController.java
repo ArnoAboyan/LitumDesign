@@ -1,17 +1,21 @@
 package com.litumdesign.LitumDesign.controller;
 
-import com.litumdesign.LitumDesign.Entity.ProductEntity;
-import com.litumdesign.LitumDesign.Entity.TestClass;
-import com.litumdesign.LitumDesign.auth.AppUserController;
-import com.litumdesign.LitumDesign.formaticUI.Toast;
+import com.litumdesign.LitumDesign.Entity.*;
+import com.litumdesign.LitumDesign.googledrive.GoogleDriveService;
 import com.litumdesign.LitumDesign.repository.ProductEntityRepository;
+import com.litumdesign.LitumDesign.repository.ProductPhotoRepository;
+import com.litumdesign.LitumDesign.repository.TestClassRepository;
+import com.litumdesign.LitumDesign.service.ProductEntityService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/file")
@@ -19,37 +23,74 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class FileController {
 
    private final ProductEntityRepository productEntityRepository;
+   private final ProductPhotoRepository productPhotoRepository;
+
+   private final ProductEntityService productEntityService;
+
+   private final GoogleDriveService googleDriveService;
 
     @GetMapping("/addfile")
-    public String submitFilePage(@ModelAttribute TestClass testClass) {
-        return "submitFilePage";
+    public String submitFilePage() {
+        return "submitfilepage";
 
     }
 
+    @GetMapping("/gtest")
+    public String gTest() throws GeneralSecurityException, IOException {
 
-
+        GoogleDriveService.googleDriveAction();
+        return "index";
+    }
 
     @PostMapping("/addfile")
-    public String addFile(@Valid TestClass testClass, Errors errors, Model model, RedirectAttributes attributes) {
+    public String addProductEntity(@RequestParam String title,
+                                   @RequestParam int price,
+                                   @RequestParam String shopInfo,
+                                   @RequestParam String shortInfo,
+                                   @RequestParam String description,
+                                   @RequestParam String videoLink,
+                                   @RequestParam (value="photoLink[]") List<String> photoLink,
+                                   @RequestParam Categories categories,
+                                   @RequestParam GameType gameType,
+                                   @RequestParam("uploadfile") MultipartFile file,
+                                   Model model){
 
-        if (errors.hasErrors()) {
-            attributes.addFlashAttribute("toast", Toast.error("File not add!", "all bad"));
-            // Если есть ошибки валидации, вернуть представление с ошибками
-            System.out.println("---------> 1");
-            return "submitfilepage"; // Имя вашего представления
+        ProductEntity productEntity = new ProductEntity(
+                title,
+                price,
+                shopInfo,
+                shortInfo,
+                description,
+                categories,
+                gameType,
+                videoLink
+        );
+
+        productEntityService.createProductEntity(productEntity, photoLink);
+
+
+
+
+
+            try {
+                model.addAttribute("testClass", productEntityRepository.findAll().toString());
+                model.addAttribute("correctorresp", "User has bean created");
+
+                System.out.println(  "UPLOAD FILE---->>" + file.toString());
+                System.out.println(  "UPLOAD FILE---->>" + file.getName());
+                System.out.println(  "UPLOAD FILE---->>" + file.getContentType());
+                System.out.println(  "UPLOAD FILE---->>" + file.getOriginalFilename());
+                System.out.println(  "UPLOAD FILE---->>" + file.getResource());
+                System.out.println(  "UPLOAD FILE---->>" + file.getInputStream());
+                System.out.println(  "UPLOAD FILE---->>" + file.getSize());
+               googleDriveService.uploadFile(file);
+
+            } catch (Exception e) {
+
+                System.out.println("WE HAVE SOME PROBLEMS " + e.getMessage());
+            }
+
+            return "alltestusers"; // Имя вашего представленияa
         }
-
-        try {
-
-            attributes.addFlashAttribute("toast", Toast.success("Файл успешно добавлен", "all good"));
-            System.out.println("---------> 2");
-            return "redirect:/file/addfile";
-        } catch (Exception e) {
-            attributes.addFlashAttribute("toast", Toast.error("File not add!", e.getMessage()));
-            System.out.println("---------> 3");
-            return "redirect:/file/addfile";
-        }
-
-    }
 
 }

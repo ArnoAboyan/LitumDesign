@@ -23,8 +23,8 @@ public class ProductEntity {
     @ToString.Exclude
     UserEntity uploadUserId;
     String title;
-    String price;
-    String discount;
+    int price;
+    int discount;
     String shopInfo;
     @Column(name = "short_info")
     String shortInfo;
@@ -37,28 +37,25 @@ public class ProductEntity {
     String countOfReviews;
     @Column(name = "average_rating")
     String averageRating;
+
+    @Enumerated(value = EnumType.STRING)
     Categories categories;
+    @Enumerated(value = EnumType.STRING)
     GameType gameType;
 
     @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    List<ProductPhoto> photoLink;
+    List<ProductPhotoEntity> photoLink;
 
     @Column(name = "video_link")
     String videoLink;
 
 
-    public ProductEntity(UserEntity uploadUserId, String title, String price, String discount, String shopInfo, String shortInfo, String description, String gdLink, String countOfDownloads, String countOfReviews, String averageRating, Categories categories, GameType gameType, String videoLink) {
-        this.uploadUserId = uploadUserId;
+    public ProductEntity(String title, int price, String shopInfo, String shortInfo, String description, Categories categories, GameType gameType, String videoLink) {
         this.title = title;
         this.price = price;
-        this.discount = discount;
         this.shopInfo = shopInfo;
         this.shortInfo = shortInfo;
         this.description = description;
-        this.gdLink = gdLink;
-        this.countOfDownloads = countOfDownloads;
-        this.countOfReviews = countOfReviews;
-        this.averageRating = averageRating;
         this.categories = categories;
         this.gameType = gameType;
         this.videoLink = videoLink;

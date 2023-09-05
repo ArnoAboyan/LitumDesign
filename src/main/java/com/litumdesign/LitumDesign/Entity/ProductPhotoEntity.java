@@ -9,11 +9,12 @@ import lombok.ToString;
 @Table(name = "product_photo")
 @Data
 @NoArgsConstructor
-public class ProductPhoto {
+public class ProductPhotoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+
     @ManyToOne
     @JoinColumn(name = "product_entity")
     @ToString.Exclude
@@ -22,8 +23,9 @@ public class ProductPhoto {
     @Column(name = "photo_link")
     String photoLink;
 
-    public ProductPhoto(ProductEntity productEntity, String photoLink) {
+    public ProductPhotoEntity(ProductEntity productEntity, String photoLink) {
         this.productEntity = productEntity;
         this.photoLink = photoLink;
     }
+
 }

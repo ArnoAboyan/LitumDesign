@@ -1,7 +1,7 @@
 package com.litumdesign.LitumDesign.repository;
 
-import com.litumdesign.LitumDesign.Entity.ProductPhoto;
+import com.litumdesign.LitumDesign.Entity.ProductPhotoEntity;
 import org.springframework.data.repository.CrudRepository;
 
-public interface ProductPhotoRepository extends CrudRepository<ProductPhoto, Long> {
+public interface ProductPhotoRepository extends CrudRepository<ProductPhotoEntity, Long> {
 }
