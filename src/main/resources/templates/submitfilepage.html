@@ -18,9 +18,10 @@
 
 <div th:insert="~{fragments/header :: header}"></div>
 
+<div id="loader" class="loader"></div>
 
 <form class="submitfileform" hx-post="/file/addfile" hx-confirm="Are you sure you wish to delete your account?"
-enctype="multipart/form-data"
+      enctype="multipart/form-data"
 >
     <br>
     <br>
@@ -84,6 +85,7 @@ enctype="multipart/form-data"
     <button type="submit" class="btn btn-primary" >Submit</button>
 </form>
 
+<a href="file/download">Скачать файл</a>
 
 </body>
 </html>

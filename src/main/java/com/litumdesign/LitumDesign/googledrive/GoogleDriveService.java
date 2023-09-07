@@ -7,28 +7,39 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
-import com.google.api.client.http.ByteArrayContent;
-import com.google.api.client.http.FileContent;
 import com.google.api.client.http.InputStreamContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
+
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
-import org.springframework.stereotype.Service;
+import org.apache.commons.io.IOUtils;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.nio.file.Path;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
 
 /* class to demonstrate use of Drive files list API */
-@Service
+@Component
 public class GoogleDriveService {
+
     /**
      * Application name.
      */
@@ -47,7 +58,7 @@ public class GoogleDriveService {
      * If modifying these scopes, delete your previously saved tokens/ folder.
      */
     private static final List<String> SCOPES =
-            Collections.singletonList(DriveScopes.DRIVE);
+            Collections.singletonList(DriveScopes.DRIVE_FILE);
     private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
 
     /**
@@ -79,7 +90,7 @@ public class GoogleDriveService {
         return credential;
     }
 
-    public Drive getInstance() throws GeneralSecurityException, IOException {
+    public static Drive getInstance() throws GeneralSecurityException, IOException {
         // Build a new authorized API client service.
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
@@ -88,37 +99,73 @@ public class GoogleDriveService {
         return service;
     }
 
+    public static void main(String... args) throws IOException, GeneralSecurityException {
+        Drive service = getInstance();
 
-    public static void googleDriveAction() throws IOException, GeneralSecurityException {
-        // Build a new authorized API client service.
-        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
-                .setApplicationName(APPLICATION_NAME)
-                .build();
-
-        // Print the names and IDs for up to 10 files.
-        FileList result = service.files().list()
-                .setPageSize(100)
-                .setFields("nextPageToken, files(id, name)")
-                .execute();
-        List<File> files = result.getFiles();
-        if (files == null || files.isEmpty()) {
-            System.out.println("No files found.");
-        } else {
-            System.out.println("Files:");
-            for (File file : files) {
-                System.out.printf("%s (%s)\n", file.getName(), file.getId());
-            }
-        }
-
-        String filePath = "E:";
-        String fileName = "ASDASD.jpg"; // Добавьте расширение файла, например .txt
-
-        ByteArrayOutputStream fileBytes = getFile("1aGa72yOUA-yA9j5Il6L-PzQI9Hz66k9p", service);
-        downloadFile(fileBytes, filePath, fileName);
 
     }
 
+    @Transactional
+    @Async
+    public String uploadFile(MultipartFile file) throws GeneralSecurityException, IOException {
+
+
+
+        try {
+            System.out.println(file.getOriginalFilename());
+
+                File fileMetadata = new File();
+                fileMetadata.setName(file.getOriginalFilename());
+                File uploadFile = getInstance()
+                        .files()
+                        .create(fileMetadata, new InputStreamContent(
+                                file.getContentType(),
+                                new ByteArrayInputStream(file.getBytes()))
+                        )
+                        .setFields("id")
+                        .setFields("name")
+                        .execute();
+                System.out.println(uploadFile);
+
+                return uploadFile.getId();
+
+        } catch (Exception e) {
+            System.out.printf("Error: "+ e);
+        }
+        return null;
+    }
+//
+//
+
+    public String getAllAudio() throws IOException, GeneralSecurityException {
+        Drive service = getInstance();
+        try {
+        FileList result = service.files().list()
+                .setPageSize(10)
+                .setFields("nextPageToken, files(id, name)")
+                .execute();
+        System.out.println(result.getFiles().toString());
+        return result.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public Drive.Files.Get getFileById(String fileId) throws IOException, GeneralSecurityException {
+        Drive service = getInstance();
+
+        try {
+
+            Drive.Files.Get result = service.files().get(fileId);
+
+            System.out.println(result.toString());
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
 
     public static ByteArrayOutputStream getFile(String realFileId, Drive service) throws IOException {
         try {
@@ -135,64 +182,54 @@ public class GoogleDriveService {
         }
     }
 
-    public static void downloadFile(ByteArrayOutputStream fileBytes, String filePath, String fileName) throws IOException {
-        try (FileOutputStream fos = new FileOutputStream(filePath + "/" + fileName)) {
-            fileBytes.writeTo(fos);
-            System.out.println("Файл успешно сохранен: " + filePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
+//    public void downloadFile() throws IOException, GeneralSecurityException {
+//        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//        Drive service = getInstance();
+//        service.files().get("1gLh3ZVQpJl494jnT9L1keJm1bb1xiGPN")
+//                .executeMediaAndDownloadTo(outputStream);
+//
+//        String filePath = "E:";
+//        String fileName = "5e3bd17765e820213981ad5d80fbce34_L.jpg";
+//
+//
+//
+//
+//
+//        try (FileOutputStream fos = new FileOutputStream(fileName)) {
+//            outputStream.writeTo(fos);
+//            System.out.println("Файл успешно сохранен: ");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+    public ResponseEntity<Resource> downloadFile(String fileId) throws IOException, GeneralSecurityException {
+        // Загрузите файл с помощью вашей службы
+        Drive service = getInstance();
 
 
-    public void uploadFileTest(MultipartFile multipartFile) throws IOException, GeneralSecurityException {
+        File file = service.files().get(fileId).execute();
 
-        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
-                .setApplicationName(APPLICATION_NAME)
-                .build();
+        // Определите MIME-тип файла (например, image/jpeg для JPEG-файлов)
+        MediaType mediaType = MediaType.parseMediaType("image/jpeg");
 
+        // Создайте ресурс из файла
+        InputStream inputStream = service.files().get(fileId).executeMediaAsInputStream();
+        byte[] fileBytes = IOUtils.toByteArray(inputStream);
+        ByteArrayResource resource = new ByteArrayResource(fileBytes);
 
-        File fileMetadata = new File();
-        fileMetadata.setName(multipartFile.getOriginalFilename());
+        // Настройте заголовки для браузера
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(mediaType);
+        headers.setContentDispositionFormData("attachment", file.getName());
 
-        // Создайте контент файла из MultipartFile.
-//        FileContent mediaContent = new FileContent(multipartFile.getContentType(), multipartFile.getBytes());
-        ByteArrayContent mediaContent = new ByteArrayContent(multipartFile.getContentType(), multipartFile.getBytes());
-        // Загрузите файл на Google Drive.
-        File uploadedFile = service.files().create(fileMetadata, mediaContent).execute();
-
-        // Выведите информацию о загруженном файле (например, ID файла).
-        System.out.println("Uploaded File ID: " + uploadedFile.getId());
-    }
-
-
-    public String uploadFile(MultipartFile file) throws GeneralSecurityException, IOException {
-
-
-
-        try {
-            System.out.println(file.getOriginalFilename());
-
-            String folderId = "1t31cr9URBYFPLkq5OXLrfnpiviWQh-Hr";
-                File fileMetadata = new File();
-                fileMetadata.setParents(Collections.singletonList(folderId));
-                fileMetadata.setName(file.getOriginalFilename());
-                File uploadFile = getInstance()
-                        .files()
-                        .create(fileMetadata, new InputStreamContent(
-                                file.getContentType(),
-                                new ByteArrayInputStream(file.getBytes()))
-                        )
-                        .setFields("id").execute();
-                System.out.println(uploadFile);
-                return uploadFile.getId();
-
-        } catch (Exception e) {
-            System.out.printf("Error: "+ e);
-        }
-        return null;
+        // Отправьте файл как ResponseEntity
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(resource);
     }
 }
+
 
 
