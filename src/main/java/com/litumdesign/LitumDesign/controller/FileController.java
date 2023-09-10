@@ -43,41 +43,37 @@ public class FileController {
 
     @PostMapping("/addfile")
     public String addProductEntity(@RequestParam String title,
-                                   @RequestParam int price,
-                                   @RequestParam String shopInfo,
+                                   @RequestParam String titleImageLink,
+                                   @RequestParam Double price,
                                    @RequestParam String shortInfo,
+                                   @RequestParam Access access,
                                    @RequestParam String description,
                                    @RequestParam String videoLink,
                                    @RequestParam(value = "photoLink[]") List<String> photoLink,
                                    @RequestParam Categories categories,
                                    @RequestParam GameType gameType,
                                    @RequestParam("uploadfile") MultipartFile file,
-                                   Model model) {
+                                   Model model) throws GeneralSecurityException, IOException {
 
         ProductEntity productEntity = new ProductEntity(
                 title,
+                titleImageLink,
                 price,
-                shopInfo,
                 shortInfo,
                 description,
                 categories,
                 gameType,
+                access,
                 videoLink
         );
 
-        productEntityService.createProductEntity(productEntity, photoLink);
-
-        System.out.println("UPLOAD FILE---->>" + file.getName());
-        System.out.println("UPLOAD FILE---->>" + file.getContentType());
-        System.out.println("UPLOAD FILE---->>" + file.getSize());
-
+        String gdFileId = googleDriveService.uploadFile(file);
+        System.out.println("GDFILEID ->>>" + gdFileId);
+        productEntityService.createProductEntity(productEntity, photoLink, gdFileId);
 
         try {
             model.addAttribute("testClass", productEntityRepository.findAll().toString());
             model.addAttribute("correctorresp", "User has bean created");
-
-
-            googleDriveService.uploadFile(file);
 
 
         } catch (Exception e) {
@@ -94,5 +90,9 @@ public class FileController {
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) throws GeneralSecurityException, IOException {
         return googleDriveService.downloadFile(fileId);
     }
+
+
+
+
 }
 

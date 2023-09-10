@@ -22,7 +22,7 @@ public class ProductEntityService {
     public final ProductEntityRepository productEntityRepository;
     private final UserRepository userRepository;
 
-    public void createProductEntity (ProductEntity productEntity, List<String> photoLink){
+    public void createProductEntity(ProductEntity productEntity, List<String> photoLink, String gdFileId) {
 
 //       GET LINKS FOR ProductEntity photos
         List<ProductPhotoEntity> productPhotos = new ArrayList<>();
@@ -34,6 +34,8 @@ public class ProductEntityService {
 //        ADD PHOTO LINKS TO ProductEntity
         productEntity.setPhotoLink(productPhotos);
 
+//        ADD FILE ID FROM GOOGLE DICK
+        productEntity.setGdFileId(gdFileId);
 
 //        GET USER FROM SESSION
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -57,15 +59,27 @@ public class ProductEntityService {
         System.out.println(productEntity);
 
 
-
         productEntityRepository.save(productEntity);
-
-
-
-
-
 
 
     }
 
+
+    public List<ProductEntity> getMostPopularProduct() {
+ List<ProductEntity> productEntities = productEntityRepository.findTop5ByOrderByCountOfDownloadsDesc();
+
+        System.out.println("ProductEntity ->>>" + productEntities.toString());
+
+        return productEntities;
+
+    }
+
+    public List<ProductEntity> getNewestProduct() {
+        List<ProductEntity> productEntities = productEntityRepository.findTop5ByOrderByCreatedAtDesc();
+
+        System.out.println("NewestProductEntity ->>>" + productEntities.toString());
+
+        return productEntities;
+
+    }
 }

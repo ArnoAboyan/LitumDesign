@@ -17,6 +17,8 @@ import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
+import com.litumdesign.LitumDesign.service.ProductEntityService;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.FileSystemResource;
@@ -38,8 +40,9 @@ import java.util.List;
 
 /* class to demonstrate use of Drive files list API */
 @Component
+@RequiredArgsConstructor
 public class GoogleDriveService {
-
+    private final ProductEntityService productEntityService;
     /**
      * Application name.
      */
@@ -58,7 +61,7 @@ public class GoogleDriveService {
      * If modifying these scopes, delete your previously saved tokens/ folder.
      */
     private static final List<String> SCOPES =
-            Collections.singletonList(DriveScopes.DRIVE_FILE);
+            Collections.singletonList(DriveScopes.DRIVE);
     private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
 
     /**
@@ -105,35 +108,39 @@ public class GoogleDriveService {
 
     }
 
-    @Transactional
-    @Async
+
+@Transactional
     public String uploadFile(MultipartFile file) throws GeneralSecurityException, IOException {
 
 
+    try {
+        System.out.println(file.getOriginalFilename());
 
-        try {
-            System.out.println(file.getOriginalFilename());
+        File fileMetadata = new File();
+        fileMetadata.setName(file.getOriginalFilename());
+        File uploadFile = getInstance()
+                .files()
+                .create(fileMetadata, new InputStreamContent(
+                        file.getContentType(),
+                        new ByteArrayInputStream(file.getBytes()))
+                )
+                .setFields("id, name")
+//                .setFields("name")
+                .execute();
 
-                File fileMetadata = new File();
-                fileMetadata.setName(file.getOriginalFilename());
-                File uploadFile = getInstance()
-                        .files()
-                        .create(fileMetadata, new InputStreamContent(
-                                file.getContentType(),
-                                new ByteArrayInputStream(file.getBytes()))
-                        )
-                        .setFields("id")
-                        .setFields("name")
-                        .execute();
-                System.out.println(uploadFile);
 
-                return uploadFile.getId();
+        String fileId = uploadFile.getId();
 
-        } catch (Exception e) {
-            System.out.printf("Error: "+ e);
-        }
-        return null;
+        System.out.println("GDFILEID ->>> " + uploadFile.getName());
+        System.out.println("GDFILEID ->>> " + uploadFile.getId());
+
+        return uploadFile.getId();
+
+    } catch (Exception e) {
+        System.out.printf("Error: " + e);
     }
+    return null;
+}
 //
 //
 

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -16,28 +17,30 @@ public class ProductEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+   Long id;
 
     @ManyToOne
     @JoinColumn(name = "upload_user_id")
     @ToString.Exclude
     UserEntity uploadUserId;
     String title;
-    int price;
-    int discount;
-    String shopInfo;
+    Double price;
+    Integer discount;
     @Column(name = "short_info")
     String shortInfo;
     String description;
-    @Column(name = "gd_link")
-    String gdLink;
+    @Column(name = "gd_file_id")
+    String gdFileId;
     @Column(name = "count_of_downloads")
-    String countOfDownloads;
+    Integer countOfDownloads;
     @Column(name = "count_of_reviews")
-    String countOfReviews;
+    Integer countOfReviews;
     @Column(name = "average_rating")
-    String averageRating;
-
+    Integer averageRating;
+    @Column(name = "title_image_link")
+    String titleImageLink;
+    @Enumerated(value = EnumType.STRING)
+    Access access;
     @Enumerated(value = EnumType.STRING)
     Categories categories;
     @Enumerated(value = EnumType.STRING)
@@ -49,15 +52,28 @@ public class ProductEntity {
     @Column(name = "video_link")
     String videoLink;
 
+    @Column(name = "advertising")
+    Boolean advertising;
 
-    public ProductEntity(String title, int price, String shopInfo, String shortInfo, String description, Categories categories, GameType gameType, String videoLink) {
+    @Column(name = "created_at")
+    LocalDateTime createdAt;
+
+    @PrePersist
+    void assignCreatedAt() {
+        this.createdAt = LocalDateTime.now();
+    }
+
+
+
+    public ProductEntity(String title, String titleImageLink, Double price, String shortInfo, String description, Categories categories, GameType gameType, Access access, String videoLink) {
         this.title = title;
+        this.titleImageLink = titleImageLink;
         this.price = price;
-        this.shopInfo = shopInfo;
         this.shortInfo = shortInfo;
         this.description = description;
         this.categories = categories;
         this.gameType = gameType;
+        this.access = access;
         this.videoLink = videoLink;
     }
 }
