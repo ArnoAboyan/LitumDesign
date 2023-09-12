@@ -49,6 +49,10 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "uploadUserId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     List<ProductEntity> product = new ArrayList<>();
+
+    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    List<CommentProductEntity> comment = new ArrayList<>();
+
     @Column(name = "discord_tag")
     String discordTag;
     @Column(name = "telegram_tag")

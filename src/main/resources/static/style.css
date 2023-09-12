@@ -499,8 +499,11 @@ margin: 0 auto;
 
     .buybutton:hover{
         background: #D63D24;
-        } 
+        }
 
+        .buybutton:active{
+            border: 3px solid #CB321A;
+        }
 
 .showmorebutton{
 display: flex;
@@ -583,3 +586,52 @@ font-weight: 400;
     margin: 0px auto;
 }
 
+.loginheader{
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+
+}
+.loginheader img {
+    margin-top: 60px;
+    width: 500px;
+    height: auto;
+}
+
+
+.container-buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+
+
+}
+
+.login-buttons{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    height: 200px;
+}
+
+.googlebuttons{
+    font-size: 40px;
+    border-left: 3px solid #CB321A;
+    border-radius: 0;
+}
+
+.googlebuttons img{
+
+    width: 50px;
+    height: auto;
+}
+
+.googlebuttons:hover{
+    background: #DFDFDF;
+    border-left: 4px solid #CB321A;
+    margin-left: -2px;
+}

@@ -48,6 +48,8 @@ public class ProductEntity {
 
     @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     List<ProductPhotoEntity> photoLink;
+    @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    List<CommentProductEntity> comment;
 
     @Column(name = "video_link")
     String videoLink;
