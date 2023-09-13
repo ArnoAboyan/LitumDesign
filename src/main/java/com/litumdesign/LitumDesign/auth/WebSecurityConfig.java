@@ -80,7 +80,7 @@ public class WebSecurityConfig {
                .oauth2Login(oc -> oc.loginPage("/login")
                        .userInfoEndpoint(ui -> ui.oidcUserService(appUserService.oidcLoginHandler()))
                        .defaultSuccessUrl("/", true ))
-                .logout(logout -> logout.logoutUrl("/logout"))
+                .logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/"))
                 .csrf(AbstractHttpConfigurer::disable)
                 .build();
     }

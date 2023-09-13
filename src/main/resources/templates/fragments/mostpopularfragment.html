@@ -23,7 +23,10 @@
         <h5 class="card-title text-truncate" th:text="${product.title}">></h5>
         <p class="card-by text-truncate">By: <a href="#" class="vendorname" th:text="${product.uploadUserId.name}">></a></p>
         <div class="container buypanel d-flex justify-content-between align-items-center ">
-          <div class="text-price " th:text="'$' + ${product.price}"></div>
+          <div class="text-price">
+            <span th:if="${product.price == 0}">FREE</span>
+            <span th:if="${product.price != 0}" th:text="'$' + ${product.price}"></span>
+          </div>
           <a class="btn buybutton "  aria-current="page" data-sec-authorize="isAuthenticated()" th:href="@{'file/download-file/' + ${product.gdFileId}}" > <img data-th-src="@{/image/img-download.svg}"></a>
           <a class="btn buybutton "  aria-current="page" data-sec-authorize="!isAuthenticated()" th:href="@{/login}" > <img data-th-src="@{/image/logo-log-in.svg}"></a>
         </div>

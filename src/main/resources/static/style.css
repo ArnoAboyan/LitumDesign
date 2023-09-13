@@ -632,6 +632,25 @@ font-weight: 400;
 
 .googlebuttons:hover{
     background: #DFDFDF;
-    border-left: 4px solid #CB321A;
-    margin-left: -2px;
+    border-left: 6px solid #CB321A;
+    margin-left: -3px;
 }
+
+.dropdown-menu{
+    border-radius: 0px;
+}
+
+.dropdown-item{
+    font-size: 18px;
+    border-bottom: 1px solid #F1F1F1;
+    border-radius: 0;
+}
+.dropdown-item img{
+    width: 20px;
+    height: auto;
+}
+    .dropdown-item:hover{
+        background: #F1F1F1;
+        border-bottom: 2px solid #CB321A;
+        margin-bottom: -1px;
+    }

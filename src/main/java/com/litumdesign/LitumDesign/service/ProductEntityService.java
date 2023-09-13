@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class ProductEntityService {
     public final ProductEntityRepository productEntityRepository;
     private final UserRepository userRepository;
 
+    @Transactional
     public void createProductEntity(ProductEntity productEntity, List<String> photoLink, String gdFileId) {
 
 //       GET LINKS FOR ProductEntity photos

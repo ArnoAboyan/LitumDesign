@@ -8,6 +8,7 @@ import com.litumdesign.LitumDesign.service.ProductEntityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -34,12 +35,6 @@ public class FileController {
         return "submitfilepage";
     }
 
-    @GetMapping("/gtest")
-    public String gTest() throws GeneralSecurityException, IOException {
-// googleDriveService.getAllAudio();
-        googleDriveService.getFileById("1F9FLb4Q3_eV4pIiO6yrc1SbyMDg5UxFQ");
-        return "index";
-    }
 
     @PostMapping("/addfile")
     public String addProductEntity(@RequestParam String title,
@@ -87,6 +82,7 @@ public class FileController {
 
 
     @GetMapping("/download-file/{fileId}")
+    @Async
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) throws GeneralSecurityException, IOException {
         return googleDriveService.downloadFile(fileId);
     }
