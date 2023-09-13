@@ -6,6 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LitumDesign</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -26,7 +27,9 @@
       <a href="#" >
         <img data-th-src="@{${product.titleImageLink}}" class="d-block w-100" alt="slider picture">
         <div class="carousel-caption ">
-          <p class="text-truncate " th:text="${product.title}"></p>
+          <h2  class="text-truncate" th:text="${product.title}"></h2>
+          <p class="text-truncate" th:text="${product.gameType +' | ' + product.categories}"></p>
+          <p class="text-truncate" th:text="${product.shortInfo}"></p>
         </div>
         <div class="carousel-caption carouselprice ">
           <p th:if="${product.price == 0}">FREE</p>

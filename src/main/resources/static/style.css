@@ -315,7 +315,7 @@ transition: transform 0.3s ease-out, opacity 1s ease-out;
     .carousel-caption {
     padding: 0;
     margin-bottom: 0;
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 700;
     color: #fff;
     text-shadow: 1px 1px 2px black;
