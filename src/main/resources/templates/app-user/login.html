@@ -10,7 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" data-th-href="@{style.css}">
 </head>
-<body>
+<body style=" background-size: cover;  background-repeat: no-repeat; background-attachment: fixed; background-image: url('/image/loginbackground.jpg')">
 <a class="loginheader display-1 " th:href="@{/}">
     <img data-th-src="@{/image/logo-LitumDesign.svg}">
 </a>
@@ -19,9 +19,10 @@
 <div class="container-buttons ">
     <div class="login-buttons ">
         <div>
-            <a class="btn googlebuttons " data-th-href="@{/oauth2/authorization/google}">
-                <img data-th-src="@{/image/googlelogo.svg}"> | Log in with Google
+            <a class="btn googlebuttonname " data-th-href="@{/oauth2/authorization/google}">
+                <img data-th-src="@{/image/googlelogo.svg}"> &nbsp;|&nbsp; Log in with Google
             </a>
+            </div>
         </div>
     </div>
 </div>

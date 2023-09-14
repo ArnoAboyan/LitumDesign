@@ -108,7 +108,7 @@ p{
     .rust:hover{
         background: #DFDFDF;
         border-bottom: 5px solid #CB321A;
-        padding-top: 12px;
+        padding-top: 14px;
     }
 
 .unturned{
@@ -130,7 +130,7 @@ p{
     .unturned:hover{
         background: #DFDFDF;
         border-bottom: 5px solid #CB321A;
-        padding-top: 12px;
+        padding-top: 14px;
     }
 
 .searchfar{
@@ -369,13 +369,6 @@ padding: 0px;
 
 } 
 
-/* .mostpopulatcontainer{
-max-width: 1170px;
-}
-
-.mostpopulatcontainer{
-margin-left: 375px;
-} */
 
 .row{
 max-width: 1195px;
@@ -596,7 +589,7 @@ font-weight: 400;
 }
 .loginheader img {
     margin-top: 60px;
-    width: 500px;
+    width: 250px;
     height: auto;
 }
 
@@ -614,26 +607,31 @@ font-weight: 400;
     display: grid;
     justify-content: center;
     align-items: center;
-    width: 500px;
-    height: 200px;
-}
-
-.googlebuttons{
-    font-size: 40px;
-    border-left: 3px solid #CB321A;
+    border-left: 5px solid #d04f3b;
     border-radius: 0;
+    width: 440px;
+    height: 80px;
+    margin-top: 200px;
+    background-color: rgba(241, 241, 241, 0.8);
 }
 
-.googlebuttons img{
 
-    width: 50px;
+.googlebuttonname{
+    font-size: 32px;
+
+}
+
+.googlebuttonname img{
+
+    width: 40px;
     height: auto;
 }
 
-.googlebuttons:hover{
+.login-buttons:hover{
     background: #DFDFDF;
-    border-left: 6px solid #CB321A;
-    margin-left: -3px;
+    border-left: 5px solid #CB321A;
+    /*border-left: 6px solid #CB321A;*/
+    /*margin-left: -3px;*/
 }
 
 .dropdown-menu{
