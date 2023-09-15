@@ -6,6 +6,10 @@ import com.litumdesign.LitumDesign.Entity.UserEntity;
 import com.litumdesign.LitumDesign.repository.ProductEntityRepository;
 import com.litumdesign.LitumDesign.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.apache.tomcat.util.http.fileupload.impl.SizeException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -18,6 +22,7 @@ import java.util.function.Supplier;
 
 @Service
 @RequiredArgsConstructor
+@Log4j2
 public class ProductEntityService {
 
     public final ProductEntityRepository productEntityRepository;
@@ -66,11 +71,25 @@ public class ProductEntityService {
 
     }
 
+    public Page<ProductEntity> getAllProductEntity(Pageable pageable)  {
+        Page<ProductEntity> products = productEntityRepository.findAll(pageable);
+
+
+        if (products.getSize() != 5){
+            log.error("Size is incorrect");
+            throw new UnsupportedOperationException("Size is incorrect") {
+            };
+        }
+
+        return products;
+    }
+
+
 
     public List<ProductEntity> getMostPopularProduct() {
  List<ProductEntity> productEntities = productEntityRepository.findTop5ByOrderByCountOfDownloadsDesc();
 
-        System.out.println("ProductEntity ->>>" + productEntities.toString());
+        System.out.println("MostPopularProductEntity ->>>" + productEntities.toString());
 
         return productEntities;
 
@@ -80,6 +99,15 @@ public class ProductEntityService {
         List<ProductEntity> productEntities = productEntityRepository.findTop5ByOrderByCreatedAtDesc();
 
         System.out.println("NewestProductEntity ->>>" + productEntities.toString());
+
+        return productEntities;
+
+    }
+
+    public List<ProductEntity> getSliderProduct() {
+        List<ProductEntity> productEntities = productEntityRepository.findAllByAdvertisingTrue();
+
+        System.out.println("SliderNewestProductEntity ->>>" + productEntities.toString());
 
         return productEntities;
 

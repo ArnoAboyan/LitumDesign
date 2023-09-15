@@ -14,15 +14,15 @@
   <link rel="stylesheet" type="text/css" data-th-href="@{style.css}">
 </head>
 <body>
-<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" th:fragment="firstDiv" th:with="newestproductList=${productsNewest}">
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" th:fragment="firstDiv" th:with="sliderproductList=${productsSlider}">
   <div class="carousel-indicators">
-      <button  th:each="product, index : ${newestproductList}" type="button"
+      <button  th:each="product, index : ${sliderproductList}" type="button"
               data-bs-target="#carouselExampleCaptions"
               th:attr="data-bs-slide-to=${index.count - 1}, aria-label='Slide ' + ${index.count}"
               th:class ="${index.first} ? 'active' : ''"></button>
   </div>
   <div class="carousel-inner">
-    <div class="carousel-item" data-bs-interval="5000" th:each="product, index : ${newestproductList}" th:classappend ="${index.first} ? 'active' : ''" >
+    <div class="carousel-item" data-bs-interval="5000" th:each="product, index : ${sliderproductList}" th:classappend ="${index.first} ? 'active' : ''" >
       <div>
       <a href="#" >
         <img data-th-src="@{${product.titleImageLink}}" class="d-block w-100" alt="slider picture">
