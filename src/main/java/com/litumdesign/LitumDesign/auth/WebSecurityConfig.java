@@ -68,7 +68,7 @@ public class WebSecurityConfig {
 //                        .requestMatchers("/admin-page").hasRole(ADMIN)
 //                        .requestMatchers("/user-page").hasRole(USER)
 //                        .requestMatchers("/", "/login","/auth", "/public-page").permitAll()
-                        .requestMatchers("/", "/login","/logout", "/error").permitAll()
+                        .requestMatchers("/", "/products", "/login","/logout", "/error").permitAll()
                         .requestMatchers("/oauth2/**").permitAll()
                         .anyRequest().authenticated())
 

@@ -403,8 +403,15 @@ margin: 0 auto;
         background: #DFDFDF;
             
 
-            
+
         } */
+
+.card-count-of-downloads{
+
+    margin: 5px;
+    position: absolute;
+    color: #F1F1F1;
+}
 
         .card-img-top {
         border-radius: 0;
@@ -431,10 +438,22 @@ margin: 0 auto;
     overflow: hidden;
 
     }
+
+.card-game-type{
+    display: block;
+    margin: 0 auto;
+    padding: 0;
+    max-width: 210px;
+    margin-left:  -16px;
+    font-size: 12px;
+    font-weight: 300;
+    overflow: hidden;
+}
+
     .card-by  {
         display: block;
         margin: 0 auto;
-        margin-top: 27px;
+        margin-top: 10px;
         margin-bottom: 15px;
         padding: 0;
         max-width: 150px;
@@ -528,16 +547,15 @@ margin-top: 20px;
 display: flex;
     align-items: center;
     justify-content: center;
+
 }
 
 
 .pagination {
-    border-radius: 0px;
-        border: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 1px solid black;
+    /*border-bottom: 1px solid black;*/
     height: 45px;
     width: 214px;
     margin-bottom: 40px;
@@ -545,8 +563,6 @@ display: flex;
       
 
       .pagination a {
-        border-radius: 0px;
-        border: 0;
         color: black;
         float: left;
         padding: 8px 16px;
@@ -554,6 +570,8 @@ display: flex;
         font-size: 18px;
         font-weight: 500;
         margin:  0 auto;
+          border-radius: 0px;
+          border-bottom: 1px solid black;
       }
       .pagination li {
         color: black;
