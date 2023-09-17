@@ -59,7 +59,8 @@ public class FileController {
                 categories,
                 gameType,
                 access,
-                videoLink
+                videoLink,
+                false
         );
 
         String gdFileId = googleDriveService.uploadFile(file);
@@ -84,6 +85,7 @@ public class FileController {
     @GetMapping("/download-file/{fileId}")
     @Async
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) throws GeneralSecurityException, IOException {
+        productEntityService.downloadCounter(fileId);
         return googleDriveService.downloadFile(fileId);
     }
 

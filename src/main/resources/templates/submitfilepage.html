@@ -7,10 +7,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
-<!--    <link rel="stylesheet" type="text/css" data-th-href="@{/submitfilestyle.css}">-->
-    <script src="https://unpkg.com/htmx.org@1.9.5"integrity="sha384-xcuj3WpfgjlKF+FXhSQFQ0ZNr39ln+hwjN3npfM9VBnUskLolQAcN80McRIVOPuO"
+    <!--    <link rel="stylesheet" type="text/css" data-th-href="@{/submitfilestyle.css}">-->
+    <script src="https://unpkg.com/htmx.org@1.9.5"
+            integrity="sha384-xcuj3WpfgjlKF+FXhSQFQ0ZNr39ln+hwjN3npfM9VBnUskLolQAcN80McRIVOPuO"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
 
@@ -19,82 +21,89 @@
 
 <div th:insert="~{fragments/header :: header}"></div>
 
+
 <div>
-<form class="submitfileform" hx-post="/file/addfile" hx-confirm="Are you sure you wish to delete your account?"
-      enctype="multipart/form-data"
->
-    <br>
-    <br>
-    <h2 class="text-center">Submit a new file</h2>
-    <br>
-    <div class="mb-3">
-        <label for="title" class="form-label">Title</label>
-        <input type="text" name="title" class="form-control" id="title" required>
-    </div>
-    <div class="mb-3">
-        <label for="titleimagelink" class="form-label">titleImageLink</label>
-        <input type="text" name="titleImageLink" class="form-control" id="titleimagelink" required>
-    </div>
-    <div class="mb-3">
-        <label for="price" class="form-label">price</label>
-        <input type="text" name="price" class="form-control" id="price" required>
-    </div>
-    <div class="mb-3">
-        <label for="shortInfo" class="form-label">shortInfo</label>
-        <input type="text" name="shortInfo"  class="form-control" id="shortInfo">
-    </div>
-    <div class="mb-3">
-        <label for="description" class="form-label">description</label>
-        <input type="text" name="description" class="form-control" id="description">
-    </div>
-    <div class="mb-3">
-        <label for="categories" class="form-label">categories</label>
-        <select class="form-select" name="categories" id="categories" aria-label="Default select example">
-            <option selected>Select Categories</option>
-            <option value="MAP">MAP</option>
-            <option value="PLUGIN">PLUGIN</option>
-        </select>
-    </div>
-    <div class="mb-3">
-        <label for="access" class="form-label">access</label>
-        <select class="form-select" name="access" id="access" aria-label="Default select example">
-            <option selected>Select Access</option>
-            <option value="PRIVATE">PRIVATE</option>
-            <option value="PUBLIC">PUBLIC</option>
-        </select>
-    </div>
-    <div class="mb-3">
-        <label for="gameType" class="form-label">gameType</label>
-        <select class="form-select" name="gameType" id="gameType" aria-label="Default select example">
-            <option selected>Select Game</option>
-            <option value="RUST">RUST</option>
-            <option value="UNTURNED">UNTURNED</option>
-        </select>
-    </div>
-    <div class="mb-3">
-        <label for="photoLink1" class="form-label">photoLink1</label>
-        <input type="text" name="photoLink[]" value="photoLink0" class="form-control" id="photoLink1">
-    </div>
-    <div class="mb-3">
-        <label for="photoLink2" class="form-label">photoLink2</label>
-        <input type="text" name="photoLink[]" value="photoLink1" class="form-control" id="photoLink2">
-    </div>
-    <div class="mb-3">
-    <label for="videoLink" class="form-label">videoLink</label>
-    <input type="text" name="videoLink" class="form-control" id="videoLink">
-    </div>
-    <div class="input-group mb-3">
-        <label class="input-group-text" for="uploadfile">UploadFile</label>
-        <input type="file" class="form-control" name="uploadfile" id="uploadfile">
-    </div>
+    <form class="submitfileform" hx-confirm="Are you sure you wish to delete your account?"
+          hx-encoding='multipart/form-data'
+          hx-post="/file/addfile"
+    >
+        <div>
+            <img class="htmx-indicator" src="/image/spinner-loading.svg"/>
+        </div>
+        <br>
+        <br>
+        <h2 class="text-center">Submit a new file</h2>
+        <br>
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" name="title" class="form-control" id="title" required>
+        </div>
+        <div class="mb-3">
+            <label for="titleimagelink" class="form-label">titleImageLink</label>
+            <input type="text" name="titleImageLink" class="form-control" id="titleimagelink" required>
+        </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">price</label>
+            <input type="text" name="price" class="form-control" id="price" required>
+        </div>
+        <div class="mb-3">
+            <label for="shortInfo" class="form-label">shortInfo</label>
+            <input type="text" name="shortInfo" class="form-control" id="shortInfo">
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">description</label>
+            <input type="text" name="description" class="form-control" id="description">
+        </div>
+        <div class="mb-3">
+            <label for="categories" class="form-label">categories</label>
+            <select class="form-select" name="categories" id="categories" aria-label="Default select example">
+                <option selected>Select Categories</option>
+                <option value="MAP">MAP</option>
+                <option value="PLUGIN">PLUGIN</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="access" class="form-label">access</label>
+            <select class="form-select" name="access" id="access" aria-label="Default select example">
+                <option selected>Select Access</option>
+                <option value="PRIVATE">PRIVATE</option>
+                <option value="PUBLIC">PUBLIC</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="gameType" class="form-label">gameType</label>
+            <select class="form-select" name="gameType" id="gameType" aria-label="Default select example">
+                <option selected>Select Game</option>
+                <option value="RUST">RUST</option>
+                <option value="UNTURNED">UNTURNED</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="photoLink1" class="form-label">photoLink1</label>
+            <input type="text" name="photoLink[]" value="photoLink0" class="form-control" id="photoLink1">
+        </div>
+        <div class="mb-3">
+            <label for="photoLink2" class="form-label">photoLink2</label>
+            <input type="text" name="photoLink[]" value="photoLink1" class="form-control" id="photoLink2">
+        </div>
+        <div class="mb-3">
+            <label for="videoLink" class="form-label">videoLink</label>
+            <input type="text" name="videoLink" class="form-control" id="videoLink">
+        </div>
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="uploadfile">UploadFile</label>
+            <input type="file" class="form-control" name="uploadfile" id="uploadfile">
+        </div>
 
 
+        <button type="submit" class="btn btn-primary">Submit</button>
 
-    <button type="submit" class="btn btn-primary" >Submit</button>
-</form>
+    </form>
 </div>
 
 <script src="../static/js/script.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
 </body>
 </html>

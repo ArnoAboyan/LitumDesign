@@ -75,7 +75,7 @@ public class ProductEntityService {
         Page<ProductEntity> products = productEntityRepository.findAll(pageable);
 
 
-        if (products.getSize() != 5){
+        if (products.getSize() != 20){
             log.error("Size is incorrect");
             throw new UnsupportedOperationException("Size is incorrect") {
             };
@@ -111,5 +111,14 @@ public class ProductEntityService {
 
         return productEntities;
 
+    }
+
+    public void downloadCounter(String fieldId){
+
+        ProductEntity product = productEntityRepository.findByGdFileId(fieldId);
+
+        product.setCountOfDownloads(product.getCountOfDownloads() + 1);
+
+        productEntityRepository.save(product);
     }
 }

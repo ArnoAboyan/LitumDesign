@@ -16,4 +16,6 @@ public interface ProductEntityRepository extends JpaRepository<ProductEntity, Lo
 
     List<ProductEntity> findAllByAdvertisingTrue();
 
+    ProductEntity findByGdFileId(String fieldId);
+
 }

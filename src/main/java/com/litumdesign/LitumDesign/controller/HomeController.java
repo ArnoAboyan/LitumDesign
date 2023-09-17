@@ -22,7 +22,7 @@ public class HomeController {
     private final ProductEntityService productEntityService;
 
     @GetMapping
-    public String home(@RequestParam(name = "logout", required = false, defaultValue = "true")  boolean logout, Model model, @PageableDefault(size = 5)  Pageable pageable ) {
+    public String home(@RequestParam(name = "logout", required = false, defaultValue = "true")  boolean logout, Model model, @PageableDefault(size = 20)  Pageable pageable ) {
         System.out.println("==========> ACTIVATED");
 
         Sort sort = pageable.getSort();
@@ -45,7 +45,7 @@ public class HomeController {
 
     @GetMapping("/products")
     @HxRequest
-    private String getAllDoctors(Model model, @PageableDefault(size = 5)  Pageable pageable) {
+    private String getAllProducts(Model model, @PageableDefault(size = 20)  Pageable pageable) {
 
 
 

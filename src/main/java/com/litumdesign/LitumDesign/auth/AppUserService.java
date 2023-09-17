@@ -133,8 +133,6 @@ public class AppUserService implements UserDetailsManager {
         UserEntity userEntity = saveUserIfNotExists(user);
 
         System.out.println("STEP -2 userEntity create -> " + userEntity);
-
-
     }
 
     private void saveShopEntity(UserEntity userEntity, String shopUrl, String shopName) {
@@ -156,7 +154,7 @@ public class AppUserService implements UserDetailsManager {
                                 user.getSub(),
                                 user.getPassword(),
                                 user.getEmail(),
-                                user.getName(),
+                                "Unnamed_User",
                                 user.getImageUrl(),
                                 user.getProvider(),
                                 user.getCreatedAt(),
