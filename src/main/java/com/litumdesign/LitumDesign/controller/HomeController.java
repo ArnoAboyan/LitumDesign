@@ -68,13 +68,13 @@ public class HomeController {
     }
 
 
-//    @GetMapping("/")
-//    public String getMostPopularProduct(Model model){
-//
-//
-//
-//
-//
-//        return "index";
-//    }
+    @GetMapping("/news")
+    public String getNews (Model model){
+
+
+
+
+
+        return "news";
+    }
 }
