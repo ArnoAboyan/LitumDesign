@@ -34,6 +34,8 @@ a{
     color: #4b4b4b;
 }
 
+
+
  .headerup{
     display: flex;
   align-items: center;
@@ -598,7 +600,7 @@ display: flex;
 
 .aboutustext{
 color: black;
-font-size: 12px;
+font-size: 14px;
 font-weight: 400;
 }
 
@@ -687,20 +689,76 @@ font-weight: 400;
         margin-bottom: -1px;
     }
 
-.newssection{
 
-    height: auto;
+.submitNewsform{
     max-width: 1170px;
+        margin: 0px auto;
 }
 
-.news{
-    color: black;
-    font-size: 12px;
+.news-section{
+
+    margin-top: 50px;
+
+}
+
+.newscontainer {
+    max-width: 1070px;
+    border-radius: 0;
+    margin-bottom: 10px;
+    border-bottom: 5px solid #757575;
+    margin-top: 20px;
+}
+
+
+  .newscontainer:hover{
+      background: #DFDFDF;
+      border-bottom: 5px solid #CB321A;
+  }
+
+
+.news-about{
+    color: #F1F1F1;
+    margin: 5px;
+    position: absolute;
+    background-color: rgb(208, 50, 25, 0.5);
+}
+
+
+
+.card-title-news{
+    max-width: 700px;
+    margin-bottom: 10px;
+    font-size: 36px;
     font-weight: 400;
-    align-items: center;
-    justify-content: center;
-
 }
+.short-text-news{
+    font-size: 18px;
+    font-weight: 300;
+}
+
+
+.particularnewscontainer{
+    margin: 0px auto;
+    /*max-height: 659px;*/
+    max-width: 1170px;
+    /*object-fit: cover;*/
+}
+    .particularnewscontainer img{
+        /*max-height: 659px;*/
+        display:flex;
+        max-width: 1070px;
+        height: auto;
+        object-fit: cover;
+        margin-bottom: 30px;
+    }
+
+    .particular-title-news{
+        margin-top: 50px;
+        margin-bottom: 50px;
+        font-size: 42px;
+        font-weight: 400;
+    }
+
 
 .htmx-indicator{
     display:none;
@@ -732,3 +790,4 @@ font-weight: 400;
     align-items: center;
     z-index: 9999;
 }
+

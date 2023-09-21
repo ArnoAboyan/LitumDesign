@@ -45,7 +45,7 @@ public class AppUserService implements UserDetailsManager {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println(" ->> LOAD USER BY DB");
+//        System.out.println(" ->> LOAD USER BY DB");
 
         return userRepository
                 .findById(username)
@@ -90,9 +90,9 @@ public class AppUserService implements UserDetailsManager {
             AppUser appUser = null;
 
             if (userExists(oidcUser.getEmail())) {
-                System.out.println("GETTING ======> " + oidcUser);
+//                System.out.println("GETTING ======> " + oidcUser);
                 appUser = (AppUser) loadUserByUsername(oidcUser.getEmail());
-                System.out.println("LADING USER -> " + appUser);
+//                System.out.println("LADING USER -> " + appUser);
                 return appUser;
             } else
                 appUser = AppUser
@@ -113,7 +113,7 @@ public class AppUserService implements UserDetailsManager {
 
             saveOauth2User(appUser);
 
-            System.out.println("NEW o2auth USER " + appUser);
+//            System.out.println("NEW o2auth USER " + appUser);
 
             return appUser;
         };
@@ -132,7 +132,7 @@ public class AppUserService implements UserDetailsManager {
     private void createUser(AppUser user) {
         UserEntity userEntity = saveUserIfNotExists(user);
 
-        System.out.println("STEP -2 userEntity create -> " + userEntity);
+//        System.out.println("STEP -2 userEntity create -> " + userEntity);
     }
 
     private void saveShopEntity(UserEntity userEntity, String shopUrl, String shopName) {
@@ -223,7 +223,7 @@ public class AppUserService implements UserDetailsManager {
     @Override
     @Transactional(readOnly = true)
     public boolean userExists(String username) {
-        System.out.println("USER EXIST =>>" + userRepository.existsById(username));
+//        System.out.println("USER EXIST =>>" + userRepository.existsById(username));
         return userRepository.existsById(username);
     }
 

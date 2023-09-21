@@ -9,21 +9,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-
-    <!--    <link rel="stylesheet" type="text/css" data-th-href="@{/submitfilestyle.css}">-->
     <script src="https://unpkg.com/htmx.org@1.9.5"
             integrity="sha384-xcuj3WpfgjlKF+FXhSQFQ0ZNr39ln+hwjN3npfM9VBnUskLolQAcN80McRIVOPuO"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="/froala_editor.min.js"></script>
+    <script src="/froala_editor.pkgd.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/froala-editor@2.9.0/css/froala_editor.pkgd.min.css" rel="stylesheet"
+          type="text/css"/>
+    <link href="https://cdn.jsdelivr.net/npm/froala-editor@2.9.0/css/froala_style.min.css" rel="stylesheet"
+          type="text/css"/>
+    <script src="https://kit.fontawesome.com/b343836130.js" crossorigin="anonymous"></script>
 
 </head>
 <body>
 
-<div th:insert="~{fragments/header :: header}"></div>
+<div th:insert="~{fragments/headerfragment :: header}"></div>
 
 
 <div>
-    <form class="submitfileform" hx-confirm="Are you sure you wish to delete your account?"
+    <form class="submitfileform" hx-confirm="Are you sure you wish to add new item?"
           hx-encoding='multipart/form-data'
           hx-post="/file/addfile"
     >
@@ -47,12 +53,12 @@
             <input type="text" name="price" class="form-control" id="price" required>
         </div>
         <div class="mb-3">
-            <label for="shortInfo" class="form-label">shortInfo</label>
-            <input type="text" name="shortInfo" class="form-control" id="shortInfo">
+            <label for="shortInfo" class="form-label">shortInfo <small class="text-muted">the maximum length of 255 characters</small></label>
+            <textarea class="form-control" id="shortInfo" name="shortInfo" rows="3" ></textarea>
         </div>
         <div class="mb-3">
-            <label for="description" class="form-label">description</label>
-            <input type="text" name="description" class="form-control" id="description">
+            <label for="description" class="form-label">description </label>
+            <textarea class="form-control" id="description" name="description" rows="6"></textarea>
         </div>
         <div class="mb-3">
             <label for="categories" class="form-label">categories</label>
@@ -100,6 +106,12 @@
 
     </form>
 </div>
+
+<script>
+    $(function () {
+        $('#description, #shortInfo').froalaEditor()({})
+    });
+</script>
 
 <script src="../static/js/script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"

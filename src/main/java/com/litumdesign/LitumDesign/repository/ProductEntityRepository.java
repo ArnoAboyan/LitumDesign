@@ -18,4 +18,6 @@ public interface ProductEntityRepository extends JpaRepository<ProductEntity, Lo
 
     ProductEntity findByGdFileId(String fieldId);
 
+
 }
+

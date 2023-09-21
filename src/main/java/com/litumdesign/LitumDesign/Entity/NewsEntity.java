@@ -16,13 +16,16 @@ public class NewsEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "photo")
+    @Column(name = "photo", columnDefinition = "VARCHAR")
     private String photoLink;
 
     @Column(name = "title")
     private String title;
 
-    @Column(name = "text")
+    @Column(name = "short_text")
+    private String shortText;
+
+    @Column(name = "text", columnDefinition = "VARCHAR")
     private String text;
 
     @Column(name = "about")
@@ -32,7 +35,7 @@ public class NewsEntity {
     private String author;
 
     @Column(name = "created_at")
-    LocalDateTime createdAt;
+    private LocalDateTime createdAt;
 
     @PrePersist
     void assignCreatedAt() {
@@ -40,8 +43,9 @@ public class NewsEntity {
     }
 
 
-    public NewsEntity(String photoLink, String title, String text, String about, String author) {
+    public NewsEntity(String photoLink,String shortText, String title, String text, String about, String author) {
         this.photoLink = photoLink;
+        this.shortText = shortText;
         this.title = title;
         this.text = text;
         this.about = about;

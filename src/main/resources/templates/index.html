@@ -16,13 +16,15 @@
     <script src="https://unpkg.com/htmx.org@1.9.5"
             integrity="sha384-xcuj3WpfgjlKF+FXhSQFQ0ZNr39ln+hwjN3npfM9VBnUskLolQAcN80McRIVOPuO"
             crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/b343836130.js" crossorigin="anonymous"></script>
+
 </head>
 <body>
 
 
 
 <!--HEADER-->
-<div th:insert="~{fragments/header :: header}"></div>
+<div th:insert="~{fragments/headerfragment :: header}"></div>
 
 
 <div style="border: 3px solid #d04f3b;
@@ -40,7 +42,7 @@ margin-top: 25px">
 
 <!-- CARUSEL BIG SLIDE  -->
 
-<div th:insert="~{fragments/carouselbigslide :: firstDiv}"></div>
+<div th:insert="~{fragments/carouselbigslidefragment :: firstDiv}"></div>
 
 
 <!-- DIVIDE LINE -->
@@ -96,7 +98,7 @@ margin-top: 25px">
 </div>
 
 
-<div th:insert="~{fragments/footer :: footer}"></div>
+<div th:insert="~{fragments/footerfragment :: footer}"></div>
 
 
 <script src="../static/js/script.js"></script>

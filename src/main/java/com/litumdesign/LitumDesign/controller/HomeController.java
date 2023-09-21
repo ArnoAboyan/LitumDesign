@@ -68,13 +68,4 @@ public class HomeController {
     }
 
 
-    @GetMapping("/news")
-    public String getNews (Model model){
-
-
-
-
-
-        return "news";
-    }
 }

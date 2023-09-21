@@ -1,0 +1,67 @@
+
+
+
+<section class="news-section" th:fragment="firstDiv">
+
+
+
+  <th:block th:each="news, number : ${allNews}">
+
+    <a class="card newscontainer mb-5" id="newscontainer" data-bs-toggle="modal" th:data-bs-target="'#newsModal' + ${news.getId} "
+    th:hx-get="@{/news/getparticularnews(newsId=${news.getId()})}" hx-target="#newscontainer" hx-swap="outerHTML"
+    >
+      <img class="htmx-indicator" src="/image/spinner-loading.svg">
+
+      <p class="news-about" th:text="${news.getAbout()}"  ></p>
+      <img data-th-src="@{${news.getPhotoLink()}}" class="card-img-top " alt="...">
+      <div class="card-body">
+        <h5 class="card-text card-title-news  text-truncate" th:text="${news.getTitle()}"></h5>
+        <p class="card-text short-text-news text-truncate" th:text="${news.shortText}"></p>
+        <p class="card-text ">
+        <div class="d-flex justify-content-between">
+          <p class=""><small class="text-muted" th:text="'by: ' + ${news.getAuthor()}"></small></p>
+          <p class=""><small class="text-muted" th:text="${news.getCreatedAt().toLocalDate()}"></small></p>
+        </div>
+      </div>
+    </a>
+    <div>
+      <p th:text="${end}"></p>
+    </div>
+    <!-- DIVIDE LINE -->
+    <div class="container dividingline ">
+    </div>
+
+
+
+<!--    &lt;!&ndash;        MODAL FADE &ndash;&gt;-->
+<!--    <div class="modal fade" th:id="'newsModal' + ${news.getId}" tabindex="-1" aria-labelledby="newsModalLabel" aria-hidden="true" >-->
+<!--      <div class="modal-dialog modal-xl">-->
+<!--        <div class="modal-content">-->
+<!--          <div class="modal-header">-->
+<!--            <h5 class="modal-title" id="newsModalLabel" th:text="${news.getTitle()}"></h5>-->
+<!--            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--          </div>-->
+<!--          <div class="modal-body">-->
+<!--            <img data-th-src="@{${news.getPhotoLink()}}" class="card-img news-modal-img" alt="...">-->
+<!--            <p class="card-text" th:utext="${news.getText()}"></p>-->
+<!--          </div>-->
+<!--          <div class="modal-footer d-flex justify-content-between">-->
+<!--            <p type="text" th:text="'by: ' + ${news.getAuthor()}"></p>-->
+<!--            <p type="text" th:text="${news.getCreatedAt().toLocalDate()}"></p>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+
+  </th:block>
+
+</section>
+
+<div class="card" id="replaceNews">
+  <div th:hx-get="${link}"
+           hx-trigger="revealed"
+           hx-swap="outerHTML"
+           hx-target="#replaceNews"><img class="htmx-indicator" src="/image/spinner-loading.svg">
+  </div>
+</div>
