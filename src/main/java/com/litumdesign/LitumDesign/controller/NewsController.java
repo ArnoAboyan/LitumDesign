@@ -79,6 +79,8 @@ public class NewsController {
     public String getAllNewsHx(Model model, @PageableDefault(size = 5) Pageable pageable){
         Page<NewsEntity> news = newsEntityService.getAllNews(pageable);
 
+        System.out.println("ALL NEWS ->>>" + news.getTotalPages());
+
         System.out.println("pageble ->>>>" + news.getNumber());
         System.out.println("pageble ->>>>" + news.getTotalPages());
 
