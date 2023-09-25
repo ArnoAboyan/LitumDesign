@@ -75,6 +75,7 @@ public class NewsController {
     }
 
     @GetMapping("/getallnewshx")
+    @HxRequest
     public String getAllNewsHx(Model model, @PageableDefault(size = 5) Pageable pageable){
         Page<NewsEntity> news = newsEntityService.getAllNews(pageable);
 
