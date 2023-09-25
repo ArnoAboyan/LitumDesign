@@ -23,13 +23,15 @@ public class ProductEntity {
     @JoinColumn(name = "upload_user_id")
     @ToString.Exclude
     UserEntity uploadUserId;
+    @Column(name = "title", columnDefinition = "VARCHAR")
     String title;
     Double price;
     Integer discount;
-    @Column(name = "short_info")
+    @Column(name = "short_info", columnDefinition = "VARCHAR")
     String shortInfo;
+    @Column(name = "description", columnDefinition = "VARCHAR")
     String description;
-    @Column(name = "gd_file_id")
+    @Column(name = "gd_file_id", columnDefinition = "VARCHAR")
     String gdFileId;
     @Column(name = "count_of_downloads")
     Integer countOfDownloads;
@@ -37,7 +39,7 @@ public class ProductEntity {
     Integer countOfReviews;
     @Column(name = "average_rating")
     Integer averageRating;
-    @Column(name = "title_image_link")
+    @Column(name = "title_image_link", columnDefinition = "VARCHAR")
     String titleImageLink;
     @Enumerated(value = EnumType.STRING)
     Access access;
@@ -51,7 +53,7 @@ public class ProductEntity {
     @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     List<CommentProductEntity> comment;
 
-    @Column(name = "video_link")
+    @Column(name = "video_link", columnDefinition = "VARCHAR")
     String videoLink;
 
     @Column(name = "advertising")
