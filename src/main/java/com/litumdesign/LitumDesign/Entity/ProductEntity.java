@@ -26,6 +26,7 @@ public class ProductEntity {
     @Column(name = "title", columnDefinition = "VARCHAR")
     String title;
     Double price;
+    @Column(name = "discount", columnDefinition = "INTEGER DEFAULT 0")
     Integer discount;
     @Column(name = "short_info", columnDefinition = "VARCHAR")
     String shortInfo;
@@ -33,11 +34,11 @@ public class ProductEntity {
     String description;
     @Column(name = "gd_file_id", columnDefinition = "VARCHAR")
     String gdFileId;
-    @Column(name = "count_of_downloads")
+    @Column(name = "count_of_downloads", columnDefinition = "INTEGER DEFAULT 0")
     Integer countOfDownloads;
-    @Column(name = "count_of_reviews")
+    @Column(name = "count_of_reviews", columnDefinition = "INTEGER DEFAULT 0" )
     Integer countOfReviews;
-    @Column(name = "average_rating")
+    @Column(name = "average_rating", columnDefinition = "INTEGER DEFAULT 0")
     Integer averageRating;
     @Column(name = "title_image_link", columnDefinition = "VARCHAR")
     String titleImageLink;
