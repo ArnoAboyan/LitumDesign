@@ -102,7 +102,7 @@ public class NewsController {
 
         model.addAttribute("particularnews", newsEntityService.getParticularNews(newsId));
 
-                return "/fragments/particularnewsfragment";
+                return "fragments/particularnewsfragment";
     }
 }
 
