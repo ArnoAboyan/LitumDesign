@@ -5,26 +5,25 @@ import com.litumdesign.LitumDesign.auth.AppUser;
 import com.litumdesign.LitumDesign.service.NewsEntityService;
 import io.github.wimdeblauwe.htmx.spring.boot.mvc.HxRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/news")
+@Log4j2
 public class NewsController {
 
         private final NewsEntityService newsEntityService;
@@ -79,22 +78,20 @@ public class NewsController {
     public String getAllNewsHx(Model model, @PageableDefault(size = 5) Pageable pageable){
         Page<NewsEntity> news = newsEntityService.getAllNews(pageable);
 
-        System.out.println("ALL NEWS ->>>" + news.getTotalPages());
-
-        System.out.println("pageble ->>>>" + news.getNumber());
-        System.out.println("pageble ->>>>" + news.getTotalPages());
+        log.info("We are in! getAllNewsHx");
 
         if (news.getNumber() <= news.getTotalPages()-1) {
+            log.info("news.getNumber() <= news.getTotalPages()-1");
 
             model.addAttribute("allNews", news);
             model.addAttribute("link", "/news/getallnewshx?page=" + (news.getNumber() + 1));
 //        model.addAttribute("link", "/getallnewshx?page=" + news.nextOrLastPageable());
 
-            return "/fragments/newsfragment";
+            return "newsfragment";
         }
-
+        log.info("END");
         model.addAttribute("end", "end");
-        return "/fragments/newsfragment";
+        return "newsfragment";
     }
 
 
