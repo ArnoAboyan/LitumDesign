@@ -87,11 +87,11 @@ public class NewsController {
             model.addAttribute("link", "/news/getallnewshx?page=" + (news.getNumber() + 1));
 //        model.addAttribute("link", "/getallnewshx?page=" + news.nextOrLastPageable());
 
-            return "/fragments/newsfragment";
+            return "fragments/newsfragment";
         }
         log.info("END");
         model.addAttribute("end", "end");
-        return "/fragments/newsfragment";
+        return "fragments/newsfragment";
     }
 
 
