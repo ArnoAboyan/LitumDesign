@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Data
 @Table(name = "comment_product")
-@Transactional
 public class CommentProductEntity {
 
     @Id

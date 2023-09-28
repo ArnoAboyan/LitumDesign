@@ -15,7 +15,6 @@ import java.util.List;
 @Table(name = "product")
 @Data
 @NoArgsConstructor
-@Transactional
 public class ProductEntity {
 
     @Id
@@ -52,9 +51,9 @@ public class ProductEntity {
     @Enumerated(value = EnumType.STRING)
     GameType gameType;
 
-    @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     List<ProductPhotoEntity> photoLink;
-    @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     List<CommentProductEntity> comment;
 
     @Column(name = "video_link", columnDefinition = "VARCHAR")
