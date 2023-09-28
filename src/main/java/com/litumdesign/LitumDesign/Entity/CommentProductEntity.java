@@ -4,11 +4,13 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import org.springframework.transaction.annotation.Transactional;
 
 @Entity
 @RequiredArgsConstructor
 @Data
 @Table(name = "comment_product")
+@Transactional
 public class CommentProductEntity {
 
     @Id

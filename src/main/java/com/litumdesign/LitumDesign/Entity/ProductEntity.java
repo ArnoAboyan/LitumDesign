@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,13 +15,14 @@ import java.util.List;
 @Table(name = "product")
 @Data
 @NoArgsConstructor
+@Transactional
 public class ProductEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
    Long id;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "upload_user_id")
     @ToString.Exclude
     UserEntity uploadUserId;

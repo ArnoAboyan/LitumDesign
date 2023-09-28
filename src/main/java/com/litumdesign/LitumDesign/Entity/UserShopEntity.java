@@ -4,11 +4,13 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.transaction.annotation.Transactional;
 
 @Entity
 @Table(name = "user_shop")
 @Data
 @NoArgsConstructor
+
 public class UserShopEntity {
 
     @Id
