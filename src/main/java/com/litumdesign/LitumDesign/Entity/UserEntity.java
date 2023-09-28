@@ -44,13 +44,13 @@ public class UserEntity {
     @Enumerated(value = EnumType.STRING)
     Role authorities;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     List<UserShopEntity> userShop = new ArrayList<>();
 
-    @OneToMany(mappedBy = "uploadUserId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "uploadUserId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     List<ProductEntity> product = new ArrayList<>();
 
-    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     List<CommentProductEntity> comment = new ArrayList<>();
 
     @Column(name = "discord_tag")

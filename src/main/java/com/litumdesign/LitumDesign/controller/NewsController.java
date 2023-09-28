@@ -23,7 +23,6 @@ import java.security.GeneralSecurityException;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/news")
-@Log4j2
 public class NewsController {
 
         private final NewsEntityService newsEntityService;
@@ -78,10 +77,10 @@ public class NewsController {
     public String getAllNewsHx(Model model, @PageableDefault(size = 5) Pageable pageable){
         Page<NewsEntity> news = newsEntityService.getAllNews(pageable);
 
-        log.info("We are in! getAllNewsHx");
+
 
         if (news.getNumber() <= news.getTotalPages()-1) {
-            log.info("news.getNumber() <= news.getTotalPages()-1");
+
 
             model.addAttribute("allNews", news);
             model.addAttribute("link", "/news/getallnewshx?page=" + (news.getNumber() + 1));
@@ -89,7 +88,7 @@ public class NewsController {
 
             return "fragments/newsfragment";
         }
-        log.info("END");
+
         model.addAttribute("end", "end");
         return "fragments/newsfragment";
     }
