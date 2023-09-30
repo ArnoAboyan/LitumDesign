@@ -762,13 +762,12 @@ font-weight: 400;
 .particularnewscontainer{
     margin: 0px auto;
     /*max-height: 659px;*/
-    max-width: 1170px;
+    max-width: 1160px;
     /*object-fit: cover;*/
 }
     .particularnewscontainer img{
-        /*max-height: 659px;*/
-        display:flex;
-        max-width: 1070px;
+        display:block;
+        width: 75%;
         height: auto;
         object-fit: cover;
         margin-bottom: 30px;
