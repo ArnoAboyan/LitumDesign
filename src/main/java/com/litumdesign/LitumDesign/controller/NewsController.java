@@ -69,7 +69,7 @@ public class NewsController {
             System.out.println("WE HAVE SOME PROBLEMS " + e.getMessage());
         }
 
-        return "news"; // Имя вашего представленияa
+        return "fragments/newsfragment";
     }
 
     @GetMapping("/getallnewshx")
