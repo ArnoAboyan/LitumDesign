@@ -76,7 +76,8 @@ public class FileController {
             System.out.println("WE HAVE SOME PROBLEMS " + e.getMessage());
         }
 
-        return "index";
+
+        return "redirect:/";
     }
 
 
