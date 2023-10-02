@@ -105,7 +105,7 @@ public class FileController {
     @Async
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileId, @AuthenticationPrincipal UserEntity userEntity) throws GeneralSecurityException, IOException {
         productEntityService.downloadCounter(fileId);
-        userEntityService.userDownloadCounter(userEntity);
+//        userEntityService.userDownloadCounter(userEntity);
         System.out.println("USERENTITY =>" + userEntity);
         return googleDriveService.downloadFile(fileId);
     }

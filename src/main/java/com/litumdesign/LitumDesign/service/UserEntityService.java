@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 @Log4j2
 public class UserEntityService {
 
-    private final UserEntityService userEntityService;
     private final UserRepository userRepository;
 
     public void userDownloadCounter(UserEntity userEntitySession){
