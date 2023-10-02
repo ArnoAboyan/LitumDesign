@@ -7,6 +7,8 @@ import com.litumdesign.LitumDesign.repository.ProductPhotoRepository;
 import com.litumdesign.LitumDesign.service.ProductEntityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
@@ -48,6 +50,7 @@ public class FileController {
                                    @RequestParam Categories categories,
                                    @RequestParam GameType gameType,
                                    @RequestParam("uploadfile") MultipartFile file,
+                                   @PageableDefault(size = 20) Pageable pageable,
                                    Model model) throws GeneralSecurityException, IOException {
 
         ProductEntity productEntity = new ProductEntity(
@@ -63,19 +66,26 @@ public class FileController {
                 false
         );
 
-        String gdFileId = googleDriveService.uploadFile(file);
-        System.out.println("GDFILEID ->>>" + gdFileId);
-        productEntityService.createProductEntity(productEntity, photoLink, gdFileId);
+//        String gdFileId = googleDriveService.uploadFile(file);
+//        System.out.println("GDFILEID ->>>" + gdFileId);
+//        productEntityService.createProductEntity(productEntity, photoLink, gdFileId);
 
         try {
-            model.addAttribute("correctorresp", "Product has bean created");
+            String gdFileId = googleDriveService.uploadFile(file);
+            System.out.println("GDFILEID ->>>" + gdFileId);
+            productEntityService.createProductEntity(productEntity, photoLink, gdFileId);
 
+            model.addAttribute("products", productEntityService.getMostPopularProduct());
+            model.addAttribute("productsNewest", productEntityService.getNewestProduct());
+            model.addAttribute("productsSlider", productEntityService.getSliderProduct());
+            model.addAttribute("allProducts", productEntityService.getAllProductEntity(pageable));
+
+            model.addAttribute("correctorresp", "Product has bean created");
 
         } catch (Exception e) {
 
             System.out.println("WE HAVE SOME PROBLEMS " + e.getMessage());
         }
-
 
         return "index";
     }
