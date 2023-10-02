@@ -52,11 +52,18 @@ public class ProductEntityService {
             System.out.println(username);
 
 
-            Optional<UserEntity> userEntity = userRepository.findById(authentication.getName());
-            System.out.println(userRepository.findById(authentication.getName()));
+            Optional<UserEntity> optionalUserEntity = userRepository.findById(authentication.getName());
+
 
 //            ADD UPLOAD USER USERNAME(ID)
-            productEntity.setUploadUserId(userEntity.orElseThrow(() -> new NullPointerException("Active USER not found")));
+            productEntity.setUploadUserId(optionalUserEntity.orElseThrow(() -> new NullPointerException("Active USER not found")));
+
+
+            UserEntity userEntity = optionalUserEntity.orElseThrow(() -> new NullPointerException("Active USER not found"));
+            userEntity.setCountOfUploads(userEntity.getCountOfUploads() + 1);
+
+            userRepository.save(userEntity);
+
 
         } else {
             System.out.println("no user");
@@ -65,9 +72,7 @@ public class ProductEntityService {
 
         System.out.println(productEntity);
 
-
         productEntityRepository.save(productEntity);
-
 
     }
 
