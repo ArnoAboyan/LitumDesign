@@ -76,7 +76,7 @@ public class FileController {
             System.out.println("WE HAVE SOME PROBLEMS " + e.getMessage());
         }
 
-        return "redirect:/"; // Имя вашего представленияa
+        return "index";
     }
 
 
