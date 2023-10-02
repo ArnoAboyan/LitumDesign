@@ -68,8 +68,7 @@ public class FileController {
         productEntityService.createProductEntity(productEntity, photoLink, gdFileId);
 
         try {
-            model.addAttribute("testClass", productEntityRepository.findAll().toString());
-            model.addAttribute("correctorresp", "User has bean created");
+            model.addAttribute("correctorresp", "Product has bean created");
 
 
         } catch (Exception e) {
@@ -77,7 +76,7 @@ public class FileController {
             System.out.println("WE HAVE SOME PROBLEMS " + e.getMessage());
         }
 
-        return "alltestusers"; // Имя вашего представленияa
+        return "redirect:/"; // Имя вашего представленияa
     }
 
 

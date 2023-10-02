@@ -5,7 +5,6 @@ import com.litumdesign.LitumDesign.auth.AppUser;
 import com.litumdesign.LitumDesign.service.NewsEntityService;
 import io.github.wimdeblauwe.htmx.spring.boot.mvc.HxRequest;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -30,9 +29,13 @@ public class NewsController {
     @GetMapping
     public String getAllNews(Model model, @PageableDefault(size = 1) Pageable pageable){
         model.addAttribute("allNews", newsEntityService.getAllNews(pageable));
-        return "news";
+        return "news/news";
     }
 
+    @GetMapping("/submitnews")
+    public String submitNewsPage(){
+        return "news/submitnewspage";
+    }
 
     @PostMapping("/addnews")
     @HxRequest
@@ -69,7 +72,7 @@ public class NewsController {
             System.out.println("WE HAVE SOME PROBLEMS " + e.getMessage());
         }
 
-        return "fragments/newsfragment";
+        return "news/news";
     }
 
     @GetMapping("/getallnewshx")

@@ -31,7 +31,7 @@ public class NewsEntityService {
     }
 
     public Page<NewsEntity> getAllNews (Pageable pageable){
-        Page<NewsEntity> news = newsEntityRepository.findAllByOrderByCreatedAt(pageable);
+        Page<NewsEntity> news = newsEntityRepository.findAllByOrderByCreatedAtDesc(pageable);
 
         return news;
     }

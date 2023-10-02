@@ -36,6 +36,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
+import static com.litumdesign.LitumDesign.Entity.Role.ADMIN;
+import static com.litumdesign.LitumDesign.Entity.Role.VENDOR;
 import static org.springframework.security.config.Customizer.withDefaults;
 ;
 
@@ -64,7 +66,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, AppUserService appUserService) throws Exception {
         return http
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-//                        .requestMatchers("/admin-user-page").hasAnyRole(ADMIN, USER)
+                        .requestMatchers("/news/submitnews", "/news/addnews").hasAnyRole("ADMIN", "VENDOR")
 //                        .requestMatchers("/admin-page").hasRole(ADMIN)
 //                        .requestMatchers("/user-page").hasRole(USER)
 //                        .requestMatchers("/", "/login","/auth", "/public-page").permitAll()

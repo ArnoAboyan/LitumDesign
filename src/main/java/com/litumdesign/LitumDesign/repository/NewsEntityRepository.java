@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public interface NewsEntityRepository extends JpaRepository<NewsEntity, Long> {
 
 
-    Page<NewsEntity> findAllByOrderByCreatedAt (Pageable pageable);
+    Page<NewsEntity> findAllByOrderByCreatedAtDesc (Pageable pageable);
 
 
 }
