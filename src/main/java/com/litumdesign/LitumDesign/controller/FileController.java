@@ -1,16 +1,20 @@
 package com.litumdesign.LitumDesign.controller;
 
 import com.litumdesign.LitumDesign.Entity.*;
+import com.litumdesign.LitumDesign.auth.AppUser;
 import com.litumdesign.LitumDesign.googledrive.GoogleDriveService;
 import com.litumdesign.LitumDesign.repository.ProductEntityRepository;
 import com.litumdesign.LitumDesign.repository.ProductPhotoRepository;
+import com.litumdesign.LitumDesign.repository.UserRepository;
 import com.litumdesign.LitumDesign.service.ProductEntityService;
+import com.litumdesign.LitumDesign.service.UserEntityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +33,7 @@ public class FileController {
     private final ProductPhotoRepository productPhotoRepository;
 
     private final ProductEntityService productEntityService;
+    private final UserEntityService userEntityService;
 
     private final GoogleDriveService googleDriveService;
 
@@ -63,7 +68,11 @@ public class FileController {
                 gameType,
                 access,
                 videoLink,
-                false
+                false,
+                0,
+                0,
+                0,
+                0
         );
 
 //        String gdFileId = googleDriveService.uploadFile(file);
@@ -94,8 +103,10 @@ public class FileController {
 
     @GetMapping("/download-file/{fileId}")
     @Async
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) throws GeneralSecurityException, IOException {
+    public ResponseEntity<Resource> downloadFile(@PathVariable String fileId, @AuthenticationPrincipal UserEntity userEntity) throws GeneralSecurityException, IOException {
         productEntityService.downloadCounter(fileId);
+        userEntityService.userDownloadCounter(userEntity);
+        System.out.println("USERENTITY =>" + userEntity);
         return googleDriveService.downloadFile(fileId);
     }
 

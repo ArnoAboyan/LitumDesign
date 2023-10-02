@@ -60,9 +60,9 @@ public class UserEntity {
     @Column(name = "telegram_tag")
     String telegramTag;
     @Column(name = "count_of_downloads")
-    int countOfDownloads;
+    Integer countOfDownloads;
     @Column(name = "count_of_uploads")
-    int countOfUploads;
+    Integer countOfUploads;
 
     Boolean verified;
     String locale;
@@ -85,8 +85,8 @@ public class UserEntity {
                       Role authorities,
                       String discordTag,
                       String telegramTag,
-                      int countOfDownloads,
-                      int countOfUploads,
+                      Integer countOfDownloads,
+                      Integer countOfUploads,
                       String locale,
                       Boolean verified) {
         this.login = login;

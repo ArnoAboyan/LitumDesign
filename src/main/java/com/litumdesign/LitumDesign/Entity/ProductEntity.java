@@ -72,7 +72,10 @@ public class ProductEntity {
 
 
 
-    public ProductEntity(String title, String titleImageLink, Double price, String shortInfo, String description, Categories categories, GameType gameType, Access access, String videoLink, Boolean advertising) {
+    public ProductEntity(String title, String titleImageLink, Double price, String shortInfo,
+                         String description, Categories categories, GameType gameType,
+                         Access access, String videoLink, Boolean advertising, Integer discount,
+                         Integer countOfDownloads, Integer countOfReviews, Integer averageRating) {
         this.title = title;
         this.titleImageLink = titleImageLink;
         this.price = price;
@@ -83,5 +86,10 @@ public class ProductEntity {
         this.access = access;
         this.videoLink = videoLink;
         this.advertising = advertising;
+        this.discount = discount;
+        this.countOfDownloads = countOfDownloads;
+        this.countOfReviews = countOfReviews;
+        this.averageRating = averageRating;
+
     }
 }
