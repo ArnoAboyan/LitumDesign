@@ -1,11 +1,9 @@
 package com.litumdesign.LitumDesign.controller;
 
 import com.litumdesign.LitumDesign.Entity.*;
-import com.litumdesign.LitumDesign.auth.AppUser;
 import com.litumdesign.LitumDesign.googledrive.GoogleDriveService;
 import com.litumdesign.LitumDesign.repository.ProductEntityRepository;
 import com.litumdesign.LitumDesign.repository.ProductPhotoRepository;
-import com.litumdesign.LitumDesign.repository.UserRepository;
 import com.litumdesign.LitumDesign.service.ProductEntityService;
 import com.litumdesign.LitumDesign.service.UserEntityService;
 import lombok.RequiredArgsConstructor;
@@ -54,7 +52,7 @@ public class FileController {
                                    @RequestParam(value = "photoLink[]") List<String> photoLink,
                                    @RequestParam Categories categories,
                                    @RequestParam GameType gameType,
-                                   @RequestParam("uploadfile") MultipartFile file,
+                                   @RequestParam("uploadfile") MultipartFile uploadfile,
                                    @PageableDefault(size = 20) Pageable pageable,
                                    Model model) throws GeneralSecurityException, IOException {
 
@@ -80,7 +78,7 @@ public class FileController {
 //        productEntityService.createProductEntity(productEntity, photoLink, gdFileId);
 
         try {
-            String gdFileId = googleDriveService.uploadFile(file);
+            String gdFileId = googleDriveService.uploadFile(uploadfile);
             System.out.println("GDFILEID ->>>" + gdFileId);
             productEntityService.createProductEntity(productEntity, photoLink, gdFileId);
 
