@@ -77,7 +77,7 @@ public class FileController {
         }
 
 
-        return "redirect:/";
+        return "index";
     }
 
 
