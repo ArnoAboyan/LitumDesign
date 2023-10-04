@@ -6,6 +6,7 @@ import com.litumdesign.LitumDesign.repository.ProductEntityRepository;
 import com.litumdesign.LitumDesign.repository.ProductPhotoRepository;
 import com.litumdesign.LitumDesign.service.ProductEntityService;
 import com.litumdesign.LitumDesign.service.UserEntityService;
+import io.github.wimdeblauwe.htmx.spring.boot.mvc.HxRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
@@ -42,6 +43,7 @@ public class FileController {
 
 
     @PostMapping("/addfile")
+    @HxRequest
     public String addProductEntity(@RequestParam String title,
                                    @RequestParam String titleImageLink,
                                    @RequestParam Double price,
@@ -55,6 +57,8 @@ public class FileController {
                                    @RequestParam("uploadfile") MultipartFile uploadfile,
                                    @PageableDefault(size = 20) Pageable pageable,
                                    Model model) throws GeneralSecurityException, IOException {
+
+        System.out.println("UPLOAD FILE -->>" + uploadfile);
 
         ProductEntity productEntity = new ProductEntity(
                 title,
@@ -93,8 +97,8 @@ public class FileController {
 
             System.out.println("WE HAVE SOME PROBLEMS " + e.getMessage());
         }
-
-        return "index";
+        System.out.println("UPLOAD FILE -->>" + uploadfile);
+        return "fragments/successfragment";
     }
 
 

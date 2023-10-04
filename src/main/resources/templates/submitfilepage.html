@@ -47,6 +47,7 @@
 
 <div>
     <form class="submitfileform" hx-confirm="Are you sure you wish to add new item?"
+          enctype="multipart/form-data"
           hx-encoding='multipart/form-data'
           hx-post="/file/addfile"
           hx-swap="outerHTML"
