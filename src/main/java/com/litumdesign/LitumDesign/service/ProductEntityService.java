@@ -1,5 +1,6 @@
 package com.litumdesign.LitumDesign.service;
 
+import com.litumdesign.LitumDesign.Entity.Access;
 import com.litumdesign.LitumDesign.Entity.ProductEntity;
 import com.litumdesign.LitumDesign.Entity.ProductPhotoEntity;
 import com.litumdesign.LitumDesign.Entity.UserEntity;
@@ -110,7 +111,7 @@ public class ProductEntityService {
     }
 
     public List<ProductEntity> getSliderProduct() {
-        List<ProductEntity> productEntities = productEntityRepository.findAllByAdvertisingTrue();
+        List<ProductEntity> productEntities = productEntityRepository.findAllByAdvertisingTrueAndAccess(Access.PUBLIC);
 
         System.out.println("SliderNewestProductEntity ->>>" + productEntities.toString());
 
