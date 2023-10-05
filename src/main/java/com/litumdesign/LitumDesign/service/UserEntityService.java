@@ -5,6 +5,7 @@ import com.litumdesign.LitumDesign.Entity.UserEntity;
 import com.litumdesign.LitumDesign.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,11 +15,13 @@ public class UserEntityService {
 
     private final UserRepository userRepository;
 
-    public void userDownloadCounter(UserEntity userEntitySession){
+    public void userDownloadCounter(UserDetails userDetailsSession){
 
-        userEntitySession.setCountOfDownloads(userEntitySession.getCountOfDownloads() + 1);
 
-        userRepository.save(userEntitySession);
+        userDetailsSession.getUsername();
+        UserEntity userEntity = userRepository.findDistinctByEmail(userDetailsSession.getUsername());
+        userEntity.setCountOfDownloads(userEntity.getCountOfDownloads()+1);
+        userRepository.save(userEntity);
     }
 
 

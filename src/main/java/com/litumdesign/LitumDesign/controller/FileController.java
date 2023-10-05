@@ -14,6 +14,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -105,10 +106,9 @@ public class FileController {
 
     @GetMapping("/download-file/{fileId}")
     @Async
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileId, @AuthenticationPrincipal UserEntity userEntity) throws GeneralSecurityException, IOException {
+    public ResponseEntity<Resource> downloadFile(@PathVariable String fileId, @AuthenticationPrincipal UserDetails userDetails) throws GeneralSecurityException, IOException {
         productEntityService.downloadCounter(fileId);
-//        userEntityService.userDownloadCounter(userEntity);
-        System.out.println("USERENTITY =>" + userEntity);
+        userEntityService.userDownloadCounter(userDetails);
         return googleDriveService.downloadFile(fileId);
     }
 

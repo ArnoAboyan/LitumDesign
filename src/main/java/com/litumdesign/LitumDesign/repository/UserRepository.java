@@ -13,4 +13,6 @@ public interface UserRepository extends CrudRepository<UserEntity, String> {
 //
 //
 //    boolean existsByUserNickName(String nickName);
+
+    UserEntity findDistinctByEmail (String email);
 }
