@@ -65,6 +65,11 @@ public class UserEntity {
     Integer countOfUploads;
 
     Boolean verified;
+    @Column(name = "punishment", columnDefinition = "BOOLEAN DEFAULT false")
+    Boolean punishment;
+    @Column(name = "cookie", columnDefinition = "BOOLEAN DEFAULT false")
+    Boolean cookie;
+
     String locale;
 
     @PrePersist

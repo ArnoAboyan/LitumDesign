@@ -44,6 +44,8 @@ public class ProductEntity {
     Integer averageRating;
     @Column(name = "title_image_link", columnDefinition = "VARCHAR")
     String titleImageLink;
+    @Column(name = "license", columnDefinition = "VARCHAR")
+    String license;
     @Enumerated(value = EnumType.STRING)
     Access access;
     @Enumerated(value = EnumType.STRING)

@@ -1,0 +1,25 @@
+.cookie-alert {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    border-radius: 0;
+    background-color: rgb(255, 255, 255);
+    border-bottom: 5px solid #CB321A;
+}
+
+.cookie-button{
+    border:3px solid #ffa400;
+    border-radius: 0;
+    margin: 0 auto;
+
+}
+.cookie-button:hover{
+    border:3px solid #CB321A;
+}
+
+.cookie-button:active{
+    background: #F1F1F1;
+    border:3px solid #CB321A;
+}
