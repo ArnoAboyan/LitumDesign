@@ -67,6 +67,8 @@ public class AppUserService implements UserDetailsManager {
                         .provider(ue.getProvider())
                         .createdAt(ue.getCreatedAt())
                         .userShop(ue.getUserShop())
+                        .cookie(ue.getCookie())
+                        .punishment(ue.getPunishment())
                         .authorities(List.of(new SimpleGrantedAuthority("ROLE_" + ue.getAuthorities().name()))
 
 //                                ue

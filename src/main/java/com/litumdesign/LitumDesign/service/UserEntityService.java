@@ -2,6 +2,7 @@ package com.litumdesign.LitumDesign.service;
 
 import com.litumdesign.LitumDesign.Entity.ProductEntity;
 import com.litumdesign.LitumDesign.Entity.UserEntity;
+import com.litumdesign.LitumDesign.auth.AppUser;
 import com.litumdesign.LitumDesign.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -24,5 +25,14 @@ public class UserEntityService {
         userRepository.save(userEntity);
     }
 
+    public void cookieChecker(AppUser appUser){
+
+
+
+        UserEntity userEntity= userRepository.findById(appUser.getLogin()).orElseThrow(() -> new NullPointerException("User for cookies not found"));
+        userEntity.setCookie(true);
+        userRepository.save(userEntity);
+
+    }
 
 }

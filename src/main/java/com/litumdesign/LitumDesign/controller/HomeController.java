@@ -4,8 +4,11 @@ import com.litumdesign.LitumDesign.Entity.ProductEntity;
 import com.litumdesign.LitumDesign.Entity.UserEntity;
 import com.litumdesign.LitumDesign.auth.AppUser;
 import com.litumdesign.LitumDesign.service.ProductEntityService;
+import com.litumdesign.LitumDesign.service.UserEntityService;
 import io.github.wimdeblauwe.htmx.spring.boot.mvc.HxRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.Banner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -27,6 +30,7 @@ import java.util.List;
 @RequestMapping("/")
 public class HomeController {
     private final ProductEntityService productEntityService;
+    private final UserEntityService userEntityService;
 
     @GetMapping
     public String home(@RequestParam(name = "logout", required = false, defaultValue = "true")  boolean logout, Model model, @PageableDefault(size = 20)  Pageable pageable) {
@@ -52,7 +56,7 @@ public class HomeController {
 
     @GetMapping("/products")
     @HxRequest
-    private String getAllProducts(Model model, @PageableDefault(size = 20)  Pageable pageable) {
+    public String getAllProducts(Model model, @PageableDefault(size = 20)  Pageable pageable) {
 
 
 
@@ -70,9 +74,26 @@ public class HomeController {
     }
 
     @GetMapping("/login")
-    String login() {
+    public String login() {
         return "app-user/login";
     }
 
+
+
+    @PostMapping("/cookiechecker")
+    @HxRequest
+     public void cookiesChecker(@AuthenticationPrincipal AppUser appUser, HttpSession session)  {
+        session.setAttribute("cookiecheck", true);
+
+        System.out.println("COOKIE  APP USER -> " + appUser);
+        userEntityService.cookieChecker(appUser);
+    }
+
+    @PostMapping("/cookiecheckenoauthorizations")
+    @HxRequest
+    public void cookiesChecker(HttpSession session)  {
+        session.setAttribute("cookiecheck", true);
+
+    }
 
 }

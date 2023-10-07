@@ -33,13 +33,13 @@ public class AppUser implements UserDetails, OidcUser {
     String rank;
 
     String fullName;
-
+    Boolean cookie;
     String discordTag;
     String telegramTag;
     int countOfDownloads;
     int countOfUploads;
     String locale;
-
+    Boolean punishment;
     Boolean verified;
     Collection<? extends GrantedAuthority> authorities;
 

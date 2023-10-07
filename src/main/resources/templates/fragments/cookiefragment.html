@@ -1,8 +1,45 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<div id="cb-cookie-banner" class="alert cookie-alert alert-dark text-center fixed-bottom mb-0" th:fragment="firstDiv" role="alert">
-  &#x1F36A; This website uses cookies to ensure you get the best experience on our website.
-  <a href="/information/privacypolicy" target="blank">Learn more</a>
-  <button type="button" class="btn btn-sm ms-3 cookie-button">
-    I Got It
-  </button>
+
+<!--<div id="cb-cookie-banner" class="alert cookie-alert alert-dark text-center fixed-bottom mb-0" th:fragment="firstDiv" role="alert">-->
+<!--  &#x1F36A; This website uses cookies to ensure you get the best experience on our website.-->
+<!--  <a href="/information/privacypolicy" target="blank">Learn more</a>-->
+<!--  <button type="button" class="btn btn-sm ms-3 cookie-button">-->
+<!--    I Got It-->
+<!--  </button>-->
+<!--</div>-->
+
+<!--data-sec-authorize="isAuthenticated()"-->
+
+
+<div th:fragment="firstDiv">
+    <!-- Отображаем блок только если сессия пользователя существует и значение cookie равно true -->
+    <div data-sec-authorize="!isAuthenticated()">
+        <div class="alert cookie-alert alert-dark text-center fixed-bottom mb-0" role="alert"
+             th:if="${session.cookiecheck == null or session.cookiecheck != true }">
+            <!--    <div th:text="${#authentication.principal.cookie}"></div>-->
+            &#x1F36A; principal nool This website uses cookies to ensure you get the best experience on our website.
+            <a href="/information/privacypolicy" target="blank">Learn more</a>
+            <button type="button" class="btn btn-sm ms-3 cookie-button">
+                I Got It
+            </button>
+        </div>
+    </div>
+
+    <div data-sec-authorize="isAuthenticated()" >
+        <div th:if="${#authentication.principal.cookie == false}">
+            <div class="alert cookie-alert alert-dark text-center fixed-bottom mb-0" role="alert"
+                 th:if="${session.cookiecheck == null or session.cookiecheck != true }">
+                <!--    <div th:text="${#authentication.principal.cookie}"></div>-->
+                &#x1F36A; cookie This website uses cookies to ensure you get the best experience on our website.
+                <a href="/information/privacypolicy" target="blank">Learn more</a>
+                <button type="button" class="btn btn-sm ms-3 cookie-button">
+                    I Got It
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+</html>
