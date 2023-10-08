@@ -82,18 +82,19 @@ public class HomeController {
 
     @PostMapping("/cookiechecker")
     @HxRequest
-     public void cookiesChecker(@AuthenticationPrincipal AppUser appUser, HttpSession session)  {
+     public String cookiesChecker(@AuthenticationPrincipal AppUser appUser, HttpSession session)  {
         session.setAttribute("cookiecheck", true);
 
         System.out.println("COOKIE  APP USER -> " + appUser);
         userEntityService.cookieChecker(appUser);
+    return "fragments/cookiefragment";
     }
 
     @PostMapping("/cookiecheckenoauthorizations")
     @HxRequest
-    public void cookiesChecker(HttpSession session)  {
+    public String cookiesChecker(HttpSession session)  {
         session.setAttribute("cookiecheck", true);
-
+        return "fragments/cookiefragment";
     }
 
 }
