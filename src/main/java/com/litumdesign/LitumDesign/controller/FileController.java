@@ -112,7 +112,20 @@ public class FileController {
         return googleDriveService.downloadFile(fileId);
     }
 
+    @GetMapping("/search")
+    @HxRequest
+    public String addProductEntity(@RequestParam String searchquery,
+                                   @PageableDefault(size = 20) Pageable pageable,
+                                   Model model){
 
+        System.out.println("mostpopularfragment ->>> " + searchquery);
+
+        model.addAttribute("products", productEntityService.getMostPopularProduct());
+
+
+
+        return "searchresult";
+    }
 
 
 }

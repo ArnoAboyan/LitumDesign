@@ -43,11 +43,11 @@
                         <img data-th-src="@{/image/icon-discord.svg}">
                     </a>
                 </li>
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link active social" aria-current="page" href="#"> <img-->
-<!--                            data-th-src="@{/image/icon-instagram.svg}"></a>-->
-<!--                    </a>-->
-<!--                </li>-->
+                <!--                <li class="nav-item">-->
+                <!--                    <a class="nav-link active social" aria-current="page" href="#"> <img-->
+                <!--                            data-th-src="@{/image/icon-instagram.svg}"></a>-->
+                <!--                    </a>-->
+                <!--                </li>-->
                 <li class="nav-item">
                     <a class="nav-link active social" aria-current="page" href="#"> <img
                             data-th-src="@{/image/icon-telegram.svg}"></a>
@@ -79,45 +79,62 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav login-nav">
                 <li class="nav-item">
-                    <a class="nav-link active submitfile text-white" aria-current="page" sec:authorize="hasRole('VENDOR')" th:href="@{/file/addfile}">Submit
+                    <a class="nav-link active submitfile text-white" aria-current="page"
+                       sec:authorize="hasRole('VENDOR')" th:href="@{/file/addfile}">Submit
                         a file</a>
                 </li>
-                <li class="nav-item">
-                    <form class="d-flex " role="search">
-                        <input class="form-control form-control-no-clear  searchfar" type="search" placeholder="Find..."
-                               aria-label="Search" onkeypress="handleKeyPress(event)">
-                        <button class="btn find" type="submit">
-                            <img data-th-src="@{/image/logo-find.svg}" alt="Find Button">
-                        </button>
-                    </form>
+                <!--                <li class="nav-item">-->
+                <!--                    <form class="d-flex " role="search">-->
+                <!--                        <input class="form-control form-control-no-clear searchfar" type="search" placeholder="Find..."-->
+                <!--                               aria-label="Search" onkeypress="handleKeyPress(event)">-->
+                <!--                        <button class="btn find" type="submit">-->
+                <!--                            <img data-th-src="@{/image/logo-find.svg}" alt="Find Button">-->
+                <!--                        </button>-->
+                <!--                    </form>-->
+                <!--                </li>-->
+                <li class="nav-item search-nav">
+                    <div class="d-flex " role="search">
+                        <input class="form-control form-control-no-clear searchfar" type="search" placeholder="Find..."
+                               aria-label="Search"
+                               name="searchquery"
+                               hx-get="/file/search"
+                               hx-trigger="keyup[key=='Enter']"
+                               hx-target="#indexbody"
+                        >
+                        <!--                        <button class="btn find" type="submit">-->
+                        <!--                            <img data-th-src="@{/image/logo-find.svg}" alt="Find Button">-->
+                        <!--                        </button>-->
+                    </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active user-login " aria-current="page" th:href="@{/login}" data-sec-authorize="!isAuthenticated()">
+                    <a class="nav-link active user-login " aria-current="page" th:href="@{/login}"
+                       data-sec-authorize="!isAuthenticated()">
                         Log-in
-<!--                        <img  data-th-src="@{/image/logo-log-in.svg}" alt="Icon login">-->
+                        <!--                        <img  data-th-src="@{/image/logo-log-in.svg}" alt="Icon login">-->
                     </a>
 
                 <li class="nav-item">
-                <div class="dropdown" data-sec-authorize="isAuthenticated()">
-                    <button class="nav-link active usericon" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img data-sec-authorize="isAuthenticated()" data-th-src="@{/image/icon-user.svg}"
-                             alt="Icon User">
-                    </button>
-                    <ul class="dropdown-menu usericon-dropdown_menu">
-                        <li>
-                            <a class="dropdown-item " th:href="@{/news/submitnews}">
-                                 Submit News
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item " th:href="@{/logout}">
-                                <img data-th-src="@{/image/logout-icon.svg}"> Logout
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                </a>
-            </li>
+                    <div class="dropdown" data-sec-authorize="isAuthenticated()">
+                        <button class="nav-link active usericon" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            <img data-sec-authorize="isAuthenticated()" data-th-src="@{/image/icon-user.svg}"
+                                 alt="Icon User">
+                        </button>
+                        <ul class="dropdown-menu usericon-dropdown_menu">
+                            <li>
+                                <a class="dropdown-item " th:href="@{/news/submitnews}">
+                                    Submit News
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item " th:href="@{/logout}">
+                                    <img data-th-src="@{/image/logout-icon.svg}"> Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    </a>
+                </li>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active like " data-sec-authorize="isAuthenticated()" aria-current="page"
