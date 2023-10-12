@@ -82,15 +82,15 @@
                     <a class="nav-link active submitfile text-white" aria-current="page" sec:authorize="hasRole('VENDOR')" th:href="@{/file/addfile}">Submit
                         a file</a>
                 </li>
-<!--                <li class="nav-item">-->
-<!--                    <form class="d-flex " role="search">-->
-<!--                        <input class="form-control form-control-no-clear  searchfar" type="search" placeholder="Find..."-->
-<!--                               aria-label="Search" onkeypress="handleKeyPress(event)">-->
-<!--                        <button class="btn find" type="submit">-->
-<!--                            <img data-th-src="@{/image/logo-find.svg}" alt="Find Button">-->
-<!--                        </button>-->
-<!--                    </form>-->
-<!--                </li>-->
+                <li class="nav-item">
+                    <form class="d-flex " role="search">
+                        <input class="form-control form-control-no-clear  searchfar" type="search" placeholder="Find..."
+                               aria-label="Search" onkeypress="handleKeyPress(event)">
+                        <button class="btn find" type="submit">
+                            <img data-th-src="@{/image/logo-find.svg}" alt="Find Button">
+                        </button>
+                    </form>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link active user-login " aria-current="page" th:href="@{/login}" data-sec-authorize="!isAuthenticated()">
                         Log-in
