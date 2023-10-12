@@ -127,4 +127,18 @@ public class ProductEntityService {
 
         productEntityRepository.save(product);
     }
+
+
+    public Page<ProductEntity> getSearchResult( String searchQuery, Pageable pageable)  {
+        Page<ProductEntity> products = productEntityRepository.searchByInput(searchQuery,pageable);
+
+
+//        if (products.getSize() != 20){
+//            log.error("Size is incorrect");
+//            throw new UnsupportedOperationException("Size is incorrect") {
+//            };
+//        }
+
+        return products;
+    }
 }

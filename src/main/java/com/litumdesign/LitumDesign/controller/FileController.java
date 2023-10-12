@@ -120,7 +120,7 @@ public class FileController {
 
         System.out.println("mostpopularfragment ->>> " + searchquery);
 
-        model.addAttribute("products", productEntityService.getMostPopularProduct());
+        model.addAttribute("resultProducts", productEntityService.getSearchResult(searchquery,pageable));
 
 
 
