@@ -14,7 +14,7 @@
             integrity="sha384-xcuj3WpfgjlKF+FXhSQFQ0ZNr39ln+hwjN3npfM9VBnUskLolQAcN80McRIVOPuO"
             crossorigin="anonymous"></script>
 </head>
-<body>
+<body >
 <header>
     <nav class="navbar headerup navbar-expand-lg border-bottom">
         <div class="container-fluid px-0">
@@ -83,15 +83,15 @@
                        sec:authorize="hasRole('VENDOR')" th:href="@{/file/addfile}">Submit
                         a file</a>
                 </li>
-                <!--                <li class="nav-item">-->
-                <!--                    <form class="d-flex " role="search">-->
-                <!--                        <input class="form-control form-control-no-clear searchfar" type="search" placeholder="Find..."-->
-                <!--                               aria-label="Search" onkeypress="handleKeyPress(event)">-->
-                <!--                        <button class="btn find" type="submit">-->
-                <!--                            <img data-th-src="@{/image/logo-find.svg}" alt="Find Button">-->
-                <!--                        </button>-->
-                <!--                    </form>-->
-                <!--                </li>-->
+<!--                                <li class="nav-item">-->
+<!--                                    <form class="d-flex " role="search">-->
+<!--                                        <input class="form-control form-control-no-clear searchfar" type="search" placeholder="Find..."-->
+<!--                                               aria-label="Search" onkeypress="handleKeyPress(event)">-->
+<!--                                        <button class="btn find" type="submit">-->
+<!--                                            <img data-th-src="@{/image/logo-find.svg}" alt="Find Button">-->
+<!--                                        </button>-->
+<!--                                    </form>-->
+<!--                                </li>-->
                 <li class="nav-item search-nav">
                     <div class="d-flex " role="search">
                         <input class="form-control form-control-no-clear searchfar" type="search" placeholder="Find..."
@@ -101,7 +101,6 @@
                                hx-trigger="keyup[key=='Enter']"
                                hx-target="#searchresult"
                         >
-
                     </div>
                 </li>
                 <li class="nav-item">

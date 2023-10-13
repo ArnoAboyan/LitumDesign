@@ -112,6 +112,7 @@ public class FileController {
         return googleDriveService.downloadFile(fileId);
     }
 
+
     @GetMapping("/search")
     @HxRequest
     public String addProductEntity(@RequestParam String searchquery,
@@ -121,11 +122,27 @@ public class FileController {
         System.out.println("mostpopularfragment ->>> " + searchquery);
 
         model.addAttribute("resultProducts", productEntityService.getSearchResult(searchquery,pageable));
+        model.addAttribute("products", productEntityService.getMostPopularProduct());
 
 
-
-        return "searchresult";
+        return "fragments/searchresultfragment";
     }
+
+
+//    @GetMapping("/searchhx")
+//    @HxRequest
+//    public String addProductEntityHx(@RequestParam String searchquery,
+//                                   @PageableDefault(size = 20) Pageable pageable,
+//                                   Model model){
+//
+//        System.out.println("mostpopularfragment ->>> " + searchquery);
+//
+//        model.addAttribute("resultProducts", productEntityService.getSearchResult(searchquery,pageable));
+//
+//
+//
+//        return "fragments/searchresultfragment";
+//    }
 
 
 }

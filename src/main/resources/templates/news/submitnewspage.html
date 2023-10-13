@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
 
 <!--<head>-->
 <meta charset="UTF-8">
@@ -37,7 +37,7 @@
 
 
 </head>
-<body>
+<body id="searchresult">
 <div class="container">
   <form class="submitNewsform" sec:authorize="hasRole('VENDOR')" hx-confirm="Are you sure you wish to add news?"
         hx-post="/news/addnews" hx-swap="outerHTML">

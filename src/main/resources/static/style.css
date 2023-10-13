@@ -805,6 +805,24 @@ font-weight: 400;
     z-index: 9999;
 
 }
+
+.searchresul{
+    margin-top: 24px;
+    margin-bottom: 30px;
+    display: flex;
+    max-width: 1170px;
+    padding: 0px;
+}
+.searchresulttitle{
+
+    font-size: 38px;
+    font-weight: 700;
+    text-align: left;
+    align-items: start;
+    justify-content: start;
+    margin-bottom: 0px;
+
+}
 /*.htmx-request.htmx-indicator{*/
 /*    opacity: 1;*/
 /*    position: fixed;*/
