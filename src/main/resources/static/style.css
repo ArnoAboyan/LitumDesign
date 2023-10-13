@@ -173,18 +173,18 @@ a{
         box-shadow: none;
         }
 
-    .find{
-        border-radius: 0px ;
-        margin-left: -45px;
-        
-        }
+    /*.find{*/
+    /*    border-radius: 0px ;*/
+    /*    margin-left: -45px;*/
 
-    .find:hover{
-        fill: #FFFFFF;
-        background-color: #CB321A;
-        border-radius: 0px ;
-        margin-left: -45px;
-        }
+    /*    }*/
+
+    /*.find:hover{*/
+    /*    fill: #FFFFFF;*/
+    /*    background-color: #CB321A;*/
+    /*    border-radius: 0px ;*/
+    /*    margin-left: -45px;*/
+    /*    }*/
 
 
 .submitfile{
@@ -915,6 +915,43 @@ font-weight: 400;
         padding-top: 7px;
         border-bottom: 5px solid #CB321A;
     }
+
+    .searchfar{
+        width: 220px;
+        height: 44px;
+        border-radius: 0px ;
+        border-top: 2px solid #CB321A;
+        border-bottom: 2px solid #CB321A;
+        border-left: 2px solid #CB321A;
+        border-right: 2px solid #CB321A;
+        margin-bottom: 10px;
+    }
+
+    .searchfar:hover{
+        width: 220px;
+        height: 44px;
+        top: 1925px;
+        left: 380px;
+        border-top: 3px solid #CB321A;
+        border-bottom: 3px solid #CB321A;
+        border-left: 3px solid #CB321A;
+        border-right: 3px solid #CB321A;
+
+    }
+
+    .searchfar:focus{
+        outline: none;
+        width: 220px;
+        height: 44px;
+        top: 1925px;
+        left: 380px;
+        border-top: 3px solid #CB321A;
+        border-bottom: 3px solid #CB321A;
+        border-left: 3px solid #CB321A;
+        border-right: 3px solid #CB321A;
+        box-shadow: none;
+    }
+
 
     .user-login{
         display: flex;
