@@ -130,7 +130,7 @@ public class ProductEntityService {
 
 
     public Page<ProductEntity> getSearchResult( String searchQuery, Pageable pageable)  {
-        Page<ProductEntity> products = productEntityRepository.searchByInput(searchQuery,pageable);
+        Page<ProductEntity> products = productEntityRepository.searchByInput(searchQuery.toLowerCase(),pageable);
 
 
 //        if (products.getSize() != 20){

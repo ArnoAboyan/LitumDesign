@@ -21,7 +21,7 @@ public interface ProductEntityRepository extends JpaRepository<ProductEntity, Lo
     ProductEntity findByGdFileId(String fieldId);
 
     @Query("SELECT p from ProductEntity p where " +
-    "concat(p.title, p.shortInfo) " +
+    "LOWER(concat(p.title, p.shortInfo)) " +
     " LIKE %:searchQuery%")
     Page<ProductEntity> searchByInput(@Param("searchQuery") String searchQuery, Pageable pageable);
 }
