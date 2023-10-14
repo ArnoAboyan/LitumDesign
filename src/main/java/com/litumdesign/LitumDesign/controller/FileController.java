@@ -129,20 +129,6 @@ public class FileController {
     }
 
 
-//    @GetMapping("/searchhx")
-//    @HxRequest
-//    public String addProductEntityHx(@RequestParam String searchquery,
-//                                   @PageableDefault(size = 20) Pageable pageable,
-//                                   Model model){
-//
-//        System.out.println("mostpopularfragment ->>> " + searchquery);
-//
-//        model.addAttribute("resultProducts", productEntityService.getSearchResult(searchquery,pageable));
-//
-//
-//
-//        return "fragments/searchresultfragment";
-//    }
 
 
 }

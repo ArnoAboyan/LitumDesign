@@ -1,9 +1,6 @@
 package com.litumdesign.LitumDesign.service;
 
-import com.litumdesign.LitumDesign.Entity.Access;
-import com.litumdesign.LitumDesign.Entity.ProductEntity;
-import com.litumdesign.LitumDesign.Entity.ProductPhotoEntity;
-import com.litumdesign.LitumDesign.Entity.UserEntity;
+import com.litumdesign.LitumDesign.Entity.*;
 import com.litumdesign.LitumDesign.repository.ProductEntityRepository;
 import com.litumdesign.LitumDesign.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -140,5 +137,27 @@ public class ProductEntityService {
 //        }
 
         return products;
+    }
+
+    public Page<ProductEntity> getAllProductByGameType( Pageable pageable)  {
+        Page<ProductEntity> products = productEntityRepository.findAllByGameType(GameType.RUST, pageable);
+
+
+//        if (products.getSize() != 20){
+//            log.error("Size is incorrect");
+//            throw new UnsupportedOperationException("Size is incorrect") {
+//            };
+//        }
+
+        return products;
+    }
+
+    public List<ProductEntity> getSliderByGameType(GameType gameType) {
+        List<ProductEntity> productEntities = productEntityRepository.findAllByAdvertisingTrueAndAccess(Access.PUBLIC);
+
+        System.out.println("SliderNewestProductEntity ->>>" + productEntities.toString());
+
+        return productEntities;
+
     }
 }
