@@ -49,7 +49,7 @@
                 <!--                    </a>-->
                 <!--                </li>-->
                 <li class="nav-item">
-                    <a class="nav-link active social" aria-current="page" href="#"> <img
+                    <a class="nav-link active social" aria-current="page" href="https://t.me/+jOrbY-Ab4L84MDYy"><img
                             data-th-src="@{/image/icon-telegram.svg}"></a>
                 </li>
             </ul>
@@ -100,7 +100,8 @@
                                hx-get="/file/search"
                                hx-trigger="keyup[key=='Enter']"
                                hx-target="#searchresult"
-                        >
+                               hx-indicator="#spinner"
+                        ><img id="spinner" class="htmx-indicator" src="/image/spinner-loading.svg">
                     </div>
                 </li>
                 <li class="nav-item">
