@@ -21,7 +21,7 @@ public class RustController {
     public String getAllRustProduct(@PageableDefault(size = 20) Pageable pageable,
                                     Model model){
        model.addAttribute("allProducts", productEntityService.getAllProductByGameType(pageable));
-       model.addAttribute("productsSlider", productEntityService.getSliderByGameType(GameType.RUST));
+//       model.addAttribute("productsSlider", productEntityService.getSliderByGameType(GameType.RUST));
 
         return "rustpage";
     }
