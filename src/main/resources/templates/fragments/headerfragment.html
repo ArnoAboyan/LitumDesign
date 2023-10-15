@@ -22,7 +22,11 @@
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <a class="nav-link active logoSmall d-lg-none " aria-current="page" href="/">
+                <img data-th-src="@{/image/logo-LitumDesign.svg}" alt="LitumDesign">
+            </a>
             <div class="collapse linkborder navbar-collapse " id="navbarNav">
+                <hr>
                 <ul class="navbar-nav links-nav">
                     <li class="nav-item">
                         <a class="nav-link active pagelink " aria-current="page" th:href="@{/}">Home</a>
@@ -38,7 +42,7 @@
         </div>
         <div class="collapse socialborder  navbar-collapse " id="navbarNav">
             <ul class="navbar-nav social-nav ">
-                <li class="nav-item ">
+                <li class="nav-item">
                     <a class="nav-link active social " aria-current="page" href="#">
                         <img data-th-src="@{/image/icon-discord.svg}">
                     </a>
@@ -59,12 +63,14 @@
         </div>
         </div>
     </nav>
+
+
     <nav class="navbar headerdown navbar-expand-lg border-bottom">
         <div class="container-fluid px-0">
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav game-nav">
                     <li class="nav-item">
-                        <a class="nav-link active logo " aria-current="page" href="/"><img
+                        <a class="nav-link active logoBig " aria-current="page" href="/"><img
                                 data-th-src="@{/image/logo-LitumDesign.svg}" alt="LitumDesign"></a>
                     </li>
                     <li class="nav-item">

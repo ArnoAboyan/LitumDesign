@@ -81,7 +81,7 @@ a{
         border-bottom: 2px solid #CB321A;
     }
 
-.logo{
+.logoBig{
     border-right: 1px solid #e6e6e6;
     width: 213px;
     height: 55px;
@@ -93,6 +93,7 @@ a{
     text-align: left;
     margin-right: 10px;
 }
+
 
 .rust{
     display: flex;
@@ -884,11 +885,19 @@ font-weight: 400;
     }
     .social-nav{
         list-style: none; /* Убираем маркеры списка */
-        margin: 0; /* Убираем внешние отступы списка (по желанию) */
-        padding: 0; /* Убираем внутренние отступы списка (по желанию) */
+        margin: 0px auto; /* Убираем внешние отступы списка (по желанию) */
+        /*padding: 0; !* Убираем внутренние отступы списка (по желанию) *!*/
         display: flex; /* Располагать элементы горизонтально */
         align-items: center; /* Выравнивание элементов по центру по вертикали */
+        flex-direction: row;
     }
+    .social{
+
+        margin-left: 10px;
+        /* margin-top: -8px; */
+        /* margin-right: -7px;  */
+    }
+
     .game-nav{
         display: flex;
         flex-direction: column;
@@ -902,7 +911,9 @@ font-weight: 400;
 
     .pagelink{
         padding-bottom: 2px;
-        border-bottom: 2px solid #CB321A;
+        border-bottom: 2px solid #757575;
+        flex-direction: column;
+        align-items: center;
     }
 
     .pagelink:hover{
@@ -911,9 +922,24 @@ font-weight: 400;
         border-bottom: 2px solid #CB321A;
     }
 
-    .logo{
+    .logoBig{
         display: none;
     }
+
+ .logoSmall{
+     display: flex;
+        width: 213px;
+        height: 55px;
+        font-size: 32px;
+        font-weight: 600;
+        line-height: 38px;
+        text-align: center;
+        margin-left: 50px;
+     align-items: center;
+     justify-content: center;
+     margin-bottom: -10px;
+
+ }
 
     .rust{
         display: flex;
@@ -927,7 +953,7 @@ font-weight: 400;
         letter-spacing: 0em;
         text-align: center;
         margin-bottom: 10px;
-        border-bottom: 5px solid #CB321A;
+        border-bottom: 5px solid rgba(203, 50, 26, 0);
     }
 
     .rust:hover{
@@ -946,7 +972,7 @@ font-weight: 400;
         line-height: 60px;
         letter-spacing: 0em;
         text-align: center;
-        border-bottom: 5px solid #CB321A;
+        border-bottom: 5px solid rgba(255, 255, 255, 0);
         margin-bottom: 10px;
     }
 
