@@ -34,7 +34,9 @@ a{
     color: #4b4b4b;
 }
 
-
+.navbar-collapse{
+    transition: all 0.5s;
+}
 
  .headerup{
     display: flex;
@@ -790,7 +792,6 @@ font-weight: 400;
     transition: opacity 500ms ease-in;
 }
 
-
 .htmx-request .htmx-indicator{
     opacity: 1;
     position: fixed;
@@ -847,7 +848,11 @@ font-weight: 400;
     max-width: 1170px;
 }
 
-.optionsbutton{
+.offcanvas-start{
+    transition: all 0.5s;
+}
+
+.filterbutton{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -860,9 +865,6 @@ font-weight: 400;
     background-color: rgba(255, 255, 255);
 }
 
-.sidebar-body{
-    margin-bottom: 100px;
-}
 .sidebar-body-button{
     align-items: center;
     justify-content: center;
@@ -870,7 +872,7 @@ font-weight: 400;
     font-weight: 400;
     text-align: center;
     margin-bottom: 5px;
-    border-bottom: 2px solid #757575;
+    border-bottom: 2px solid #cc9d97;
 }
 .sidebar-body-button:hover{
     border-bottom: 2px solid #CB321A;
