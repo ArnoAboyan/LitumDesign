@@ -1,0 +1,41 @@
+<div th:fragment="firstDiv">
+    <div class="offcanvas offcanvas-start" id="category-sidebar">
+        <div class="offcanvas-header">
+            <h1 class="offcanvas-title">Options:</h1>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+        </div>
+
+        <div class="offcanvas-body sidebar-body">
+            <hr>
+            <p>Select a category:</p>
+            <a class="sidebar-body-button" href="#" type="button">•&nbsp;PLUGINS</a>
+            <br>
+            <a class="sidebar-body-button" href="#" type="button">•&nbsp;MAPS</a>
+            <br>
+            <a class="sidebar-body-button" href="#" type="button">•&nbsp;PREFABS</a>
+            <br>
+            <a class="sidebar-body-button" href="#" type="button">•&nbsp;MONUMENTS</a>
+            <br>
+            <a class="sidebar-body-button" href="#" type="button">•&nbsp;TOOLS</a>
+            <hr>
+            <p>Sort by:</p>
+            <button class="btn btn-secondary" type="button">Free</button>
+            <br>
+            <button class="btn btn-secondary" type="button">Popular</button>
+            <br>
+            <button class="btn btn-secondary" type="button">Latest</button>
+            <br>
+            <button class="btn btn-secondary" type="button">price Low-High</button>
+            <br>
+            <button class="btn btn-secondary" type="button">price High-Low</button>
+            <br>
+            <button class="btn btn-secondary" type="button">Sale</button>
+        </div>
+    </div>
+    <!-- Button to open the offcanvas sidebar -->
+    <div class="container container-sidebar-button border">
+        <button class="optionsbutton" type="button" data-bs-toggle="offcanvas" data-bs-target="#category-sidebar">
+            <i class="fa-solid fa-filter"></i> &nbsp; Filter
+        </button>
+    </div>
+</div>

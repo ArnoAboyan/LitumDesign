@@ -32,6 +32,8 @@
 <div th:insert="~{fragments/headerfragment :: header}"></div>
 
 
+
+
 <div style="border: 3px solid #d04f3b;
 
     display: flex;
@@ -47,12 +49,30 @@ margin-top: 25px">
   </div>
 </div>
 
+<!--&lt;!&ndash; Offcanvas Sidebar &ndash;&gt;-->
+<!--<div class="offcanvas offcanvas-start" id="category-sidebar">-->
+<!--  <div class="offcanvas-header">-->
+<!--    <h1 class="offcanvas-title">Category</h1>-->
+<!--    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>-->
+<!--  </div>-->
+<!--  <div class="offcanvas-body">-->
+<!--    <p>Some text lorem ipsum.</p>-->
+<!--    <p>Some text lorem ipsum.</p>-->
+<!--    <button class="btn btn-secondary" type="button">A Button</button>-->
+<!--  </div>-->
+<!--</div>-->
 
-<!-- NEW ARRIVAL -->
+<!--&lt;!&ndash; Button to open the offcanvas sidebar &ndash;&gt;-->
+<!--<button class="showmorebutton" type="button" data-bs-toggle="offcanvas" data-bs-target="#category-sidebar">-->
+<!--  Category-->
+<!--</button>-->
+
+
+<!-- RUST HEADER TEXT -->
 <div class="container rustheader ">
   <p class="rustheadertitle ">Rust products:</p>
 </div>
-
+<div th:insert="~{fragments/sidebarcategoryfragment :: firstDiv}"></div>
 <!-- CARUSEL BIG SLIDE  -->
 
 <!--<div th:insert="~{fragments/carouselbigslidefragment :: firstDiv}"></div>-->
