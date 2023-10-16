@@ -48,6 +48,7 @@ public class ProductEntity {
     String license;
     @Enumerated(value = EnumType.STRING)
     Access access;
+
     @Enumerated(value = EnumType.STRING)
     Categories categories;
     @Enumerated(value = EnumType.STRING)

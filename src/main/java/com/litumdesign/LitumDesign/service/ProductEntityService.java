@@ -8,6 +8,7 @@ import lombok.extern.log4j.Log4j2;
 import org.apache.tomcat.util.http.fileupload.impl.SizeException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -139,15 +140,19 @@ public class ProductEntityService {
         return products;
     }
 
-    public Page<ProductEntity> getAllProductByGameType( Pageable pageable)  {
+    public Page<ProductEntity> getAllProductByGameTypeRustAndSort( Pageable pageable)  {
         Page<ProductEntity> products = productEntityRepository.findAllByGameType(GameType.RUST, pageable);
 
 
-//        if (products.getSize() != 20){
-//            log.error("Size is incorrect");
-//            throw new UnsupportedOperationException("Size is incorrect") {
-//            };
-//        }
+        return products;
+    }
+
+
+
+    public Page<ProductEntity> getAllProductByGameTypeAndCategoriesAndSort(Categories categories, Pageable pageable )  {
+        Page<ProductEntity> products = productEntityRepository.findAllByGameTypeAndCategories(GameType.RUST, categories, pageable);
+
+
 
         return products;
     }

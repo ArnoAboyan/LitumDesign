@@ -1,6 +1,7 @@
 package com.litumdesign.LitumDesign.repository;
 
 import com.litumdesign.LitumDesign.Entity.Access;
+import com.litumdesign.LitumDesign.Entity.Categories;
 import com.litumdesign.LitumDesign.Entity.GameType;
 import com.litumdesign.LitumDesign.Entity.ProductEntity;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,14 @@ public interface ProductEntityRepository extends JpaRepository<ProductEntity, Lo
     List<ProductEntity> findAllByAdvertisingTrueAndAccess(@Param("access") Access access);
 
     Page<ProductEntity> findAllByGameType(@Param("GameType") GameType gameType, Pageable pageable);
+//    Page<ProductEntity> findAllByGameTypeAndPrice(@Param("GameType") GameType gameType,@Param("Price") Double price, Pageable pageable);
+//    Page<ProductEntity> findAllByGameType(@Param("GameType") GameType gameType, Pageable pageable);
+    Page<ProductEntity> findAllByGameTypeOrderByCreatedAtDesc(@Param("GameType") GameType gameType, Pageable pageable);
+    Page<ProductEntity> findAllByGameTypeOrderByCountOfDownloadsDesc(@Param("GameType") GameType gameType, Pageable pageable);
+
+
+
+    Page<ProductEntity> findAllByGameTypeAndCategories(@Param("GameType") GameType gameType, @Param("Categories") Categories categories, Pageable pageable);
     List<ProductEntity> findAllByAdvertisingTrueAndAccessAndGameType(@Param("access") Access access, @Param("GameType") GameType gameType);
     ProductEntity findByGdFileId(String fieldId);
 
