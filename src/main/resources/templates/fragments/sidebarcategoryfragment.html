@@ -1,4 +1,4 @@
-<div th:fragment="firstDiv">
+<div th:fragment="firstDiv" th:with="gamename=${gamename}">
     <!-- Button to open the offcanvas sidebar -->
     <div class="container container-sidebar-button">
         <button class="filterbutton" type="button" data-bs-toggle="offcanvas"
@@ -17,15 +17,15 @@
         <div class="offcanvas-body sidebar-body">
                     <hr>
                     <p>Select a category:</p>
-                    <a class="sidebar-body-button" th:href="@{/rust/{category}(category='PLUGIN')}" type="button">•&nbsp;PLUGINS</a>
+                    <a class="sidebar-body-button" th:href="@{/{gamename}/{category}(category='PLUGIN',gamename=${gamename})}" type="button">•&nbsp;PLUGINS</a>
                     <br>
-                    <a class="sidebar-body-button" th:href="@{/rust/{category}(category='MAP')}" type="button">•&nbsp;MAPS</a>
+                    <a class="sidebar-body-button" th:href="@{/{gamename}/{category}(category='MAP',gamename=${gamename})}" type="button">•&nbsp;MAPS</a>
                     <br>
-                    <a class="sidebar-body-button" th:href="@{/rust/{category}(category='PREFAB')}" type="button">•&nbsp;PREFABS</a>
+                    <a class="sidebar-body-button" th:href="@{/{gamename}/{category}(category='PREFAB',gamename=${gamename})}" type="button">•&nbsp;PREFABS</a>
                     <br>
-                    <a class="sidebar-body-button" th:href="@{/rust/{category}(category='MONUMENT')}" type="button">•&nbsp;MONUMENTS</a>
+                    <a class="sidebar-body-button" th:href="@{/{gamename}/{category}(category='MONUMENT',gamename=${gamename})}" type="button">•&nbsp;MONUMENTS</a>
                     <br>
-                    <a class="sidebar-body-button" th:href="@{/rust/{category}(category='TOOL')}" type="button">•&nbsp;TOOLS</a>
+                    <a class="sidebar-body-button" th:href="@{/{gamename}/{category}(category='TOOL',gamename=${gamename})}" type="button">•&nbsp;TOOLS</a>
                     <hr>
                     <p>Sort by:</p>
                     <a class="sidebar-body-button" th:href="@{${#ctx.springRequestContext.requestUri}(sort='countOfDownloads,desc')}" type="button">Popular</a>

@@ -140,8 +140,8 @@ public class ProductEntityService {
         return products;
     }
 
-    public Page<ProductEntity> getAllProductByGameTypeRustAndSort( Pageable pageable)  {
-        Page<ProductEntity> products = productEntityRepository.findAllByGameType(GameType.RUST, pageable);
+    public Page<ProductEntity> getAllProductByGameTypeAndSort(GameType gameType, Pageable pageable)  {
+        Page<ProductEntity> products = productEntityRepository.findAllByGameType(gameType, pageable);
 
 
         return products;
@@ -149,8 +149,8 @@ public class ProductEntityService {
 
 
 
-    public Page<ProductEntity> getAllProductByGameTypeAndCategoriesAndSort(Categories categories, Pageable pageable )  {
-        Page<ProductEntity> products = productEntityRepository.findAllByGameTypeAndCategories(GameType.RUST, categories, pageable);
+    public Page<ProductEntity> getAllProductByGameTypeAndCategoriesAndSort(GameType gameType, Categories categories, Pageable pageable )  {
+        Page<ProductEntity> products = productEntityRepository.findAllByGameTypeAndCategories(gameType, categories, pageable);
 
 
 
