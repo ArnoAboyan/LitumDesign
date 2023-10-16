@@ -825,7 +825,9 @@ font-weight: 400;
     margin-bottom: 0px;
 }
 
-.rustheader{
+
+
+.headergame{
     margin-top: 24px;
     margin-bottom: 30px;
     display: flex;
@@ -834,7 +836,7 @@ font-weight: 400;
 }
 
 
-.rustheadertitle{
+.headergametitle{
 
     font-size: 38px;
     font-weight: 700;

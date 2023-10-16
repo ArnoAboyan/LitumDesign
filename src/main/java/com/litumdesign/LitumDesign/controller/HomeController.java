@@ -54,22 +54,22 @@ public class HomeController {
     }
 
 
-    @GetMapping("/products")
+    @PostMapping
     @HxRequest
     public String getAllProducts(Model model, @PageableDefault(size = 20)  Pageable pageable) {
 
 
 
         Sort sort = pageable.getSort();
-
         List<Sort.Order> orders = sort.toList();
         for (Sort.Order order : orders) {
-            String sortName = order.getProperty();
+           String sortName = order.getProperty();
             model.addAttribute("sortName", sortName);
 
         }
 
         model.addAttribute("allProducts", productEntityService.getAllProductEntity(pageable));
+
         return "fragments/allproductsfragment";
     }
 
