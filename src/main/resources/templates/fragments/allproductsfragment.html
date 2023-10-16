@@ -81,14 +81,14 @@
         </div>
     </div>
 
-<!--    PAGINATION-->
+    <!--    PAGINATION-->
     <div class="container containerpagination text-black ">
         <nav aria-label="Page navigation example">
             <ul class="pagination  pagination-sm justify-content-center ">
 
                 <li class="page-item asdasd" th:style="${allProducts.first ? 'display: none' : ''}">
                     <a class="page-link"
-                       th:attr="hx-get=@{'products'(sort=${sortName}, page=${allProducts.number - 1})}"
+                       th:attr="hx-post=@{${#ctx.springRequestContext.requestUri}(sort=${sortName}, page=${allProducts.number - 1})}"
                        hx-target="#allgoods"
                        hx-swap = "innerHTML"
                        hx-trigger="click"><</a>
@@ -102,7 +102,7 @@
                     <a class="page-link" th:if="${allProducts.number} == ${page + 3} and ${page != 0}">...</a>
                     <a class="page-link"
                        th:if="${allProducts.number} > ${page - 3} and ${allProducts.number} < ${page + 3} or ${page} == ${allProducts.getTotalPages()-1} or ${page} == 0"
-                       th:attr="hx-get=@{'products'(sort=${sortName}, page=${page})}" th:text="${page+1}"
+                       th:attr="hx-post=@{${#ctx.springRequestContext.requestUri}(sort=${sortName}, page=${page})}" th:text="${page+1}"
                        hx-target="#allgoods"
                        hx-swap = "innerHTML"
                        hx-trigger="click"
@@ -112,7 +112,7 @@
 
                 <li class="page-item " th:style="${allProducts.last ? 'display: none' : ''}" >
                     <a class="page-link"
-                       th:attr="hx-get=@{'products'(sort=${sortName}, page=${allProducts.number + 1})}"
+                       th:attr="hx-post=@{${#ctx.springRequestContext.requestUri}(sort=${sortName}, page=${allProducts.number + 1})}"
                        hx-target="#allgoods"
                        hx-swap = "innerHTML"
                        hx-trigger="click">></a>
@@ -120,6 +120,47 @@
             </ul>
         </nav>
     </div>
+
+
+<!--&lt;!&ndash;    PAGINATION&ndash;&gt;-->
+<!--    <div class="container containerpagination text-black ">-->
+<!--        <nav aria-label="Page navigation example">-->
+<!--            <ul class="pagination  pagination-sm justify-content-center ">-->
+
+<!--                <li class="page-item asdasd" th:style="${allProducts.first ? 'display: none' : ''}">-->
+<!--                    <a class="page-link"-->
+<!--                       th:attr="hx-get=@{'products'(sort=${sortName}, page=${allProducts.number - 1})}"-->
+<!--                       hx-target="#allgoods"-->
+<!--                       hx-swap = "innerHTML"-->
+<!--                       hx-trigger="click"><</a>-->
+<!--                </li>-->
+
+
+
+<!--                <li class="page-item" th:each="page: ${#numbers.sequence(0, allProducts.getTotalPages()-1)}"-->
+<!--                    th:if="${allProducts.number} >= ${page - 3} and ${allProducts.number} <= ${page + 3} or ${page} == ${allProducts.getTotalPages()-1} or ${page} == 0"-->
+<!--                    th:classappend="${page} == ${allProducts.number} ? 'active'" >-->
+<!--                    <a class="page-link" th:if="${allProducts.number} == ${page + 3} and ${page != 0}">...</a>-->
+<!--                    <a class="page-link"-->
+<!--                       th:if="${allProducts.number} > ${page - 3} and ${allProducts.number} < ${page + 3} or ${page} == ${allProducts.getTotalPages()-1} or ${page} == 0"-->
+<!--                       th:attr="hx-get=@{'products'(sort=${sortName}, page=${page})}" th:text="${page+1}"-->
+<!--                       hx-target="#allgoods"-->
+<!--                       hx-swap = "innerHTML"-->
+<!--                       hx-trigger="click"-->
+<!--                    >1</a>-->
+<!--                    <a class="page-link" th:if="${allProducts.number} == ${page - 3} and ${page} != ${allProducts.getTotalPages()-1}">...</a>-->
+<!--                </li>-->
+
+<!--                <li class="page-item " th:style="${allProducts.last ? 'display: none' : ''}" >-->
+<!--                    <a class="page-link"-->
+<!--                       th:attr="hx-get=@{'products'(sort=${sortName}, page=${allProducts.number + 1})}"-->
+<!--                       hx-target="#allgoods"-->
+<!--                       hx-swap = "innerHTML"-->
+<!--                       hx-trigger="click">></a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </nav>-->
+<!--    </div>-->
 
 </div>
 <!--<script src="/js/script.js"></script>-->
