@@ -124,7 +124,7 @@
                         </button>
                         <ul class="dropdown-menu usericon-dropdown_menu">
                             <li>
-                                <a class="dropdown-item " th:href="@{/news/submitnews}">
+                                <a class="dropdown-item " sec:authorize="hasAnyRole('ADMIN', 'VENDOR')" th:href="@{/news/submitnews}">
                                     Submit News
                                 </a>
                             </li>
