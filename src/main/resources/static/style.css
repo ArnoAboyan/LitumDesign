@@ -417,7 +417,7 @@ margin: 0 auto;
         .col:hover{
             background: #DFDFDF;
             border-bottom: 5px solid #CB321A;
-
+            transition: all 0.1s;
             /* transition: all .1s ease; */
         }
 
@@ -430,6 +430,7 @@ margin: 0 auto;
     margin: 0px auto; 
     margin-top: 10px;
     background: rgba(255, 255, 255, 0) ;
+
 
  } 
 
@@ -459,6 +460,7 @@ margin: 0 auto;
     .card-body{
     
         position: relative;
+
     }
 
     .card-title  {
