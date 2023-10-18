@@ -141,6 +141,10 @@ a{
         padding-top: 14px;
     }
 
+/*.searchfar-small-collapse{*/
+/*    display: none;*/
+/*}*/
+
 .searchfar{
     width: 220px;
     height: 44px;
@@ -984,6 +988,8 @@ font-weight: 400;
         padding-top: 7px;
         border-bottom: 5px solid #CB321A;
     }
+
+
 
     .searchfar{
         width: 220px;
