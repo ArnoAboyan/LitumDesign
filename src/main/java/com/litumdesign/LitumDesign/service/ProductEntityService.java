@@ -99,6 +99,16 @@ public class ProductEntityService {
 
     }
 
+
+    public List<ProductEntity> getMostPopularProductWithGameType(GameType gameType) {
+        List<ProductEntity> productEntities = productEntityRepository.findTop5ByGameTypeOrderByCountOfDownloadsDesc(gameType);
+
+        System.out.println("MostPopularProductEntity ->>>" + productEntities.toString());
+
+        return productEntities;
+
+    }
+
     public List<ProductEntity> getNewestProduct() {
         List<ProductEntity> productEntities = productEntityRepository.findTop5ByOrderByCreatedAtDesc();
 

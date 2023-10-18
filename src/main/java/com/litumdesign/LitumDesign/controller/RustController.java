@@ -35,6 +35,7 @@ public class RustController {
 
         model.addAttribute("allProducts", productEntityService.getAllProductByGameTypeAndSort(GameType.RUST, pageable));
         model.addAttribute("gamename", "rust");
+        model.addAttribute("products", productEntityService.getMostPopularProductWithGameType(GameType.RUST));
         return "rustpage";
     }
     @PostMapping
@@ -52,6 +53,7 @@ public class RustController {
 
         model.addAttribute("allProducts", productEntityService.getAllProductByGameTypeAndSort(GameType.RUST, pageable));
         model.addAttribute("gamename", "rust");
+        model.addAttribute("products", productEntityService.getMostPopularProductWithGameType(GameType.RUST));
         return "fragments/allproductsfragment";
     }
 
@@ -71,6 +73,7 @@ public class RustController {
         model.addAttribute("allProducts", productEntityService.getAllProductByGameTypeAndCategoriesAndSort(GameType.RUST, category,pageable));
         model.addAttribute("category", category);
         model.addAttribute("gamename", "rust");
+        model.addAttribute("products", productEntityService.getMostPopularProductWithGameType(GameType.RUST));
         return "rustpage";
     }
 
@@ -91,6 +94,7 @@ public class RustController {
         model.addAttribute("allProducts", productEntityService.getAllProductByGameTypeAndCategoriesAndSort(GameType.RUST, category,pageable));
         model.addAttribute("category", category);
         model.addAttribute("gamename", "rust");
+        model.addAttribute("products", productEntityService.getMostPopularProductWithGameType(GameType.RUST));
         return "fragments/allproductsfragment";
     }
 

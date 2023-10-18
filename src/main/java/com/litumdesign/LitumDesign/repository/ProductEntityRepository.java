@@ -16,6 +16,7 @@ import java.util.List;
 public interface ProductEntityRepository extends JpaRepository<ProductEntity, Long> {
 
     List<ProductEntity> findTop5ByOrderByCountOfDownloadsDesc();
+    List<ProductEntity> findTop5ByGameTypeOrderByCountOfDownloadsDesc(@Param("GameType") GameType gameType);
     List<ProductEntity> findTop5ByOrderByCreatedAtDesc();
 
     List<ProductEntity> findAllByAdvertisingTrueAndAccess(@Param("access") Access access);

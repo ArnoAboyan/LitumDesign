@@ -38,6 +38,7 @@ public class UnturnedController {
 
         model.addAttribute("allProducts", productEntityService.getAllProductByGameTypeAndSort(GameType.UNTURNED, pageable));
         model.addAttribute("gamename", "unturned");
+        model.addAttribute("products", productEntityService.getMostPopularProductWithGameType(GameType.UNTURNED));
 
         return "unturnedpage";
     }
@@ -56,6 +57,7 @@ public class UnturnedController {
 
         model.addAttribute("allProducts", productEntityService.getAllProductByGameTypeAndSort(GameType.UNTURNED, pageable));
         model.addAttribute("gamename", "unturned");
+        model.addAttribute("products", productEntityService.getMostPopularProductWithGameType(GameType.UNTURNED));
 
         return "fragments/allproductsfragment";
     }
@@ -75,6 +77,7 @@ public class UnturnedController {
         model.addAttribute("allProducts", productEntityService.getAllProductByGameTypeAndCategoriesAndSort(GameType.UNTURNED, category, pageable));
         model.addAttribute("category", category);
         model.addAttribute("gamename", "unturned");
+        model.addAttribute("products", productEntityService.getMostPopularProductWithGameType(GameType.UNTURNED));
 
         return "unturnedpage";
     }
@@ -95,6 +98,7 @@ public class UnturnedController {
         model.addAttribute("allProducts", productEntityService.getAllProductByGameTypeAndCategoriesAndSort(GameType.UNTURNED, category, pageable));
         model.addAttribute("category", category);
         model.addAttribute("gamename", "unturned");
+        model.addAttribute("products", productEntityService.getMostPopularProductWithGameType(GameType.UNTURNED));
 
         return "fragments/allproductsfragment";
     }
