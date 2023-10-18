@@ -66,7 +66,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, AppUserService appUserService) throws Exception {
         return http
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-                        .requestMatchers("/news/submitnews", "/news/addnews").hasAnyRole("ADMIN", "VENDOR")
+                        .requestMatchers("/news/submitnews", "/news/addnews", "/file/addfile").hasAnyRole("ADMIN", "VENDOR")
 //                        .requestMatchers("/admin-page").hasRole(ADMIN)
 //                        .requestMatchers("/user-page").hasRole(USER)
 //                        .requestMatchers("/", "/login","/auth", "/public-page").permitAll()
