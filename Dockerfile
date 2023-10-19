@@ -11,7 +11,7 @@
 #ENTRYPOINT ["java", "-jar", "LitumDesign-0.0.1-SNAPSHOT.jar"]
 
 FROM openjdk:18
-COPY target/*.jar application.jar
+COPY target/LitumDesign-0.0.1-SNAPSHOT.jar application.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","application.jar"]
 
