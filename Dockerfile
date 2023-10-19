@@ -6,6 +6,7 @@
 
 FROM openjdk:18
 ARG JAR_FILE=target/litumdesign-docker.jar
-COPY ${JAR_FILE} app.jar
+COPY ${JAR_FILE} /usr/app/
+WORKDIR /usr/app
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "/app.jar"]
