@@ -120,6 +120,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>litumdesign-docker</finalName>
     </build>
 
 </project>
