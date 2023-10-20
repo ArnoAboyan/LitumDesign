@@ -1,6 +1,6 @@
 FROM openjdk:18 as builder
 
-COPY ./target
+COPY . /target
 
 WORKDIR /target
 
