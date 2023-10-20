@@ -4,8 +4,6 @@ COPY . /workspace
 
 WORKDIR /workspace
 
-RUN /chmod +x mvnw
-
 RUN ./mvnw clean package
 
 FROM openjdk:18
