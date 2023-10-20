@@ -15,4 +15,4 @@ WORKDIR /app
 
 COPY --from=builder /workspace/target/LitumDesign-*.jar /app/LitumDesign.jar
 
-ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar -Dserver.port=8080 LitumDesign.jar"]
+ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar LitumDesign.jar"]
