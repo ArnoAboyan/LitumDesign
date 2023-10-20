@@ -4,7 +4,7 @@ COPY . /target
 
 WORKDIR /target
 
-RUN ./mvnw clean package
+#RUN ./mvnw clean package
 
 FROM openjdk:18
 
