@@ -120,7 +120,7 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>java-springboot</finalName>
+<!--        <finalName>java-springboot</finalName>-->
     </build>
 
 </project>
