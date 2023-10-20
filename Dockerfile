@@ -1,4 +1,4 @@
-FROM openjdk:17 as builder
+FROM openjdk:18 as builder
 
 COPY . /workspace
 
@@ -8,7 +8,7 @@ RUN chmod +x ./mvnw
 
 RUN ./mvnw clean package
 
-FROM openjdk:17
+FROM openjdk:18
 
 WORKDIR /app
 
