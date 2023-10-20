@@ -12,6 +12,6 @@ FROM openjdk:18
 
 WORKDIR /app
 
-COPY --from=builder /workspace/target/java-springboot-0.0.1-SNAPSHOT.jar /app/java-springboot-0.0.1-SNAPSHOT.jar
+COPY --from=builder /workspace/target/java-springboot-*.jar /app/java-springboot.jar
 
-ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar java-springboot-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar java-springboot.jar"]
