@@ -12,6 +12,8 @@ FROM openjdk:18
 
 WORKDIR /app
 
+EXPOSE 8080
+
 COPY --from=builder /workspace/target/LitumDesign-*.jar /app/LitumDesign.jar
 
 ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar LitumDesign.jar"]
