@@ -1,4 +1,4 @@
-FROM openjdk:18 as builder
+FROM openjdk:17 as builder
 
 COPY . /workspace
 
@@ -6,7 +6,7 @@ WORKDIR /workspace
 
 RUN ./mvnw clean package
 
-FROM openjdk:18
+FROM openjdk:17
 
 WORKDIR /app
 
