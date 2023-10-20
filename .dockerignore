@@ -1,0 +1,4 @@
+Dockerfile
+.idea/
+target/
+!target/java-springboot-*.jar
