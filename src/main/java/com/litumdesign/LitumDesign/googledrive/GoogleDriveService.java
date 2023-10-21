@@ -19,6 +19,7 @@ import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 import com.litumdesign.LitumDesign.service.ProductEntityService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.FileSystemResource;
@@ -41,6 +42,7 @@ import java.util.List;
 /* class to demonstrate use of Drive files list API */
 @Component
 @RequiredArgsConstructor
+@Log4j2
 public class GoogleDriveService {
     private final ProductEntityService productEntityService;
     /**
@@ -218,11 +220,11 @@ public class GoogleDriveService {
         // Загрузите файл с помощью вашей службы
         Drive service = getInstance();
 
-        System.out.println("DRIVE-SERVICE" + service.about().get().toString());
+        System.out.println(service.about().toString());
+
+        log.info("DRIVE-SERVICE ----->" + service.about().get().toString());
 
         File file = service.files().get(fileId).execute();
-
-        System.out.println("FILE-SERVICE" + file.getDescription());
 
         // Определите MIME-тип файла (например, image/jpeg для JPEG-файлов)
         MediaType mediaType = MediaType.parseMediaType("image/jpeg");
@@ -231,6 +233,8 @@ public class GoogleDriveService {
         InputStream inputStream = service.files().get(fileId).executeMediaAsInputStream();
         byte[] fileBytes = IOUtils.toByteArray(inputStream);
         ByteArrayResource resource = new ByteArrayResource(fileBytes);
+
+        log.info("RESOURCES ----->" + resource.getDescription());
 
         // Настройте заголовки для браузера
         HttpHeaders headers = new HttpHeaders();
