@@ -218,8 +218,11 @@ public class GoogleDriveService {
         // Загрузите файл с помощью вашей службы
         Drive service = getInstance();
 
+        System.out.println("DRIVE-SERVICE" + service.about().get().toString());
 
         File file = service.files().get(fileId).execute();
+
+        System.out.println("FILE-SERVICE" + file.getDescription());
 
         // Определите MIME-тип файла (например, image/jpeg для JPEG-файлов)
         MediaType mediaType = MediaType.parseMediaType("image/jpeg");
