@@ -1,0 +1,220 @@
+
+
+
+.container-carousel{
+    max-width: 1170px;
+    padding-bottom: 10px;
+    border-bottom:3px solid #CB321A;
+
+}
+
+
+.carousel-wrap {
+    margin: auto;
+    margin-top: 30px;
+    position: relative;
+}
+.owl-carousel .owl-nav{
+    overflow: hidden;
+    height: 0px;
+}
+
+
+.owl-carousel .item {
+    text-align: center;
+}
+.owl-carousel .nav-btn{
+    height: 47px;
+    position: absolute;
+    width: 26px;
+    cursor: pointer;
+    top: 120px !important;
+}
+
+.owl-carousel .owl-prev.disabled,
+.owl-carousel .owl-next.disabled{
+    pointer-events: none;
+    opacity: 0.2;
+}
+
+.owl-carousel .prev-slide{
+    background: url(image/nav-icon.png) no-repeat scroll 0 0;
+
+    left: -33px;
+}
+.owl-carousel .next-slide{
+    background: url(image/nav-icon.png) no-repeat scroll -24px 0px;
+    right: -33px;
+}
+.owl-carousel .prev-slide:hover{
+    background-position: 0px -53px;
+}
+.owl-carousel .next-slide:hover{
+    background-position: -24px -53px;
+}
+
+span.img-text {
+    text-decoration: none;
+    outline: none;
+    transition: all 0.4s ease;
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    cursor: pointer;
+    width: 100%;
+    font-size: 23px;
+    display: block;
+    text-transform: capitalize;
+}
+
+.owl-carousel span {
+    width:10px;
+    height:10px;
+    margin:5px 7px;
+    background: #757575 !important;
+    display:block;
+    -webkit-backface-visibility:visible;
+    -webkit-transition:opacity 200ms ease;
+    -moz-transition:opacity 200ms ease;
+    -ms-transition:opacity 200ms ease;
+    -o-transition:opacity 200ms ease;
+    transition:opacity 200ms ease;
+    -webkit-border-radius:30px;
+    -moz-border-radius:30px;
+    border-radius:30px;
+}
+
+.owl-carousel .active span {
+    width:10px;
+    height:10px;
+    margin:5px 7px;
+    background: #CB321A !important;
+    display:block;
+    -webkit-backface-visibility:visible;
+    -webkit-transition:opacity 200ms ease;
+    -moz-transition:opacity 200ms ease;
+    -ms-transition:opacity 200ms ease;
+    -o-transition:opacity 200ms ease;
+    transition:opacity 200ms ease;
+    -webkit-border-radius:30px;
+    -moz-border-radius:30px;
+    border-radius:30px;
+}
+
+.product-header{
+    max-width: 1170px;
+}
+
+.product-header-title{
+    margin-top: 30px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+}
+
+
+.product-header-price h2{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    font-size: 10px;
+    font-weight: 600;
+    margin-right: 35px;
+}
+.product-header-category-info{
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+.product-header-category-info a{
+    display: inline;
+    border-radius:0;
+}
+.product-header-category-info a:hover{
+    border-bottom:2px solid #CB321A
+}
+
+.product-header-author{
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.product-header-downloadfile-container{
+    display: flex;
+    text-align: center;
+    justify-content: end;
+
+}
+.product-header-bybutton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 50px;
+    border-radius: 0;
+    font-size: 30px;
+    font-weight: 500;
+    text-decoration: none;
+    background-color: #CB321A;
+    color: #F1F1F1;
+
+}
+.product-header-bybutton:hover{
+    background-color: #cc4b37;
+}
+
+.product-header-bybutton:active{
+    background: #a88c87;
+}
+
+.product-header-shortinfo{
+    margin-top: 10px;
+    max-width: 700px;
+    border-bottom:1px solid #CB321A;
+}
+
+.main-product-navigation{
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-product-navigation a{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 30px;
+    border-radius: 0;
+    font-size: 24px;
+    font-weight: 400;
+    text-decoration: none;
+    border-bottom :3px solid #a88c87;
+    margin-left: 10px;
+}
+
+.main-product-navigation a:hover{
+
+    border-bottom :3px solid #CB321A;
+    margin-left: 10px;
+    transition: all .3s ease;
+}
+
+
+
+@media screen and (max-width: 991px) {
+
+    .owl-carousel .prev-slide{
+        display: none;
+    }
+    .owl-carousel .next-slide{
+        display: none;
+    }
+
+
+
+}

@@ -70,7 +70,7 @@ public class WebSecurityConfig {
 //                        .requestMatchers("/admin-page").hasRole(ADMIN)
 //                        .requestMatchers("/user-page").hasRole(USER)
 //                        .requestMatchers("/", "/login","/auth", "/public-page").permitAll()
-                        .requestMatchers("/**", "/products", "/login","/logout", "/error", "/news/**", "/information/**", "/serverlist").permitAll()
+                        .requestMatchers("/**", "/products", "/login","/logout", "/error", "/news/**", "/information/**", "/serverlist","/product/**").permitAll()
                         .requestMatchers("/oauth2/**").permitAll()
                         .anyRequest().authenticated())
 
