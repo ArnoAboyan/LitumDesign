@@ -1,4 +1,0 @@
-Dockerfile
-.idea/
-target/
-!target/LitumDesign-*.jar
