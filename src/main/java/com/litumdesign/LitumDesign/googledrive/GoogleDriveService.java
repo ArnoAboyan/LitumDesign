@@ -85,7 +85,9 @@ public class GoogleDriveService {
                 .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
                 .setAccessType("offline")
                 .build();
-        LocalServerReceiver receiver = new LocalServerReceiver.Builder().setHost("litumdesign.com").setPort(8082).build();
+        LocalServerReceiver receiver = new LocalServerReceiver.Builder()
+                .setHost("litumdesign.com")
+                .setPort(8082).build();
         Credential credential = new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
         //returns an authorized Credential object.
         return credential;
