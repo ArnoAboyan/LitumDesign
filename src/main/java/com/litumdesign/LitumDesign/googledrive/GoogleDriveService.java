@@ -86,7 +86,7 @@ public class GoogleDriveService {
                 .setAccessType("offline")
                 .build();
         LocalServerReceiver receiver = new LocalServerReceiver.Builder()
-                .setHost("litumdesign.com")
+                .setHost("litumdesign.com").setCallbackPath("/rust")
                 .setPort(8082).build();
         Credential credential = new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
         //returns an authorized Credential object.
