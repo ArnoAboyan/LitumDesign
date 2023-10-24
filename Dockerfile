@@ -1,6 +1,6 @@
 FROM openjdk:18 as builder
 
-COPY .. /workspace
+COPY . /workspace
 
 WORKDIR /workspace
 
