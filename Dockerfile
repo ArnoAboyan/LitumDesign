@@ -10,6 +10,18 @@ RUN ./mvnw clean package
 
 FROM openjdk:18
 
+ARG google_service_client_privateid
+ARG google_service_client_private
+ARG google_service_clientemail
+ARG google_service_clientid
+
+
+ENV google_service_client_privateid=$google_service_client_privateid
+ENV google_service_client_private=$google_service_client_private
+ENV google_service_clientemail=$google_service_clientemail
+ENV google_service_clientid=$google_service_clientid
+
+
 WORKDIR /app
 
 COPY --from=builder /workspace/target/LitumDesign-*.jar /app/LitumDesign.jar
