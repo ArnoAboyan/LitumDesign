@@ -58,7 +58,7 @@ public class GoogleDriveService {
     private static final List<String> SCOPES =
             Collections.singletonList(DriveScopes.DRIVE);
 //    private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
-private static final String CREDENTIALS_FILE_PATH = "litumdesign-398209-83c385017db8.json";
+private static final String CREDENTIALS_FILE_PATH = "/litumdesign-398209-83c385017db8.json";
 
 
 //    /**
