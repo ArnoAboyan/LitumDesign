@@ -16,10 +16,6 @@ ARG google_service_clientemail
 ARG google_service_clientid
 
 
-ENV google_service_client_privateid=$google_service_client_privateid
-ENV google_service_client_private=$google_service_client_private
-ENV google_service_clientemail=$google_service_clientemail
-ENV google_service_clientid=$google_service_clientid
 
 
 WORKDIR /app
