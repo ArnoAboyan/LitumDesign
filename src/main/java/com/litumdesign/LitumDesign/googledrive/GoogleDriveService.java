@@ -111,12 +111,12 @@ public class GoogleDriveService {
 //        return service;
 //    }
 
-
+    static InputStream inputStream = GoogleDriveService.class.getResourceAsStream("/litumdesign-398209-83c385017db8.json");
 
     public static Drive getInstance() throws GeneralSecurityException, IOException {
         // Build a new authorized API client service.
     final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-    HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(ServiceAccountCredentials.fromStream(new FileInputStream(CREDENTIALS_FILE_PATH))
+    HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(ServiceAccountCredentials.fromStream(inputStream)
             .createScoped(SCOPES));
     Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, requestInitializer)
             .setApplicationName(APPLICATION_NAME)
