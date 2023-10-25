@@ -1,10 +1,8 @@
 package com.litumdesign.LitumDesign.googledrive;
 
-import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.HttpRequestInitializer;
-import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.InputStreamContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
@@ -14,15 +12,11 @@ import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
-import com.google.auth.ServiceAccountSigner;
 import com.google.auth.http.HttpCredentialsAdapter;
-import com.google.auth.http.HttpTransportFactory;
 import com.google.auth.oauth2.ServiceAccountCredentials;
 import com.litumdesign.LitumDesign.service.ProductEntityService;
-import io.github.cdimascio.dotenv.Dotenv;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import net.minidev.json.JSONUtil;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
@@ -35,11 +29,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
-import java.util.ServiceConfigurationError;
 
 /* class to demonstrate use of Drive files list API */
 @Component
@@ -127,30 +119,30 @@ public class GoogleDriveService {
 //    }
 
     @Value("${google.service.client.privateid}")
-    static String GOOGLE_CREDENTIALS_PRIVATE_KEY_ID;
+     String GOOGLE_CREDENTIALS_PRIVATEID;
 
     @Value("${google.service.client.private}")
-    static String GOOGLE_CREDENTIALS_PRIVATE_KEY;
+     String GOOGLE_CREDENTIALS_PRIVATE;
 
     @Value("${google.service.clientemail}")
-    static String GOOGLE_CREDENTIALS_CLIENT_EMAIL;
+     String GOOGLE_CREDENTIALS_CLIENTEMAIL;
 
     @Value("${google.service.clientid}")
-    static String GOOGLE_CREDENTIALS_CLIENT_ID;
+     String GOOGLE_CREDENTIALS_CLIENTID;
 
 
-    public static Drive getInstance() throws GeneralSecurityException, IOException {
+    public  Drive getInstance() throws GeneralSecurityException, IOException {
         // Build a new authorized API client service.
-        System.out.println(GOOGLE_CREDENTIALS_PRIVATE_KEY_ID);
-        System.out.println(GOOGLE_CREDENTIALS_PRIVATE_KEY);
-        System.out.println(GOOGLE_CREDENTIALS_CLIENT_EMAIL);
-        System.out.println(GOOGLE_CREDENTIALS_CLIENT_ID);
+        System.out.println(GOOGLE_CREDENTIALS_PRIVATEID);
+        System.out.println(GOOGLE_CREDENTIALS_PRIVATE);
+        System.out.println(GOOGLE_CREDENTIALS_CLIENTEMAIL);
+        System.out.println(GOOGLE_CREDENTIALS_CLIENTID);
 
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(ServiceAccountCredentials.fromPkcs8(GOOGLE_CREDENTIALS_CLIENT_ID,
-                        GOOGLE_CREDENTIALS_CLIENT_EMAIL,
-                        GOOGLE_CREDENTIALS_PRIVATE_KEY,
-                        GOOGLE_CREDENTIALS_PRIVATE_KEY_ID,
+        HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(ServiceAccountCredentials.fromPkcs8(GOOGLE_CREDENTIALS_CLIENTID,
+                        GOOGLE_CREDENTIALS_CLIENTEMAIL,
+                        GOOGLE_CREDENTIALS_PRIVATE,
+                        GOOGLE_CREDENTIALS_PRIVATEID,
                         SCOPES)
                 .createScoped(SCOPES));
         Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, requestInitializer)
@@ -160,7 +152,7 @@ public class GoogleDriveService {
     }
 
 
-    public static void main(String... args) throws IOException, GeneralSecurityException {
+    public  void main(String... args) throws IOException, GeneralSecurityException {
         Drive service = getInstance();
 
 
