@@ -15,6 +15,11 @@ ARG google_service_client_private
 ARG google_service_clientemail
 ARG google_service_clientid
 
+ENV google_service_client_privateid=asdasdasd
+ENV google_service_client_private=asdasdasd
+ENV google_service_clientemail=asdasdasd
+ENV google_service_clientid=asdasdasd
+
 
 
 
