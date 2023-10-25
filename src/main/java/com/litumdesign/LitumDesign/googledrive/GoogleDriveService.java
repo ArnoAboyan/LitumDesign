@@ -118,16 +118,16 @@ public class GoogleDriveService {
 //        return service;
 //    }
 
-    @Value("${google.service.client.privateid}")
+//    @Value("${google.service.client.privateid}")
      String GOOGLE_CREDENTIALS_PRIVATEID;
 
-    @Value("${google.service.client.private}")
+//    @Value("${google.service.client.private}")
      String GOOGLE_CREDENTIALS_PRIVATE;
 
-    @Value("${google.service.clientemail}")
+//    @Value("${google.service.clientemail}")
      String GOOGLE_CREDENTIALS_CLIENTEMAIL;
 
-    @Value("${google.service.clientid}")
+//    @Value("${google.service.clientid}")
      String GOOGLE_CREDENTIALS_CLIENTID;
 
 
