@@ -14,13 +14,17 @@ import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
+import com.google.auth.ServiceAccountSigner;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.http.HttpTransportFactory;
 import com.google.auth.oauth2.ServiceAccountCredentials;
 import com.litumdesign.LitumDesign.service.ProductEntityService;
+import io.github.cdimascio.dotenv.Dotenv;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import net.minidev.json.JSONUtil;
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -31,9 +35,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
+import java.util.ServiceConfigurationError;
 
 /* class to demonstrate use of Drive files list API */
 @Component
@@ -60,8 +66,8 @@ public class GoogleDriveService {
      */
     private static final List<String> SCOPES =
             Collections.singletonList(DriveScopes.DRIVE);
-//    private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
-        private static final String CREDENTIALS_FILE_PATH = "src/main/resources/litumdesign-398209-83c385017db8.json";
+    //    private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
+    private static final String CREDENTIALS_FILE_PATH = "src/main/resources/litumdesign-398209-83c385017db8.json";
 
 
 //    /**
@@ -99,9 +105,6 @@ public class GoogleDriveService {
 //    }
 
 
-
-
-
 //    public static Drive getInstance() throws GeneralSecurityException, IOException {
 //        // Build a new authorized API client service.
 //        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
@@ -111,31 +114,51 @@ public class GoogleDriveService {
 //        return service;
 //    }
 
-    static InputStream inputStream = GoogleDriveService.class.getResourceAsStream("/litumdesign-398209-83c385017db8.json");
-
-    public static Drive getInstance() throws GeneralSecurityException, IOException {
-        // Build a new authorized API client service.
-    final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-    HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(ServiceAccountCredentials.fromStream(inputStream)
-            .createScoped(SCOPES));
-    Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, requestInitializer)
-            .setApplicationName(APPLICATION_NAME)
-            .build();
-        return service;
-    }
-
 
 //    public static Drive getInstance() throws GeneralSecurityException, IOException {
 //        // Build a new authorized API client service.
-//        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-//        HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(ServiceAccountCredentials.fromPkcs8("113588968404965585121","litum-477@litumdesign-398209.iam.gserviceaccount.com","-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCWMeAQSFWc1P9J\nldhdQBRlKIPg8Kzge8A36545P0ImgSgMY/K+3H+Qiu7BehjbJt/fZGbKPazUGOuy\n2K/5XU+XHpJh81VunSyk6DN0lHZnU0F1ftFf+FPeHpfG+ROLAr16U9r8qvrfKbHk\nUrk0smmKCkhyDN16kVpPY9sHHZsb5uL4QsSyeVwNeohbQEXVQyGdXutx+ziu9XIp\nbbJ866ciCOh6Vhm8S8rT+MyzQrzScQSslHF3yt1/GN8GQz0KU12c09sbBNJKBqft\n9cYC/LDH3qWs1F9hKP8QxGe88V9KqkP+uIi1Y32sR4M3b6q+zCSJ6iQqKnCKPGm4\nsig0EQqlAgMBAAECggEAATaN6hPA0pogexEBb7S2ICBfpaV2qql/4p5okhXMtvrm\nvpLgFw043+CqD63+HWcG+oruZEZzQD34nrfZVAOeQkjg7cxFWGC0nPBd2gcznZ9d\nMVHA5ywzoTZQti601bPuoS+kM9OTCye5uW+28edZqt/CY17EkITesd118MIbH/KO\nSKmCqW31fcGx2QFm03ufORf5pO4McslgAzpjl35P8yf5C4LhuUqc++aQS/2GeAd3\nMPrYpa4kV113ZlTZTY1ZZgZcDtVBXnQi+avZpXebWZjFXuJOabHeh1FXSxKCs09m\nttkLopfhE+YbVQFs1B2UZ5RtNvsb4y0aFwkBQeOG0QKBgQDR0EtyELuHg/Ez3TYs\nePR/WjEX6D2wUfaeLHWK01L4nyN0tOB5TczRTelXLNNWtQY0zSyjl+TzGGnYjTsq\nl4HKQClLgEDpTbPVPHuiK0HE5M0Oqk8qHaYkNAemDb/wlnoCthKK5wZB5/UTgj1O\nirgForQC3fKhrQEiEStXeV6iDwKBgQC3Qdvr+H6DbOmaHlJm9T00S04InysiEz8/\nYlY6GOCHHGecpUDMMlz80l6tri251jHMbt0FuID9BHBtvo264Re5tcVIGISeU0sJ\n62+B/xqbWF7TJX9sEwMRvn48ANwZ/p4wEz5C+nKsE2Lt4VMBLmZof6K5HuxDw5q/\nhxPknAKsCwKBgQCRRbjHTMCbjwa2E2eMGV+owgkV9Y6pA8dPM5dbPQDI9l71UrvO\nIck77scuvfHCqmqWqq1KxEQY8YFwGDGsRuTt5cjx5uaK42strMgpu+u46Xb1vYQ8\ns/SyQng9SG3qpjXqpKhoFpflkDbHgDj0peXOuR4MkiKKQSB0txCca4PTjwKBgBGu\n9T3L+MlN1SzeCC2PNJy7N4h1c4ASQ2QmZROuGtxuzUC8YYhSw85Rrnkr+ZWZKa0E\ndad7qla/+ulcHekOl2+ALs1KMGHmv7LxWQ0+RJ8A5AWT9LvFCeLIcv3vR03q1/Dj\nqnpkGHSqWj2CJLRUeeVTi6w5Y6sWUPRyYGUK+OcJAoGAftjnjcNe3vDnBqIeZ9kB\n0MwocTRguf7y0mLDjJ8yUp/myOMS3xI7ZPNSYmkahh3zfXX5LPWNScPd/niv75yZ\nz974P9PBWhC6DxqSgJ8gYmJG6Fa6ztTV0f5hmWCtRgcO38iwmEAE9GXrYEhpxOrS\nRXtMXJ7oPJ2/1v9nOItPCXM=\n-----END PRIVATE KEY-----\n",
-//                "83c385017db891aeaeb7bc73fd3372b96b18f026",SCOPES,SCOPES,HttpTransportFactory.,"https://oauth2.googleapis.com/token","https://www.googleapis.com/robot/v1/metadata/x509/litum-477%40litumdesign-398209.iam.gserviceaccount.com")
-//                .createScoped(SCOPES));
-//        Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, requestInitializer)
-//                .setApplicationName(APPLICATION_NAME)
-//                .build();
+//    final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+//    HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(ServiceAccountCredentials.fromStream(new FileInputStream(CREDENTIALS_FILE_PATH))
+//            .createScoped(SCOPES));
+//    Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, requestInitializer)
+//            .setApplicationName(APPLICATION_NAME)
+//            .build();
 //        return service;
 //    }
+
+    @Value("${google.service.client.privateid}")
+    static String GOOGLE_CREDENTIALS_PRIVATE_KEY_ID;
+
+    @Value("${google.service.client.private}")
+    static String GOOGLE_CREDENTIALS_PRIVATE_KEY;
+
+    @Value("${google.service.clientemail}")
+    static String GOOGLE_CREDENTIALS_CLIENT_EMAIL;
+
+    @Value("${google.service.clientid}")
+    static String GOOGLE_CREDENTIALS_CLIENT_ID;
+
+
+    public static Drive getInstance() throws GeneralSecurityException, IOException {
+        // Build a new authorized API client service.
+        System.out.println(GOOGLE_CREDENTIALS_PRIVATE_KEY_ID);
+        System.out.println(GOOGLE_CREDENTIALS_PRIVATE_KEY);
+        System.out.println(GOOGLE_CREDENTIALS_CLIENT_EMAIL);
+        System.out.println(GOOGLE_CREDENTIALS_CLIENT_ID);
+
+        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(ServiceAccountCredentials.fromPkcs8(GOOGLE_CREDENTIALS_CLIENT_ID,
+                        GOOGLE_CREDENTIALS_CLIENT_EMAIL,
+                        GOOGLE_CREDENTIALS_PRIVATE_KEY,
+                        GOOGLE_CREDENTIALS_PRIVATE_KEY_ID,
+                        SCOPES)
+                .createScoped(SCOPES));
+        Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, requestInitializer)
+                .setApplicationName(APPLICATION_NAME)
+                .build();
+        return service;
+    }
+
 
     public static void main(String... args) throws IOException, GeneralSecurityException {
         Drive service = getInstance();
@@ -144,38 +167,38 @@ public class GoogleDriveService {
     }
 
 
-@Transactional
+    @Transactional
     public String uploadFile(MultipartFile file) throws GeneralSecurityException, IOException {
 
 
-    try {
-        System.out.println(file.getOriginalFilename());
+        try {
+            System.out.println(file.getOriginalFilename());
 
-        File fileMetadata = new File();
-        fileMetadata.setName(file.getOriginalFilename());
-        File uploadFile = getInstance()
-                .files()
-                .create(fileMetadata, new InputStreamContent(
-                        file.getContentType(),
-                        new ByteArrayInputStream(file.getBytes()))
-                )
-                .setFields("id, name")
+            File fileMetadata = new File();
+            fileMetadata.setName(file.getOriginalFilename());
+            File uploadFile = getInstance()
+                    .files()
+                    .create(fileMetadata, new InputStreamContent(
+                            file.getContentType(),
+                            new ByteArrayInputStream(file.getBytes()))
+                    )
+                    .setFields("id, name")
 //                .setFields("name")
-                .execute();
+                    .execute();
 
 
-        String fileId = uploadFile.getId();
+            String fileId = uploadFile.getId();
 
-        System.out.println("GDFILEID ->>> " + uploadFile.getName());
-        System.out.println("GDFILEID ->>> " + uploadFile.getId());
+            System.out.println("GDFILEID ->>> " + uploadFile.getName());
+            System.out.println("GDFILEID ->>> " + uploadFile.getId());
 
-        return uploadFile.getId();
+            return uploadFile.getId();
 
-    } catch (Exception e) {
-        System.out.printf("Error: " + e);
+        } catch (Exception e) {
+            System.out.printf("Error: " + e);
+        }
+        return null;
     }
-    return null;
-}
 //
 //
 
@@ -183,14 +206,13 @@ public class GoogleDriveService {
         Drive service = getInstance();
 
 
-
         try {
-        FileList result = service.files().list()
-                .setPageSize(10)
-                .setFields("nextPageToken, files(id, name)")
-                .execute();
-        System.out.println(result.getFiles().toString());
-        return result.toString();
+            FileList result = service.files().list()
+                    .setPageSize(10)
+                    .setFields("nextPageToken, files(id, name)")
+                    .execute();
+            System.out.println(result.getFiles().toString());
+            return result.toString();
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
