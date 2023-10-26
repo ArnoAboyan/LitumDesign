@@ -39,7 +39,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Log4j2
 public class GoogleDriveService {
-//    private final ProductEntityService productEntityService;
+
     /**
      * Application name.
      */
@@ -59,30 +59,25 @@ public class GoogleDriveService {
      */
     private static final List<String> SCOPES =
             Collections.singletonList(DriveScopes.DRIVE);
-    //    private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
-//    private static final String CREDENTIALS_FILE_PATH = "src/main/resources/litumdesign-398209-83c385017db8.json";
 
 
-
-
-
-
-
-
-
-
-    public  Drive getInstance() throws GeneralSecurityException, IOException {
+    public Drive getInstance() throws GeneralSecurityException, IOException {
         // Build a new authorized API client service.
 
         String clientId = System.getenv("CLIENT_ID");
-       String clientMail= System.getenv("CLIENT_EMAIL");
-       String privateKey= System.getenv("CLIENT_PRIVATEKEY");
-       String privateId= System.getenv("CLIENT_PRIVATEID");
+        String clientMail = System.getenv("CLIENT_EMAIL");
+        String privateKey = System.getenv("CLIENT_PRIVATEKEY");
+        String privateId = System.getenv("CLIENT_PRIVATEID");
 
+        System.out.println(clientId);
+        System.out.println(clientMail);
+        System.out.println(privateKey);
+        System.out.println(privateId);
 
 
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(ServiceAccountCredentials.fromPkcs8(clientId,
+        HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(ServiceAccountCredentials.fromPkcs8(
+                        clientId,
                         clientMail,
                         privateKey,
                         privateId,
@@ -95,7 +90,7 @@ public class GoogleDriveService {
     }
 
 
-    public  void main(String... args) throws IOException, GeneralSecurityException {
+    public void main(String... args) throws IOException, GeneralSecurityException {
         Drive service = getInstance();
 
 
