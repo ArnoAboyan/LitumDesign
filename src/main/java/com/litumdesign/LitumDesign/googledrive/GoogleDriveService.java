@@ -14,10 +14,11 @@ import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.ServiceAccountCredentials;
-import com.litumdesign.LitumDesign.service.ProductEntityService;
+import com.litumdesign.LitumDesign.ENV.NationConfigProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -38,7 +39,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Log4j2
 public class GoogleDriveService {
-    private final ProductEntityService productEntityService;
+//    private final ProductEntityService productEntityService;
     /**
      * Application name.
      */
@@ -59,36 +60,55 @@ public class GoogleDriveService {
     private static final List<String> SCOPES =
             Collections.singletonList(DriveScopes.DRIVE);
     //    private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
-    private static final String CREDENTIALS_FILE_PATH = "src/main/resources/litumdesign-398209-83c385017db8.json";
+//    private static final String CREDENTIALS_FILE_PATH = "src/main/resources/litumdesign-398209-83c385017db8.json";
 
 
 
 
-    @Value("${google_service_client_privateid}")
-     String GOOGLE_CREDENTIALS_PRIVATEID;
 
-    @Value("${google_service_client_private}")
-     String GOOGLE_CREDENTIALS_PRIVATE;
 
-    @Value("${google_service_clientemail}")
-     String GOOGLE_CREDENTIALS_CLIENTEMAIL;
 
-    @Value("${google_service_clientid}")
-     String GOOGLE_CREDENTIALS_CLIENTID;
+
+
+
+//        @Value("${client.privateid}")
+//     String GOOGLE_CREDENTIALS_PRIVATEID;
+//
+//    @Value("${client.privateid}")
+//     String GOOGLE_CREDENTIALS_PRIVATE;
+//
+//    @Value("${clientemail}")
+//     String GOOGLE_CREDENTIALS_CLIENTEMAIL;
+//
+//    @Value("${clientid}")
+//     String GOOGLE_CREDENTIALS_CLIENTID;
+
+
+
+
+
 
 
     public  Drive getInstance() throws GeneralSecurityException, IOException {
         // Build a new authorized API client service.
-        System.out.println(GOOGLE_CREDENTIALS_PRIVATEID);
-        System.out.println(GOOGLE_CREDENTIALS_PRIVATE);
-        System.out.println(GOOGLE_CREDENTIALS_CLIENTEMAIL);
-        System.out.println(GOOGLE_CREDENTIALS_CLIENTID);
+//        System.out.println(nationConfigProperties.privateId());
+//        System.out.println(nationConfigProperties.privateKey());
+//        System.out.println(nationConfigProperties.clientMail());
+//        System.out.println(nationConfigProperties.clientId());
+
+        System.out.println("CLIENT_ID ->" + System.getenv("CLIENT_ID"));
+
+        String clientId = System.getenv("CLIENT_ID");
+       String clientMail= System.getenv("CLIENT_EMAIL");
+       String privateKey= System.getenv("CLIENT.PRIVATEKEY");
+       String privateId= System.getenv("CLIENT_PRIVATEID");
+
 
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(ServiceAccountCredentials.fromPkcs8(GOOGLE_CREDENTIALS_CLIENTID,
-                        GOOGLE_CREDENTIALS_CLIENTEMAIL,
-                        GOOGLE_CREDENTIALS_PRIVATE,
-                        GOOGLE_CREDENTIALS_PRIVATEID,
+        HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(ServiceAccountCredentials.fromPkcs8(clientId,
+                        clientMail,
+                        privateKey,
+                        privateId,
                         SCOPES)
                 .createScoped(SCOPES));
         Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, requestInitializer)
