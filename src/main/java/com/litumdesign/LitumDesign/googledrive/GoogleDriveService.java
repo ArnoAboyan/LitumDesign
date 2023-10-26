@@ -14,12 +14,9 @@ import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.ServiceAccountCredentials;
-import com.litumdesign.LitumDesign.ENV.NationConfigProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.io.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -62,27 +59,20 @@ public class GoogleDriveService {
 
 
     public Drive getInstance() throws GeneralSecurityException, IOException {
-        // Build a new authorized API client service.
+
 
         String clientId = System.getenv("CLIENT_ID");
         String clientMail = System.getenv("CLIENT_EMAIL");
         String privateKey = System.getenv("CLIENT_PRIVATEKEY");
         String privateId = System.getenv("CLIENT_PRIVATEID");
 
-        System.out.println(clientId);
-        System.out.println(clientMail);
-        System.out.println(privateKey);
-        System.out.println(privateId);
+
 
 
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(ServiceAccountCredentials.fromPkcs8(
-                        clientId,
-                        clientMail,
-                        privateKey,
-                        privateId,
-                        SCOPES)
-                .createScoped(SCOPES));
+                clientId, clientMail, privateKey, privateId, SCOPES).createScoped(SCOPES));
+
         Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, requestInitializer)
                 .setApplicationName(APPLICATION_NAME)
                 .build();
