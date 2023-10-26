@@ -34,7 +34,6 @@ public class HomeController {
 
     @GetMapping
     public String home(@RequestParam(name = "logout", required = false, defaultValue = "true")  boolean logout, Model model, @PageableDefault(size = 20)  Pageable pageable) {
-        System.out.println("==========> ACTIVATED");
 
         Sort sort = pageable.getSort();
 

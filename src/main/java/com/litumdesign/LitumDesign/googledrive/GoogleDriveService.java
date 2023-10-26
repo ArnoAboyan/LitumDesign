@@ -71,37 +71,14 @@ public class GoogleDriveService {
 
 
 
-//        @Value("${client.privateid}")
-//     String GOOGLE_CREDENTIALS_PRIVATEID;
-//
-//    @Value("${client.privateid}")
-//     String GOOGLE_CREDENTIALS_PRIVATE;
-//
-//    @Value("${clientemail}")
-//     String GOOGLE_CREDENTIALS_CLIENTEMAIL;
-//
-//    @Value("${clientid}")
-//     String GOOGLE_CREDENTIALS_CLIENTID;
-
-
-
-
-
-
-
     public  Drive getInstance() throws GeneralSecurityException, IOException {
         // Build a new authorized API client service.
-//        System.out.println(nationConfigProperties.privateId());
-//        System.out.println(nationConfigProperties.privateKey());
-//        System.out.println(nationConfigProperties.clientMail());
-//        System.out.println(nationConfigProperties.clientId());
-
-        System.out.println("CLIENT_ID ->" + System.getenv("CLIENT_ID"));
 
         String clientId = System.getenv("CLIENT_ID");
        String clientMail= System.getenv("CLIENT_EMAIL");
-       String privateKey= System.getenv("CLIENT.PRIVATEKEY");
+       String privateKey= System.getenv("CLIENT_PRIVATEKEY");
        String privateId= System.getenv("CLIENT_PRIVATEID");
+
 
 
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
