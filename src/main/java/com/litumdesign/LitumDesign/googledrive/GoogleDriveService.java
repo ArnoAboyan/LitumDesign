@@ -62,61 +62,7 @@ public class GoogleDriveService {
     private static final String CREDENTIALS_FILE_PATH = "src/main/resources/litumdesign-398209-83c385017db8.json";
 
 
-//    /**
-//     * Creates an authorized Credential object.
-//     *
-//     * @param HTTP_TRANSPORT The network HTTP Transport.
-//     * @return An authorized Credential object.
-//     * @throws IOException If the credentials.json file cannot be found.
-//     */
 
-
-//    private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT)
-//            throws IOException {
-//        // Load client secrets.
-//        InputStream in = GoogleDriveService.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
-//        if (in == null) {
-//            throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
-//        }
-//        GoogleClientSecrets clientSecrets =
-//                GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
-//
-//        // Build flow and trigger user authorization request.
-//        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
-//                HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
-//                .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
-//                .setAccessType("offline")
-//                .build();
-//
-//
-//
-//        LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8082).build();
-//        Credential credential = new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
-//        //returns an authorized Credential object.
-//        return credential;
-//    }
-
-
-//    public static Drive getInstance() throws GeneralSecurityException, IOException {
-//        // Build a new authorized API client service.
-//        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-//        Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
-//                .setApplicationName(APPLICATION_NAME)
-//                .build();
-//        return service;
-//    }
-
-
-//    public static Drive getInstance() throws GeneralSecurityException, IOException {
-//        // Build a new authorized API client service.
-//    final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-//    HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(ServiceAccountCredentials.fromStream(new FileInputStream(CREDENTIALS_FILE_PATH))
-//            .createScoped(SCOPES));
-//    Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, requestInitializer)
-//            .setApplicationName(APPLICATION_NAME)
-//            .build();
-//        return service;
-//    }
 
     @Value("${google_service_client_privateid}")
      String GOOGLE_CREDENTIALS_PRIVATEID;
