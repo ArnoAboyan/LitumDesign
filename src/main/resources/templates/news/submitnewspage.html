@@ -39,7 +39,7 @@
 </head>
 <body id="searchresult">
 <div class="container">
-  <form class="submitNewsform" sec:authorize="hasRole('VENDOR')" hx-confirm="Are you sure you wish to add news?"
+  <form class="submitNewsform" sec:authorize="hasRole('ADMIN')" hx-confirm="Are you sure you wish to add news?"
         hx-post="/news/addnews" hx-swap="outerHTML">
     <!--          hx-target="#newscontainer" -->
     <div>
