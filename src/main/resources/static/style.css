@@ -31,11 +31,11 @@ margin: 0;
 
 a{
     text-decoration: none;
-    color: #4b4b4b;
+    color: #414141;
 }
 
 .navbar-collapse{
-    transition: all 0.5s;
+    transition: all .3s ease;
 }
 
  .headerup{
@@ -117,6 +117,7 @@ a{
         background: #DFDFDF;
         border-bottom: 5px solid #CB321A;
         padding-top: 14px;
+        transition: all .1s ease;
     }
 
 .unturned{
@@ -139,6 +140,7 @@ a{
         background: #DFDFDF;
         border-bottom: 5px solid #CB321A;
         padding-top: 14px;
+        transition : all .1s ease;
     }
 
 /*.searchfar-small-collapse{*/

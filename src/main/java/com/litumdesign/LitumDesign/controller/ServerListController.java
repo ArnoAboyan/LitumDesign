@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/serverlist")
-public class serverListController {
+public class ServerListController {
     @GetMapping
     public String getServerList(){
         return "serverlist";
