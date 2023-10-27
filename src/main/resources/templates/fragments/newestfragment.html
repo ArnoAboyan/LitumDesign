@@ -27,8 +27,9 @@
             <span th:if="${product.price == 0}">FREE</span>
             <span th:if="${product.price != 0}" th:text="'$' + ${product.price}"></span>
           </div>
-          <a class="btn buybutton "  aria-current="page" data-sec-authorize="isAuthenticated()" th:href="@{'file/download-file/' + ${product.gdFileId}}" > <img data-th-src="@{/image/img-download.svg}"></a>
-          <a class="btn buybutton "  aria-current="page" data-sec-authorize="!isAuthenticated()" th:href="@{/login}" > <img data-th-src="@{/image/logo-log-in.svg}"></a>
+<!--          <a class="btn buybutton "  aria-current="page" data-sec-authorize="isAuthenticated()" th:href="@{'/file/download-file/' + ${product.gdFileId}}" > <img data-th-src="@{/image/img-download.svg}"></a>-->
+<!--          <a class="btn buybutton "  aria-current="page" data-sec-authorize="!isAuthenticated()" th:href="@{/login}" > <img data-th-src="@{/image/logo-log-in.svg}"></a>-->
+          <a class="btn buybutton "  aria-current="page"  th:href="@{'/file/download-file/' + ${product.gdFileId}}" > <img data-th-src="@{/image/img-download.svg}"></a>
         </div>
       </div>
     </div>
