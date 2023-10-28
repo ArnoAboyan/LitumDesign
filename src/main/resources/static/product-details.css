@@ -220,6 +220,10 @@ span.img-text {
     max-width: 1170px;
 }
 
+.product-details img{
+    max-width: 100%;
+    object-fit: cover;
+}
 
 
 @media screen and (max-width: 991px) {
