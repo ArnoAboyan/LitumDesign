@@ -120,7 +120,7 @@ span.img-text {
     align-items: center;
     font-size: 40px;
     font-weight: 400;
-    margin-right: 35px;
+    margin-right: 45px;
 }
 .product-header-category-info{
     display: flex;
@@ -161,8 +161,16 @@ span.img-text {
     color: #F1F1F1;
 
 }
+.product-header-bybutton a{
+    color: #F1F1F1;
+}
 .product-header-bybutton:hover{
     background-color: #cc4b37;
+}
+
+.product-header-bybutton a:hover{
+    border: none;
+
 }
 
 .product-header-bybutton:active{
@@ -205,6 +213,11 @@ span.img-text {
     border-bottom :3px solid #CB321A;
     margin-left: 10px;
     transition: all .3s ease;
+}
+
+.details-container{
+    margin: 0 auto;
+    max-width: 1170px;
 }
 
 

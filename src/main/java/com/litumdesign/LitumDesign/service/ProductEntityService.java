@@ -175,4 +175,10 @@ public class ProductEntityService {
         return productEntities;
 
     }
+
+    public ProductEntity findProductDetailsEntityById(Long productId){
+
+        return productEntityRepository.findById(productId).orElseThrow(()-> new NullPointerException("Product not find"));
+
+    }
 }

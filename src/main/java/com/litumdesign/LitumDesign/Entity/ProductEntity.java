@@ -27,14 +27,15 @@ public class ProductEntity {
     UserEntity uploadUserId;
     @Column(name = "title", columnDefinition = "VARCHAR")
     String title;
+    @Column(name = "price", columnDefinition = "DOUBLE DEFAULT 0")
     Double price;
     @Column(name = "discount", columnDefinition = "INTEGER DEFAULT 0")
     Integer discount;
-    @Column(name = "short_info", columnDefinition = "VARCHAR")
+    @Column(name = "short_info", columnDefinition = "VARCHAR DEFAULT null")
     String shortInfo;
-    @Column(name = "description", columnDefinition = "VARCHAR")
+    @Column(name = "description", columnDefinition = "VARCHAR DEFAULT null")
     String description;
-    @Column(name = "gd_file_id", columnDefinition = "VARCHAR")
+    @Column(name = "gd_file_id", columnDefinition = "VARCHAR DEFAULT null")
     String gdFileId;
     @Column(name = "count_of_downloads", columnDefinition = "INTEGER DEFAULT 0")
     Integer countOfDownloads;
@@ -42,9 +43,9 @@ public class ProductEntity {
     Integer countOfReviews;
     @Column(name = "average_rating", columnDefinition = "INTEGER DEFAULT 0")
     Integer averageRating;
-    @Column(name = "title_image_link", columnDefinition = "VARCHAR")
+    @Column(name = "title_image_link", columnDefinition = "VARCHAR DEFAULT null")
     String titleImageLink;
-    @Column(name = "license", columnDefinition = "VARCHAR")
+    @Column(name = "license", columnDefinition = "VARCHAR DEFAULT null")
     String license;
     @Enumerated(value = EnumType.STRING)
     Access access;
@@ -61,10 +62,10 @@ public class ProductEntity {
     @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     List<ProductVersionEntity> productVersion;
 
-    @Column(name = "video_link", columnDefinition = "VARCHAR")
+    @Column(name = "video_link", columnDefinition = "VARCHAR DEFAULT null")
     String videoLink;
 
-    @Column(name = "advertising")
+    @Column(name = "advertising", columnDefinition = "VARCHAR DEFAULT null")
     Boolean advertising;
 
     @Column(name = "created_at")
