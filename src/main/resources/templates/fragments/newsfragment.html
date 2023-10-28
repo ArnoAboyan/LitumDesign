@@ -20,6 +20,7 @@
         <p class="card-text ">
         <div class="d-flex justify-content-between">
           <p class=""><small class="text-muted" th:text="'by: ' + ${news.getAuthor()}"></small></p>
+          <p class=""><small class="text-muted" ><button class="read-more-button">Read more....</button></small></p>
           <p class=""><small class="text-muted" th:text="${news.getCreatedAt().toLocalDate()}"></small></p>
         </div>
       </div>

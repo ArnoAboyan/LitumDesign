@@ -748,6 +748,15 @@ font-weight: 400;
       border-bottom: 5px solid #CB321A;
   }
 
+  .read-more-button{
+      background-color: rgba(208, 50, 25, 0);
+      border-radius: 0;
+      /*border-bottom: 2px solid #CB321A;*/
+      /*border-top: 2px solid rgba(203, 50, 26, 0);*/
+      /*border-left: 2px solid rgba(203, 50, 26, 0);*/
+      /*border-right: 2px solid rgba(203, 50, 26, 0);*/
+      border: 0px;
+  }
 
 .news-about{
     color: #F1F1F1;
