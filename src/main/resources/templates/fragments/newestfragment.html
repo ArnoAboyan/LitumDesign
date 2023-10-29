@@ -15,6 +15,7 @@
 <body>
 <div class="row  row-cols-2   row-cols-lg-5  row-cols-md-4   py-0 " th:fragment="firstDiv" th:with="newestproductList=${productsNewest}">
   <div class="col " th:each="product : ${newestproductList}">
+    <a th:href="@{'/product/details/' + ${product.id}}">
     <div class="card  h-100 ">
       <p class="card-count-of-downloads" th:text="'( ' + '⭳' +${product.countOfDownloads}+' )'"></p>
       <img data-th-src="@{${product.titleImageLink}}" class="card-img-top" alt="...">
@@ -33,6 +34,7 @@
         </div>
       </div>
     </div>
+    </a>
   </div>
 </div>
 <script src="/js/script.js"></script>

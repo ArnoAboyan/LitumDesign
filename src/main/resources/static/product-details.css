@@ -221,7 +221,7 @@ span.img-text {
 }
 
 .product-details img{
-    max-width: 100%;
+    max-width: 95%;
     object-fit: cover;
 }
 
