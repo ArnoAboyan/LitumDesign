@@ -74,8 +74,11 @@ margin-top: 25px">
         <div class="product-header-title">
             <h2 class="text-break" th:text="${productdetails.getTitle()}"></h2>
         </div>
-        <div>downloads/views/size/date</div>
-        <div class="product-header-category-info ">
+<!--        <div>downloads/views/size/date</div>-->
+        <a class="product-details-count-downloads" th:text="${productdetails.getCountOfDownloads()}"></a>
+        <a>/</a>
+        <a class="product-details-data" th:text="${#temporals.format(productdetails.getCreatedAt(), 'dd-MMM-yyyy')}"></a>
+        <div class="product-header-category-info">
             <div>
                 <a href="#" th:text="${productdetails.getGameType()}"></a><a>/</a><a href="#" th:text="${productdetails.getCategories()}"></a>
                 <div class="product-header-author ">

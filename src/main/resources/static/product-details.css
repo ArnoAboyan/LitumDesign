@@ -225,7 +225,17 @@ span.img-text {
     object-fit: cover;
 }
 
+.product-details-count-downloads{
+    font-size: 15px;
+    font-weight: 100;
+    color: #757575;
+}
 
+.product-details-data{
+    font-size: 15px;
+    font-weight: 100;
+    color: #757575;
+}
 @media screen and (max-width: 991px) {
 
     .owl-carousel .prev-slide{
