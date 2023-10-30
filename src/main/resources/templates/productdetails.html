@@ -98,8 +98,10 @@ margin-top: 25px">
                 </div>
             </div>
             <div class="product-header-price ">
+                <div>
                 <h2 th:if="${productdetails.getPrice() == 0}">FREE</h2>
                 <h2 th:if="${productdetails.getPrice() != 0}" th:text="'$' + ${productdetails.getPrice()}"></h2>
+                </div>
                 <div class="product-header-downloadfile-container ">
                     <div class="product-header-bybutton ">
                        <a  th:href="@{'/file/download-file/' + ${productdetails.getGdFileId()}}">Download/Buy</a>
