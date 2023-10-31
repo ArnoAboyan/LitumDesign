@@ -9,6 +9,7 @@ import org.apache.tomcat.util.http.fileupload.impl.SizeException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -76,7 +77,7 @@ public class ProductEntityService {
     }
 
     public Page<ProductEntity> getAllProductEntity(Pageable pageable)  {
-        Page<ProductEntity> products = productEntityRepository.findAll(pageable);
+        Page<ProductEntity> products = productEntityRepository.findAllByAccess(pageable, Access.PUBLIC );
 
 
         if (products.getSize() != 20){
@@ -91,7 +92,7 @@ public class ProductEntityService {
 
 
     public List<ProductEntity> getMostPopularProduct() {
- List<ProductEntity> productEntities = productEntityRepository.findTop5ByOrderByCountOfDownloadsDesc();
+ List<ProductEntity> productEntities = productEntityRepository.findTop5ByAccessOrderByCountOfDownloadsDesc(Access.PUBLIC);
 
         System.out.println("MostPopularProductEntity ->>>" + productEntities.toString());
 
@@ -101,7 +102,7 @@ public class ProductEntityService {
 
 
     public List<ProductEntity> getMostPopularProductWithGameType(GameType gameType) {
-        List<ProductEntity> productEntities = productEntityRepository.findTop5ByGameTypeOrderByCountOfDownloadsDesc(gameType);
+        List<ProductEntity> productEntities = productEntityRepository.findTop5ByGameTypeAndAccessOrderByCountOfDownloadsDesc(gameType, Access.PUBLIC);
 
         System.out.println("MostPopularProductEntity ->>>" + productEntities.toString());
 
@@ -110,7 +111,7 @@ public class ProductEntityService {
     }
 
     public List<ProductEntity> getNewestProduct() {
-        List<ProductEntity> productEntities = productEntityRepository.findTop5ByOrderByCreatedAtDesc();
+        List<ProductEntity> productEntities = productEntityRepository.findTop5ByAccessOrderByCreatedAtDesc(Access.PUBLIC);
 
         System.out.println("NewestProductEntity ->>>" + productEntities.toString());
 
@@ -151,7 +152,7 @@ public class ProductEntityService {
     }
 
     public Page<ProductEntity> getAllProductByGameTypeAndSort(GameType gameType, Pageable pageable)  {
-        Page<ProductEntity> products = productEntityRepository.findAllByGameType(gameType, pageable);
+        Page<ProductEntity> products = productEntityRepository.findAllByGameTypeAndAccess(gameType, pageable, Access.PUBLIC);
 
 
         return products;
@@ -160,21 +161,21 @@ public class ProductEntityService {
 
 
     public Page<ProductEntity> getAllProductByGameTypeAndCategoriesAndSort(GameType gameType, Categories categories, Pageable pageable )  {
-        Page<ProductEntity> products = productEntityRepository.findAllByGameTypeAndCategories(gameType, categories, pageable);
+        Page<ProductEntity> products = productEntityRepository.findAllByGameTypeAndCategoriesAndAccess(gameType, categories, pageable, Access.PUBLIC);
 
 
 
         return products;
     }
 
-    public List<ProductEntity> getSliderByGameType(GameType gameType) {
-        List<ProductEntity> productEntities = productEntityRepository.findAllByAdvertisingTrueAndAccess(Access.PUBLIC);
-
-        System.out.println("SliderNewestProductEntity ->>>" + productEntities.toString());
-
-        return productEntities;
-
-    }
+//    public List<ProductEntity> getSliderByGameType(GameType gameType) {
+//        List<ProductEntity> productEntities = productEntityRepository.findAllByAdvertisingTrueAndAccess(Access.PUBLIC);
+//
+//        System.out.println("SliderNewestProductEntity ->>>" + productEntities.toString());
+//
+//        return productEntities;
+//
+//    }
 
     public ProductEntity findProductDetailsEntityById(Long productId){
 

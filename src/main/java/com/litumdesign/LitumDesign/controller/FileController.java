@@ -7,7 +7,9 @@ import com.litumdesign.LitumDesign.repository.ProductPhotoRepository;
 import com.litumdesign.LitumDesign.service.ProductEntityService;
 import com.litumdesign.LitumDesign.service.UserEntityService;
 import io.github.wimdeblauwe.htmx.spring.boot.mvc.HxRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.apache.http.HttpStatus;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -107,9 +109,13 @@ public class FileController {
     @GetMapping("/download-file/{fileId}")
     @Async
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileId, @AuthenticationPrincipal UserDetails userDetails) throws GeneralSecurityException, IOException {
-        productEntityService.downloadCounter(fileId);
-        userEntityService.userDownloadCounter(userDetails);
-        return googleDriveService.downloadFile(fileId);
+
+            productEntityService.downloadCounter(fileId);
+        System.out.println("userDetails ---->" + userDetails);
+            if (userDetails != null) {
+                userEntityService.userDownloadCounter(userDetails);
+            }
+            return  googleDriveService.downloadFile(fileId);
     }
 
 
