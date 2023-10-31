@@ -43,6 +43,8 @@ public class ProductEntity {
     Integer countOfReviews;
     @Column(name = "average_rating", columnDefinition = "INTEGER DEFAULT 0")
     Integer averageRating;
+    @Column(name = "count_of_view", columnDefinition = "INTEGER DEFAULT 0")
+    Integer countOfView;
     @Column(name = "title_image_link", columnDefinition = "VARCHAR DEFAULT null")
     String titleImageLink;
     @Column(name = "license", columnDefinition = "VARCHAR DEFAULT null")
@@ -81,7 +83,7 @@ public class ProductEntity {
     public ProductEntity(String title, String titleImageLink, Double price, String shortInfo,
                          String description, Categories categories, GameType gameType,
                          Access access, String videoLink, Boolean advertising, Integer discount,
-                         Integer countOfDownloads, Integer countOfReviews, Integer averageRating) {
+                         Integer countOfDownloads, Integer countOfReviews, Integer averageRating, Integer countOfView) {
         this.title = title;
         this.titleImageLink = titleImageLink;
         this.price = price;
@@ -96,6 +98,7 @@ public class ProductEntity {
         this.countOfDownloads = countOfDownloads;
         this.countOfReviews = countOfReviews;
         this.averageRating = averageRating;
+        this.countOfView = countOfView;
 
     }
 }

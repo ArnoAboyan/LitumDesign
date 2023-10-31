@@ -23,6 +23,8 @@ public class ProductDetailsController {
        ProductEntity productDetails =  productEntityService.findProductDetailsEntityById(productId);
 
         model.addAttribute("productdetails", productDetails);
+
+        productEntityService.viewsCounter(productDetails);
         return "productdetails";
     }
 

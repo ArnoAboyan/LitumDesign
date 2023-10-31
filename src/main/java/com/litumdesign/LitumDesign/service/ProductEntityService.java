@@ -137,6 +137,12 @@ public class ProductEntityService {
         productEntityRepository.save(product);
     }
 
+    public void viewsCounter(ProductEntity productEntity){
+
+        productEntity.setCountOfView(productEntity.getCountOfView() + 1);
+
+        productEntityRepository.save(productEntity);
+    }
 
     public Page<ProductEntity> getSearchResult( String searchQuery, Pageable pageable)  {
         Page<ProductEntity> products = productEntityRepository.searchByInput(searchQuery.toLowerCase(),pageable);
