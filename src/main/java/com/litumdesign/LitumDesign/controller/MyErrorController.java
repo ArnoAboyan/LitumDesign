@@ -29,6 +29,9 @@ public class MyErrorController implements ErrorController{
             else if(statusCode == HttpStatus.SC_BAD_REQUEST) {
                 return "errors/error-400";
             }
+            else if(statusCode == HttpStatus.SC_BAD_GATEWAY) {
+                return "errors/error-502";
+            }
         }
         return "errors/error";
     }
