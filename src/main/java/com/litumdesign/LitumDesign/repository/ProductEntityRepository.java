@@ -1,9 +1,6 @@
 package com.litumdesign.LitumDesign.repository;
 
-import com.litumdesign.LitumDesign.Entity.Access;
-import com.litumdesign.LitumDesign.Entity.Categories;
-import com.litumdesign.LitumDesign.Entity.GameType;
-import com.litumdesign.LitumDesign.Entity.ProductEntity;
+import com.litumdesign.LitumDesign.Entity.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -36,5 +33,9 @@ public interface ProductEntityRepository extends JpaRepository<ProductEntity, Lo
     "LOWER(concat(p.title, p.shortInfo)) " +
     " LIKE %:searchQuery%" + "AND p.access = 'PUBLIC'")
     Page<ProductEntity> searchByInput(@Param("searchQuery") String searchQuery, Pageable pageable);
+
+    List<ProductEntity> findByUploadUserId(@Param("UploadUserId") UserEntity userEntity);
+
+
 }
 

@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
 
-public interface UserRepository extends CrudRepository<UserEntity, String> {
+public interface UserRepository extends JpaRepository<UserEntity, String> {
 
 //    Optional<UserEntity> findByUserNickName(String nickName);
 //

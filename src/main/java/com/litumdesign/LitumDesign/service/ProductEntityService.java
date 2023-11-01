@@ -94,7 +94,6 @@ public class ProductEntityService {
     public List<ProductEntity> getMostPopularProduct() {
  List<ProductEntity> productEntities = productEntityRepository.findTop5ByAccessOrderByCountOfDownloadsDesc(Access.PUBLIC);
 
-        System.out.println("MostPopularProductEntity ->>>" + productEntities.toString());
 
         return productEntities;
 
@@ -104,7 +103,6 @@ public class ProductEntityService {
     public List<ProductEntity> getMostPopularProductWithGameType(GameType gameType) {
         List<ProductEntity> productEntities = productEntityRepository.findTop5ByGameTypeAndAccessOrderByCountOfDownloadsDesc(gameType, Access.PUBLIC);
 
-        System.out.println("MostPopularProductEntity ->>>" + productEntities.toString());
 
         return productEntities;
 
@@ -113,7 +111,6 @@ public class ProductEntityService {
     public List<ProductEntity> getNewestProduct() {
         List<ProductEntity> productEntities = productEntityRepository.findTop5ByAccessOrderByCreatedAtDesc(Access.PUBLIC);
 
-        System.out.println("NewestProductEntity ->>>" + productEntities.toString());
 
         return productEntities;
 
@@ -122,7 +119,6 @@ public class ProductEntityService {
     public List<ProductEntity> getSliderProduct() {
         List<ProductEntity> productEntities = productEntityRepository.findAllByAdvertisingTrueAndAccess(Access.PUBLIC);
 
-        System.out.println("SliderNewestProductEntity ->>>" + productEntities.toString());
 
         return productEntities;
 
@@ -188,4 +184,28 @@ public class ProductEntityService {
         return productEntityRepository.findById(productId).orElseThrow(()-> new NullPointerException("Product not find"));
 
     }
+
+
+    public List<ProductEntity> findAllByVendorId (UserEntity uploadVendorId)  {
+        List<ProductEntity> products = productEntityRepository.findByUploadUserId(uploadVendorId);
+
+        return products;
+    }
+
+    public int sumOfDownloads(List<ProductEntity> productEntityList){
+
+        return productEntityList.stream()
+                .mapToInt(ProductEntity::getCountOfDownloads)
+                .sum();
+
+    }
+
+    public int sumOfViews(List<ProductEntity> productEntityList){
+
+        return productEntityList.stream()
+                .mapToInt(ProductEntity::getCountOfView)
+                .sum();
+
+    }
+
 }

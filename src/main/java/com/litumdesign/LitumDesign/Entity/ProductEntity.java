@@ -27,15 +27,15 @@ public class ProductEntity {
     UserEntity uploadUserId;
     @Column(name = "title", columnDefinition = "VARCHAR")
     String title;
-    @Column(name = "price", columnDefinition = "DOUBLE DEFAULT 0")
+    @Column(name = "price")
     Double price;
     @Column(name = "discount", columnDefinition = "INTEGER DEFAULT 0")
     Integer discount;
-    @Column(name = "short_info", columnDefinition = "VARCHAR DEFAULT null")
+    @Column(name = "short_info", columnDefinition = "VARCHAR")
     String shortInfo;
-    @Column(name = "description", columnDefinition = "VARCHAR DEFAULT null")
+    @Column(name = "description", columnDefinition = "VARCHAR")
     String description;
-    @Column(name = "gd_file_id", columnDefinition = "VARCHAR DEFAULT null")
+    @Column(name = "gd_file_id", columnDefinition = "VARCHAR")
     String gdFileId;
     @Column(name = "count_of_downloads", columnDefinition = "INTEGER DEFAULT 0")
     Integer countOfDownloads;
@@ -45,9 +45,9 @@ public class ProductEntity {
     Integer averageRating;
     @Column(name = "count_of_view", columnDefinition = "INTEGER DEFAULT 0")
     Integer countOfView;
-    @Column(name = "title_image_link", columnDefinition = "VARCHAR DEFAULT null")
+    @Column(name = "title_image_link", columnDefinition = "VARCHAR")
     String titleImageLink;
-    @Column(name = "license", columnDefinition = "VARCHAR DEFAULT null")
+    @Column(name = "license", columnDefinition = "VARCHAR")
     String license;
     @Enumerated(value = EnumType.STRING)
     Access access;
@@ -64,10 +64,10 @@ public class ProductEntity {
     @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     List<ProductVersionEntity> productVersion;
 
-    @Column(name = "video_link", columnDefinition = "VARCHAR DEFAULT null")
+    @Column(name = "video_link", columnDefinition = "VARCHAR")
     String videoLink;
 
-    @Column(name = "advertising", columnDefinition = "VARCHAR DEFAULT null")
+    @Column(name = "advertising", columnDefinition = "VARCHAR DEFAULT ")
     Boolean advertising;
 
     @Column(name = "created_at")

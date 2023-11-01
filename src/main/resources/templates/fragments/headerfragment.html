@@ -129,6 +129,11 @@
                                 </a>
                             </li>
                             <li>
+                                <a class="dropdown-item " sec:authorize="hasAnyRole('ADMIN', 'VENDOR')" th:href="@{/vendor/vendorpanel/{vendorid}(vendorid=${#authentication.principal.username})}">
+                                    Vendor panel
+                                </a>
+                            </li>
+                            <li>
                                 <a class="dropdown-item " th:href="@{/logout}">
                                     <img data-th-src="@{/image/logout-icon.svg}"> Logout
                                 </a>

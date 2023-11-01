@@ -15,39 +15,52 @@
         </div>
 
         <div class="offcanvas-body sidebar-body">
-                    <hr>
-                    <p>Select a category:</p>
-                    <a class="sidebar-body-button" th:href="@{/{gamename}/{category}(category='PLUGIN',gamename=${gamename})}" type="button">•&nbsp;PLUGINS</a>
-                    <br>
-                    <a class="sidebar-body-button" th:href="@{/{gamename}/{category}(category='MAP',gamename=${gamename})}" type="button">•&nbsp;MAPS</a>
-                    <br>
-                    <a class="sidebar-body-button" th:href="@{/{gamename}/{category}(category='PREFAB',gamename=${gamename})}" type="button">•&nbsp;PREFABS</a>
-                    <br>
-                    <a class="sidebar-body-button" th:href="@{/{gamename}/{category}(category='MONUMENT',gamename=${gamename})}" type="button">•&nbsp;MONUMENTS</a>
-                    <br>
-                    <a class="sidebar-body-button" th:href="@{/{gamename}/{category}(category='TOOL',gamename=${gamename})}" type="button">•&nbsp;TOOLS</a>
-                    <hr>
-                    <p>Sort by:</p>
-                    <a class="sidebar-body-button" th:href="@{${#ctx.springRequestContext.requestUri}(sort='countOfDownloads,desc')}" type="button">Popular</a>
-                    <br>
-                    <a class="sidebar-body-button" th:href="@{${#ctx.springRequestContext.requestUri}(sort='price')}" type="button">Free (price Low-High)</a>
-                    <br>
-                    <a class="sidebar-body-button" th:href="@{${#ctx.springRequestContext.requestUri}(sort='createdAt,desc')}" type="button">Latest</a>
-                    <br>
-                    <a class="sidebar-body-button" th:href="@{${#ctx.springRequestContext.requestUri}(sort='price,desc')}" type="button">price High-low</a>
-                    <br>
-<!--                    <a class="sidebar-body-button" th:href="@{/rust/{category}(category='TOOL')}" type="button">price High-Low</a>-->
-                    <br>
-<!--                    <a class="sidebar-body-button" th:href="@{/rust/{category}(category='TOOL')}" type="button">Sale</a>-->
-                    <hr>
-                </div>
-<!--                <div class="d-flex justify- content-center bg-success">-->
-<!--                    <div class="align-self-center p-3">-->
-<!--                        <p class="text-white">Other content</p>-->
-<!--                        <p class="text-center mb-0">-->
-<!--                            <button type="button" class="btn btn-primary btn-sm">FOOTER</button>-->
-<!--                        </p>-->
-<!--                    </div>-->
-<!--                </div>-->
+            <hr>
+            <p>Select a category:</p>
+            <a class="sidebar-body-button" th:href="@{/{gamename}/{category}(category='PLUGIN',gamename=${gamename})}"
+               type="button">•&nbsp;PLUGINS</a>
+            <br>
+            <a class="sidebar-body-button" th:href="@{/{gamename}/{category}(category='MAP',gamename=${gamename})}"
+               type="button">•&nbsp;MAPS</a>
+            <br>
+            <a class="sidebar-body-button" th:href="@{/{gamename}/{category}(category='PREFAB',gamename=${gamename})}"
+               type="button">•&nbsp;PREFABS</a>
+            <br>
+            <a class="sidebar-body-button" th:href="@{/{gamename}/{category}(category='MONUMENT',gamename=${gamename})}"
+               type="button">•&nbsp;MONUMENTS</a>
+            <br>
+            <a class="sidebar-body-button" th:href="@{/{gamename}/{category}(category='TOOL',gamename=${gamename})}"
+               type="button">•&nbsp;TOOLS</a>
+            <br>
+            <a class="sidebar-body-button" th:href="@{/{gamename}/{category}(category='MOD',gamename=${gamename})}"
+               type="button">•&nbsp;MOD</a>
+            <hr>
+            <p>Sort by:</p>
+            <a class="sidebar-body-button"
+               th:href="@{${#ctx.springRequestContext.requestUri}(sort='countOfDownloads,desc')}"
+               type="button">Popular</a>
+            <br>
+            <a class="sidebar-body-button" th:href="@{${#ctx.springRequestContext.requestUri}(sort='price')}"
+               type="button">Free (price Low-High)</a>
+            <br>
+            <a class="sidebar-body-button" th:href="@{${#ctx.springRequestContext.requestUri}(sort='createdAt,desc')}"
+               type="button">Latest</a>
+            <br>
+            <a class="sidebar-body-button" th:href="@{${#ctx.springRequestContext.requestUri}(sort='price,desc')}"
+               type="button">price High-low</a>
+            <br>
+            <!--                    <a class="sidebar-body-button" th:href="@{/rust/{category}(category='TOOL')}" type="button">price High-Low</a>-->
+            <br>
+            <!--                    <a class="sidebar-body-button" th:href="@{/rust/{category}(category='TOOL')}" type="button">Sale</a>-->
+            <hr>
+        </div>
+        <!--                <div class="d-flex justify- content-center bg-success">-->
+        <!--                    <div class="align-self-center p-3">-->
+        <!--                        <p class="text-white">Other content</p>-->
+        <!--                        <p class="text-center mb-0">-->
+        <!--                            <button type="button" class="btn btn-primary btn-sm">FOOTER</button>-->
+        <!--                        </p>-->
+        <!--                    </div>-->
+        <!--                </div>-->
     </div>
 </div>

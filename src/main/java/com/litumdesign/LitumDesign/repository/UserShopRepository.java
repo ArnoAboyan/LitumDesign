@@ -1,7 +1,8 @@
 package com.litumdesign.LitumDesign.repository;
 
 import com.litumdesign.LitumDesign.Entity.UserShopEntity;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+;
 
-public interface UserShopRepository extends CrudRepository<UserShopEntity, Long> {
+public interface UserShopRepository extends JpaRepository<UserShopEntity, Long> {
 }
