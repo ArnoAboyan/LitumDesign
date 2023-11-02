@@ -5,11 +5,11 @@ import com.litumdesign.LitumDesign.repository.ProductEntityRepository;
 import com.litumdesign.LitumDesign.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.apache.tomcat.util.http.fileupload.impl.SizeException;
+//import org.apache.tomcat.util.http.fileupload.impl.SizeException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.Param;
+//import org.springframework.data.domain.Sort;
+//import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Supplier;
+//import java.util.function.Supplier;
 
 @Service
 @RequiredArgsConstructor
@@ -92,35 +92,31 @@ public class ProductEntityService {
 
 
     public List<ProductEntity> getMostPopularProduct() {
- List<ProductEntity> productEntities = productEntityRepository.findTop5ByAccessOrderByCountOfDownloadsDesc(Access.PUBLIC);
 
 
-        return productEntities;
+        return productEntityRepository.findTop5ByAccessOrderByCountOfDownloadsDesc(Access.PUBLIC);
 
     }
 
 
     public List<ProductEntity> getMostPopularProductWithGameType(GameType gameType) {
-        List<ProductEntity> productEntities = productEntityRepository.findTop5ByGameTypeAndAccessOrderByCountOfDownloadsDesc(gameType, Access.PUBLIC);
 
 
-        return productEntities;
+        return productEntityRepository.findTop5ByGameTypeAndAccessOrderByCountOfDownloadsDesc(gameType, Access.PUBLIC);
 
     }
 
     public List<ProductEntity> getNewestProduct() {
-        List<ProductEntity> productEntities = productEntityRepository.findTop5ByAccessOrderByCreatedAtDesc(Access.PUBLIC);
 
 
-        return productEntities;
+        return productEntityRepository.findTop5ByAccessOrderByCreatedAtDesc(Access.PUBLIC);
 
     }
 
     public List<ProductEntity> getSliderProduct() {
-        List<ProductEntity> productEntities = productEntityRepository.findAllByAdvertisingTrueAndAccess(Access.PUBLIC);
 
 
-        return productEntities;
+        return productEntityRepository.findAllByAdvertisingTrueAndAccess(Access.PUBLIC);
 
     }
 
@@ -141,33 +137,23 @@ public class ProductEntityService {
     }
 
     public Page<ProductEntity> getSearchResult( String searchQuery, Pageable pageable)  {
-        Page<ProductEntity> products = productEntityRepository.searchByInput(searchQuery.toLowerCase(),pageable);
 
 
-//        if (products.getSize() != 20){
-//            log.error("Size is incorrect");
-//            throw new UnsupportedOperationException("Size is incorrect") {
-//            };
-//        }
-
-        return products;
+        return productEntityRepository.searchByInput(searchQuery.toLowerCase(),pageable);
     }
 
     public Page<ProductEntity> getAllProductByGameTypeAndSort(GameType gameType, Pageable pageable)  {
-        Page<ProductEntity> products = productEntityRepository.findAllByGameTypeAndAccess(gameType, pageable, Access.PUBLIC);
 
 
-        return products;
+        return productEntityRepository.findAllByGameTypeAndAccess(gameType, pageable, Access.PUBLIC);
     }
 
 
 
     public Page<ProductEntity> getAllProductByGameTypeAndCategoriesAndSort(GameType gameType, Categories categories, Pageable pageable )  {
-        Page<ProductEntity> products = productEntityRepository.findAllByGameTypeAndCategoriesAndAccess(gameType, categories, pageable, Access.PUBLIC);
 
 
-
-        return products;
+        return productEntityRepository.findAllByGameTypeAndCategoriesAndAccess(gameType, categories, pageable, Access.PUBLIC);
     }
 
 //    public List<ProductEntity> getSliderByGameType(GameType gameType) {
@@ -187,9 +173,14 @@ public class ProductEntityService {
 
 
     public List<ProductEntity> findAllByVendorId (UserEntity uploadVendorId)  {
-        List<ProductEntity> products = productEntityRepository.findByUploadUserId(uploadVendorId);
 
-        return products;
+        return productEntityRepository.findByUploadUserId(uploadVendorId);
+    }
+
+
+    public List<ProductEntity> findByVendorIdAndCategories (UserEntity uploadVendorId, Categories categories)  {
+
+        return productEntityRepository.findByUploadUserIdAndCategories(uploadVendorId, categories);
     }
 
     public int sumOfDownloads(List<ProductEntity> productEntityList){

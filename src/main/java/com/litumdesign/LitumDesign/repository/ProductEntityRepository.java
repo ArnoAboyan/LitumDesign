@@ -36,6 +36,7 @@ public interface ProductEntityRepository extends JpaRepository<ProductEntity, Lo
 
     List<ProductEntity> findByUploadUserId(@Param("UploadUserId") UserEntity userEntity);
 
+    List<ProductEntity> findByUploadUserIdAndCategories(@Param("UploadUserId") UserEntity userEntity, @Param("Categories") Categories categories);
 
 }
 

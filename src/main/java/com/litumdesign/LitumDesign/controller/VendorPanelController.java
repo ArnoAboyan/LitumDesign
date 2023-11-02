@@ -1,16 +1,16 @@
 package com.litumdesign.LitumDesign.controller;
 
+import com.litumdesign.LitumDesign.Entity.Categories;
 import com.litumdesign.LitumDesign.Entity.ProductEntity;
 import com.litumdesign.LitumDesign.service.ProductEntityService;
 import com.litumdesign.LitumDesign.service.UserEntityService;
+import io.github.wimdeblauwe.htmx.spring.boot.mvc.HxRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,13 +23,31 @@ public class VendorPanelController {
     private final UserEntityService userEntityService;
 
 
-    @GetMapping("/vendorpanel/{vendorid}")
-    public String openVendorPanel(@PathVariable String vendorid, Model model, @AuthenticationPrincipal UserDetails userDetails ){
+//    @GetMapping("/vendorpanel/{vendorid}")
+//    public String openVendorPanel(@PathVariable String vendorid, Model model, @AuthenticationPrincipal UserDetails userDetails ){
+//
+//        if (userDetails.getUsername().equalsIgnoreCase(vendorid)){
+//            userEntityService.getUserById(vendorid);
+//
+//            List<ProductEntity> productEntityList = productEntityService.findAllByVendorId(userEntityService.getUserById(vendorid));
+//
+//            productEntityService.sumOfDownloads(productEntityList);
+//
+//
+//            model.addAttribute("allvendorproducts", productEntityList);
+//            model.addAttribute("sumofdownloads", productEntityService.sumOfDownloads(productEntityList));
+//            model.addAttribute("sumofviews", productEntityService.sumOfViews(productEntityList));
+//
+//            return "vendorpanel";
+//        }return "errors/error-404";
+//    }
 
-        if (userDetails.getUsername().equalsIgnoreCase(vendorid)){
-            userEntityService.getUserById(vendorid);
+    @GetMapping("/vendorpanel")
+    public String openVendorPanel(Model model, @AuthenticationPrincipal UserDetails userDetails ){
 
-            List<ProductEntity> productEntityList = productEntityService.findAllByVendorId(userEntityService.getUserById(vendorid));
+        if (userDetails.getUsername() != null){
+
+            List<ProductEntity> productEntityList = productEntityService.findAllByVendorId(userEntityService.getUserById(userDetails.getUsername()));
 
             productEntityService.sumOfDownloads(productEntityList);
 
@@ -41,4 +59,29 @@ public class VendorPanelController {
             return "vendorpanel";
         }return "errors/error-404";
     }
+
+
+
+    @GetMapping("/vendorpanel/bycategory/{category}")
+    @HxRequest
+    public String getProductByCategoryHx(@PathVariable Categories category, Model model, @AuthenticationPrincipal UserDetails userDetails ){
+
+        System.out.println("SUCCESS" + category);
+
+            List<ProductEntity> productEntityList =  productEntityService.findByVendorIdAndCategories(userEntityService.getUserById(userDetails.getUsername()), category);
+        model.addAttribute("vendorproductsbycategory", productEntityList);
+
+        return "fragments/vendorpanelproductsfragment";
+    }
+
+    @GetMapping("vendorpanel/allproducts")
+    @HxRequest
+    public String getAllProductHx(Model model, @AuthenticationPrincipal UserDetails userDetails ){
+
+        List<ProductEntity> productEntityList = productEntityService.findAllByVendorId(userEntityService.getUserById(userDetails.getUsername()));
+        model.addAttribute("vendorproductsbycategory", productEntityList);
+
+        return "fragments/vendorpanelproductsfragment";
+    }
+
 }

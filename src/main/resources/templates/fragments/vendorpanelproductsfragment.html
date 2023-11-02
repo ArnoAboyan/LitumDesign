@@ -1,0 +1,29 @@
+<div id="vendorpanelproductsragment">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Photo</th>
+            <th scope="col">Title</th>
+            <th scope="col">Type</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="vendorproduct, iterStat : ${vendorproductsbycategory}">
+            <th scope="row" th:text="${iterStat.count}"></th>
+            <td class="td-photo border" ><img class="table-image" th:src="${vendorproduct.getTitleImageLink()}"></td>
+            <td th:text="${vendorproduct.getTitle()}"></td>
+            <td th:text="${vendorproduct.getCategories()}"></td>
+            <td class="th-custom">
+                <button type="button" class="btn  vendor-btns-underline">
+                    <i class="fa-solid fa-pen"></i>
+                </button>
+                <button type="button" class="btn  vendor-btns-underline">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
