@@ -23,25 +23,6 @@ public class VendorPanelController {
     private final UserEntityService userEntityService;
 
 
-//    @GetMapping("/vendorpanel/{vendorid}")
-//    public String openVendorPanel(@PathVariable String vendorid, Model model, @AuthenticationPrincipal UserDetails userDetails ){
-//
-//        if (userDetails.getUsername().equalsIgnoreCase(vendorid)){
-//            userEntityService.getUserById(vendorid);
-//
-//            List<ProductEntity> productEntityList = productEntityService.findAllByVendorId(userEntityService.getUserById(vendorid));
-//
-//            productEntityService.sumOfDownloads(productEntityList);
-//
-//
-//            model.addAttribute("allvendorproducts", productEntityList);
-//            model.addAttribute("sumofdownloads", productEntityService.sumOfDownloads(productEntityList));
-//            model.addAttribute("sumofviews", productEntityService.sumOfViews(productEntityList));
-//
-//            return "vendorpanel";
-//        }return "errors/error-404";
-//    }
-
     @GetMapping("/vendorpanel")
     public String openVendorPanel(Model model, @AuthenticationPrincipal UserDetails userDetails ){
 
