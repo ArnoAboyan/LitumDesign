@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -107,12 +108,26 @@ public class FileController {
     @GetMapping("/download-file/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileId, @AuthenticationPrincipal UserDetails userDetails) throws GeneralSecurityException, IOException {
 
-            productEntityService.downloadCounter(fileId);
-        System.out.println("userDetails ---->" + userDetails);
-            if (userDetails != null) {
-                userEntityService.userDownloadCounter(userDetails);
-            }
-            return  googleDriveService.downloadFile(fileId);
+       ProductEntity productEntity = productEntityService.findByGdFileId(fileId);
+
+       if (productEntity.getAccess().equals(Access.PUBLIC)){
+           productEntityService.downloadCounter(productEntity);
+           if (userDetails != null){
+               userEntityService.userDownloadCounter(userDetails);
+           }
+           return  googleDriveService.downloadFile(fileId);
+       } return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//
+//            productEntityService.downloadCounter(productEntity);
+//
+//            if (userDetails != null && productEntity.getAccess().equals(Access.PUBLIC)) {
+//                productEntityService.downloadCounter(productEntity);
+//                userEntityService.userDownloadCounter(userDetails);
+//            }
+//
+//            if (userDetails == null && productEntity.getAccess().equals(Access.PUBLIC))
+//            productEntityService.
+//            return  googleDriveService.downloadFile(fileId);
     }
 
 
