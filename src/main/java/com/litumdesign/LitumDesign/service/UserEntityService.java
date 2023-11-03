@@ -36,8 +36,7 @@ public class UserEntityService {
     }
 
     public UserEntity getUserById(String userId){
-        UserEntity userEntity= userRepository.findById(userId).orElseThrow(() -> new NullPointerException("User not found...") );
 
-        return userEntity;
+        return userRepository.findById(userId).orElseThrow(() -> new NullPointerException("User not found...") );
     }
 }

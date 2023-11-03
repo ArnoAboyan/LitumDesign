@@ -7,9 +7,7 @@ import com.litumdesign.LitumDesign.repository.ProductPhotoRepository;
 import com.litumdesign.LitumDesign.service.ProductEntityService;
 import com.litumdesign.LitumDesign.service.UserEntityService;
 import io.github.wimdeblauwe.htmx.spring.boot.mvc.HxRequest;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.apache.http.HttpStatus;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -31,8 +29,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FileController {
 
-    private final ProductEntityRepository productEntityRepository;
-    private final ProductPhotoRepository productPhotoRepository;
+
 
     private final ProductEntityService productEntityService;
     private final UserEntityService userEntityService;
@@ -59,7 +56,7 @@ public class FileController {
                                    @RequestParam GameType gameType,
                                    @RequestParam("uploadfile") MultipartFile uploadfile,
                                    @PageableDefault(size = 20) Pageable pageable,
-                                   Model model) throws GeneralSecurityException, IOException {
+                                   Model model)  {
 
         System.out.println("UPLOAD FILE -->>" + uploadfile);
 
@@ -108,7 +105,6 @@ public class FileController {
 
 
     @GetMapping("/download-file/{fileId}")
-    @Async
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileId, @AuthenticationPrincipal UserDetails userDetails) throws GeneralSecurityException, IOException {
 
             productEntityService.downloadCounter(fileId);
@@ -125,8 +121,6 @@ public class FileController {
     public String addProductEntity(@RequestParam String searchquery,
                                    @PageableDefault(size = 20) Pageable pageable,
                                    Model model){
-
-        System.out.println("mostpopularfragment ->>> " + searchquery);
 
         model.addAttribute("resultProducts", productEntityService.getSearchResult(searchquery,pageable));
         model.addAttribute("products", productEntityService.getMostPopularProduct());

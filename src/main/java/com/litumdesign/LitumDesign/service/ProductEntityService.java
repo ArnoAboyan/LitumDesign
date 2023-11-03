@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 //import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -140,6 +141,12 @@ public class ProductEntityService {
 
 
         return productEntityRepository.searchByInput(searchQuery.toLowerCase(),pageable);
+    }
+
+    public List<ProductEntity> getSearchResultForVendors(String searchQuery, UserEntity userEntity)  {
+
+
+        return productEntityRepository.searchByInputAndUploadUserId(searchQuery.toLowerCase(), userEntity);
     }
 
     public Page<ProductEntity> getAllProductByGameTypeAndSort(GameType gameType, Pageable pageable)  {

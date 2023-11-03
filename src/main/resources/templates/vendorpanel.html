@@ -152,9 +152,10 @@
         <input class="form-control form-control-no-clear searchfar" type="search" placeholder="Find..."
                aria-label="Search"
                name="searchquery"
-               hx-get="/file/search"
+               hx-get="/vendor/vendorpanel/search"
                hx-trigger="keyup[key=='Enter']"
-               hx-target="#searchresult"><img class="htmx-indicator" src="/image/spinner-loading.svg">
+               hx-swap="innerHTML"
+               hx-target="#vendorpanelproductsragment"><img class="htmx-indicator" src="/image/spinner-loading.svg">
     </div>
 
 

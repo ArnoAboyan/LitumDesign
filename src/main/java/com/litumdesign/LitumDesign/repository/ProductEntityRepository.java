@@ -33,6 +33,11 @@ public interface ProductEntityRepository extends JpaRepository<ProductEntity, Lo
     "LOWER(concat(p.title, p.shortInfo)) " +
     " LIKE %:searchQuery%" + "AND p.access = 'PUBLIC'")
     Page<ProductEntity> searchByInput(@Param("searchQuery") String searchQuery, Pageable pageable);
+    @Query("SELECT p from ProductEntity p where " +
+            "LOWER(concat(p.title, p.shortInfo)) " +
+            " LIKE %:searchQuery%" + "AND p.uploadUserId = :uploadUserId")
+    List<ProductEntity> searchByInputAndUploadUserId(@Param("searchQuery") String searchQuery, @Param("uploadUserId") UserEntity uploadUserId);
+
 
     List<ProductEntity> findByUploadUserId(@Param("UploadUserId") UserEntity userEntity);
 
