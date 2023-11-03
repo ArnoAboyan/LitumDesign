@@ -2,8 +2,6 @@ package com.litumdesign.LitumDesign.controller;
 
 import com.litumdesign.LitumDesign.Entity.*;
 import com.litumdesign.LitumDesign.googledrive.GoogleDriveService;
-import com.litumdesign.LitumDesign.repository.ProductEntityRepository;
-import com.litumdesign.LitumDesign.repository.ProductPhotoRepository;
 import com.litumdesign.LitumDesign.service.ProductEntityService;
 import com.litumdesign.LitumDesign.service.UserEntityService;
 import io.github.wimdeblauwe.htmx.spring.boot.mvc.HxRequest;
@@ -13,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -79,9 +76,6 @@ public class FileController {
                 0
         );
 
-//        String gdFileId = googleDriveService.uploadFile(file);
-//        System.out.println("GDFILEID ->>>" + gdFileId);
-//        productEntityService.createProductEntity(productEntity, photoLink, gdFileId);
 
         try {
             String gdFileId = googleDriveService.uploadFile(uploadfile);
@@ -116,18 +110,7 @@ public class FileController {
                userEntityService.userDownloadCounter(userDetails);
            }
            return  googleDriveService.downloadFile(fileId);
-       } return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//
-//            productEntityService.downloadCounter(productEntity);
-//
-//            if (userDetails != null && productEntity.getAccess().equals(Access.PUBLIC)) {
-//                productEntityService.downloadCounter(productEntity);
-//                userEntityService.userDownloadCounter(userDetails);
-//            }
-//
-//            if (userDetails == null && productEntity.getAccess().equals(Access.PUBLIC))
-//            productEntityService.
-//            return  googleDriveService.downloadFile(fileId);
+       } return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
 
