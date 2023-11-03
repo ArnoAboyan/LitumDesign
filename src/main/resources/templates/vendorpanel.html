@@ -174,7 +174,7 @@
             <tr th:each="vendorproduct, iterStat : ${allvendorproducts}">
                 <th scope="row" th:text="${iterStat.count}"></th>
                 <td class="td-photo border"><img class="table-image" th:src="${vendorproduct.getTitleImageLink()}"></td>
-                <td th:text="${vendorproduct.getTitle()}"></td>
+                <td th:text="${vendorproduct.getTitle()} + ' ' + '[' +  ${vendorproduct.getAccess()} + ']'"></td>
                 <td th:text="${vendorproduct.getCategories()}"></td>
                 <td class="th-custom">
                     <button type="button" class="btn  vendor-btns-underline">

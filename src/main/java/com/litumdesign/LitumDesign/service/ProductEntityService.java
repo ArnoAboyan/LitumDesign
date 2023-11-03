@@ -121,9 +121,9 @@ public class ProductEntityService {
 
     }
 
-    public void downloadCounter(String fieldId){
+    public void downloadCounter(ProductEntity product){
 
-        ProductEntity product = productEntityRepository.findByGdFileId(fieldId);
+//        ProductEntity product = productEntityRepository.findByGdFileId(fieldId);
 
         product.setCountOfDownloads(product.getCountOfDownloads() + 1);
 
@@ -178,6 +178,9 @@ public class ProductEntityService {
 
     }
 
+    public ProductEntity findByGdFileId (String gdFileId){
+        return productEntityRepository.findByGdFileId(gdFileId);
+    }
 
     public List<ProductEntity> findAllByVendorId (UserEntity uploadVendorId)  {
 
