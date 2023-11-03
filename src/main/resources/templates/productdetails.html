@@ -87,12 +87,18 @@ margin-top: 25px">
             <h2 class="text-break" th:text="${productdetails.getTitle()}"></h2>
         </div>
 <!--        <div>downloads/views/size/date</div>-->
-        <a class="product-details-count-downloads" th:text="${productdetails.getCountOfDownloads()}"></a>
-        <a>/</a>
+        <a class="product-details-count-downloads">
+            <i class="fa-regular fa-circle-down"></i> <span th:text="${productdetails.getCountOfDownloads()}"></span>
+        </a>
+        <a>|</a>
+        <a class="product-details-count-views">
+            <i class="fa-regular fa-eye"></i> <span th:text="${productdetails.getCountOfView()}"></span>
+        </a>
+        <a>|</a>
         <a class="product-details-data" th:text="${#temporals.format(productdetails.getCreatedAt(), 'dd-MMM-yyyy')}"></a>
         <div class="product-header-category-info">
             <div>
-                <a href="#" th:text="${productdetails.getGameType()}"></a><a>/</a><a href="#" th:text="${productdetails.getCategories()}"></a>
+                <a href="#" th:text="${productdetails.getGameType()}"></a><a>&nbsp;|&nbsp;</a><a href="#" th:text="${productdetails.getCategories()}"></a>
                 <div class="product-header-author ">
                     <p>By: <a href="#" th:text="${productdetails.uploadUserId.getName()}"></a></p>
                 </div>

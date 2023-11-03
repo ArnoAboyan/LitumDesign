@@ -65,4 +65,14 @@ public class VendorPanelController {
         return "fragments/vendorpanelproductsfragment";
     }
 
+    @GetMapping("vendorpanel/search")
+    @HxRequest
+    public String findProductHx(@RequestParam String searchquery, Model model, @AuthenticationPrincipal UserDetails userDetails ){
+
+        List<ProductEntity> productEntityList = productEntityService.getSearchResultForVendors(searchquery, userEntityService.getUserById(userDetails.getUsername()));
+        model.addAttribute("vendorproductsbycategory", productEntityList);
+
+        return "fragments/vendorpanelproductsfragment";
+    }
+
 }
