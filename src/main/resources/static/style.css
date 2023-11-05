@@ -48,6 +48,22 @@ a{
     
 }
 
+ .img-modal{
+     display:flex;
+     position: relative;
+     align-items: center;
+     justify-content: center;
+     margin: 0 auto;
+     max-width: 100%;
+     height: auto;
+     object-fit: cover;
+ }
+
+ .modal-personal-body{
+     background-color: rgba(241, 241, 241, 0);
+
+ }
+
 .headerdown{
     display: flex;
     align-items: center;
@@ -645,6 +661,173 @@ font-weight: 400;
     margin: 0px auto;
 }
 
+.submitfile-row{
+    border-radius: 0;
+    color: #5d5c5c;
+}
+
+.submitfile-textaria{
+    border-radius: 0;
+    color: #5d5c5c;
+}
+
+.submitfile-title{
+    max-width: 500px;
+    border-radius: 0;
+    border: 0;
+    border-bottom: 2px solid #c9c9c9;
+}
+.submitfile-title:focus{
+    outline: none;
+    box-shadow: none;
+    border-bottom: 2px solid #CB321A;
+}
+
+.submitfile-titleimage{
+    max-width: 500px;
+    border-radius: 0;
+    border: 0;
+    border-bottom: 2px solid #c9c9c9;
+
+}
+.submitfile-titleimage:focus{
+    outline: none;
+    box-shadow: none;
+    border-bottom: 2px solid #CB321A;
+}
+
+.submitfile-price{
+    max-width: 100px;
+    border-radius: 0;
+    border: 0;
+    border-bottom: 2px solid #c9c9c9;
+}
+.submitfile-price:focus{
+    outline: none;
+    box-shadow: none;
+    border-bottom: 2px solid #CB321A;
+}
+
+.submitfile-shortInfo {
+    margin-top: 10px;
+    border-radius: 0;
+    border: 2px solid #c9c9c9;
+}
+.submitfile-shortInfo:focus{
+    outline: none;
+    box-shadow: none;
+    border: 3px solid #CB321A;
+}
+
+.submitfile-description{
+    margin-top: 10px;
+    border-radius: 0;
+    border: 2px solid #c9c9c9;
+}
+
+.submitfile-license{
+    margin-top: 10px;
+    border-radius: 0;
+    border: 2px solid #c9c9c9;
+}
+.submitfile-license:focus{
+    outline: none;
+    box-shadow: none;
+    border: 3px solid #CB321A;
+}
+.submitfile-dropdownsbox{
+    display: flex;
+    position: relative;
+    margin-top: 30px;
+}
+.submitfile-dropdowns{
+    max-width: 200px;
+    margin-right: 10px;
+    border-radius: 0;
+    border: 0;
+    border-bottom: 2px solid #c9c9c9;
+}
+.submitfile-dropdowns:focus{
+    outline: none;
+    box-shadow: none;
+    border-bottom: 2px solid #CB321A;
+}
+
+.photo-link-row{
+    max-width: 500px;
+    color: #5d5c5c;
+    display: flex;
+    position: relative;
+
+}
+.photo-link-input{
+    border-radius: 0;
+    border: 0;
+    border-bottom: 2px solid #c9c9c9;
+}
+.photo-link-input:focus{
+    outline: none;
+    box-shadow: none;
+    border-bottom: 2px solid #CB321A;
+}
+
+.submitfile-one-more-link-button{
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 0;
+    border: 0;
+    border-bottom: 2px solid #c9c9c9;
+}
+.submitfile-one-more-link-button:hover{
+    border-bottom: 2px solid #CB321A;
+}
+.photo-link-close-button{
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 0;
+    border: 0;
+    border-bottom: 2px solid rgba(255, 255, 255, 0);
+}
+.photo-link-close-button:hover{
+
+     border-bottom: 2px solid #CB321A;
+ }
+
+.video-link-row{
+    margin-top: 20px;
+    display: flex;
+    position: relative;
+   max-width: 700px;
+}
+.video-add-instruction{
+margin-top: 10px;
+    font-size: 25px;
+}
+
+.submitfile-video-link{
+    border-radius: 0;
+    border: 0;
+    border-bottom: 2px solid #c9c9c9;
+}
+.submitfile-video-link:focus{
+    outline: none;
+    box-shadow: none;
+    border-bottom: 2px solid #CB321A;
+}
+.submitfile-submit-button-container{
+    display: flex;
+    position: relative;
+
+}
+.submitfile-submit-button{
+    margin: 0 auto;
+    background-color: #CB321A;
+    border-radius: 0;
+    border: 0;
+    border-bottom: 2px solid #CB321A;
+    color: white;
+}
+.submitfile-submit-button:hover{
+    background-color: #d04b36;
+}
 .loginheader{
     height: 100px;
     display: flex;
@@ -742,6 +925,11 @@ font-weight: 400;
     margin-top: 20px;
 }
 
+.error-message{
+    color: red;
+    font-size: 12px;
+    font-weight: 100;
+}
 
   .newscontainer:hover{
       background: #DFDFDF;
@@ -825,6 +1013,7 @@ font-weight: 400;
     z-index: 9999;
 
 }
+
 
 .searchresul{
     margin-top: 24px;

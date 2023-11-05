@@ -32,6 +32,10 @@ public class ProductEntityService {
     @Transactional
     public void createProductEntity(ProductEntity productEntity, List<String> photoLink, String gdFileId) {
 
+//        delete empty cells
+        photoLink.removeIf(item -> item == null || item.isEmpty());
+
+
 //       GET LINKS FOR ProductEntity photos
         List<ProductPhotoEntity> productPhotos = new ArrayList<>();
         photoLink.forEach(a -> {
