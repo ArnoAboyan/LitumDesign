@@ -90,16 +90,16 @@
         <div class="submitfile-dropdownsbox">
             <div class="mb-3 ">
                 <select class="submitfile-dropdowns" name="gameType" id="gameType"
-                        aria-label="Default select example">
-                    <option selected>--Game--</option>
+                        aria-label="Default select example" required>
+                    <option value="" selected disabled>--Game--</option>
                     <option value="RUST">RUST</option>
                     <option value="UNTURNED">UNTURNED</option>
                 </select>
             </div>
             <div class="mb-3">
                 <select class="submitfile-dropdowns" name="categories" id="categories"
-                        aria-label="Default select example">
-                    <option selected>--Category--</option>
+                        aria-label="Default select example" required>
+                    <option value="" selected disabled>--Category--</option>
                     <option value="MAP">MAP</option>
                     <option value="PLUGIN">PLUGIN</option>
                     <option value="PREFAB">PREFAB</option>
@@ -110,8 +110,8 @@
             </div>
             <div class="mb-3">
                 <select class="submitfile-dropdowns" name="access" id="access"
-                        aria-label="Default select example">
-                    <option selected>--Access--</option>
+                        aria-label="Default select example" required>
+                    <option value="" selected disabled>--Access--</option>
                     <option value="PRIVATE">PRIVATE</option>
                     <option value="PUBLIC">PUBLIC</option>
                 </select>
@@ -160,11 +160,15 @@
         </div>
         <div class="input-group mb-3">
             <label class="input-group-text" for="uploadfile">UploadFile</label>
-            <input type="file" class="form-control" name="uploadfile" id="uploadfile">
+            <input type="file" class="form-control" name="uploadfile" id="uploadfile" required>
+        </div>
+
+        <div>
+            <input type="hidden"  name="version" value="1">
         </div>
 
         <div class="submitfile-submit-button-container">
-            <button type="submit" class="submitfile-submit-button">Add file</button>
+            <button type="submit" class="submitfile-submit-button">Add file </button>
         </div>
 
 

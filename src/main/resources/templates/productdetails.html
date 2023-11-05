@@ -6,7 +6,11 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-PB08DZRH5C"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'G-PB08DZRH5C');
@@ -45,7 +49,6 @@
 </head>
 
 
-
 <body id="searchresult">
 
 
@@ -71,8 +74,11 @@ margin-top: 25px">
 <div class="container container-carousel">
     <div class="carousel-wrap">
         <div class="owl-carousel owl-theme">
-            <div class="ratio ratio-4x3" th:if="${!productdetails.videoLink.isBlank()}" >
-                <iframe width="560" height="315" th:src="${productdetails.getVideoLink()}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="ratio ratio-4x3" th:if="${!productdetails.videoLink.isBlank()}">
+                <iframe width="560" height="315" th:src="${productdetails.getVideoLink()}" title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
             </div>
             <div class="item" th:each="detailsphotos : ${productdetails.photoLink}">
                 <img th:src="${detailsphotos.getPhotoLink()}"/>
@@ -86,7 +92,7 @@ margin-top: 25px">
         <div class="product-header-title">
             <h2 class="text-break" th:text="${productdetails.getTitle()}"></h2>
         </div>
-<!--        <div>downloads/views/size/date</div>-->
+        <!--        <div>downloads/views/size/date</div>-->
         <a class="product-details-count-downloads">
             <i class="fa-regular fa-circle-down"></i> <span th:text="${productdetails.getCountOfDownloads()}"></span>
         </a>
@@ -95,22 +101,24 @@ margin-top: 25px">
             <i class="fa-regular fa-eye"></i> <span th:text="${productdetails.getCountOfView()}"></span>
         </a>
         <a>|</a>
-        <a class="product-details-data" th:text="${#temporals.format(productdetails.getCreatedAt(), 'dd-MMM-yyyy')}"></a>
+        <a class="product-details-data"
+           th:text="${#temporals.format(productdetails.getCreatedAt(), 'dd-MMM-yyyy')}"></a>
         <div class="product-header-category-info">
             <div>
-                <a href="#" th:text="${productdetails.getGameType()}"></a><a>&nbsp;|&nbsp;</a><a href="#" th:text="${productdetails.getCategories()}"></a>
+                <a href="#" th:text="${productdetails.getGameType()}"></a><a>&nbsp;|&nbsp;</a><a href="#"
+                                                                                                 th:text="${productdetails.getCategories()}"></a>
                 <div class="product-header-author ">
                     <p>By: <a href="#" th:text="${productdetails.uploadUserId.getName()}"></a></p>
                 </div>
             </div>
             <div class="product-header-price ">
                 <div>
-                <h2 th:if="${productdetails.getPrice() == 0}">FREE</h2>
-                <h2 th:if="${productdetails.getPrice() != 0}" th:text="'$' + ${productdetails.getPrice()}"></h2>
+                    <h2 th:if="${productdetails.getPrice() == 0}">FREE</h2>
+                    <h2 th:if="${productdetails.getPrice() != 0}" th:text="'$' + ${productdetails.getPrice()}"></h2>
                 </div>
                 <div class="product-header-downloadfile-container ">
                     <div class="product-header-bybutton ">
-                       <a  th:href="@{'/file/download-file/' + ${productdetails.getGdFileId()}}">Download/Buy</a>
+                        <a th:href="@{'/file/download-file/' + ${productdetails.getGdFileId()}}">Download/Buy</a>
                     </div>
                 </div>
             </div>
@@ -158,9 +166,9 @@ margin-top: 25px">
                aria-expanded="false">
                 Comments
             </a>
-            <a data-bs-toggle="collapse" href="#Support" role="button"
+            <a data-bs-toggle="collapse" href="#Version" role="button"
                aria-expanded="false">
-                Support
+                Version
             </a>
         </div>
     </div>
@@ -191,13 +199,16 @@ margin-top: 25px">
                 in progress
             </div>
         </div>
-        <div class="collapse" id="Support" data-bs-parent="#detailsGroup">
+        <div class="collapse" id="Version" data-bs-parent="#detailsGroup">
             <div class="card card-body">
-                in progress
+                <div th:each="version : ${productdetails.getProductVersion()}">
+                    <p th:text="'V.' + ${version.getVersion()} + ' ' + ${version.getVersionComment()}"></p>
+                    <p class="version-date" th:text="${#temporals.format(version.getCreatedAt(), 'dd-MMM-yyyy')}"></p>
+                    <hr>
+                </div>
             </div>
         </div>
     </div>
-
     <hr>
     <!--    <div class="container main-product-description">-->
 
@@ -220,7 +231,7 @@ margin-top: 25px">
     $(document).ready(function () {
         $('.owl-carousel').owlCarousel({
             margin: 10,
-            video:true,
+            video: true,
             nav: true,
             navText: ["<div class='nav-btn prev-slide'></div>", "<div class='nav-btn next-slide'></div>"],
             responsive: {

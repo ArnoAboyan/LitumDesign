@@ -12,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 //import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +29,7 @@ public class ProductEntityService {
     private final UserRepository userRepository;
 
     @Transactional
-    public void createProductEntity(ProductEntity productEntity, List<String> photoLink, String gdFileId) {
+    public void createProductEntity(ProductEntity productEntity, List<String> photoLink, String gdFileId, String version) {
 
 //        delete empty cells
         photoLink.removeIf(item -> item == null || item.isEmpty());
@@ -48,6 +47,11 @@ public class ProductEntityService {
 
 //        ADD FILE ID FROM GOOGLE DICK
         productEntity.setGdFileId(gdFileId);
+
+
+        List<ProductVersionEntity> productVersion = new ArrayList<>();
+            productVersion.add(new ProductVersionEntity(productEntity, version, "Release" ));
+            productEntity.setProductVersion(productVersion);
 
 //        GET USER FROM SESSION
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

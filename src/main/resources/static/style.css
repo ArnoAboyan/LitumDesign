@@ -107,7 +107,7 @@ a{
     font-size: 32px;
     font-weight: 600;
     line-height: 38px;
-    letter-spacing: 0em;
+    letter-spacing: 0;
     text-align: left;
     margin-right: 10px;
 }
@@ -122,7 +122,7 @@ a{
     font-size: 18px;
     font-weight: 500;
     line-height: 60px;
-    letter-spacing: 0em;
+    letter-spacing: 0;
     text-align: center;
     margin-top: -9px;
     margin-bottom: -8px;
@@ -145,7 +145,7 @@ a{
     font-size: 18px;
     font-weight: 500;
     line-height: 60px;
-    letter-spacing: 0em;
+    letter-spacing: 0;
     text-align: center;
     margin-top: -9px;
     margin-bottom: -9px;
@@ -166,7 +166,7 @@ a{
 .searchfar{
     width: 220px;
     height: 44px;
-    border-radius: 0px ;
+    border-radius: 0 ;
     border-top: 2px solid #CB321A;
     border-bottom: 2px solid #CB321A;
     border-left: 2px solid #CB321A;
@@ -306,7 +306,7 @@ a{
   justify-content: center;
   height: auto; 
   max-width: 1170px; /* Максимальная ширина */
-  margin: 0px auto; /* Центрирование по горизонтали */
+  margin: 0 auto; /* Центрирование по горизонтали */
   padding: 40px 0px;
 }
 
@@ -406,7 +406,7 @@ margin-top: 24px;
 margin-bottom: 30px;
 display: flex;
 max-width: 1170px;
-padding: 0px;
+padding: 0;
 } 
 
 
@@ -417,7 +417,7 @@ padding: 0px;
     text-align: left;
     align-items: start;
     justify-content: start;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 
 } 
 
@@ -442,10 +442,10 @@ margin: 0 auto;
 
 .card{
     border: none;
-    border-radius: 0px;
+    border-radius: 0;
     display: flex;
     max-height: 365px; 
-    margin: 0px auto; 
+    margin: 0 auto;
     margin-top: 10px;
     background: rgba(255, 255, 255, 0) ;
 
@@ -602,7 +602,7 @@ display: flex;
     align-items: center;
     justify-content: center;
     border: none; /* Убрать рамку */
-    border-radius: 0px;
+    border-radius: 0;
 }
 
 
@@ -634,7 +634,7 @@ display: flex;
         font-weight: 500;
         margin:  0 auto;
           border: none; /* Убрать рамку */
-          border-radius: 0px;
+          border-radius: 0;
           border-bottom: 1px solid black;
       }
 
@@ -658,7 +658,7 @@ font-weight: 400;
 .submitfileform{
     height: auto;
     max-width: 1170px; /* Максимальная ширина */
-    margin: 0px auto;
+    margin: 0 auto;
 }
 
 .submitfile-row{
@@ -824,6 +824,8 @@ margin-top: 10px;
     border: 0;
     border-bottom: 2px solid #CB321A;
     color: white;
+    width: 150px;
+    height: 40px;
 }
 .submitfile-submit-button:hover{
     background-color: #d04b36;
@@ -887,7 +889,7 @@ margin-top: 10px;
 
 
 .dropdown-menu{
-    border-radius: 0px;
+    border-radius: 0;
 }
 
 .dropdown-item{
@@ -908,7 +910,7 @@ margin-top: 10px;
 
 .submitNewsform{
     max-width: 1170px;
-        margin: 0px auto;
+        margin: 0 auto;
 }
 
 .news-section{
@@ -943,7 +945,7 @@ margin-top: 10px;
       /*border-top: 2px solid rgba(203, 50, 26, 0);*/
       /*border-left: 2px solid rgba(203, 50, 26, 0);*/
       /*border-right: 2px solid rgba(203, 50, 26, 0);*/
-      border: 0px;
+      border: 0;
   }
 
 .news-about{
@@ -968,7 +970,7 @@ margin-top: 10px;
 
 
 .particularnewscontainer{
-    margin: 0px auto;
+    margin: 0 auto;
     /*max-height: 659px;*/
     max-width: 1160px;
     /*object-fit: cover;*/
@@ -1020,7 +1022,7 @@ margin-top: 10px;
     margin-bottom: 30px;
     display: flex;
     max-width: 1170px;
-    padding: 0px;
+    padding: 0;
 }
 .searchresulttitle{
 
@@ -1029,7 +1031,7 @@ margin-top: 10px;
     text-align: left;
     align-items: start;
     justify-content: start;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 
@@ -1039,7 +1041,7 @@ margin-top: 10px;
     margin-bottom: 30px;
     display: flex;
     max-width: 1170px;
-    padding: 0px;
+    padding: 0;
 }
 
 
@@ -1050,7 +1052,7 @@ margin-top: 10px;
     text-align: left;
     align-items: start;
     justify-content: start;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 
 }
 .container-sidebar-button{
@@ -1096,7 +1098,7 @@ margin-top: 10px;
     }
     .social-nav{
         list-style: none; /* Убираем маркеры списка */
-        margin: 0px auto; /* Убираем внешние отступы списка (по желанию) */
+        margin: 0 auto; /* Убираем внешние отступы списка (по желанию) */
         /*padding: 0; !* Убираем внутренние отступы списка (по желанию) *!*/
         display: flex; /* Располагать элементы горизонтально */
         align-items: center; /* Выравнивание элементов по центру по вертикали */
@@ -1161,7 +1163,7 @@ margin-top: 10px;
         font-size: 24px;
         font-weight: 700;
         line-height: 60px;
-        letter-spacing: 0em;
+        letter-spacing: 0;
         text-align: center;
         margin-bottom: 10px;
         border-bottom: 5px solid rgba(203, 50, 26, 0);
@@ -1181,7 +1183,7 @@ margin-top: 10px;
         font-size: 24px;
         font-weight: 700;
         line-height: 60px;
-        letter-spacing: 0em;
+        letter-spacing: 0;
         text-align: center;
         border-bottom: 5px solid rgba(255, 255, 255, 0);
         margin-bottom: 10px;
@@ -1197,7 +1199,7 @@ margin-top: 10px;
     .searchfar{
         width: 220px;
         height: 44px;
-        border-radius: 0px ;
+        border-radius: 0 ;
         border-top: 2px solid #CB321A;
         border-bottom: 2px solid #CB321A;
         border-left: 2px solid #CB321A;

@@ -69,7 +69,7 @@ public class FileController {
                                    @RequestParam(value = "photoLink[]") List<String> photoLink,
                                    @RequestParam Categories categories,
                                    @RequestParam GameType gameType,
-                                   @RequestParam Integer versin,
+                                   @RequestParam String version,
                                    @RequestParam("uploadfile") MultipartFile uploadfile,
                                    @PageableDefault(size = 20) Pageable pageable,
                                    Model model) {
@@ -98,7 +98,7 @@ public class FileController {
         try {
             String gdFileId = googleDriveService.uploadFile(uploadfile);
             System.out.println("GDFILEID ->>>" + gdFileId);
-            productEntityService.createProductEntity(productEntity, photoLink, gdFileId);
+            productEntityService.createProductEntity(productEntity, photoLink, gdFileId, version);
 
             model.addAttribute("products", productEntityService.getMostPopularProduct());
             model.addAttribute("productsNewest", productEntityService.getNewestProduct());
