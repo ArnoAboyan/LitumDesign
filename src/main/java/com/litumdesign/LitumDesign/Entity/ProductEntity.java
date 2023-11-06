@@ -80,7 +80,7 @@ public class ProductEntity {
 
 
 
-    public ProductEntity(String title, String titleImageLink, Double price, String shortInfo,
+    public ProductEntity(String title, String titleImageLink, Double price, String shortInfo, String license,
                          String description, Categories categories, GameType gameType,
                          Access access, String videoLink, Boolean advertising, Integer discount,
                          Integer countOfDownloads, Integer countOfReviews, Integer averageRating, Integer countOfView) {
@@ -88,6 +88,7 @@ public class ProductEntity {
         this.titleImageLink = titleImageLink;
         this.price = price;
         this.shortInfo = shortInfo;
+        this.license = license;
         this.description = description;
         this.categories = categories;
         this.gameType = gameType;

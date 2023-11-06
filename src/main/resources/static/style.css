@@ -48,6 +48,22 @@ a{
     
 }
 
+ .img-modal{
+     display:flex;
+     position: relative;
+     align-items: center;
+     justify-content: center;
+     margin: 0 auto;
+     max-width: 100%;
+     height: auto;
+     object-fit: cover;
+ }
+
+ .modal-personal-body{
+     background-color: rgba(241, 241, 241, 0);
+
+ }
+
 .headerdown{
     display: flex;
     align-items: center;
@@ -91,7 +107,7 @@ a{
     font-size: 32px;
     font-weight: 600;
     line-height: 38px;
-    letter-spacing: 0em;
+    letter-spacing: 0;
     text-align: left;
     margin-right: 10px;
 }
@@ -106,7 +122,7 @@ a{
     font-size: 18px;
     font-weight: 500;
     line-height: 60px;
-    letter-spacing: 0em;
+    letter-spacing: 0;
     text-align: center;
     margin-top: -9px;
     margin-bottom: -8px;
@@ -129,7 +145,7 @@ a{
     font-size: 18px;
     font-weight: 500;
     line-height: 60px;
-    letter-spacing: 0em;
+    letter-spacing: 0;
     text-align: center;
     margin-top: -9px;
     margin-bottom: -9px;
@@ -150,7 +166,7 @@ a{
 .searchfar{
     width: 220px;
     height: 44px;
-    border-radius: 0px ;
+    border-radius: 0 ;
     border-top: 2px solid #CB321A;
     border-bottom: 2px solid #CB321A;
     border-left: 2px solid #CB321A;
@@ -290,7 +306,7 @@ a{
   justify-content: center;
   height: auto; 
   max-width: 1170px; /* Максимальная ширина */
-  margin: 0px auto; /* Центрирование по горизонтали */
+  margin: 0 auto; /* Центрирование по горизонтали */
   padding: 40px 0px;
 }
 
@@ -390,7 +406,7 @@ margin-top: 24px;
 margin-bottom: 30px;
 display: flex;
 max-width: 1170px;
-padding: 0px;
+padding: 0;
 } 
 
 
@@ -401,7 +417,7 @@ padding: 0px;
     text-align: left;
     align-items: start;
     justify-content: start;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 
 } 
 
@@ -426,10 +442,10 @@ margin: 0 auto;
 
 .card{
     border: none;
-    border-radius: 0px;
+    border-radius: 0;
     display: flex;
     max-height: 365px; 
-    margin: 0px auto; 
+    margin: 0 auto;
     margin-top: 10px;
     background: rgba(255, 255, 255, 0) ;
 
@@ -586,7 +602,7 @@ display: flex;
     align-items: center;
     justify-content: center;
     border: none; /* Убрать рамку */
-    border-radius: 0px;
+    border-radius: 0;
 }
 
 
@@ -618,7 +634,7 @@ display: flex;
         font-weight: 500;
         margin:  0 auto;
           border: none; /* Убрать рамку */
-          border-radius: 0px;
+          border-radius: 0;
           border-bottom: 1px solid black;
       }
 
@@ -642,9 +658,178 @@ font-weight: 400;
 .submitfileform{
     height: auto;
     max-width: 1170px; /* Максимальная ширина */
-    margin: 0px auto;
+    margin: 0 auto;
 }
 
+.submitfile-row{
+    border-radius: 0;
+    color: #5d5c5c;
+}
+
+.submitfile-textaria{
+    border-radius: 0;
+    color: #5d5c5c;
+}
+
+.submitfile-title{
+    max-width: 500px;
+    border-radius: 0;
+    border: 0;
+    border-bottom: 2px solid #c9c9c9;
+}
+.submitfile-title:focus{
+    outline: none;
+    box-shadow: none;
+    border-bottom: 2px solid #CB321A;
+}
+
+.submitfile-titleimage{
+    max-width: 500px;
+    border-radius: 0;
+    border: 0;
+    border-bottom: 2px solid #c9c9c9;
+
+}
+.submitfile-titleimage:focus{
+    outline: none;
+    box-shadow: none;
+    border-bottom: 2px solid #CB321A;
+}
+
+.submitfile-price{
+    max-width: 100px;
+    border-radius: 0;
+    border: 0;
+    border-bottom: 2px solid #c9c9c9;
+}
+.submitfile-price:focus{
+    outline: none;
+    box-shadow: none;
+    border-bottom: 2px solid #CB321A;
+}
+
+.submitfile-shortInfo {
+    margin-top: 10px;
+    border-radius: 0;
+    border: 2px solid #c9c9c9;
+}
+.submitfile-shortInfo:focus{
+    outline: none;
+    box-shadow: none;
+    border: 3px solid #CB321A;
+}
+
+.submitfile-description{
+    margin-top: 10px;
+    border-radius: 0;
+    border: 2px solid #c9c9c9;
+}
+
+.submitfile-license{
+    margin-top: 10px;
+    border-radius: 0;
+    border: 2px solid #c9c9c9;
+}
+.submitfile-license:focus{
+    outline: none;
+    box-shadow: none;
+    border: 3px solid #CB321A;
+}
+.submitfile-dropdownsbox{
+    display: flex;
+    position: relative;
+    margin-top: 30px;
+}
+.submitfile-dropdowns{
+    max-width: 200px;
+    margin-right: 10px;
+    border-radius: 0;
+    border: 0;
+    border-bottom: 2px solid #c9c9c9;
+}
+.submitfile-dropdowns:focus{
+    outline: none;
+    box-shadow: none;
+    border-bottom: 2px solid #CB321A;
+}
+
+.photo-link-row{
+    max-width: 500px;
+    color: #5d5c5c;
+    display: flex;
+    position: relative;
+
+}
+.photo-link-input{
+    border-radius: 0;
+    border: 0;
+    border-bottom: 2px solid #c9c9c9;
+}
+.photo-link-input:focus{
+    outline: none;
+    box-shadow: none;
+    border-bottom: 2px solid #CB321A;
+}
+
+.submitfile-one-more-link-button{
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 0;
+    border: 0;
+    border-bottom: 2px solid #c9c9c9;
+}
+.submitfile-one-more-link-button:hover{
+    border-bottom: 2px solid #CB321A;
+}
+.photo-link-close-button{
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 0;
+    border: 0;
+    border-bottom: 2px solid rgba(255, 255, 255, 0);
+}
+.photo-link-close-button:hover{
+
+     border-bottom: 2px solid #CB321A;
+ }
+
+.video-link-row{
+    margin-top: 20px;
+    display: flex;
+    position: relative;
+   max-width: 700px;
+}
+.video-add-instruction{
+margin-top: 10px;
+    font-size: 25px;
+}
+
+.submitfile-video-link{
+    border-radius: 0;
+    border: 0;
+    border-bottom: 2px solid #c9c9c9;
+}
+.submitfile-video-link:focus{
+    outline: none;
+    box-shadow: none;
+    border-bottom: 2px solid #CB321A;
+}
+.submitfile-submit-button-container{
+    display: flex;
+    position: relative;
+
+}
+.submitfile-submit-button{
+    margin: 0 auto;
+    background-color: #CB321A;
+    border-radius: 0;
+    border: 0;
+    border-bottom: 2px solid #CB321A;
+    color: white;
+    width: 150px;
+    height: 40px;
+}
+.submitfile-submit-button:hover{
+    background-color: #d04b36;
+}
 .loginheader{
     height: 100px;
     display: flex;
@@ -704,7 +889,7 @@ font-weight: 400;
 
 
 .dropdown-menu{
-    border-radius: 0px;
+    border-radius: 0;
 }
 
 .dropdown-item{
@@ -725,7 +910,7 @@ font-weight: 400;
 
 .submitNewsform{
     max-width: 1170px;
-        margin: 0px auto;
+        margin: 0 auto;
 }
 
 .news-section{
@@ -742,6 +927,11 @@ font-weight: 400;
     margin-top: 20px;
 }
 
+.error-message{
+    color: red;
+    font-size: 12px;
+    font-weight: 100;
+}
 
   .newscontainer:hover{
       background: #DFDFDF;
@@ -755,7 +945,7 @@ font-weight: 400;
       /*border-top: 2px solid rgba(203, 50, 26, 0);*/
       /*border-left: 2px solid rgba(203, 50, 26, 0);*/
       /*border-right: 2px solid rgba(203, 50, 26, 0);*/
-      border: 0px;
+      border: 0;
   }
 
 .news-about{
@@ -780,7 +970,7 @@ font-weight: 400;
 
 
 .particularnewscontainer{
-    margin: 0px auto;
+    margin: 0 auto;
     /*max-height: 659px;*/
     max-width: 1160px;
     /*object-fit: cover;*/
@@ -826,12 +1016,13 @@ font-weight: 400;
 
 }
 
+
 .searchresul{
     margin-top: 24px;
     margin-bottom: 30px;
     display: flex;
     max-width: 1170px;
-    padding: 0px;
+    padding: 0;
 }
 .searchresulttitle{
 
@@ -840,7 +1031,7 @@ font-weight: 400;
     text-align: left;
     align-items: start;
     justify-content: start;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 
@@ -850,7 +1041,7 @@ font-weight: 400;
     margin-bottom: 30px;
     display: flex;
     max-width: 1170px;
-    padding: 0px;
+    padding: 0;
 }
 
 
@@ -861,7 +1052,7 @@ font-weight: 400;
     text-align: left;
     align-items: start;
     justify-content: start;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 
 }
 .container-sidebar-button{
@@ -907,7 +1098,7 @@ font-weight: 400;
     }
     .social-nav{
         list-style: none; /* Убираем маркеры списка */
-        margin: 0px auto; /* Убираем внешние отступы списка (по желанию) */
+        margin: 0 auto; /* Убираем внешние отступы списка (по желанию) */
         /*padding: 0; !* Убираем внутренние отступы списка (по желанию) *!*/
         display: flex; /* Располагать элементы горизонтально */
         align-items: center; /* Выравнивание элементов по центру по вертикали */
@@ -972,7 +1163,7 @@ font-weight: 400;
         font-size: 24px;
         font-weight: 700;
         line-height: 60px;
-        letter-spacing: 0em;
+        letter-spacing: 0;
         text-align: center;
         margin-bottom: 10px;
         border-bottom: 5px solid rgba(203, 50, 26, 0);
@@ -992,7 +1183,7 @@ font-weight: 400;
         font-size: 24px;
         font-weight: 700;
         line-height: 60px;
-        letter-spacing: 0em;
+        letter-spacing: 0;
         text-align: center;
         border-bottom: 5px solid rgba(255, 255, 255, 0);
         margin-bottom: 10px;
@@ -1008,7 +1199,7 @@ font-weight: 400;
     .searchfar{
         width: 220px;
         height: 44px;
-        border-radius: 0px ;
+        border-radius: 0 ;
         border-top: 2px solid #CB321A;
         border-bottom: 2px solid #CB321A;
         border-left: 2px solid #CB321A;

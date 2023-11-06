@@ -242,6 +242,13 @@ span.img-text {
     font-weight: 100;
     color: #757575;
 }
+
+.version-date{
+    font-size: 12px;
+    font-weight: 100;
+    color: #757575;
+
+}
 @media screen and (max-width: 991px) {
 
     .owl-carousel .prev-slide{

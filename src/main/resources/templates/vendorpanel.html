@@ -143,7 +143,8 @@
                 <img class="htmx-indicator" src="/image/spinner-loading.svg">MODS</button>
         </div>
         <div>
-            <a href="">Add product</a>
+            <a class="nav-link active submitfile text-white" aria-current="page"
+               sec:authorize="hasAnyRole('ADMIN', 'VENDOR')" th:href="@{/file/addfile}">Add product</a>
         </div>
     </div>
 
