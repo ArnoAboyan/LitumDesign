@@ -683,6 +683,29 @@ font-weight: 400;
     border-bottom: 2px solid #CB321A;
 }
 
+.submitfile-version{
+    max-width: 100px;
+    border-radius: 0;
+    border: 0;
+    border-bottom: 2px solid #c9c9c9;
+}
+.submitfile-version:focus{
+    outline: none;
+    box-shadow: none;
+    border-bottom: 2px solid #CB321A;
+}
+
+.submitfile-version-comment {
+    margin-top: 10px;
+    border-radius: 0;
+    border: 2px solid #c9c9c9;
+}
+.submitfile-version-comment:focus{
+    outline: none;
+    box-shadow: none;
+    border: 3px solid #CB321A;
+}
+
 .submitfile-titleimage{
     max-width: 500px;
     border-radius: 0;

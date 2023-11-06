@@ -178,10 +178,10 @@
                 <td th:text="${vendorproduct.getTitle()} + ' ' + '[' +  ${vendorproduct.getAccess()} + ']'"></td>
                 <td th:text="${vendorproduct.getCategories()}"></td>
                 <td class="th-custom">
-                    <button type="button" class="btn  vendor-btns-underline">
+                    <a type="button" th:href="@{/file/updatefile/{productEntityId}(productEntityId = ${vendorproduct.getId()})}" class="btn  vendor-btns-underline">
                         <i class="fa-solid fa-pen"></i>
-                    </button>
-                    <button type="button" class="btn  vendor-btns-underline">
+                    </a>
+                    <button type="submit" class="btn  vendor-btns-underline">
                         <i class="fas fa-times" aria-hidden="true"></i>
                     </button>
                 </td>

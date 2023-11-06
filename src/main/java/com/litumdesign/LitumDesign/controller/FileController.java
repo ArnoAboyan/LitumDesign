@@ -49,7 +49,7 @@ public class FileController {
     public String submitFilePage(Model model) {
 
         AtomicInteger photoLinkCounter = (AtomicInteger) model.getAttribute("photoLinkCounter");
-            Objects.requireNonNull(photoLinkCounter).set(2);
+        Objects.requireNonNull(photoLinkCounter).set(2);
 
 
         return "submitfilepage";
@@ -105,10 +105,11 @@ public class FileController {
             model.addAttribute("productsSlider", productEntityService.getSliderProduct());
             model.addAttribute("allProducts", productEntityService.getAllProductEntity(pageable));
 
-            model.addAttribute("correctorresp", "Product has bean created");
+            model.addAttribute("uploadinfo", Toast.success("Success", "Product has bean created"));
 
         } catch (Exception e) {
             System.out.println("WE HAVE SOME PROBLEMS " + e.getMessage());
+            model.addAttribute("uploadinfo", Toast.error("Error", "Failure occurred"));
 
         }
         System.out.println("UPLOAD FILE -->>" + uploadfile);
@@ -122,11 +123,10 @@ public class FileController {
         AtomicInteger photoLinkCounter = (AtomicInteger) model.getAttribute("photoLinkCounter");
 
 
-            System.out.println("photoLinkCounter --->" + Objects.requireNonNull(photoLinkCounter).get());
+        System.out.println("photoLinkCounter --->" + Objects.requireNonNull(photoLinkCounter).get());
 
 
-
-        if (Objects.requireNonNull(photoLinkCounter).get() <= 15) {
+        if (Objects.requireNonNull(photoLinkCounter).get() <= 100) {
             model.addAttribute("photolinkcounter", photoLinkCounter);
             photoLinkCounter.incrementAndGet();
             return "fragments/photoInputfragment";
@@ -176,6 +176,64 @@ public class FileController {
         return "fragments/searchresultfragment";
     }
 
+
+    @GetMapping("/updatefile/{productEntityId}")
+    public String updateFilePage(@PathVariable Long productEntityId, Model model, @AuthenticationPrincipal UserDetails userDetails) {
+
+        ProductEntity productEntity = productEntityService.findProductDetailsEntityById(productEntityId);
+
+        if(userDetails.getUsername().equals(productEntity.getUploadUserId().getLogin())) {
+
+            AtomicInteger photoLinkCounter = (AtomicInteger) model.getAttribute("photoLinkCounter");
+            Objects.requireNonNull(photoLinkCounter).set(2);
+
+
+            model.addAttribute("actualProductEntity", productEntity);
+            model.addAttribute("lastVersion",Integer.parseInt(productEntityService.findLastVersionByProductEntity(productEntity).getVersion())+1) ;
+
+            return "updatefilepage";
+        }return "errors/error-403";
+    }
+
+
+    @PostMapping("/updatefile")
+    @HxRequest
+    public String updateProductEntity(
+            @RequestParam Long productEntityId,
+            @RequestParam String title,
+            @RequestParam String titleImageLink,
+//                                 @RequestParam Double price,
+            @RequestParam String shortInfo,
+            @RequestParam String license,
+            @RequestParam Access access,
+            @RequestParam String description,
+            @RequestParam String videoLink,
+            @RequestParam(value = "photoLink[]") List<String> photoLink,
+            @RequestParam Categories categories,
+            @RequestParam GameType gameType,
+            @RequestParam String version,
+            @PageableDefault(size = 20) Pageable pageable,
+            Model model) {
+
+
+
+        try {
+            productEntityService.updateProductEntity(productEntityId, photoLink, version);
+
+            model.addAttribute("products", productEntityService.getMostPopularProduct());
+            model.addAttribute("productsNewest", productEntityService.getNewestProduct());
+            model.addAttribute("productsSlider", productEntityService.getSliderProduct());
+            model.addAttribute("allProducts", productEntityService.getAllProductEntity(pageable));
+
+            model.addAttribute("uploadinfo", Toast.success("Success", "Product has bean updated"));
+
+        } catch (Exception e) {
+            System.out.println("WE HAVE SOME PROBLEMS " + e.getMessage());
+            model.addAttribute("uploadinfo", Toast.error("Error", "Failure occurred"));
+        }
+
+        return "fragments/successfragment";
+    }
 
 }
 

@@ -104,7 +104,6 @@ public class GoogleDriveService {
                             new ByteArrayInputStream(file.getBytes()))
                     )
                     .setFields("id, name")
-//                .setFields("name")
                     .execute();
 
 

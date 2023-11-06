@@ -40,7 +40,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, AppUserService appUserService) throws Exception {
         return http
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-                        .requestMatchers("/news/submitnews", "/news/addnews", "/file/addfile").hasRole("ADMIN")
+                        .requestMatchers("/news/submitnews", "/news/addnews", "/file/addfile/**", "/file/updatefile/**").hasRole("ADMIN")
                         .requestMatchers("/vendor/**").hasAnyRole("VENDOR", "ADMIN")
 //                        .requestMatchers("/user-page").hasRole(USER)
 //                        .requestMatchers("/", "/login","/auth", "/public-page").permitAll()
@@ -57,7 +57,7 @@ public class WebSecurityConfig {
                        .userInfoEndpoint(ui -> ui.oidcUserService(appUserService.oidcLoginHandler()))
                        .defaultSuccessUrl("/", true ))
                 .logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/"))
-                .csrf(AbstractHttpConfigurer::disable)
+//                .csrf(AbstractHttpConfigurer::disable)
                 .build();
     }
 @Bean
