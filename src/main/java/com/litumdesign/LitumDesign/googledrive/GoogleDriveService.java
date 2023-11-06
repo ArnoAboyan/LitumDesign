@@ -96,6 +96,7 @@ public class GoogleDriveService {
 
             File fileMetadata = new File();
             fileMetadata.setName(file.getOriginalFilename());
+            fileMetadata.setParents(Collections.singletonList("1stc_iqTpWk7hJJwn7y95X3DUoonfSMy2"));
             File uploadFile = getInstance()
                     .files()
                     .create(fileMetadata, new InputStreamContent(
