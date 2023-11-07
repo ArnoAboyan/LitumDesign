@@ -41,7 +41,7 @@ public class WebSecurityConfig {
         return http
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                         .requestMatchers("/news/submitnews", "/news/addnews", "/file/addfile/**", "/file/updatefile/**").hasRole("ADMIN")
-                        .requestMatchers("/vendor/**").hasAnyRole("VENDOR", "ADMIN")
+                        .requestMatchers("/vendor/**", "/file/addfile/**", "/file/updatefile/**").hasAnyRole("VENDOR", "ADMIN")
 //                        .requestMatchers("/user-page").hasRole(USER)
 //                        .requestMatchers("/", "/login","/auth", "/public-page").permitAll()
                         .requestMatchers("/**", "/products", "/login","/logout", "/error", "/news/**", "/information/**", "/serverlist","/product/**").permitAll()
