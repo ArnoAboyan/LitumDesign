@@ -11,15 +11,24 @@
         </thead>
         <tbody>
         <tr th:each="vendorproduct, iterStat : ${vendorproductsbycategory}">
-            <th scope="row" th:text="${iterStat.count}"></th>
-            <td class="td-photo border" ><img class="table-image" th:src="${vendorproduct.getTitleImageLink()}"></td>
-            <td th:text="${vendorproduct.getTitle()}"></td>
+            <td th:text="${iterStat.count}"></td>
+            <td class="td-photo border"><img class="table-image" th:src="${vendorproduct.getTitleImageLink()}"></td>
+            <td th:text="${vendorproduct.getTitle()} + ' ' + '[' +  ${vendorproduct.getAccess()} + ']'"></td>
             <td th:text="${vendorproduct.getCategories()}"></td>
             <td class="th-custom">
-                <button type="button" class="btn  vendor-btns-underline">
+                <a type="button"
+                   th:href="@{/file/updatefile/{productEntityId}(productEntityId = ${vendorproduct.getId()})}"
+                   class="btn  vendor-btns-underline">
                     <i class="fa-solid fa-pen"></i>
-                </button>
-                <button type="button" class="btn  vendor-btns-underline">
+                </a>
+                <button class="btn  vendor-btns-underline"
+                        hx-delete="/file/delete-product"
+                        th:attr="hx-vals='{&quot;productId&quot;: &quot;'+${vendorproduct.getId()}+'&quot;}'"
+                        hx-confirm="Are you sure you wish to delete?"
+                        hx-target="closest tr"
+                        hx-trigger="click"
+                        hx-swap="outerHTML"
+                >
                     <i class="fas fa-times" aria-hidden="true"></i>
                 </button>
             </td>

@@ -147,6 +147,18 @@ public class FileController {
         return "";
     }
 
+    @ResponseBody
+    @DeleteMapping("/delete-product")
+    @HxRequest
+    public String deleteProduct(@RequestParam("productId") Long productId, Model model) {
+
+        System.out.println("productID -> " + productId);
+
+        productEntityService.deleteProductEntity(productId);
+
+        return "";
+    }
+
     @GetMapping("/download-file/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileId, @AuthenticationPrincipal UserDetails userDetails) throws GeneralSecurityException, IOException {
 

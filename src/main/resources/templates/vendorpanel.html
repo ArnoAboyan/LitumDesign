@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
@@ -38,7 +37,7 @@
     <!-- Cookie Banner -->
     <link rel="stylesheet" th:href="@{/cookie-banner.css}">
 </head>
-<body>
+<body th:attr="hx-headers='{&quot;'+${_csrf.getHeaderName()}+'&quot;: &quot;'+${_csrf.getToken()}+'&quot;}'">
 <!-- HEADER -->
 <nav class="navbar vendor-navbar">
     <div class="container navbar-underline-border">
@@ -108,39 +107,44 @@
                     hx-get="/vendor/vendorpanel/bycategory/PLUGIN"
                     hx-trigger="click"
                     hx-swap="innerHTML"
-                hx-target="#vendorpanelproductsragment">
-            <img class="htmx-indicator" src="/image/spinner-loading.svg"> PLUGINS
+                    hx-target="#vendorpanelproductsragment">
+                <img class="htmx-indicator" src="/image/spinner-loading.svg"> PLUGINS
             </button>
             <button type="button" class="btn vendor-btns-underline"
                     hx-get="/vendor/vendorpanel/bycategory/MAP"
                     hx-trigger="click"
                     hx-swap="innerHTML"
                     hx-target="#vendorpanelproductsragment">
-                <img class="htmx-indicator" src="/image/spinner-loading.svg">MAPS</button>
+                <img class="htmx-indicator" src="/image/spinner-loading.svg">MAPS
+            </button>
             <button type="button" class="btn vendor-btns-underline"
                     hx-get="/vendor/vendorpanel/bycategory/PREFAB"
                     hx-trigger="click"
                     hx-swap="innerHTML"
                     hx-target="#vendorpanelproductsragment">
-                <img class="htmx-indicator" src="/image/spinner-loading.svg">PREFABS</button>
+                <img class="htmx-indicator" src="/image/spinner-loading.svg">PREFABS
+            </button>
             <button type="button" class="btn vendor-btns-underline"
                     hx-get="/vendor/vendorpanel/bycategory/MONUMENT"
                     hx-trigger="click"
                     hx-swap="innerHTML"
                     hx-target="#vendorpanelproductsragment">
-                <img class="htmx-indicator" src="/image/spinner-loading.svg">MONUMENTS</button>
+                <img class="htmx-indicator" src="/image/spinner-loading.svg">MONUMENTS
+            </button>
             <button type="button" class="btn vendor-btns-underline"
                     hx-get="/vendor/vendorpanel/bycategory/TOOL"
                     hx-trigger="click"
                     hx-swap="innerHTML"
                     hx-target="#vendorpanelproductsragment">
-                <img class="htmx-indicator" src="/image/spinner-loading.svg">TOOLS</button>
+                <img class="htmx-indicator" src="/image/spinner-loading.svg">TOOLS
+            </button>
             <button type="button" class="btn vendor-btns-underline"
                     hx-get="/vendor/vendorpanel/bycategory/MOD"
                     hx-trigger="click"
                     hx-swap="innerHTML"
                     hx-target="#vendorpanelproductsragment">
-                <img class="htmx-indicator" src="/image/spinner-loading.svg">MODS</button>
+                <img class="htmx-indicator" src="/image/spinner-loading.svg">MODS
+            </button>
         </div>
         <div>
             <a class="nav-link active submitfile text-white" aria-current="page"
@@ -173,15 +177,24 @@
             </thead>
             <tbody>
             <tr th:each="vendorproduct, iterStat : ${allvendorproducts}">
-                <th scope="row" th:text="${iterStat.count}"></th>
+                <td th:text="${iterStat.count}"></td>
                 <td class="td-photo border"><img class="table-image" th:src="${vendorproduct.getTitleImageLink()}"></td>
                 <td th:text="${vendorproduct.getTitle()} + ' ' + '[' +  ${vendorproduct.getAccess()} + ']'"></td>
                 <td th:text="${vendorproduct.getCategories()}"></td>
                 <td class="th-custom">
-                    <a type="button" th:href="@{/file/updatefile/{productEntityId}(productEntityId = ${vendorproduct.getId()})}" class="btn  vendor-btns-underline">
+                    <a type="button"
+                       th:href="@{/file/updatefile/{productEntityId}(productEntityId = ${vendorproduct.getId()})}"
+                       class="btn  vendor-btns-underline">
                         <i class="fa-solid fa-pen"></i>
                     </a>
-                    <button type="submit" class="btn  vendor-btns-underline">
+                    <button class="btn  vendor-btns-underline"
+                            hx-delete="/file/delete-product"
+                            th:attr="hx-vals='{&quot;productId&quot;: &quot;'+${vendorproduct.getId()}+'&quot;}'"
+                            hx-confirm="Are you sure you wish to delete?"
+                            hx-target="closest tr"
+                            hx-trigger="click"
+                            hx-swap="outerHTML"
+                    >
                         <i class="fas fa-times" aria-hidden="true"></i>
                     </button>
                 </td>

@@ -36,7 +36,7 @@
 
 
 
-<body id="searchresult">
+<body id="searchresult" th:attr="hx-headers='{&quot;'+${_csrf.getHeaderName()}+'&quot;: &quot;'+${_csrf.getToken()}+'&quot;}'">
 <!--HEADER-->
 <div th:insert="~{fragments/headerfragment :: header}"></div>
 

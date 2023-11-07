@@ -1,6 +1,7 @@
 package com.litumdesign.LitumDesign.service;
 
 import com.litumdesign.LitumDesign.Entity.*;
+import com.litumdesign.LitumDesign.googledrive.GoogleDriveService;
 import com.litumdesign.LitumDesign.repository.ProductEntityRepository;
 import com.litumdesign.LitumDesign.repository.ProductVersionRepository;
 import com.litumdesign.LitumDesign.repository.UserRepository;
@@ -29,6 +30,7 @@ public class ProductEntityService {
     private final ProductEntityRepository productEntityRepository;
     private final UserRepository userRepository;
     private final ProductVersionRepository productVersionRepository;
+    private final GoogleDriveService googleDriveService;
 
 
     @Transactional
@@ -285,5 +287,12 @@ public class ProductEntityService {
 
     }
 
+    public void deleteProductEntity(Long productEntityId) {
+
+        ProductEntity productEntity = findProductDetailsEntityById(productEntityId);
+        googleDriveService.deleteFile(productEntity.getGdFileId());
+        productEntityRepository.deleteById(productEntityId);
+        System.out.println("DELETE PRODUCT -->" + productEntityId + " and " + productEntity.getGdFileId());
+    }
 }
 
