@@ -57,7 +57,6 @@ public class WebSecurityConfig {
                        .userInfoEndpoint(ui -> ui.oidcUserService(appUserService.oidcLoginHandler()))
                        .defaultSuccessUrl("/", true ))
                 .logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/"))
-//                .csrf(AbstractHttpConfigurer::disable)
                 .build();
     }
 @Bean

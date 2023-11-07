@@ -6,6 +6,8 @@ import com.litumdesign.LitumDesign.service.ProductEntityService;
 import io.github.wimdeblauwe.htmx.spring.boot.mvc.HxRequest;
 import lombok.RequiredArgsConstructor;
 import org.checkerframework.checker.units.qual.A;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +22,7 @@ public class ProductDetailsController {
     private final ProductEntityService productEntityService;
 
     @GetMapping("/details/{productId}")
-    public String findProductById(@PathVariable Long productId, Model model) {
+    public String findProductById(@PathVariable Long productId, Model model, @AuthenticationPrincipal UserDetails userDetails) {
 
        ProductEntity productDetails =  productEntityService.findProductDetailsEntityById(productId);
 
@@ -29,7 +31,11 @@ public class ProductDetailsController {
 
            productEntityService.viewsCounter(productDetails);
            return "productdetails";
-       }return "errors/error-404";
+       } else if (userDetails.getUsername() !=null && userDetails.getUsername().equals(productDetails.getUploadUserId().getLogin())) {
+           model.addAttribute("productdetails", productDetails);
+           productEntityService.viewsCounter(productDetails);
+           return "productdetails";
+       }else return "errors/error-404";
     }
 
 

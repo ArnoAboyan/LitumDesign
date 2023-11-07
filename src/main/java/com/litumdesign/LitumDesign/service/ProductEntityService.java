@@ -267,7 +267,9 @@ public class ProductEntityService {
         }
 
 //           DELETE OLD PHOTOS
-        productPhotoRepository.deleteByProductEntity(productEntity);
+//        productPhotoRepository.deleteByProductEntity(productEntity);
+
+
         //       GET LINKS FOR ProductEntity photos
         List<ProductPhotoEntity> productPhotos = new ArrayList<>();
         photoLink.forEach(a -> {
