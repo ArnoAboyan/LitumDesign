@@ -179,7 +179,8 @@
             <tr th:each="vendorproduct, iterStat : ${allvendorproducts}">
                 <td th:text="${iterStat.count}"></td>
                 <td class="td-photo border"><img class="table-image" th:src="${vendorproduct.getTitleImageLink()}"></td>
-                <td th:text="${vendorproduct.getTitle()} + ' ' + '[' +  ${vendorproduct.getAccess()} + ']'"></td>
+                <td><a th:text="${vendorproduct.getTitle()} + ' ' + '[' +  ${vendorproduct.getAccess()} + ']'"
+                       th:href="@{'/product/details/' + ${vendorproduct.getId()}}"></a></td>
                 <td th:text="${vendorproduct.getCategories()}"></td>
                 <td class="th-custom">
                     <a type="button"

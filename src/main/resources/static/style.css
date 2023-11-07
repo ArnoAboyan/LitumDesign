@@ -34,6 +34,14 @@ a{
     color: #414141;
 }
 
+.logout-button{
+    border: 0;
+    background-color: rgba(255, 255, 255, 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .navbar-collapse{
     transition: all .3s ease;
 }
