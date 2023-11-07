@@ -185,7 +185,7 @@ public class ProductEntityService {
 //
 //    }
 
-    public ProductEntity findProductDetailsEntityById(Long productId) {
+    public ProductEntity findProductEntityById(Long productId) {
 
         return productEntityRepository.findById(productId).orElseThrow(() -> new NullPointerException("Product not find"));
 
@@ -201,6 +201,7 @@ public class ProductEntityService {
     public ProductEntity findByGdFileId(String gdFileId) {
         return productEntityRepository.findByGdFileId(gdFileId);
     }
+
 
     public List<ProductEntity> findAllByVendorId(UserEntity uploadVendorId) {
 
@@ -251,7 +252,7 @@ public class ProductEntityService {
         //        delete empty cells
         cleanEmptyCell(photoLink);
 
-        ProductEntity productEntity = findProductDetailsEntityById(productEntityId);
+        ProductEntity productEntity = findProductEntityById(productEntityId);
 
 
         if (title != null && !title.isEmpty()) {
@@ -337,7 +338,7 @@ public class ProductEntityService {
 
     public void deleteProductEntity(Long productEntityId) {
 
-        ProductEntity productEntity = findProductDetailsEntityById(productEntityId);
+        ProductEntity productEntity = findProductEntityById(productEntityId);
         googleDriveService.deleteFile(productEntity.getGdFileId());
         productEntityRepository.deleteById(productEntityId);
         System.out.println("DELETE PRODUCT -->" + productEntityId + " and " + productEntity.getGdFileId());

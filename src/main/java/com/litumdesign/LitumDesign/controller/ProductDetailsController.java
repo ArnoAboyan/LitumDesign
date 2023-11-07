@@ -3,9 +3,7 @@ package com.litumdesign.LitumDesign.controller;
 import com.litumdesign.LitumDesign.Entity.Access;
 import com.litumdesign.LitumDesign.Entity.ProductEntity;
 import com.litumdesign.LitumDesign.service.ProductEntityService;
-import io.github.wimdeblauwe.htmx.spring.boot.mvc.HxRequest;
 import lombok.RequiredArgsConstructor;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -24,7 +22,7 @@ public class ProductDetailsController {
     @GetMapping("/details/{productId}")
     public String findProductById(@PathVariable Long productId, Model model, @AuthenticationPrincipal UserDetails userDetails) {
 
-       ProductEntity productDetails =  productEntityService.findProductDetailsEntityById(productId);
+       ProductEntity productDetails =  productEntityService.findProductEntityById(productId);
 
        if(productDetails.getAccess().equals(Access.PUBLIC)){
            model.addAttribute("productdetails", productDetails);

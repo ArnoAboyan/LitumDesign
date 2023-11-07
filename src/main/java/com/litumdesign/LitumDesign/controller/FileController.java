@@ -7,6 +7,7 @@ import com.litumdesign.LitumDesign.service.ProductEntityService;
 import com.litumdesign.LitumDesign.service.UserEntityService;
 import io.github.wimdeblauwe.htmx.spring.boot.mvc.HxRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -29,6 +30,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @RequestMapping("/file")
 @RequiredArgsConstructor
 @SessionAttributes("photoLinkCounter")
+@Log4j2
 public class FileController {
 
 
@@ -69,10 +71,8 @@ public class FileController {
                                    @RequestParam GameType gameType,
                                    @RequestParam String version,
                                    @RequestParam("uploadfile") MultipartFile uploadfile,
-//                                   @PageableDefault(size = 20) Pageable pageable,
                                    Model model) {
 
-        System.out.println("UPLOAD FILE -->>" + uploadfile);
 
         ProductEntity productEntity = new ProductEntity(
                 title,
@@ -95,19 +95,14 @@ public class FileController {
 
         try {
             String gdFileId = googleDriveService.uploadFile(uploadfile);
-            System.out.println("GDFILEID ->>>" + gdFileId);
             productEntityService.createProductEntity(productEntity, photoLink, gdFileId, version);
 
-//            model.addAttribute("products", productEntityService.getMostPopularProduct());
-//            model.addAttribute("productsNewest", productEntityService.getNewestProduct());
-//            model.addAttribute("productsSlider", productEntityService.getSliderProduct());
-//            model.addAttribute("allProducts", productEntityService.getAllProductEntity(pageable));
 
             model.addAttribute("uploadinfo", Toast.success("Success", "Product has bean created"));
             model.addAttribute("productEntity", productEntity.getId());
             return "fragments/success-upload-fragment";
         } catch (Exception e) {
-            System.out.println("WE HAVE SOME PROBLEMS " + e.getMessage());
+           log.error("WE HAVE SOME PROBLEMS " + e.getMessage());
             model.addAttribute("uploadinfo", Toast.error("Error", "Failure occurred"));
             return "fragments/error-upload-fragment";
         }
@@ -118,10 +113,6 @@ public class FileController {
     public String addOneMorePhotoLinkInput(Model model) {
 
         AtomicInteger photoLinkCounter = (AtomicInteger) model.getAttribute("photoLinkCounter");
-
-
-        System.out.println("photoLinkCounter --->" + Objects.requireNonNull(photoLinkCounter).get());
-
 
         if (Objects.requireNonNull(photoLinkCounter).get() <= 100) {
             model.addAttribute("photolinkcounter", photoLinkCounter);
@@ -140,7 +131,6 @@ public class FileController {
 
         AtomicInteger photoLinkCounter = (AtomicInteger) model.getAttribute("photoLinkCounter");
         Objects.requireNonNull(photoLinkCounter).decrementAndGet();
-        System.out.println("photoLinkCounter --->" + photoLinkCounter.get());
         return "";
     }
 
@@ -149,24 +139,27 @@ public class FileController {
     @HxRequest
     public String deleteProduct(@RequestParam("productId") Long productId) {
 
-        System.out.println("productID -> " + productId);
-
         productEntityService.deleteProductEntity(productId);
 
         return "";
     }
 
-    @GetMapping("/download-file/{fileId}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileId, @AuthenticationPrincipal UserDetails userDetails) throws GeneralSecurityException, IOException {
+    @GetMapping("/download-file/{productId}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable String productId, @AuthenticationPrincipal UserDetails userDetails) throws GeneralSecurityException, IOException {
 
-        ProductEntity productEntity = productEntityService.findByGdFileId(fileId);
+
+        ProductEntity productEntity = productEntityService.findProductEntityById(Long.parseLong(productId));
+
+//        ProductEntity productEntity = productEntityService.findByGdFileId(fileId);
 
         if (productEntity.getAccess().equals(Access.PUBLIC)) {
             productEntityService.downloadCounter(productEntity);
             if (userDetails != null) {
                 userEntityService.userDownloadCounter(userDetails);
             }
-            return googleDriveService.downloadFile(fileId);
+
+//            return googleDriveService.downloadFile(fileId);
+            return googleDriveService.downloadFile(productEntity.getGdFileId());
         }
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
@@ -189,7 +182,7 @@ public class FileController {
     @GetMapping("/updatefile/{productEntityId}")
     public String updateFilePage(@PathVariable Long productEntityId, Model model, @AuthenticationPrincipal UserDetails userDetails) {
 
-        ProductEntity productEntity = productEntityService.findProductDetailsEntityById(productEntityId);
+        ProductEntity productEntity = productEntityService.findProductEntityById(productEntityId);
 
         if(userDetails.getUsername().equals(productEntity.getUploadUserId().getLogin())) {
 
@@ -222,7 +215,6 @@ public class FileController {
             @RequestParam GameType gameType,
             @RequestParam String version,
             @RequestParam String versionComment,
-//            @PageableDefault(size = 20) Pageable pageable,
             Model model) {
 
 
@@ -241,16 +233,12 @@ public class FileController {
                     version,
                     versionComment);
 
-//            model.addAttribute("products", productEntityService.getMostPopularProduct());
-//            model.addAttribute("productsNewest", productEntityService.getNewestProduct());
-//            model.addAttribute("productsSlider", productEntityService.getSliderProduct());
-//            model.addAttribute("allProducts", productEntityService.getAllProductEntity(pageable));
 
             model.addAttribute("uploadinfo", Toast.success("Success", "Product has bean updated"));
             model.addAttribute("productEntity", productEntityId);
             return "fragments/success-upload-fragment";
         } catch (Exception e) {
-            System.out.println("WE HAVE SOME PROBLEMS " + e.getMessage());
+            log.error("WE HAVE SOME PROBLEMS " + e.getMessage());
             model.addAttribute("uploadinfo", Toast.error("Error", "Failure occurred"));
             return "fragments/error-upload-fragment";
         }
