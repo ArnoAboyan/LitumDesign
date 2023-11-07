@@ -1,7 +1,9 @@
 package com.litumdesign.LitumDesign.service;
 
 import com.litumdesign.LitumDesign.Entity.*;
+import com.litumdesign.LitumDesign.googledrive.GoogleDriveService;
 import com.litumdesign.LitumDesign.repository.ProductEntityRepository;
+import com.litumdesign.LitumDesign.repository.ProductVersionRepository;
 import com.litumdesign.LitumDesign.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -25,14 +27,18 @@ import java.util.Optional;
 @Log4j2
 public class ProductEntityService {
 
-    public final ProductEntityRepository productEntityRepository;
+    private final ProductEntityRepository productEntityRepository;
     private final UserRepository userRepository;
+    private final ProductVersionRepository productVersionRepository;
+    private final GoogleDriveService googleDriveService;
+
 
     @Transactional
     public void createProductEntity(ProductEntity productEntity, List<String> photoLink, String gdFileId, String version) {
 
 //        delete empty cells
-        photoLink.removeIf(item -> item == null || item.isEmpty());
+        cleanEmptyCell(photoLink);
+//        photoLink.removeIf(item -> item == null || item.isEmpty());
 
 
 //       GET LINKS FOR ProductEntity photos
@@ -186,6 +192,14 @@ public class ProductEntityService {
 
     }
 
+    public ProductVersionEntity findLastVersionByProductEntity(ProductEntity productEntity){
+        List<ProductVersionEntity> productVersionEntityList = productVersionRepository.findProductVersionEntitiesByProductEntityOrderByVersion(productEntity);
+
+        return productVersionEntityList.get(productVersionEntityList.size() - 1);
+    }
+
+
+
     public ProductEntity findByGdFileId (String gdFileId){
         return productEntityRepository.findByGdFileId(gdFileId);
     }
@@ -217,4 +231,68 @@ public class ProductEntityService {
 
     }
 
+    public void cleanEmptyCell(List<String> photoLink) {
+      photoLink.removeIf(item -> item == null || item.isEmpty());
+    }
+
+    public void updateProductEntity(Long productEntityId, List<String> photoLink, String version) {
+        //        delete empty cells
+        cleanEmptyCell(photoLink);
+
+      ProductEntity productEntity = findProductDetailsEntityById(productEntityId);
+
+//       GET LINKS FOR ProductEntity photos
+        List<ProductPhotoEntity> productPhotos = new ArrayList<>();
+        photoLink.forEach(a -> {
+            ProductPhotoEntity productPhotoEntity = new ProductPhotoEntity(productEntity, a);
+            productPhotos.add(productPhotoEntity);
+        });
+
+//        ADD PHOTO LINKS TO ProductEntity
+        productEntity.setPhotoLink(productPhotos);
+
+        List<ProductVersionEntity> productVersion = new ArrayList<>();
+        productVersion.add(new ProductVersionEntity(productEntity, version, "Release" ));
+        productEntity.setProductVersion(productVersion);
+
+//        GET USER FROM SESSION
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null) {
+            String username = authentication.getPrincipal().toString();
+            System.out.println(username);
+
+
+            Optional<UserEntity> optionalUserEntity = userRepository.findById(authentication.getName());
+
+
+//            ADD UPLOAD USER USERNAME(ID)
+            productEntity.setUploadUserId(optionalUserEntity.orElseThrow(() -> new NullPointerException("Active USER not found")));
+
+
+            UserEntity userEntity = optionalUserEntity.orElseThrow(() -> new NullPointerException("Active USER not found"));
+            userEntity.setCountOfUploads(userEntity.getCountOfUploads() + 1);
+
+            userRepository.save(userEntity);
+
+
+        } else {
+            System.out.println("no user");
+        }
+
+
+        System.out.println(productEntity);
+
+        productEntityRepository.save(productEntity);
+
+    }
+
+    public void deleteProductEntity(Long productEntityId) {
+
+        ProductEntity productEntity = findProductDetailsEntityById(productEntityId);
+        googleDriveService.deleteFile(productEntity.getGdFileId());
+        productEntityRepository.deleteById(productEntityId);
+        System.out.println("DELETE PRODUCT -->" + productEntityId + " and " + productEntity.getGdFileId());
+    }
 }
+

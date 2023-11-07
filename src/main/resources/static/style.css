@@ -7,7 +7,7 @@ position: relative;
 /* margin-left: 15px; */
 font-family: 'Roboto', sans-serif;
 color: #000000;
-font-size: 18px;
+font-size: 16px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -681,6 +681,29 @@ font-weight: 400;
     outline: none;
     box-shadow: none;
     border-bottom: 2px solid #CB321A;
+}
+
+.submitfile-version{
+    max-width: 100px;
+    border-radius: 0;
+    border: 0;
+    border-bottom: 2px solid #c9c9c9;
+}
+.submitfile-version:focus{
+    outline: none;
+    box-shadow: none;
+    border-bottom: 2px solid #CB321A;
+}
+
+.submitfile-version-comment {
+    margin-top: 10px;
+    border-radius: 0;
+    border: 2px solid #c9c9c9;
+}
+.submitfile-version-comment:focus{
+    outline: none;
+    box-shadow: none;
+    border: 3px solid #CB321A;
 }
 
 .submitfile-titleimage{

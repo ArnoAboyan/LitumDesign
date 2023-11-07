@@ -38,7 +38,7 @@ public class VendorPanelController {
             model.addAttribute("sumofviews", productEntityService.sumOfViews(productEntityList));
 
             return "vendorpanel";
-        }return "errors/error-404";
+        } else return "errors/error-404";
     }
 
 
@@ -47,7 +47,6 @@ public class VendorPanelController {
     @HxRequest
     public String getProductByCategoryHx(@PathVariable Categories category, Model model, @AuthenticationPrincipal UserDetails userDetails ){
 
-        System.out.println("SUCCESS" + category);
 
             List<ProductEntity> productEntityList =  productEntityService.findByVendorIdAndCategories(userEntityService.getUserById(userDetails.getUsername()), category);
         model.addAttribute("vendorproductsbycategory", productEntityList);

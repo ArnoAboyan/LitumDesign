@@ -104,7 +104,6 @@ public class GoogleDriveService {
                             new ByteArrayInputStream(file.getBytes()))
                     )
                     .setFields("id, name")
-//                .setFields("name")
                     .execute();
 
 
@@ -221,6 +220,21 @@ public class GoogleDriveService {
         return ResponseEntity.ok()
                 .headers(headers)
                 .body(resource);
+    }
+
+
+    public void deleteFile(String fileId)  {
+
+        Drive service = null;
+        try {
+            service = getInstance();
+            service.files().delete(fileId).execute();
+            System.out.println("DELETE GD FILE -->" + fileId);
+        } catch (GeneralSecurityException | IOException e) {
+            log.error("Error occurred while getting the Google Drive instance", e);
+            throw new RuntimeException("Error initializing Google Drive service: " + e.getMessage(), e);
+        }
+
     }
 }
 
