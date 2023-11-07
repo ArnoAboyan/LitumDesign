@@ -3,6 +3,7 @@ package com.litumdesign.LitumDesign.service;
 import com.litumdesign.LitumDesign.Entity.*;
 import com.litumdesign.LitumDesign.googledrive.GoogleDriveService;
 import com.litumdesign.LitumDesign.repository.ProductEntityRepository;
+import com.litumdesign.LitumDesign.repository.ProductPhotoRepository;
 import com.litumdesign.LitumDesign.repository.ProductVersionRepository;
 import com.litumdesign.LitumDesign.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-//import java.util.function.Supplier;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +31,7 @@ public class ProductEntityService {
     private final UserRepository userRepository;
     private final ProductVersionRepository productVersionRepository;
     private final GoogleDriveService googleDriveService;
+    private final ProductPhotoRepository productPhotoRepository;
 
 
     @Transactional
@@ -56,8 +57,8 @@ public class ProductEntityService {
 
 
         List<ProductVersionEntity> productVersion = new ArrayList<>();
-            productVersion.add(new ProductVersionEntity(productEntity, version, "Release" ));
-            productEntity.setProductVersion(productVersion);
+        productVersion.add(new ProductVersionEntity(productEntity, version, "Release"));
+        productEntity.setProductVersion(productVersion);
 
 //        GET USER FROM SESSION
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -91,11 +92,11 @@ public class ProductEntityService {
 
     }
 
-    public Page<ProductEntity> getAllProductEntity(Pageable pageable)  {
-        Page<ProductEntity> products = productEntityRepository.findAllByAccess(pageable, Access.PUBLIC );
+    public Page<ProductEntity> getAllProductEntity(Pageable pageable) {
+        Page<ProductEntity> products = productEntityRepository.findAllByAccess(pageable, Access.PUBLIC);
 
 
-        if (products.getSize() != 20){
+        if (products.getSize() != 20) {
             log.error("Size is incorrect");
             throw new UnsupportedOperationException("Size is incorrect") {
             };
@@ -103,7 +104,6 @@ public class ProductEntityService {
 
         return products;
     }
-
 
 
     public List<ProductEntity> getMostPopularProduct() {
@@ -135,7 +135,7 @@ public class ProductEntityService {
 
     }
 
-    public void downloadCounter(ProductEntity product){
+    public void downloadCounter(ProductEntity product) {
 
 //        ProductEntity product = productEntityRepository.findByGdFileId(fieldId);
 
@@ -144,34 +144,33 @@ public class ProductEntityService {
         productEntityRepository.save(product);
     }
 
-    public void viewsCounter(ProductEntity productEntity){
+    public void viewsCounter(ProductEntity productEntity) {
 
         productEntity.setCountOfView(productEntity.getCountOfView() + 1);
 
         productEntityRepository.save(productEntity);
     }
 
-    public Page<ProductEntity> getSearchResult( String searchQuery, Pageable pageable)  {
+    public Page<ProductEntity> getSearchResult(String searchQuery, Pageable pageable) {
 
 
-        return productEntityRepository.searchByInput(searchQuery.toLowerCase(),pageable);
+        return productEntityRepository.searchByInput(searchQuery.toLowerCase(), pageable);
     }
 
-    public List<ProductEntity> getSearchResultForVendors(String searchQuery, UserEntity userEntity)  {
+    public List<ProductEntity> getSearchResultForVendors(String searchQuery, UserEntity userEntity) {
 
 
         return productEntityRepository.searchByInputAndUploadUserId(searchQuery.toLowerCase(), userEntity);
     }
 
-    public Page<ProductEntity> getAllProductByGameTypeAndSort(GameType gameType, Pageable pageable)  {
+    public Page<ProductEntity> getAllProductByGameTypeAndSort(GameType gameType, Pageable pageable) {
 
 
         return productEntityRepository.findAllByGameTypeAndAccess(gameType, pageable, Access.PUBLIC);
     }
 
 
-
-    public Page<ProductEntity> getAllProductByGameTypeAndCategoriesAndSort(GameType gameType, Categories categories, Pageable pageable )  {
+    public Page<ProductEntity> getAllProductByGameTypeAndCategoriesAndSort(GameType gameType, Categories categories, Pageable pageable) {
 
 
         return productEntityRepository.findAllByGameTypeAndCategoriesAndAccess(gameType, categories, pageable, Access.PUBLIC);
@@ -186,36 +185,35 @@ public class ProductEntityService {
 //
 //    }
 
-    public ProductEntity findProductDetailsEntityById(Long productId){
+    public ProductEntity findProductDetailsEntityById(Long productId) {
 
-        return productEntityRepository.findById(productId).orElseThrow(()-> new NullPointerException("Product not find"));
+        return productEntityRepository.findById(productId).orElseThrow(() -> new NullPointerException("Product not find"));
 
     }
 
-    public ProductVersionEntity findLastVersionByProductEntity(ProductEntity productEntity){
+    public ProductVersionEntity findLastVersionByProductEntity(ProductEntity productEntity) {
         List<ProductVersionEntity> productVersionEntityList = productVersionRepository.findProductVersionEntitiesByProductEntityOrderByVersion(productEntity);
 
         return productVersionEntityList.get(productVersionEntityList.size() - 1);
     }
 
 
-
-    public ProductEntity findByGdFileId (String gdFileId){
+    public ProductEntity findByGdFileId(String gdFileId) {
         return productEntityRepository.findByGdFileId(gdFileId);
     }
 
-    public List<ProductEntity> findAllByVendorId (UserEntity uploadVendorId)  {
+    public List<ProductEntity> findAllByVendorId(UserEntity uploadVendorId) {
 
         return productEntityRepository.findByUploadUserId(uploadVendorId);
     }
 
 
-    public List<ProductEntity> findByVendorIdAndCategories (UserEntity uploadVendorId, Categories categories)  {
+    public List<ProductEntity> findByVendorIdAndCategories(UserEntity uploadVendorId, Categories categories) {
 
         return productEntityRepository.findByUploadUserIdAndCategories(uploadVendorId, categories);
     }
 
-    public int sumOfDownloads(List<ProductEntity> productEntityList){
+    public int sumOfDownloads(List<ProductEntity> productEntityList) {
 
         return productEntityList.stream()
                 .mapToInt(ProductEntity::getCountOfDownloads)
@@ -223,7 +221,7 @@ public class ProductEntityService {
 
     }
 
-    public int sumOfViews(List<ProductEntity> productEntityList){
+    public int sumOfViews(List<ProductEntity> productEntityList) {
 
         return productEntityList.stream()
                 .mapToInt(ProductEntity::getCountOfView)
@@ -232,53 +230,101 @@ public class ProductEntityService {
     }
 
     public void cleanEmptyCell(List<String> photoLink) {
-      photoLink.removeIf(item -> item == null || item.isEmpty());
+        photoLink.removeIf(item -> item == null || item.isEmpty());
     }
 
-    public void updateProductEntity(Long productEntityId, List<String> photoLink, String version) {
+
+
+    public void updateProductEntity(Long productEntityId,
+                                    String title,
+                                    String titleImageLink,
+                                    String shortInfo,
+                                    List<String> photoLink,
+                                    String license,
+                                    Access access,
+                                    String description,
+                                    String videoLink,
+                                    Categories categories,
+                                    GameType gameType,
+                                    String version,
+                                    String versionComment) {
         //        delete empty cells
         cleanEmptyCell(photoLink);
 
-      ProductEntity productEntity = findProductDetailsEntityById(productEntityId);
+        ProductEntity productEntity = findProductDetailsEntityById(productEntityId);
 
-//       GET LINKS FOR ProductEntity photos
+
+        if (title != null && !title.isEmpty()) {
+            productEntity.setTitle(title);
+        }
+
+        if (titleImageLink != null && !titleImageLink.isEmpty()) {
+            productEntity.setTitleImageLink(titleImageLink);
+        }
+
+        if (shortInfo != null && !shortInfo.isEmpty()) {
+            productEntity.setShortInfo(shortInfo);
+        }
+
+//           DELETE OLD PHOTOS
+        productPhotoRepository.deleteByProductEntity(productEntity);
+        //       GET LINKS FOR ProductEntity photos
         List<ProductPhotoEntity> productPhotos = new ArrayList<>();
         photoLink.forEach(a -> {
             ProductPhotoEntity productPhotoEntity = new ProductPhotoEntity(productEntity, a);
             productPhotos.add(productPhotoEntity);
         });
-
 //        ADD PHOTO LINKS TO ProductEntity
         productEntity.setPhotoLink(productPhotos);
 
-        List<ProductVersionEntity> productVersion = new ArrayList<>();
-        productVersion.add(new ProductVersionEntity(productEntity, version, "Release" ));
-        productEntity.setProductVersion(productVersion);
 
-//        GET USER FROM SESSION
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (authentication != null) {
-            String username = authentication.getPrincipal().toString();
-            System.out.println(username);
-
-
-            Optional<UserEntity> optionalUserEntity = userRepository.findById(authentication.getName());
-
-
-//            ADD UPLOAD USER USERNAME(ID)
-            productEntity.setUploadUserId(optionalUserEntity.orElseThrow(() -> new NullPointerException("Active USER not found")));
-
-
-            UserEntity userEntity = optionalUserEntity.orElseThrow(() -> new NullPointerException("Active USER not found"));
-            userEntity.setCountOfUploads(userEntity.getCountOfUploads() + 1);
-
-            userRepository.save(userEntity);
-
-
-        } else {
-            System.out.println("no user");
+        if (license != null && !license.isEmpty()) {
+            productEntity.setLicense(license);
         }
+
+        productEntity.setAccess(access);
+
+        if (description != null && !description.isEmpty()) {
+            productEntity.setDescription(description);
+        }
+        if (videoLink != null && !videoLink.isEmpty()) {
+            productEntity.setVideoLink(videoLink);
+        }
+
+        productEntity.setCategories(categories);
+        productEntity.setGameType(gameType);
+
+
+        List<ProductVersionEntity> productVersion = productEntity.getProductVersion();
+        if (!versionComment.isEmpty()) {
+            productVersion.add(new ProductVersionEntity(productEntity, version, versionComment));
+            productEntity.setProductVersion(productVersion);
+        }
+
+////        GET USER FROM SESSION
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//
+//        if (authentication != null) {
+//            String username = authentication.getPrincipal().toString();
+//            System.out.println(username);
+//
+//
+//            Optional<UserEntity> optionalUserEntity = userRepository.findById(authentication.getName());
+//
+//
+////            ADD UPLOAD USER USERNAME(ID)
+//            productEntity.setUploadUserId(optionalUserEntity.orElseThrow(() -> new NullPointerException("Active USER not found")));
+//
+//
+//            UserEntity userEntity = optionalUserEntity.orElseThrow(() -> new NullPointerException("Active USER not found"));
+//            userEntity.setCountOfUploads(userEntity.getCountOfUploads() + 1);
+//
+//            userRepository.save(userEntity);
+//
+//
+//        } else {
+//            System.out.println("no user");
+//        }
 
 
         System.out.println(productEntity);

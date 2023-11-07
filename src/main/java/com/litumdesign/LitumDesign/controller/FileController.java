@@ -6,8 +6,6 @@ import com.litumdesign.LitumDesign.googledrive.GoogleDriveService;
 import com.litumdesign.LitumDesign.service.ProductEntityService;
 import com.litumdesign.LitumDesign.service.UserEntityService;
 import io.github.wimdeblauwe.htmx.spring.boot.mvc.HxRequest;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
@@ -71,7 +69,7 @@ public class FileController {
                                    @RequestParam GameType gameType,
                                    @RequestParam String version,
                                    @RequestParam("uploadfile") MultipartFile uploadfile,
-                                   @PageableDefault(size = 20) Pageable pageable,
+//                                   @PageableDefault(size = 20) Pageable pageable,
                                    Model model) {
 
         System.out.println("UPLOAD FILE -->>" + uploadfile);
@@ -100,20 +98,19 @@ public class FileController {
             System.out.println("GDFILEID ->>>" + gdFileId);
             productEntityService.createProductEntity(productEntity, photoLink, gdFileId, version);
 
-            model.addAttribute("products", productEntityService.getMostPopularProduct());
-            model.addAttribute("productsNewest", productEntityService.getNewestProduct());
-            model.addAttribute("productsSlider", productEntityService.getSliderProduct());
-            model.addAttribute("allProducts", productEntityService.getAllProductEntity(pageable));
+//            model.addAttribute("products", productEntityService.getMostPopularProduct());
+//            model.addAttribute("productsNewest", productEntityService.getNewestProduct());
+//            model.addAttribute("productsSlider", productEntityService.getSliderProduct());
+//            model.addAttribute("allProducts", productEntityService.getAllProductEntity(pageable));
 
             model.addAttribute("uploadinfo", Toast.success("Success", "Product has bean created"));
-
+            model.addAttribute("productEntity", productEntity.getId());
+            return "fragments/success-upload-fragment";
         } catch (Exception e) {
             System.out.println("WE HAVE SOME PROBLEMS " + e.getMessage());
             model.addAttribute("uploadinfo", Toast.error("Error", "Failure occurred"));
-
+            return "fragments/error-upload-fragment";
         }
-        System.out.println("UPLOAD FILE -->>" + uploadfile);
-        return "fragments/successfragment";
     }
 
     @GetMapping("/add-photo-link-input")
@@ -150,7 +147,7 @@ public class FileController {
     @ResponseBody
     @DeleteMapping("/delete-product")
     @HxRequest
-    public String deleteProduct(@RequestParam("productId") Long productId, Model model) {
+    public String deleteProduct(@RequestParam("productId") Long productId) {
 
         System.out.println("productID -> " + productId);
 
@@ -224,28 +221,43 @@ public class FileController {
             @RequestParam Categories categories,
             @RequestParam GameType gameType,
             @RequestParam String version,
-            @PageableDefault(size = 20) Pageable pageable,
+            @RequestParam String versionComment,
+//            @PageableDefault(size = 20) Pageable pageable,
             Model model) {
 
 
 
         try {
-            productEntityService.updateProductEntity(productEntityId, photoLink, version);
+            productEntityService.updateProductEntity(productEntityId,title,
+                    titleImageLink,
+                    shortInfo,
+                    photoLink,
+                    license,
+                    access,
+                    description,
+                    videoLink,
+                    categories,
+                    gameType,
+                    version,
+                    versionComment);
 
-            model.addAttribute("products", productEntityService.getMostPopularProduct());
-            model.addAttribute("productsNewest", productEntityService.getNewestProduct());
-            model.addAttribute("productsSlider", productEntityService.getSliderProduct());
-            model.addAttribute("allProducts", productEntityService.getAllProductEntity(pageable));
+//            model.addAttribute("products", productEntityService.getMostPopularProduct());
+//            model.addAttribute("productsNewest", productEntityService.getNewestProduct());
+//            model.addAttribute("productsSlider", productEntityService.getSliderProduct());
+//            model.addAttribute("allProducts", productEntityService.getAllProductEntity(pageable));
 
             model.addAttribute("uploadinfo", Toast.success("Success", "Product has bean updated"));
-
+            model.addAttribute("productEntity", productEntityId);
+            return "fragments/success-upload-fragment";
         } catch (Exception e) {
             System.out.println("WE HAVE SOME PROBLEMS " + e.getMessage());
             model.addAttribute("uploadinfo", Toast.error("Error", "Failure occurred"));
+            return "fragments/error-upload-fragment";
         }
 
-        return "fragments/successfragment";
+
     }
+
 
 }
 
