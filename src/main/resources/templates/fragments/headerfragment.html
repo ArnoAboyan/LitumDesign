@@ -125,9 +125,13 @@
                                 </a>
                             </li>
                             <li>
-<!--                                <a class="dropdown-item " sec:authorize="hasAnyRole('ADMIN', 'VENDOR')" th:href="@{/vendor/vendorpanel/{vendorid}(vendorid=${#authentication.principal.username})}">-->
                                 <a class="dropdown-item " sec:authorize="hasAnyRole('ADMIN', 'VENDOR')" th:href="@{/vendor/vendorpanel}">
                                     Vendor panel
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item " sec:authorize="hasRole('ADMIN')" th:href="@{/admin/adminpanel}">
+                                    Admin panel
                                 </a>
                             </li>
                             <li>

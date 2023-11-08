@@ -1,6 +1,7 @@
 package com.litumdesign.LitumDesign.controller;
 
 import com.litumdesign.LitumDesign.Entity.*;
+import com.litumdesign.LitumDesign.exception.GoogleDriveException;
 import com.litumdesign.LitumDesign.formaticUI.Toast;
 import com.litumdesign.LitumDesign.googledrive.GoogleDriveService;
 import com.litumdesign.LitumDesign.service.ProductEntityService;
@@ -137,9 +138,11 @@ public class FileController {
     @ResponseBody
     @DeleteMapping("/delete-product")
     @HxRequest
-    public String deleteProduct(@RequestParam("productId") Long productId) {
+    public String deleteProduct(@RequestParam("productId") Long productId, @AuthenticationPrincipal UserDetails userDetails) {
 
-        productEntityService.deleteProductEntity(productId);
+
+            userEntityService.deleteUploadCounter(userDetails);
+            productEntityService.deleteProductEntity(productId);
 
         return "";
     }

@@ -1,0 +1,14 @@
+<td class="th-custom" id="user-authorities">
+  <select class="th-custom"
+          name="role"
+          aria-label="Default select example" required
+          hx-post="/admin/update-role"
+          hx-trigger="change"
+          hx-target="closest td"
+          th:attr="hx-vals='{&quot;login&quot;: &quot;'+${user.getLogin()}+'&quot;}'" >
+    <option th:value="${user.getAuthorities()}"
+            selected disabled th:text="${user.getAuthorities()}"></option>
+    <option value="USER">USER</option>
+    <option value="VENDOR">VENDOR</option>
+  </select>
+</td>

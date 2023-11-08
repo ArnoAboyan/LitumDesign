@@ -1,6 +1,7 @@
 package com.litumdesign.LitumDesign.service;
 
 import com.litumdesign.LitumDesign.Entity.ProductEntity;
+import com.litumdesign.LitumDesign.Entity.Role;
 import com.litumdesign.LitumDesign.Entity.UserEntity;
 import com.litumdesign.LitumDesign.auth.AppUser;
 import com.litumdesign.LitumDesign.repository.UserRepository;
@@ -8,6 +9,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -38,5 +42,23 @@ public class UserEntityService {
     public UserEntity getUserById(String userId){
 
         return userRepository.findById(userId).orElseThrow(() -> new NullPointerException("User not found...") );
+    }
+
+    @Transactional
+    public UserEntity deleteUploadCounter(UserDetails userDetails){
+       UserEntity userEntity = getUserById(userDetails.getUsername());
+
+        userEntity.setCountOfUploads(userEntity.getCountOfUploads()-1);
+        return userRepository.save(userEntity);
+    }
+
+    @Transactional
+    public UserEntity setNewRoleUserEntity(UserEntity userEntity, Role role){
+        userEntity.setAuthorities(role);
+
+        return userRepository.save(userEntity);
+    }
+    public List<UserEntity> findAllUsers(){
+        return userRepository.findAll();
     }
 }

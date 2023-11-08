@@ -65,7 +65,7 @@
     display: flex;
     width: 1400px;
     height: 44px;
-    border-radius: 0px ;
+    border-radius: 0 ;
     border: 2px solid #CB321A;
 
 }
@@ -104,4 +104,20 @@
 .vendor-buttons{
     display: flex;
     justify-content: space-between;
+}
+
+.container-success{
+    max-width: 1170px;
+    margin: 0 auto;
+}
+.container-success-info{
+margin: 0 auto;
+}
+
+.container-success-links{
+    margin: 0 auto;
+}
+.success-upload-file-button{
+    border-radius: 0 ;
+    border-bottom: 2px solid #CB321A;
 }
