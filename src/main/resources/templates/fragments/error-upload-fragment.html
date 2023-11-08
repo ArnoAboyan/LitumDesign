@@ -1,11 +1,13 @@
-<div class="container">
+<div class="container-success">
+<div class="container-success-info">
   <H1 th:text="${uploadinfo.title()}"></H1>
   <p th:text="${uploadinfo.message()}"></p>
 </div>
 
 <section>
-  <div>
-    <a th:href="@{/vendor/vendorpanel}" >Back to vendor panel</a>
+  <div class="container-success-links">
+    <div><a class="success-upload-file-button"  th:href="@{/vendor/vendorpanel}" >Back to vendor panel</a></div>
   </div>
 
 </section>
+</div>

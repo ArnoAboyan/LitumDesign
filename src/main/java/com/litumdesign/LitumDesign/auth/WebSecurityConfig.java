@@ -40,7 +40,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, AppUserService appUserService) throws Exception {
         return http
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-                        .requestMatchers("/news/submitnews", "/news/addnews").hasRole("ADMIN")
+                        .requestMatchers("/news/submitnews", "/news/addnews", "/admin/**").hasRole("ADMIN")
                         .requestMatchers("/vendor/**", "/file/addfile/**", "/file/updatefile/**").hasAnyRole("VENDOR", "ADMIN")
 //                        .requestMatchers("/user-page").hasRole(USER)
 //                        .requestMatchers("/", "/login","/auth", "/public-page").permitAll()

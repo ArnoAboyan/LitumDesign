@@ -202,6 +202,10 @@ public class ProductEntityService {
         return productEntityRepository.findByGdFileId(gdFileId);
     }
 
+    public List<ProductEntity> findAll() {
+
+        return productEntityRepository.findAll();
+    }
 
     public List<ProductEntity> findAllByVendorId(UserEntity uploadVendorId) {
 
@@ -235,7 +239,7 @@ public class ProductEntityService {
     }
 
 
-
+@Transactional
     public void updateProductEntity(Long productEntityId,
                                     String title,
                                     String titleImageLink,
@@ -335,7 +339,7 @@ public class ProductEntityService {
         productEntityRepository.save(productEntity);
 
     }
-
+@Transactional
     public void deleteProductEntity(Long productEntityId) {
 
         ProductEntity productEntity = findProductEntityById(productEntityId);
