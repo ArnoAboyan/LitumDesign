@@ -233,13 +233,12 @@ public class ProductEntityService {
                 .sum();
 
     }
-
     public void cleanEmptyCell(List<String> photoLink) {
         photoLink.removeIf(item -> item == null || item.isEmpty());
     }
 
 
-@Transactional
+
     public void updateProductEntity(Long productEntityId,
                                     String title,
                                     String titleImageLink,
@@ -282,6 +281,7 @@ public class ProductEntityService {
             productPhotos.add(productPhotoEntity);
         });
 //        ADD PHOTO LINKS TO ProductEntity
+
         productEntity.setPhotoLink(productPhotos);
 
 
@@ -307,31 +307,6 @@ public class ProductEntityService {
             productVersion.add(new ProductVersionEntity(productEntity, version, versionComment));
             productEntity.setProductVersion(productVersion);
         }
-
-////        GET USER FROM SESSION
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//
-//        if (authentication != null) {
-//            String username = authentication.getPrincipal().toString();
-//            System.out.println(username);
-//
-//
-//            Optional<UserEntity> optionalUserEntity = userRepository.findById(authentication.getName());
-//
-//
-////            ADD UPLOAD USER USERNAME(ID)
-//            productEntity.setUploadUserId(optionalUserEntity.orElseThrow(() -> new NullPointerException("Active USER not found")));
-//
-//
-//            UserEntity userEntity = optionalUserEntity.orElseThrow(() -> new NullPointerException("Active USER not found"));
-//            userEntity.setCountOfUploads(userEntity.getCountOfUploads() + 1);
-//
-//            userRepository.save(userEntity);
-//
-//
-//        } else {
-//            System.out.println("no user");
-//        }
 
 
         System.out.println(productEntity);
