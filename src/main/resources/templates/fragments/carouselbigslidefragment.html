@@ -27,7 +27,7 @@
     </div>
     <div class="carousel-item" data-bs-interval="5000" th:each="product, index : ${sliderproductList}" th:classappend ="${index.first} ? 'active' : ''" >
       <div>
-      <a th:href="@{'file/download-file/' + ${product.gdFileId}}" >
+      <a th:href="@{'/file/download-file/' + ${product.id}}" >
         <img data-th-src="@{${product.titleImageLink}}" class="d-block w-100" alt="slider picture">
         <div class="carousel-caption ">
           <h2  class="text-truncate" th:text="${product.title}"></h2>
