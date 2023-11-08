@@ -22,9 +22,6 @@
               th:class ="${index.first} ? 'active' : ''"></button>
   </div>
   <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="https://i.imgur.com/NY9UFO9.jpg" class="d-block w-100" alt="slider picture">
-    </div>
     <div class="carousel-item" data-bs-interval="5000" th:each="product, index : ${sliderproductList}" th:classappend ="${index.first} ? 'active' : ''" >
       <div>
       <a th:href="@{'/product/details/' + ${product.id}}">
