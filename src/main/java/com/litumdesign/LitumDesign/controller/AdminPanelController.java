@@ -1,6 +1,5 @@
 package com.litumdesign.LitumDesign.controller;
 
-import com.litumdesign.LitumDesign.Entity.Categories;
 import com.litumdesign.LitumDesign.Entity.ProductEntity;
 import com.litumdesign.LitumDesign.Entity.Role;
 import com.litumdesign.LitumDesign.Entity.UserEntity;
@@ -58,7 +57,7 @@ public class AdminPanelController {
 
     @PostMapping("/update-role")
     @HxRequest
-    public String changeUserAuth(@RequestParam("role") Role role,
+    public String changeUserRole(@RequestParam("role") Role role,
                                  @RequestParam("login") String login,
                                  Model model,
                                  @AuthenticationPrincipal UserDetails userDetails) {
@@ -71,39 +70,57 @@ public class AdminPanelController {
 
             model.addAttribute("user", userEntity);
 
-            return "fragments/admin-panel-user-auth-fragment";
+            return "fragments/adminPaneleFragments/admin-panel-user-role-fragment";
     }
 
-    @GetMapping("/adminpanel/bycategory/{category}")
+    @PostMapping("/update-name")
     @HxRequest
-    public String getProductByCategoryHx(@PathVariable Categories category, Model model, @AuthenticationPrincipal UserDetails userDetails ){
+    public String changeUserName(@RequestParam("name") String name,
+                                 @RequestParam("login") String login,
+                                 Model model,
+                                 @AuthenticationPrincipal UserDetails userDetails) {
 
 
-        List<ProductEntity> productEntityList =  productEntityService.findByVendorIdAndCategories(userEntityService.getUserById(userDetails.getUsername()), category);
-        model.addAttribute("vendorproductsbycategory", productEntityList);
 
-        return "fragments/vendorpanelproductsfragment";
+        UserEntity userEntity = userEntityService.getUserById(login);
+
+        userEntityService.setNewNameUserEntity(userEntity, name);
+
+        model.addAttribute("user", userEntity);
+
+        return "fragments/adminPaneleFragments/admin-panel-user-name-fragment";
     }
 
-    @GetMapping("adminpanel/allproducts")
-    @HxRequest
-    public String getAllProductHx(Model model, @AuthenticationPrincipal UserDetails userDetails ){
+//    @GetMapping("/adminpanel/bycategory/{category}")
+//    @HxRequest
+//    public String getProductByCategoryHx(@PathVariable Categories category, Model model, @AuthenticationPrincipal UserDetails userDetails ){
+//
+//
+//        List<ProductEntity> productEntityList =  productEntityService.findByVendorIdAndCategories(userEntityService.getUserById(userDetails.getUsername()), category);
+//        model.addAttribute("vendorproductsbycategory", productEntityList);
+//
+//        return "fragments/vendorpanelproductsfragment";
+//    }
 
-        List<ProductEntity> productEntityList = productEntityService.findAllByVendorId(userEntityService.getUserById(userDetails.getUsername()));
-        model.addAttribute("vendorproductsbycategory", productEntityList);
+//    @GetMapping("adminpanel/allproducts")
+//    @HxRequest
+//    public String getAllProductHx(Model model, @AuthenticationPrincipal UserDetails userDetails ){
+//
+//        List<ProductEntity> productEntityList = productEntityService.findAllByVendorId(userEntityService.getUserById(userDetails.getUsername()));
+//        model.addAttribute("vendorproductsbycategory", productEntityList);
+//
+//        return "fragments/vendorpanelproductsfragment";
+//    }
 
-        return "fragments/vendorpanelproductsfragment";
-    }
-
-    @GetMapping("adminpanel/search")
-    @HxRequest
-    public String findProductHx(@RequestParam String searchquery, Model model, @AuthenticationPrincipal UserDetails userDetails ){
-
-        List<ProductEntity> productEntityList = productEntityService.getSearchResultForVendors(searchquery, userEntityService.getUserById(userDetails.getUsername()));
-        model.addAttribute("vendorproductsbycategory", productEntityList);
-
-        return "fragments/admin-panel-users-fragment";
-    }
+//    @GetMapping("adminpanel/search")
+//    @HxRequest
+//    public String findProductHx(@RequestParam String searchquery, Model model, @AuthenticationPrincipal UserDetails userDetails ){
+//
+//        List<ProductEntity> productEntityList = productEntityService.getSearchResultForVendors(searchquery, userEntityService.getUserById(userDetails.getUsername()));
+//        model.addAttribute("vendorproductsbycategory", productEntityList);
+//
+//        return "fragments/admin-panel-users-fragment";
+//    }
 
 }
 

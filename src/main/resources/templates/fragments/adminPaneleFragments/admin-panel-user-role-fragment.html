@@ -1,10 +1,12 @@
-<td class="th-custom" id="user-authorities">
+<td class="th-custom" id="userauthorities">
   <select class="th-custom"
           name="role"
           aria-label="Default select example" required
           hx-post="/admin/update-role"
           hx-trigger="change"
           hx-target="closest td"
+          hx-swap="outerHTML"
+          hx-confirm="Are you sure you wish to change user role?"
           th:attr="hx-vals='{&quot;login&quot;: &quot;'+${user.getLogin()}+'&quot;}'" >
     <option th:value="${user.getAuthorities()}"
             selected disabled th:text="${user.getAuthorities()}"></option>

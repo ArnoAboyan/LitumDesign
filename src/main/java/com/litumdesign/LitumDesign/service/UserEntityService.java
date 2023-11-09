@@ -58,7 +58,17 @@ public class UserEntityService {
 
         return userRepository.save(userEntity);
     }
+
+    @Transactional
+    public UserEntity setNewNameUserEntity(UserEntity userEntity, String name){
+        userEntity.setName(name);
+
+        return userRepository.save(userEntity);
+    }
+
     public List<UserEntity> findAllUsers(){
         return userRepository.findAll();
     }
+
+
 }

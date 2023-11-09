@@ -39,26 +39,10 @@
     <link rel="stylesheet" th:href="@{/cookie-banner.css}">
 </head>
 <body>
-<nav class="navbar admin-navbar">
-    <div class="container navbar-underline-border">
-        <a class="navbar-brand" href="#">Litum Admin Panel</a>
-
-        <div class="dropdown dropstart">
-            <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
-               aria-expanded="false">
-                <img data-th-src="@{/image/icon-user.svg}">
-            </a>
-
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <li><a class="dropdown-item vendor-btns-underline" href="#">Profile</a></li>
-                <li><a class="dropdown-item vendor-btns-underline" href="/">Close panel</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div th:insert="~{fragments/adminPaneleFragments/admin-panel-header :: firstNav}"></div>
 
 
-<div th:insert="~{fragments/admin-sidebar :: firstDiv}"></div>
+<div th:insert="~{fragments/adminPaneleFragments/admin-sidebar :: firstDiv}"></div>
 
 
 

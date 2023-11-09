@@ -1,0 +1,12 @@
+<td>
+  <input type="text"
+         name="name" class="form-control submitfile-title"
+         placeholder="Nickname"
+         hx-post="/admin/update-name"
+         hx-trigger="keyup[key=='Enter']"
+         hx-target="closest td"
+         hx-swap="outerHTML"
+         hx-confirm="Are you sure you wish to change user name?"
+         th:attr="hx-vals='{&quot;login&quot;: &quot;'+${user.getLogin()}+'&quot;}'"
+         th:value="${user.getName()}"  required>
+</td>

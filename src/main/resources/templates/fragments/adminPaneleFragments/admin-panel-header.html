@@ -1,0 +1,16 @@
+<nav th:fragment="firstNav" class="navbar admin-navbar">
+  <div class="container navbar-underline-border">
+    <a class="navbar-brand" href="#">Litum Admin Panel</a>
+
+    <div class="dropdown dropstart">
+      <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+        <img  data-th-src="@{/image/icon-user.svg}">
+      </a>
+
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <li><a class="dropdown-item admin-btns-underline" href="#">Profile</a></li>
+        <li><a class="dropdown-item vendor-btns-underline" href="/">Close panel</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>

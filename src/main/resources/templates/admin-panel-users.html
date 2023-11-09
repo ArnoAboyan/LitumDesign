@@ -39,26 +39,28 @@
     <link rel="stylesheet" th:href="@{/cookie-banner.css}">
 </head>
 <body th:attr="hx-headers='{&quot;'+${_csrf.getHeaderName()}+'&quot;: &quot;'+${_csrf.getToken()}+'&quot;}'">
-<nav class="navbar admin-navbar">
-    <div class="container navbar-underline-border">
-        <a class="navbar-brand" href="#">Litum Admin Panel</a>
+<!--<nav class="navbar admin-navbar">-->
+<!--    <div class="container navbar-underline-border">-->
+<!--        <a class="navbar-brand" href="#">Litum Admin Panel</a>-->
 
-        <div class="dropdown dropstart">
-            <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
-               aria-expanded="false">
-                <img src="images/icon-user.svg">
-            </a>
+<!--        <div class="dropdown dropstart">-->
+<!--            <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"-->
+<!--               aria-expanded="false">-->
+<!--                <img src="images/icon-user.svg">-->
+<!--            </a>-->
 
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <li><a class="dropdown-item admin-btns-underline" href="#">Profile</a></li>
-                <li><a class="dropdown-item admin-btns-underline" href="#">Logout</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<!--            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">-->
+<!--                <li><a class="dropdown-item admin-btns-underline" href="#">Profile</a></li>-->
+<!--                <li><a class="dropdown-item vendor-btns-underline" href="/">Close panel</a></li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</nav>-->
+
+<div th:insert="~{fragments/adminPaneleFragments/admin-panel-header :: firstNav}"></div>
 
 
-<div th:insert="~{fragments/admin-sidebar :: firstDiv}"></div>
+<div th:insert="~{fragments/adminPaneleFragments/admin-sidebar :: firstDiv}"></div>
 
 
 <section class="container">
@@ -94,7 +96,18 @@
             <tbody>
             <tr th:each="user, iterStat : ${allusers}">
                 <td th:text="${iterStat.count}"></td>
-                <td th:text="${user.getName()}"></td>
+                <td>
+                    <input type="text"
+                           name="name" class="form-control submitfile-title"
+                           placeholder="Nickname"
+                           hx-post="/admin/update-name"
+                           hx-trigger="keyup[key=='Enter']"
+                           hx-target="closest td"
+                           hx-swap="outerHTML"
+                           hx-confirm="Are you sure you wish to change user name?"
+                           th:attr="hx-vals='{&quot;login&quot;: &quot;'+${user.getLogin()}+'&quot;}'"
+                           th:value="${user.getName()}"  required>
+                </td>
                 <td th:text="${user.getEmail()}"></td>
                 <td th:text="${user.getCountOfUploads()}"></td>
                 <td class="th-custom" id="userauthorities">
@@ -104,7 +117,8 @@
                             hx-post="/admin/update-role"
                             hx-trigger="change"
                             hx-target="closest td"
-                            hx-swap="innerHTML"
+                            hx-swap="outerHTML"
+                            hx-confirm="Are you sure you wish to change user role?"
                            th:attr="hx-vals='{&quot;login&quot;: &quot;'+${user.getLogin()}+'&quot;}'" >
                         <option th:value="${user.getAuthorities()}"
                                 selected disabled th:text="${user.getAuthorities()}"></option>
