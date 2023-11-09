@@ -90,7 +90,7 @@ margin-top: 25px">
             <div class="col " th:each="product : ${resultProducts}">
                 <a th:href="@{'/product/details/' + ${product.id}}">
                 <div class="card  h-100 ">
-                    <p class="card-count-of-downloads" th:text="'&#11123;' + ${product.countOfDownloads} + ' ' +  '👁' + ${product.countOfView}"></p>
+                    <p class="card-count-of-downloads" th:utext="'<i class=\'fa-regular fa-circle-down\'></i>' + ${product.countOfDownloads} + ' ' +'<i class=\'fa-regular fa-eye\'></i>' + ${product.countOfView}"></p>
                     <img data-th-src="@{${product.titleImageLink}}" class="card-img-top" alt="...">
                     <div class="card-body ">
                         <h5 class="card-title text-truncate " th:text="${product.title}"></h5>

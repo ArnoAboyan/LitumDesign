@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /login
+Disallow: /logout
+Disallow: /admin
+Disallow: /information
+Disallow: /file
+Disallow: /*?sort=
+Disallow: /details/
+Allow: /details/$
+Sitemap: https://litumdesign.com/sitemap.xml
