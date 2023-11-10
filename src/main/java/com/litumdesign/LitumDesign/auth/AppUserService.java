@@ -167,6 +167,7 @@ public class AppUserService implements UserDetailsManager {
                                 user.getTelegramTag(),
                                 user.getCountOfDownloads(),
                                 user.getCountOfUploads(),
+                                false,
                                 user.getLocale(),
                                 user.getVerified()
                         )));

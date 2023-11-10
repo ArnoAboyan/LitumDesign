@@ -16,14 +16,14 @@
 </head>
 <body >
 <header>
-    <nav class="navbar headerup navbar-expand-lg border-bottom">
+    <nav class="navbar headerup navbar-expand-lg ">
         <div class="container-fluid px-0">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <a class="nav-link active logoSmall d-lg-none " aria-current="page" href="/">
-                <img data-th-src="@{/image/logo-LitumDesign.svg}" alt="LitumDesign">
+                <img data-th-src="@{/image/logo-LitumDesign-dark-theme.svg}" alt="LitumDesign">
             </a>
             <div class="collapse linkborder navbar-collapse " id="navbarNav">
                 <hr>
@@ -44,7 +44,7 @@
             <ul class="navbar-nav social-nav ">
                 <li class="nav-item">
                     <a class="nav-link active social " aria-current="page" href="https://discord.gg/bqCdbPtkuW">
-                        <img data-th-src="@{/image/icon-discord.svg}">
+                        <i class="fa-brands fa-discord fa-lg" style="color: #ffffff;"></i>
                     </a>
                 </li>
                 <!--                <li class="nav-item">-->
@@ -53,21 +53,20 @@
                 <!--                    </a>-->
                 <!--                </li>-->
                 <li class="nav-item">
-                    <a class="nav-link active social" aria-current="page" href="https://t.me/+jOrbY-Ab4L84MDYy"><img
-                            data-th-src="@{/image/icon-telegram.svg}"></a>
+                    <a class="nav-link active social" aria-current="page" href="https://t.me/+jOrbY-Ab4L84MDYy"><i class="fa-brands fa-telegram fa-lg" style="color: #ffffff;"></i></a>
                 </li>
             </ul>
         </div>
     </nav>
 
 
-    <nav class="navbar headerdown navbar-expand-lg border-bottom">
+    <nav class="navbar headerdown navbar-expand-lg ">
         <div class="container-fluid px-0">
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav game-nav">
                     <li class="nav-item">
                         <a class="nav-link active logoBig " aria-current="page" href="/"><img
-                                data-th-src="@{/image/logo-LitumDesign.svg}" alt="LitumDesign"></a>
+                                data-th-src="@{/image/logo-LitumDesign-dark-theme-ver2.svg}" alt="LitumDesign"></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active rust " aria-current="page" href="/rust">Rust</a>
@@ -115,8 +114,7 @@
                     <div class="dropdown" data-sec-authorize="isAuthenticated()">
                         <button class="nav-link active usericon" type="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
-                            <img data-sec-authorize="isAuthenticated()" data-th-src="@{/image/icon-user.svg}"
-                                 alt="Icon User">
+                            <i class="fa-regular fa-user"></i>
                         </button>
                         <ul class="dropdown-menu usericon-dropdown_menu">
                             <li>
@@ -137,7 +135,7 @@
                             <li>
                                 <form class="dropdown-item " action="/logout" th:method="post">
                                     <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
-                                    <button class="logout-button" type="submit"> Logout &nbsp; <img data-th-src="@{/image/logout-icon.svg}"></button>
+                                    <button class="logout-button" type="submit"> Logout &nbsp; <i class="fa-solid fa-arrow-right-from-bracket" style="color: #ffffff;"></i></button>
                                 </form>
 <!--                                <a class="dropdown-item ">-->
 <!--                                    <img data-th-src="@{/image/logout-icon.svg}"> Logout-->
@@ -149,7 +147,7 @@
                 <li class="nav-item">
                     <a class="nav-link active like " data-sec-authorize="isAuthenticated()" aria-current="page"
                        href="#">
-                        <img data-th-src="@{/image/icon-like.svg}" alt="Icon like">
+                        <i class="fa-regular fa-heart"></i>
                     </a>
                 </li>
             </ul>

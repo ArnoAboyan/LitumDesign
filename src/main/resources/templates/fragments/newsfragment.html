@@ -19,9 +19,9 @@
         <p class="card-text short-text-news text-truncate" th:text="${news.shortText}"></p>
         <p class="card-text ">
         <div class="d-flex justify-content-between">
-          <p class=""><small class="text-muted" th:text="'by: ' + ${news.getAuthor()}"></small></p>
-          <p class=""><small class="text-muted" ><button class="read-more-button">Read more....</button></small></p>
-          <p class=""><small class="text-muted" th:text="${news.getCreatedAt().toLocalDate()}"></small></p>
+          <p class=""><small class="text-white" th:text="'by: ' + ${news.getAuthor()}"></small></p>
+          <p class=""><small class="text-white" ><button class="read-more-button">Read more....</button></small></p>
+          <p class=""><small class="text-white" th:text="${news.getCreatedAt().toLocalDate()}"></small></p>
         </div>
       </div>
     </a>

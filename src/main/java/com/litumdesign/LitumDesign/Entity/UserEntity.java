@@ -92,6 +92,7 @@ public class UserEntity {
                       String telegramTag,
                       Integer countOfDownloads,
                       Integer countOfUploads,
+                      Boolean cookie,
                       String locale,
                       Boolean verified) {
         this.login = login;
@@ -109,6 +110,7 @@ public class UserEntity {
         this.telegramTag = telegramTag;
         this.countOfDownloads = countOfDownloads;
         this.countOfUploads = countOfUploads;
+        this.cookie = cookie;
         this.locale = locale;
         this.verified = verified;
     }

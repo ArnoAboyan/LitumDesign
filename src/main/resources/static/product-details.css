@@ -164,10 +164,11 @@ span.img-text {
     width: 200px;
     height: 50px;
     border-radius: 0;
+    border-bottom:3px solid #cb321a;
     font-size: 30px;
     font-weight: 500;
     text-decoration: none;
-    background-color: #CB321A;
+    background-color: #27272700;
     color: #F1F1F1;
 
 }
@@ -175,7 +176,9 @@ span.img-text {
     color: #F1F1F1;
 }
 .product-header-bybutton:hover{
-    background-color: #cc4b37;
+    border-bottom:3px solid #CB321A;
+    background: linear-gradient(#27272700, 93%, #CB321A);
+    transition: all .3s ease-out;
 }
 
 .product-header-bybutton a:hover{
@@ -184,7 +187,7 @@ span.img-text {
 }
 
 .product-header-bybutton:active{
-    background: #a88c87;
+    background-color: #272727
 }
 
 .product-header-shortinfo{
@@ -214,15 +217,22 @@ span.img-text {
     font-size: 24px;
     font-weight: 400;
     text-decoration: none;
-    border-bottom :3px solid #a88c87;
+    border-bottom: 3px solid #272727;
     margin-left: 10px;
 }
 
 .main-product-navigation a:hover{
-
-    border-bottom :3px solid #CB321A;
+    background: linear-gradient(#851c1c00, 10%, #272727);
+    border-bottom: 3px solid #CB321A;
     margin-left: 10px;
-    transition: all .3s ease;
+    transition: all .3s ease-out;
+}
+
+.main-product-navigation a:focus{
+    background: linear-gradient(#851c1c00, 10%, #272727);
+    border-bottom: 3px solid #CB321A;
+
+
 }
 
 .details-container{
@@ -238,25 +248,25 @@ span.img-text {
 .product-details-count-downloads{
     font-size: 15px;
     font-weight: 100;
-    color: #757575;
+    color: white;
 }
 
 .product-details-count-views{
     font-size: 15px;
     font-weight: 100;
-    color: #757575;
+    color: white;
 }
 
 .product-details-data{
     font-size: 15px;
     font-weight: 100;
-    color: #757575;
+    color: white;
 }
 
 .version-date{
     font-size: 12px;
     font-weight: 100;
-    color: #757575;
+    color: white;
 
 }
 @media screen and (max-width: 991px) {
