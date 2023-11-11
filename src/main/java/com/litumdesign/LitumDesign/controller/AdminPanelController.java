@@ -3,6 +3,7 @@ package com.litumdesign.LitumDesign.controller;
 import com.litumdesign.LitumDesign.Entity.ProductEntity;
 import com.litumdesign.LitumDesign.Entity.Role;
 import com.litumdesign.LitumDesign.Entity.UserEntity;
+import com.litumdesign.LitumDesign.formaticUI.Toast;
 import com.litumdesign.LitumDesign.service.ProductEntityService;
 import com.litumdesign.LitumDesign.service.UserEntityService;
 import io.github.wimdeblauwe.htmx.spring.boot.mvc.HxRequest;
@@ -80,17 +81,23 @@ public class AdminPanelController {
                                  Model model,
                                  @AuthenticationPrincipal UserDetails userDetails) {
 
-
-
         UserEntity userEntity = userEntityService.getUserById(login);
+        if (!name.isEmpty()) {
 
-        userEntityService.setNewNameUserEntity(userEntity, name);
+            userEntityService.setNewNameUserEntity(userEntity, name);
 
-        model.addAttribute("user", userEntity);
+            model.addAttribute("user", userEntity);
 
-        return "fragments/adminPaneleFragments/admin-panel-user-name-fragment";
+            return "fragments/adminPaneleFragments/admin-panel-user-name-fragment";
+        }else{
+
+            model.addAttribute("toast", Toast.error("Invaid name", "Wrong name! Please write correct name."));
+            model.addAttribute("user", userEntity);
+
+            return "fragments/adminPaneleFragments/admin-panel-user-invalid-name-fragment";
+
+        }
     }
-
 //    @GetMapping("/adminpanel/bycategory/{category}")
 //    @HxRequest
 //    public String getProductByCategoryHx(@PathVariable Categories category, Model model, @AuthenticationPrincipal UserDetails userDetails ){

@@ -1,0 +1,17 @@
+<nav class="navbar vendor-navbar" th:fragment="firstNav">
+  <div class="container navbar-underline-border">
+    <a th:href="@{/vendor/vendorpanel}" class="navbar-brand brand">Litum Vendor Panel</a>
+
+    <div class="dropdown dropstart">
+      <a class="btn dropdown-toggle " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
+         aria-expanded="false">
+        <i class="fa-regular fa-user" style="color: #ffffff;"></i>
+      </a>
+
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <li><a class="dropdown-item vendor-btns-underline" href="#">Profile</a></li>
+        <li><a class="dropdown-item vendor-btns-underline" href="/">Close panel</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>

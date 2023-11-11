@@ -53,24 +53,25 @@
 
 <body id="searchresult" th:attr="hx-headers='{&quot;'+${_csrf.getHeaderName()}+'&quot;: &quot;'+${_csrf.getToken()}+'&quot;}'">
 
+<div th:insert="~{fragments/vendor-panel-header-fragment :: firstNav}"></div>
 
-<nav class="navbar vendor-navbar">
-    <div class="container navbar-underline-border">
-        <a th:href="@{/vendor/vendorpanel}" class="navbar-brand">Litum Vendor Panel</a>
+<!--<nav class="navbar vendor-navbar">-->
+<!--    <div class="container navbar-underline-border">-->
+<!--        <a th:href="@{/vendor/vendorpanel}" class="navbar-brand">Litum Vendor Panel</a>-->
 
-        <div class="dropdown dropstart">
-            <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
-               aria-expanded="false">
-                <img data-th-src="@{/image/icon-user.svg}">
-            </a>
+<!--        <div class="dropdown dropstart">-->
+<!--            <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"-->
+<!--               aria-expanded="false">-->
+<!--                <img data-th-src="@{/image/icon-user.svg}">-->
+<!--            </a>-->
 
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <li><a class="dropdown-item vendor-btns-underline" href="#">Profile</a></li>
-                <li><a class="dropdown-item vendor-btns-underline" href="/">Close panel</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<!--            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">-->
+<!--                <li><a class="dropdown-item vendor-btns-underline" href="#">Profile</a></li>-->
+<!--                <li><a class="dropdown-item vendor-btns-underline" href="/">Close panel</a></li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</nav>-->
 
 <!--hx-confirm="Are you sure you wish to add new item?"-->
 <div>
@@ -175,8 +176,8 @@
             </a>
         </div>
         <div class="input-group mb-3">
-            <label class="input-group-text" for="uploadfile">UploadFile</label>
-            <input type="file" class="form-control" name="uploadfile" id="uploadfile" required>
+<!--            <label class="input-group-text" for="uploadfile">UploadFile</label>-->
+            <input type="file" class="form-control form-control-sm" name="uploadfile" id="uploadfile" required>
         </div>
 
         <div>

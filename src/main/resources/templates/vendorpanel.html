@@ -39,23 +39,8 @@
 </head>
 <body th:attr="hx-headers='{&quot;'+${_csrf.getHeaderName()}+'&quot;: &quot;'+${_csrf.getToken()}+'&quot;}'">
 <!-- HEADER -->
-<nav class="navbar vendor-navbar">
-    <div class="container navbar-underline-border">
-        <a class="navbar-brand">Litum Vendor Panel</a>
+<div th:insert="~{fragments/vendor-panel-header-fragment :: firstNav}"></div>
 
-        <div class="dropdown dropstart">
-            <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
-               aria-expanded="false">
-                <img data-th-src="@{/image/icon-user.svg}">
-            </a>
-
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <li><a class="dropdown-item vendor-btns-underline" href="#">Profile</a></li>
-                <li><a class="dropdown-item vendor-btns-underline" href="/">Close panel</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
 
 
 <!-- CARD INFO BLOCK-->
@@ -100,49 +85,49 @@
                     hx-get="/vendor/vendorpanel/allproducts"
                     hx-trigger="click"
                     hx-swap="innerHTML"
-                    hx-target="#vendorpanelproductsragment">
+                    hx-target="#vendorpanelproductsfragment">
                 <img class="htmx-indicator" src="/image/spinner-loading.svg"> All
             </button>
             <button type="button" class="btn vendor-btns-underline"
                     hx-get="/vendor/vendorpanel/bycategory/PLUGIN"
                     hx-trigger="click"
                     hx-swap="innerHTML"
-                    hx-target="#vendorpanelproductsragment">
+                    hx-target="#vendorpanelproductsfragment">
                 <img class="htmx-indicator" src="/image/spinner-loading.svg"> PLUGINS
             </button>
             <button type="button" class="btn vendor-btns-underline"
                     hx-get="/vendor/vendorpanel/bycategory/MAP"
                     hx-trigger="click"
                     hx-swap="innerHTML"
-                    hx-target="#vendorpanelproductsragment">
+                    hx-target="#vendorpanelproductsfragment">
                 <img class="htmx-indicator" src="/image/spinner-loading.svg">MAPS
             </button>
             <button type="button" class="btn vendor-btns-underline"
                     hx-get="/vendor/vendorpanel/bycategory/PREFAB"
                     hx-trigger="click"
                     hx-swap="innerHTML"
-                    hx-target="#vendorpanelproductsragment">
+                    hx-target="#vendorpanelproductsfragment">
                 <img class="htmx-indicator" src="/image/spinner-loading.svg">PREFABS
             </button>
             <button type="button" class="btn vendor-btns-underline"
                     hx-get="/vendor/vendorpanel/bycategory/MONUMENT"
                     hx-trigger="click"
                     hx-swap="innerHTML"
-                    hx-target="#vendorpanelproductsragment">
+                    hx-target="#vendorpanelproductsfragment">
                 <img class="htmx-indicator" src="/image/spinner-loading.svg">MONUMENTS
             </button>
             <button type="button" class="btn vendor-btns-underline"
                     hx-get="/vendor/vendorpanel/bycategory/TOOL"
                     hx-trigger="click"
                     hx-swap="innerHTML"
-                    hx-target="#vendorpanelproductsragment">
+                    hx-target="#vendorpanelproductsfragment">
                 <img class="htmx-indicator" src="/image/spinner-loading.svg">TOOLS
             </button>
             <button type="button" class="btn vendor-btns-underline"
                     hx-get="/vendor/vendorpanel/bycategory/MOD"
                     hx-trigger="click"
                     hx-swap="innerHTML"
-                    hx-target="#vendorpanelproductsragment">
+                    hx-target="#vendorpanelproductsfragment">
                 <img class="htmx-indicator" src="/image/spinner-loading.svg">MODS
             </button>
         </div>
@@ -164,10 +149,10 @@
     </div>
 
 
-    <div id="vendorpanelproductsragment">
-        <table class="table">
+    <div class="main-table-div" >
+        <table class="table-custom" id="vendorpanelproductsfragment">
             <thead>
-            <tr>
+            <tr class="tr-custom">
                 <th scope="col">#</th>
                 <th scope="col">Photo</th>
                 <th scope="col">Title</th>
@@ -176,13 +161,13 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="vendorproduct, iterStat : ${allvendorproducts}">
+            <tr class="tr-custom" th:each="vendorproduct, iterStat : ${allvendorproducts}">
                 <td th:text="${iterStat.count}"></td>
-                <td class="td-photo border"><img class="table-image" th:src="${vendorproduct.getTitleImageLink()}"></td>
+                <td class="td-photo "><img class="table-image" th:src="${vendorproduct.getTitleImageLink()}"></td>
                 <td><a th:text="${vendorproduct.getTitle()} + ' ' + '[' +  ${vendorproduct.getAccess()} + ']'"
                        th:href="@{'/product/details/' + ${vendorproduct.getId()}}"></a></td>
                 <td th:text="${vendorproduct.getCategories()}"></td>
-                <td class="th-custom">
+                <td class="td-custom">
                     <a type="button"
                        th:href="@{/file/updatefile/{productEntityId}(productEntityId = ${vendorproduct.getId()})}"
                        class="btn  vendor-btns-underline">
@@ -194,7 +179,7 @@
                             hx-confirm="Are you sure you wish to delete?"
                             hx-target="closest tr"
                             hx-trigger="click"
-                            hx-swap="outerHTML"
+                            hx-swap="innerHTML"
                     >
                         <img class="htmx-indicator" src="/image/spinner-loading.svg">
                         <i class="fas fa-times" aria-hidden="true"></i>

@@ -5,21 +5,19 @@
     width: 100%;
     z-index: 999;
     border-radius: 0;
-    background-color: rgb(255, 255, 255);
-    border-bottom: 5px solid #CB321A;
+    border: 0;
+    background-color: #272727;
+    border-bottom: 2px solid #CB321A;
+    color: white;
 }
 
 .cookie-button{
-    border:3px solid #cc513e;
+    color: white;
+    border-bottom:3px solid #585a58;
     border-radius: 0;
     margin: 0 auto;
 
 }
 .cookie-button:hover{
-    border:3px solid #CB321A;
-}
-
-.cookie-button:active{
-    background: #F1F1F1;
-    border:3px solid #CB321A;
+    border-bottom:3px solid #cc513e;
 }
