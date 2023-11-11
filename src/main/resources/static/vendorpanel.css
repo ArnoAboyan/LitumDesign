@@ -115,6 +115,20 @@
     background: linear-gradient(#27272700, 96%, #CB321A);
 
 }
+
+.main-table-div{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.table-custom{
+    width: 100%;
+}
+
+
 .tr-custom{
     border-bottom: 2px solid #272727;
 
@@ -133,6 +147,8 @@
     padding: 3px;
 
 }
+
+
 
 .vendor-buttons{
     display: flex;
