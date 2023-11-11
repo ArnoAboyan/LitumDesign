@@ -126,11 +126,12 @@ span.img-text {
 
 .product-header-price h2{
     display: flex;
-    justify-content: end;
+    justify-content: center;
     align-items: center;
     font-size: 40px;
     font-weight: 400;
-    margin-right: 45px;
+    background-color: #272727;
+    border-bottom:3px solid #CB321A;
 }
 .product-header-category-info{
     display: flex;
@@ -267,8 +268,9 @@ span.img-text {
     font-size: 12px;
     font-weight: 100;
     color: white;
-
 }
+
+
 @media screen and (max-width: 991px) {
 
     .owl-carousel .prev-slide{
