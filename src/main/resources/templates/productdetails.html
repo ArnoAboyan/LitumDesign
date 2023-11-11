@@ -105,20 +105,23 @@ margin-top: 25px">
            th:text="${#temporals.format(productdetails.getCreatedAt(), 'dd-MMM-yyyy')}"></a>
         <div class="product-header-category-info">
             <div>
-                <a href="#" th:text="${productdetails.getGameType()}"></a><a>&nbsp;|&nbsp;</a><a href="#"
-                                                                                                 th:text="${productdetails.getCategories()}"></a>
+                <a href="#" th:text="${productdetails.getGameType()}"></a><a>&nbsp;|&nbsp;</a><a href="#" th:text="${productdetails.getCategories()}"></a>
                 <div class="product-header-author ">
                     <p>By: <a href="#" th:text="${productdetails.uploadUserId.getName()}"></a></p>
                 </div>
-            </div>
-            <div class="product-header-price ">
-                <div>
+                <div class="product-header-price ">
                     <h2 th:if="${productdetails.getPrice() == 0}">FREE</h2>
                     <h2 th:if="${productdetails.getPrice() != 0}" th:text="'$' + ${productdetails.getPrice()}"></h2>
                 </div>
+            </div>
+            <div>
+<!--                <div>-->
+<!--                    <h2 th:if="${productdetails.getPrice() == 0}">FREE</h2>-->
+<!--                    <h2 th:if="${productdetails.getPrice() != 0}" th:text="'$' + ${productdetails.getPrice()}"></h2>-->
+<!--                </div>-->
                 <div class="product-header-downloadfile-container ">
                     <div class="product-header-bybutton ">
-                        <a th:href="@{'/file/download-file/' + ${productdetails.getId()}}">Download/Buy</a>
+                        <a th:href="@{'/file/download-file/' + ${productdetails.getId()}}"><i class="fa-solid fa-cloud-arrow-down" style="color: #ffffff;"></i> &nbsp; Download</a>
                     </div>
                 </div>
             </div>

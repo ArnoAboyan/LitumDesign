@@ -44,12 +44,10 @@
 }
 .admin-btns-underline{
     border-radius: 0;
-    border-bottom: 3px solid #c5c5c5;
 }
 .admin-btns-underline:hover{
     border-radius: 0;
-    border-bottom: 3px solid #CB321A;
-    transition: all 0.2s ease;
+    border-bottom: 2px solid #CB321A;
 }
 
 

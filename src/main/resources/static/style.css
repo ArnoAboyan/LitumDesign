@@ -1009,7 +1009,7 @@ height: 36px;
     border-radius: 0;
     color: #ffffff;
     border-bottom: 2px solid #CB321A;
-    background: linear-gradient(#27272700, 93%, #CB321A);
+    /*background: linear-gradient(#27272700, 93%, #CB321A);*/
     background-color: #272727
 }
 .submitfile-submit-button-container {
