@@ -66,7 +66,7 @@ a {
     justify-content: center;
     height: auto;
     max-width: 1170px; /* Максимальная ширина */
-    margin: 0px auto;
+    margin: 0 auto;
 
 }
 
@@ -92,7 +92,7 @@ a {
     justify-content: center;
     height: auto;
     max-width: 1170px; /* Максимальная ширина */
-    margin: 0px auto;
+    margin: 0 auto;
 
 }
 
@@ -335,7 +335,7 @@ a {
     height: auto;
     max-width: 1170px; /* Максимальная ширина */
     margin: 0 auto; /* Центрирование по горизонтали */
-    padding: 40px 0px;
+    padding: 40px 0;
 }
 
 .carousel-inner img {
@@ -737,14 +737,10 @@ height: 36px;
     max-width: 100px;
     border-radius: 0;
     border: 0;
-    border-bottom: 2px solid #272727;
+    border-bottom: 2px solid #272727 ;
+    background-color: #272727 !important;
 }
 
-.submitfile-version:focus {
-    outline: none;
-    box-shadow: none;
-    border-bottom: 2px solid #CB321A;
-}
 
 .submitfile-version-comment {
     margin-top: 10px;
@@ -996,7 +992,7 @@ height: 36px;
     border: 0;
     border-radius: 0;
     color: #ffffff;
-    border-bottom: 2px solid #c34c39;
+    border-bottom: 2px solid #CB321A;
     background-color: #272727
 }
 
@@ -1004,7 +1000,7 @@ height: 36px;
     border: 0;
     border-radius: 0;
     color: #ffffff;
-    border-bottom: 2px solid #c34c39;
+    border-bottom: 2px solid #CB321A;
     background-color: #272727
 }
 
@@ -1012,7 +1008,8 @@ height: 36px;
     border: 0;
     border-radius: 0;
     color: #ffffff;
-    border-bottom: 2px solid #c34c39;
+    border-bottom: 2px solid #CB321A;
+    background: linear-gradient(#27272700, 93%, #CB321A);
     background-color: #272727
 }
 .submitfile-submit-button-container {
@@ -1026,10 +1023,8 @@ height: 36px;
 
 .submitfile-submit-button {
     margin: 0 auto;
-    background-color: #CB321A;
     border-radius: 0;
     border: 0;
-    border-radius: 0;
     border-bottom:3px solid #cb321a;
     text-decoration: none;
     background-color: #27272700;
@@ -1440,35 +1435,11 @@ hr{
         height: 44px;
         border-radius: 0;
         border: none;
-        border-bottom: 2px solid #272727;
+        border-bottom: 2px solid #CB321A;
         background-color: #27272700;
         color: white;
     }
 
-    .searchfar:hover {
-        width: 220px;
-        height: 44px;
-        top: 1925px;
-        left: 380px;
-        border: none;
-        border-bottom: 2px solid #272727;
-        background-color: #27272700;
-        color: white;
-
-    }
-
-    .searchfar:focus {
-        outline: none;
-        width: 220px;
-        height: 44px;
-        top: 1925px;
-        left: 380px;
-        border: none;
-        border-bottom: 2px solid #272727;
-        background-color: #27272700;
-        color: white;
-        box-shadow: none;
-    }
 
 
     .user-login {
