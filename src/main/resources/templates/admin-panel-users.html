@@ -39,23 +39,7 @@
     <link rel="stylesheet" th:href="@{/cookie-banner.css}">
 </head>
 <body th:attr="hx-headers='{&quot;'+${_csrf.getHeaderName()}+'&quot;: &quot;'+${_csrf.getToken()}+'&quot;}'">
-<!--<nav class="navbar admin-navbar">-->
-<!--    <div class="container navbar-underline-border">-->
-<!--        <a class="navbar-brand" href="#">Litum Admin Panel</a>-->
 
-<!--        <div class="dropdown dropstart">-->
-<!--            <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"-->
-<!--               aria-expanded="false">-->
-<!--                <img src="images/icon-user.svg">-->
-<!--            </a>-->
-
-<!--            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">-->
-<!--                <li><a class="dropdown-item admin-btns-underline" href="#">Profile</a></li>-->
-<!--                <li><a class="dropdown-item vendor-btns-underline" href="/">Close panel</a></li>-->
-<!--            </ul>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</nav>-->
 
 <div th:insert="~{fragments/adminPaneleFragments/admin-panel-header :: firstNav}"></div>
 
@@ -82,10 +66,10 @@
     <hr>
 
 
-    <div>
-        <table class="table">
-            <thead>
-            <tr>
+    <div class="main-table-div">
+        <table class="table-custom">
+            <thead >
+            <tr class="tr-custom">
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
@@ -94,9 +78,9 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="user, iterStat : ${allusers}">
+            <tr class="tr-custom" th:each="user, iterStat : ${allusers}">
                 <td th:text="${iterStat.count}"></td>
-                <td>
+                <td class="td-custom">
                     <input type="text"
                            name="name" class="form-control submitfile-title"
                            placeholder="Nickname"
@@ -111,7 +95,7 @@
                 <td th:text="${user.getEmail()}"></td>
                 <td th:text="${user.getCountOfUploads()}"></td>
                 <td class="th-custom" id="userauthorities">
-                    <select class="th-custom"
+                    <select class="admin-user-dropdowns"
                             name="role"
                             aria-label="Default select example" required
                             hx-post="/admin/update-role"
