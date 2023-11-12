@@ -26,12 +26,12 @@ public class AdminPanelController {
 
 
     @GetMapping("/adminpanel")
-    public String openAdminPanel(Model model, @AuthenticationPrincipal UserDetails userDetails ){
+    public String openAdminPanel(Model model, @AuthenticationPrincipal UserDetails userDetails) {
 
-        if (userDetails.getUsername() != null){
+        if (userDetails.getUsername() != null) {
 
             List<ProductEntity> productEntityList = productEntityService.findAll();
-            ;
+
 
 
             model.addAttribute("allvendorproducts", productEntityList);
@@ -43,7 +43,7 @@ public class AdminPanelController {
     }
 
     @GetMapping("/users")
-    public String usersPanel(Model model, @AuthenticationPrincipal UserDetails userDetails ){
+    public String usersPanel(Model model, @AuthenticationPrincipal UserDetails userDetails) {
 
         if (userDetails.getUsername() != null) {
 
@@ -53,7 +53,7 @@ public class AdminPanelController {
             model.addAttribute("allusers", userEntityList);
 
             return "admin-panel-users";
-        }else return "errors/error-404";
+        } else return "errors/error-404";
     }
 
     @PostMapping("/update-role")
@@ -64,14 +64,13 @@ public class AdminPanelController {
                                  @AuthenticationPrincipal UserDetails userDetails) {
 
 
+        UserEntity userEntity = userEntityService.getUserById(login);
 
-            UserEntity userEntity = userEntityService.getUserById(login);
+        userEntityService.setNewRoleUserEntity(userEntity, role);
 
-            userEntityService.setNewRoleUserEntity(userEntity, role);
+        model.addAttribute("user", userEntity);
 
-            model.addAttribute("user", userEntity);
-
-            return "fragments/adminPaneleFragments/admin-panel-user-role-fragment";
+        return "fragments/adminPaneleFragments/admin-panel-user-role-fragment";
     }
 
     @PostMapping("/update-name")
@@ -82,22 +81,41 @@ public class AdminPanelController {
                                  @AuthenticationPrincipal UserDetails userDetails) {
 
         UserEntity userEntity = userEntityService.getUserById(login);
-        if (!name.isEmpty()) {
 
-            userEntityService.setNewNameUserEntity(userEntity, name);
 
+        try {
+            if (!name.isEmpty()) {
+                userEntityService.setNewNameUserEntity(userEntity, name);
+                model.addAttribute("user", userEntity);
+                return "fragments/adminPaneleFragments/admin-panel-user-name-fragment";
+            } else {
+                return "fragments/adminPaneleFragments/admin-panel-user-invalid-name-fragment";
+            }
+        } catch (Exception e) {
+            model.addAttribute("toast", Toast.error("Invalid name", "Wrong name! Please write correct name."));
             model.addAttribute("user", userEntity);
-
-            return "fragments/adminPaneleFragments/admin-panel-user-name-fragment";
-        }else{
-
-            model.addAttribute("toast", Toast.error("Invaid name", "Wrong name! Please write correct name."));
-            model.addAttribute("user", userEntity);
-
             return "fragments/adminPaneleFragments/admin-panel-user-invalid-name-fragment";
-
         }
     }
+}
+
+
+//        if (!name.isEmpty()) {
+//
+//            userEntityService.setNewNameUserEntity(userEntity, name);
+//
+//            model.addAttribute("user", userEntity);
+//
+//            return "fragments/adminPaneleFragments/admin-panel-user-name-fragment";
+//        }else{
+//
+//            model.addAttribute("toast", Toast.error("Invaid name", "Wrong name! Please write correct name."));
+//            model.addAttribute("user", userEntity);
+//
+//            return "fragments/adminPaneleFragments/admin-panel-user-invalid-name-fragment";
+//
+//        }
+
 //    @GetMapping("/adminpanel/bycategory/{category}")
 //    @HxRequest
 //    public String getProductByCategoryHx(@PathVariable Categories category, Model model, @AuthenticationPrincipal UserDetails userDetails ){
@@ -129,5 +147,4 @@ public class AdminPanelController {
 //        return "fragments/admin-panel-users-fragment";
 //    }
 
-}
 

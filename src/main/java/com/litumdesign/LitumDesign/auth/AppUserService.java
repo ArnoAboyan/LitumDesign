@@ -7,6 +7,7 @@ import com.litumdesign.LitumDesign.repository.UserShopRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import lombok.experimental.NonFinal;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -156,7 +157,7 @@ public class AppUserService implements UserDetailsManager {
                                 user.getSub(),
                                 user.getPassword(),
                                 user.getEmail(),
-                                "Unnamed_User",
+                                generateUniqueNickname(),
                                 user.getImageUrl(),
                                 user.getProvider(),
                                 user.getCreatedAt(),
@@ -230,5 +231,14 @@ public class AppUserService implements UserDetailsManager {
         return userRepository.existsById(username);
     }
 
+    public String generateUniqueNickname() {
+        String uniqueName;
+        do {
+            String randomDigits = RandomStringUtils.randomNumeric(8);
+            uniqueName = "User_" + randomDigits;
+        } while (userRepository.existsByName(uniqueName));
 
+        return uniqueName;
+    }
 }
+
