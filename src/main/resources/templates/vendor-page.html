@@ -51,53 +51,84 @@
 <div th:insert="~{fragments/toasts/sort-property-error :: firstDiv}"></div>
 
 
-
 <section>
     <div class="vendor-header-container ">
         <div class="vendor-page-banner-image ">
             <img src="https://i.imgur.com/y5eF6v6.jpeg" alt="banner image">
         </div>
         <div class="vendor-page-avatar">
-            <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle"
+            <img th:src="${vendor.getImageUrl()}" class="rounded-circle"
                  alt="Avatar"/>
         </div>
         <div class="vendor-page-info justify-content-start">
-            <h1 class="vendor-page-info-name text-break">Yanabo</h1>
+
+                <h1 class="vendor-page-info-name text-break" th:text="${vendor.getName()}"></h1>
+<!--            <div class="social-links-container">-->
+<!--                <a class="active social vendor-social " aria-current="page" href="#">-->
+<!--                    <i class="fa-brands fa-discord fa-lg" style="color: #ffffff;"></i>-->
+<!--                </a>-->
+<!--                <a class="active social vendor-social" aria-current="page" href="#">-->
+<!--                    <i class="fa-brands fa-telegram fa-lg" style="color: #ffffff;"></i>-->
+<!--                </a>-->
+<!--            </div>-->
         </div>
     </div>
     <div class="vendor-action-panel-container ">
         <div class="container text-center">
             <div class="row">
                 <div class="col vendor-action-column">
-                    Search
+                    <div class="d-flex " role="search">
+                        <input class="searchfar vendor-page-search" type="search" placeholder="Find here..."
+                               aria-label="Search"
+                               name="searchquery"
+                               hx-get="/vendor-page/search"
+                               th:attr="hx-vals='{&quot;vendorname&quot;: &quot;'+${vendor.getName()}+'&quot;}'"
+                               hx-trigger="keyup[key=='Enter']"
+                               hx-target="#allgoods"><img class="htmx-indicator" src="/image/spinner-loading.svg">
+                    </div>
                 </div>
                 <div class="col vendor-action-column">
                 </div>
                 <div class="col vendor-action-column">
-                        <div class="dropdown">
-                            <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span th:if="${sortName == null}">Sort by:</span>
-                                <span th:if="${sortName == 'countOfDownloads'}">Sort by: Popular</span>
-                                <span th:if="${sortName == 'price'}" >Sort by: price Low-High</span>
-                                <span th:if="${sortName == 'createdAt'}">Sort by: Latest</span>
-                                <span th:if="${sortName == 'price,desc'}" >Sort by: price High-Low</span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" th:href="@{${#ctx.springRequestContext.requestUri}(sort='countOfDownloads,desc')}">Popular</a></li>
-                                <li><a class="dropdown-item" th:href="@{${#ctx.springRequestContext.requestUri}(sort='price')}">price Low-High</a></li>
-                                <li><a class="dropdown-item" th:href="@{${#ctx.springRequestContext.requestUri}(sort='createdAt,desc')}">Latest</a></li>
-                                <li><a class="dropdown-item" th:href="@{${#ctx.springRequestContext.requestUri}(sort='price,desc')}">price High-Low</a></li>
-                            </ul>
-                        </div>
+                    <div class="dropdown">
+                        <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span th:if="${sortName == null}">Sort by:</span>
+                            <span th:if="${sortName == 'countOfDownloads'}">Sort by: Popular</span>
+                            <span th:if="${sortName == 'price'}">Sort by: price Low-High</span>
+                            <span th:if="${sortName == 'createdAt'}">Sort by: Latest</span>
+                            <span th:if="${sortName == 'price,desc'}">Sort by: price High-Low</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item"
+                                   th:href="@{${#ctx.springRequestContext.requestUri}(sort='countOfDownloads,desc')}">Popular</a>
+                            </li>
+                            <li><a class="dropdown-item"
+                                   th:href="@{${#ctx.springRequestContext.requestUri}(sort='price')}">price Low-High</a>
+                            </li>
+                            <li><a class="dropdown-item"
+                                   th:href="@{${#ctx.springRequestContext.requestUri}(sort='createdAt,desc')}">Latest</a>
+                            </li>
+                            <li><a class="dropdown-item"
+                                   th:href="@{${#ctx.springRequestContext.requestUri}(sort='price,desc')}">price
+                                High-Low</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
 </section>
 
 <div th:insert="~{fragments/allproductsfragment :: firstDiv}"></div>
+<div class="container dividingline ">
+</div>
 
+<h2 class="container mostpopular ">
+    <p class="mostpopulartitle " th:text="'Goods by ' + ${vendor.getName()}"></p>
+</h2>
+<!-- MOST POPULAR CARDS-->
+<div th:insert="~{fragments/mostpopularfragment :: firstDiv}"></div>
 <!-- DIVIDE LINE -->
 <div class="container dividingline ">
 </div>

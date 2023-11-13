@@ -28,10 +28,10 @@ h1, h2, h3, h4, h5, h6 {
 /*}*/
 
 .dropdown-toggle {
-   border-radius: 0;
+    border-radius: 0;
     border: 0;
     border-bottom: 2px solid #CB321A;
-    background-color:#272727;
+    background-color:#27272700;
     color: white;
 }
 

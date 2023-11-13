@@ -81,7 +81,7 @@ margin-top: 25px">
                         allowfullscreen></iframe>
             </div>
             <div class="item" th:each="detailsphotos : ${productdetails.photoLink}">
-                <img th:src="${detailsphotos.getPhotoLink()}"/>
+                <img th:src="${detailsphotos.getPhotoLink()}" alt="screens"/>
             </div>
         </div>
     </div>
@@ -107,7 +107,8 @@ margin-top: 25px">
             <div>
                 <a href="#" th:text="${productdetails.getGameType()}"></a><a>&nbsp;|&nbsp;</a><a href="#" th:text="${productdetails.getCategories()}"></a>
                 <div class="product-header-author ">
-                    <p>By: <a href="#" th:text="${productdetails.uploadUserId.getName()}"></a></p>
+                    <p class="card-by text-truncate">By: <a th:href="@{/vendor-page/{vendorName}(vendorName=${productdetails.uploadUserId.getName()})}" class="vendorname"
+                                                            th:text="${productdetails.uploadUserId.getName()}"></a></p>
                 </div>
                 <div class="product-header-price ">
                     <h2 th:if="${productdetails.getPrice() == 0}">FREE</h2>

@@ -113,6 +113,13 @@ public class ProductEntityService {
 
     }
 
+    public List<ProductEntity> getMostPopularProductByVendor(String name) {
+
+
+        return productEntityRepository.findTop5ByUploadUserIdNameAndAccessOrderByCountOfDownloadsDesc(name, Access.PUBLIC);
+
+    }
+
 
     public List<ProductEntity> getMostPopularProductWithGameType(GameType gameType) {
 
@@ -155,6 +162,12 @@ public class ProductEntityService {
 
 
         return productEntityRepository.searchByInput(searchQuery.toLowerCase(), pageable);
+    }
+
+    public Page<ProductEntity> getSearchResultByVendor(String searchQuery, Pageable pageable, String vendorName) {
+
+
+        return productEntityRepository.searchByInputAndVendor(searchQuery.toLowerCase(), vendorName, pageable);
     }
 
     public List<ProductEntity> getSearchResultForVendors(String searchQuery, UserEntity userEntity) {

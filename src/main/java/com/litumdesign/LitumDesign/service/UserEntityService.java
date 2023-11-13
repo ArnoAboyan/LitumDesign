@@ -43,6 +43,12 @@ public class UserEntityService {
         return userRepository.findById(userId).orElseThrow(() -> new NullPointerException("User not found...") );
     }
 
+
+    public UserEntity getUserByName(String name){
+
+        return userRepository.findByName(name);
+    }
+
     @Transactional
     public UserEntity deleteUploadCounter(UserDetails userDetails){
        UserEntity userEntity = getUserById(userDetails.getUsername());
