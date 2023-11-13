@@ -212,6 +212,11 @@ public class ProductEntityService {
         return productEntityRepository.findByUploadUserId(uploadVendorId);
     }
 
+    public Page<ProductEntity> findAllProductsByVendorName(String name, Pageable pageable) {
+
+        return productEntityRepository.findByUploadUserIdNameAndAccess(name, pageable, Access.PUBLIC );
+    }
+
 
     public List<ProductEntity> findByVendorIdAndCategories(UserEntity uploadVendorId, Categories categories) {
 

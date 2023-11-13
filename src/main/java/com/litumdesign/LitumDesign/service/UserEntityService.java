@@ -1,6 +1,5 @@
 package com.litumdesign.LitumDesign.service;
 
-import com.litumdesign.LitumDesign.Entity.ProductEntity;
 import com.litumdesign.LitumDesign.Entity.Role;
 import com.litumdesign.LitumDesign.Entity.UserEntity;
 import com.litumdesign.LitumDesign.auth.AppUser;
@@ -69,6 +68,5 @@ public class UserEntityService {
     public List<UserEntity> findAllUsers(){
         return userRepository.findAll();
     }
-
 
 }

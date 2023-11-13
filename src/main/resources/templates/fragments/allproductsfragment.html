@@ -73,7 +73,7 @@
                         <h5 class="card-title text-truncate " th:text="${product.title}"></h5>
                         <p class="card-game-type text-truncate "
                            th:text="${product.gameType} + ' | ' + ${product.categories}"></p>
-                        <p class="card-by text-truncate">By: <a href="#" class="vendorname"
+                        <p class="card-by text-truncate">By: <a th:href="@{/vendor-page/{vendorName}(vendorName=${product.uploadUserId.name})}" class="vendorname"
                                                                 th:text="${product.uploadUserId.name}">></a></p>
                         <div class="container buypanel d-flex justify-content-between align-items-center ">
                             <div class="text-price">
