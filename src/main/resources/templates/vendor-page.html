@@ -18,7 +18,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LitumDesign</title>
+    <title>Vendor Page-LitumDesign</title>
+    <meta name="description" content="Plugins, Maps, Prefabs, Monuments, Tools, and Mods tailored for the Rust and Unturned games at LitumDesign. Explore products from this specific seller. Download for free or buy premium content.">
     <link rel="icon" th:href="@{/image/favicon.ico}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -84,7 +85,7 @@
                                hx-get="/vendor-page/search"
                                th:attr="hx-vals='{&quot;vendorname&quot;: &quot;'+${vendor.getName()}+'&quot;}'"
                                hx-trigger="keyup[key=='Enter']"
-                               hx-target="#allgoods"><img class="htmx-indicator" src="/image/spinner-loading.svg">
+                               hx-target="#allgoods"><img class="htmx-indicator" src="/image/spinner-loading.svg" alt="spinner">
                     </div>
                 </div>
                 <div class="col vendor-action-column">
@@ -116,7 +117,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </section>
 
