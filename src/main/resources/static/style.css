@@ -782,7 +782,7 @@ height: 36px;
     max-width: 100px;
     border-radius: 0;
     border: 0;
-    border-bottom: 2px solid #272727;
+    border-bottom: 2px solid #272727  !important;
     background-color: #272727 !important;
 }
 
@@ -1038,7 +1038,7 @@ height: 36px;
     text-decoration: none;
     background-color: #27272700;
     color: #F1F1F1;
-    width: 150px;
+    width: 200px;
     height: 40px;
 }
 
@@ -1047,6 +1047,57 @@ height: 36px;
     background: linear-gradient(#27272700, 93%, #CB321A);
     transition: all .3s ease-out;
 }
+
+.image-update-container{
+    display:flex;
+    position: relative;
+    margin: 0 auto;
+    max-width: 1170px;
+    align-items: center;
+}
+
+
+
+.add-image-button img{
+    width: 100px;
+    border-bottom:3px solid #272727;
+
+}
+.add-image-button img:hover{
+    border-bottom:3px solid #CB321A;
+}
+
+
+.all-images-for-product{
+    display: flex;
+    position: relative;
+    max-width: 1170px;
+    flex-wrap: wrap;
+}
+
+.images-for-product{
+    display: flex;
+    position: relative;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    background-color:#272727;
+    border-bottom:2px solid #CB321A;
+}
+
+.images-for-product img{
+    object-fit: cover;
+    max-width: 100px;
+    height: 100px;
+}
+
+.images-for-product i{
+    position: absolute;
+}
+.images-for-product i:hover{
+    border-bottom:3px solid #CB321A;
+}
+
 
 .loginheader {
     height: 100px;

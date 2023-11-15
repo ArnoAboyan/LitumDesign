@@ -258,7 +258,7 @@ public class FileController {
         model.addAttribute("actualProductEntity", productEntity);
 
         productEntityService.uploadProductPhotos(productEntityId, photo);
-        return "updatefilepage";
+        return "fragments/images-product-fragment";
     }
 
 
