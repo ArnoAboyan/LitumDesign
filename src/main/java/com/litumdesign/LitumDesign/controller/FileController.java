@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -59,33 +60,34 @@ public class FileController {
 
     @PostMapping("/addfile")
     @HxRequest
-    public String addProductEntity(@RequestParam String title,
-                                   @RequestParam String titleImageLink,
-//                                   @RequestParam Double price,
-                                   @RequestParam String shortInfo,
-                                   @RequestParam String license,
-                                   @RequestParam Access access,
-                                   @RequestParam String description,
-                                   @RequestParam String videoLink,
-                                   @RequestParam(value = "photoLink[]") List<String> photoLink,
-                                   @RequestParam Categories categories,
-                                   @RequestParam GameType gameType,
-                                   @RequestParam String version,
-                                   @RequestParam("uploadfile") MultipartFile uploadfile,
-                                   Model model) {
+    public String addProductEntity(
+            @RequestParam String title,
+//                                   @RequestParam String titleImageLink,
+////                                   @RequestParam Double price,
+//                                   @RequestParam String shortInfo,
+//                                   @RequestParam String license,
+//                                   @RequestParam Access access,
+//                                   @RequestParam String description,
+//                                   @RequestParam String videoLink,
+//                                   @RequestParam(value = "photoLink[]") List<String> photoLink,
+//                                   @RequestParam Categories categories,
+//                                   @RequestParam GameType gameType,
+            @RequestParam String version,
+            @RequestParam("uploadfile") MultipartFile uploadfile,
+            Model model) {
 
 
         ProductEntity productEntity = new ProductEntity(
                 title,
-                titleImageLink,
+                null,
                 0.0,
-                shortInfo,
-                license,
-                description,
-                categories,
-                gameType,
-                access,
-                videoLink,
+                null,
+                null,
+                null,
+                null,
+                null,
+                Access.PRIVATE,
+                null,
                 false,
                 0,
                 0,
@@ -96,14 +98,14 @@ public class FileController {
 
         try {
             String gdFileId = googleDriveService.uploadFile(uploadfile);
-            productEntityService.createProductEntity(productEntity, photoLink, gdFileId, version);
+            productEntityService.createProductEntity(productEntity, gdFileId, version);
 
 
             model.addAttribute("uploadinfo", Toast.success("Success", "Product has bean created"));
             model.addAttribute("productEntity", productEntity.getId());
             return "fragments/success-upload-fragment";
         } catch (Exception e) {
-           log.error("WE HAVE SOME PROBLEMS " + e.getMessage());
+            log.error("WE HAVE SOME PROBLEMS " + e.getMessage());
             model.addAttribute("uploadinfo", Toast.error("Error", "Failure occurred"));
             return "fragments/error-upload-fragment";
         }
@@ -141,8 +143,8 @@ public class FileController {
     public String deleteProduct(@RequestParam("productId") Long productId, @AuthenticationPrincipal UserDetails userDetails) {
 
 
-            userEntityService.deleteUploadCounter(userDetails);
-            productEntityService.deleteProductEntity(productId);
+        userEntityService.deleteUploadCounter(userDetails);
+        productEntityService.deleteProductEntity(productId);
 
         return "";
     }
@@ -187,19 +189,19 @@ public class FileController {
 
         ProductEntity productEntity = productEntityService.findProductEntityById(productEntityId);
 
-        if(userDetails.getUsername().equals(productEntity.getUploadUserId().getLogin())) {
+        if (userDetails.getUsername().equals(productEntity.getUploadUserId().getLogin())) {
 
             AtomicInteger photoLinkCounter = (AtomicInteger) model.getAttribute("photoLinkCounter");
             Objects.requireNonNull(photoLinkCounter).set(2);
 
 
             model.addAttribute("actualProductEntity", productEntity);
-            model.addAttribute("lastVersion",Integer.parseInt(productEntityService.findLastVersionByProductEntity(productEntity).getVersion())+1) ;
+            model.addAttribute("lastVersion", Integer.parseInt(productEntityService.findLastVersionByProductEntity(productEntity).getVersion()) + 1);
 
             return "updatefilepage";
-        }return "errors/error-403";
+        }
+        return "errors/error-403";
     }
-
 
     @PostMapping("/updatefile")
     @HxRequest
@@ -213,7 +215,6 @@ public class FileController {
             @RequestParam Access access,
             @RequestParam String description,
             @RequestParam String videoLink,
-            @RequestParam(value = "photoLink[]") List<String> photoLink,
             @RequestParam Categories categories,
             @RequestParam GameType gameType,
             @RequestParam String version,
@@ -221,12 +222,10 @@ public class FileController {
             Model model) {
 
 
-
         try {
-            productEntityService.updateProductEntity(productEntityId,title,
+            productEntityService.updateProductEntity(productEntityId, title,
                     titleImageLink,
                     shortInfo,
-                    photoLink,
                     license,
                     access,
                     description,
@@ -245,8 +244,21 @@ public class FileController {
             model.addAttribute("uploadinfo", Toast.error("Error", "Failure occurred"));
             return "fragments/error-upload-fragment";
         }
+    }
 
 
+
+    @PostMapping("/addProductPhotos")
+    @HxRequest
+    public String uploadProductPhotos(
+            @RequestParam Long productEntityId,
+            @RequestParam(value = "uploadPhotos") List<MultipartFile> photo, Model model){
+
+        ProductEntity productEntity = productEntityService.findProductEntityById(productEntityId);
+        model.addAttribute("actualProductEntity", productEntity);
+
+        productEntityService.uploadProductPhotos(productEntityId, photo);
+        return "updatefilepage";
     }
 
 

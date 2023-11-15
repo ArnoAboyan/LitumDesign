@@ -73,7 +73,32 @@
 <!--</nav>-->
 
 <!--hx-confirm="Are you sure you wish to add new item?"-->
+
+
+
+
+
 <div>
+
+  <div class="input-group mb-3">
+
+    <label for="multipleUploadFiles" class="form-control form-control-sm">Multiple files input</label>
+    <input class="form-control" type="file"
+           th:attr="hx-vals='{&quot;productEntityId&quot;: &quot;'+${actualProductEntity.getId()}+'&quot;}'"
+           hx-encoding='multipart/form-data'
+           hx-post="/file/addProductPhotos"
+           hx-swap="outerHTML"
+           hx-trigger="change"
+           name="uploadPhotos" id="multipleUploadFiles" multiple />
+    <div>
+      <img class="htmx-indicator" src="/image/spinner-loading.svg"/>
+    </div>
+  </div>
+
+
+
+
+
   <form class="submitfileform"
         enctype="multipart/form-data"
         hx-encoding='multipart/form-data'
@@ -151,23 +176,20 @@
       <label for="license" class="form-label ">License</label>
     </div>
 
-    <div id="photolinks" >
-<!--      <div class="form-floating mb-3  photo-link-row" th:each="photolink : ${actualProductEntity.getPhotoLink()}">-->
-<!--        <input type="text" name="photoLink[]" class="form-control photo-link-input" id="floatingInput"-->
-<!--               placeholder="Photo link" th:value="${photolink.getPhotoLink()}">-->
+<!--    <div id="photolinks" >-->
+<!--      <div class="form-floating mb-3 photo-link-row " th:each="photolink : ${actualProductEntity.getPhotoLink()}">-->
+<!--        <input type="url" name="photoLink[]" class="form-control photo-link-input" id="floatingInput" placeholder="Photo link" th:value="${photolink.getPhotoLink()}">-->
 <!--        <label for="floatingInput">Photo (link)</label>-->
 <!--      </div>-->
-      <div class="form-floating mb-3 photo-link-row " th:each="photolink : ${actualProductEntity.getPhotoLink()}">
-        <input type="url" name="photoLink[]" class="form-control photo-link-input" id="floatingInput" placeholder="Photo link" th:value="${photolink.getPhotoLink()}">
-        <label for="floatingInput">Photo (link)</label>
-<!--        <button class="photo-link-close-button" hx-delete="/file/delete-photo-link-input" hx-target="closest div" hx-swap="outerHTML"><i class="fa-solid fa-x"></i></button>-->
-      </div>
-    </div>
+<!--    </div>-->
 
 
-    <button class="submitfile-one-more-link-button" hx-get="/file/add-photo-link-input"
-            hx-swap="beforeend" hx-target="#photolinks" hx-trigger="click"> + Photo (link)
-    </button>
+<!--    <button class="submitfile-one-more-link-button" hx-get="/file/add-photo-link-input"-->
+<!--            hx-swap="beforeend" hx-target="#photolinks" hx-trigger="click"> + Photo (link)-->
+<!--    </button>-->
+
+
+
 
 
     <div class="form-floating mb-3  video-link-row">
@@ -198,7 +220,7 @@
     </div>
 
     <div class="submitfile-submit-button-container">
-      <button type="submit" class="submitfile-submit-button">Update file </button>
+      <button type="submit" class="submitfile-submit-button">Update file information </button>
     </div>
 
 

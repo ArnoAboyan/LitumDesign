@@ -17,9 +17,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -35,22 +39,20 @@ public class ProductEntityService {
 
 
     @Transactional
-    public void createProductEntity(ProductEntity productEntity, List<String> photoLink, String gdFileId, String version) {
+    public void createProductEntity(ProductEntity productEntity, String gdFileId, String version) {
 
 //        delete empty cells
-        cleanEmptyCell(photoLink);
+//        cleanEmptyCell(photoLink);
 //        photoLink.removeIf(item -> item == null || item.isEmpty());
 
 
-//       GET LINKS FOR ProductEntity photos
-        List<ProductPhotoEntity> productPhotos = new ArrayList<>();
-        photoLink.forEach(a -> {
-            ProductPhotoEntity productPhotoEntity = new ProductPhotoEntity(productEntity, a);
-            productPhotos.add(productPhotoEntity);
-        });
+////       CREATE EMPTY PHOTOS ArrayList
+//        List<ProductPhotoEntity> emptyProductPhotos = new ArrayList<>();
+////        ADD PHOTO LINKS TO ProductEntity
+//        productEntity.setPhotoLink(emptyProductPhotos);
 
-//        ADD PHOTO LINKS TO ProductEntity
-        productEntity.setPhotoLink(productPhotos);
+
+
 
 //        ADD FILE ID FROM GOOGLE DICK
         productEntity.setGdFileId(gdFileId);
@@ -251,7 +253,7 @@ public class ProductEntityService {
                 .sum();
 
     }
-    public void cleanEmptyCell(List<String> photoLink) {
+    public void cleanEmptyCell(List<MultipartFile> photoLink) {
         photoLink.removeIf(item -> item == null || item.isEmpty());
     }
 
@@ -261,7 +263,6 @@ public class ProductEntityService {
                                     String title,
                                     String titleImageLink,
                                     String shortInfo,
-                                    List<String> photoLink,
                                     String license,
                                     Access access,
                                     String description,
@@ -270,10 +271,12 @@ public class ProductEntityService {
                                     GameType gameType,
                                     String version,
                                     String versionComment) {
-        //        delete empty cells
-        cleanEmptyCell(photoLink);
+
+
+
 
         ProductEntity productEntity = findProductEntityById(productEntityId);
+
 
 
         if (title != null && !title.isEmpty()) {
@@ -292,15 +295,7 @@ public class ProductEntityService {
 //        productPhotoRepository.deleteByProductEntity(productEntity);
 
 
-        //       GET LINKS FOR ProductEntity photos
-        List<ProductPhotoEntity> productPhotos = new ArrayList<>();
-        photoLink.forEach(a -> {
-            ProductPhotoEntity productPhotoEntity = new ProductPhotoEntity(productEntity, a);
-            productPhotos.add(productPhotoEntity);
-        });
-//        ADD PHOTO LINKS TO ProductEntity
 
-        productEntity.setPhotoLink(productPhotos);
 
 
         if (license != null && !license.isEmpty()) {
@@ -332,6 +327,38 @@ public class ProductEntityService {
         productEntityRepository.save(productEntity);
 
     }
+
+    public void checkMIMEType(List<MultipartFile> photoLink) {
+        photoLink.removeIf(item -> !Objects.requireNonNull(item.getContentType()).startsWith("image"));
+    }
+
+    public void uploadProductPhotos(Long productEntityId, List<MultipartFile> photos){
+
+        ProductEntity productEntity = findProductEntityById(productEntityId);
+
+        //        delete empty cells
+        cleanEmptyCell(photos);
+        checkMIMEType(photos);
+
+
+        List<String> photoIds = googleDriveService.uploadProductPhotos(photos);
+
+
+        //       GET LINKS FOR ProductEntity photos
+        if(photoIds != null){
+        List<ProductPhotoEntity> productPhotos = productEntity.getPhotoLink();
+        photoIds.forEach(a -> {
+            ProductPhotoEntity productPhotoEntity = new ProductPhotoEntity(productEntity, a);
+            productPhotos.add(productPhotoEntity);
+        });
+//        ADD PHOTO LINKS TO ProductEntity
+        productEntity.setPhotoLink(productPhotos);}
+        productEntityRepository.save(productEntity);
+
+    }
+
+
+
 @Transactional
     public void deleteProductEntity(Long productEntityId) {
 
