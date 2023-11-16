@@ -1,10 +1,10 @@
 package com.litumdesign.LitumDesign.controller;
 
 import com.litumdesign.LitumDesign.Entity.*;
-import com.litumdesign.LitumDesign.exception.GoogleDriveException;
 import com.litumdesign.LitumDesign.formaticUI.Toast;
 import com.litumdesign.LitumDesign.googledrive.GoogleDriveService;
 import com.litumdesign.LitumDesign.service.ProductEntityService;
+import com.litumdesign.LitumDesign.service.ProductPhotoService;
 import com.litumdesign.LitumDesign.service.UserEntityService;
 import io.github.wimdeblauwe.htmx.spring.boot.mvc.HxRequest;
 import lombok.RequiredArgsConstructor;
@@ -20,10 +20,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -38,6 +38,7 @@ public class FileController {
 
     private final ProductEntityService productEntityService;
     private final UserEntityService userEntityService;
+    private final ProductPhotoService productPhotoService;
 
     private final GoogleDriveService googleDriveService;
 
@@ -142,12 +143,15 @@ public class FileController {
     @HxRequest
     public String deleteProduct(@RequestParam("productId") Long productId, @AuthenticationPrincipal UserDetails userDetails) {
 
+        ProductEntity productEntity = productEntityService.findProductEntityById(productId);
 
-        userEntityService.deleteUploadCounter(userDetails);
+        if (productEntity.getUploadUserId().getLogin().equals(userDetails.getUsername()))
+            userEntityService.deleteUploadCounter(userDetails);
         productEntityService.deleteProductEntity(productId);
 
         return "";
     }
+
 
     @GetMapping("/download-file/{productId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String productId, @AuthenticationPrincipal UserDetails userDetails) throws GeneralSecurityException, IOException {
@@ -247,20 +251,39 @@ public class FileController {
     }
 
 
-
     @PostMapping("/addProductPhotos")
     @HxRequest
     public String uploadProductPhotos(
             @RequestParam Long productEntityId,
-            @RequestParam(value = "uploadPhotos") List<MultipartFile> photo, Model model){
+            @RequestParam(value = "uploadPhotos") List<MultipartFile> photo, Model model,
+            RedirectAttributes redirectAttributes) {
 
         ProductEntity productEntity = productEntityService.findProductEntityById(productEntityId);
         model.addAttribute("actualProductEntity", productEntity);
 
         productEntityService.uploadProductPhotos(productEntityId, photo);
+
+        model.addAttribute("message", "Images has been upload success!");
+
         return "fragments/images-product-fragment";
     }
 
+    @DeleteMapping("/delete-image")
+    @HxRequest
+    public String deleteProductImage(
+            @RequestParam("photoId") Long photoId,
+            @RequestParam("productId") Long productId,
+            @AuthenticationPrincipal UserDetails userDetails, Model model) {
+
+        ProductEntity productEntity = productEntityService.findProductEntityById(productId);
+
+        if (productEntity.getUploadUserId().getLogin().equals(userDetails.getUsername()))
+
+            productPhotoService.deletePhotoEntity(photoId);
+
+        model.addAttribute("actualProductEntity", productEntity);
+
+        return "fragments/images-product-fragment";
+    }
 
 }
-

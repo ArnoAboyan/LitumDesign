@@ -1085,7 +1085,7 @@ height: 36px;
     border-bottom:2px solid #CB321A;
 }
 
-.images-for-product img{
+.particular-images-for-product{
     object-fit: cover;
     max-width: 100px;
     height: 100px;
@@ -1093,6 +1093,10 @@ height: 36px;
 
 .images-for-product i{
     position: absolute;
+    margin-top: 5px;
+    margin-left: 5px;
+
+
 }
 .images-for-product i:hover{
     border-bottom:3px solid #CB321A;
@@ -1279,7 +1283,7 @@ height: 36px;
 .htmx-request .htmx-indicator {
     opacity: 1;
     position: fixed;
-    background: rgba(0, 0, 0, 0);
+    background: rgba(201, 30, 30, 0);
     top: 50%; /* Положение относительно верхнего края */
     left: 50%; /* Положение относительно левого края */
     transform: translate(-50%, -50%); /* Центрирование по центру экрана */
@@ -1392,6 +1396,21 @@ hr{
     color: white;
     z-index: 99999;
     border: 2px solid #CB321A;
+    transition: top 0.5s ease-in-out;
+    align-items: center;
+    padding-top: 33px
+}
+
+.alert-success {
+    display: flex;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    height: 40px; /* Установите фиксированную высоту */
+    background: #272727;
+    color: white;
+    z-index: 99999;
+    border: 2px solid #3fff00;
     transition: top 0.5s ease-in-out;
     align-items: center;
     padding-top: 33px

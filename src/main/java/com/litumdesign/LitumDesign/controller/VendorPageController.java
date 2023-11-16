@@ -49,13 +49,10 @@ public class VendorPageController {
             model.addAttribute("products", productEntityService.getMostPopularProductByVendor(vendorName));
             return "vendor-page";
         } catch (PropertyReferenceException e) {
-            // Логирование ошибки, если это необходимо
-            e.printStackTrace();
 
-            // Добавление атрибута с сообщением об ошибке (может быть использовано в представлении)
+            e.printStackTrace();
             redirectAttributes.addFlashAttribute("error", "Error! Wrong request for sorting");
 
-            // Перенаправление на страницу без сортировки
             return "redirect:/vendor-page/" + vendorName;
         }
     }

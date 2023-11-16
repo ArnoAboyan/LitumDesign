@@ -25,7 +25,7 @@
 .vendor-info-card {
     display: flex;
     max-width: 350px;
-    border-radius: 0px;
+    border-radius: 0;
     border: 1px solid #cb321a00;
     border-bottom: 3px solid #CB321A;
     font-size: 30px;
@@ -45,7 +45,7 @@
 
 .page-title{
     display: flex;
-    margin: 0px auto;
+    margin: 0 auto;
     margin-top: 50px;
     margin-bottom: 50px;
     font-size: 42px;
@@ -58,12 +58,12 @@
     margin-bottom: 15px;
 }
 .vendor-btns-underline{
-    border-radius: 0px;
+    border-radius: 0;
     border-bottom: 3px solid #272727;
     color: white;
 }
 .vendor-btns-underline:hover{
-    border-radius: 0px;
+    border-radius: 0;
     border-bottom: 3px solid #CB321A;
     transition: all 0.2s ease;
 }
@@ -171,3 +171,8 @@
     border-bottom: 2px solid #CB321A;
 }
 
+.info-text{
+    display:flex;
+    position: relative;
+    max-width: 1170px;
+}

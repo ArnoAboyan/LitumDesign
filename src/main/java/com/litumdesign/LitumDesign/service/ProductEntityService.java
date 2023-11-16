@@ -3,24 +3,18 @@ package com.litumdesign.LitumDesign.service;
 import com.litumdesign.LitumDesign.Entity.*;
 import com.litumdesign.LitumDesign.googledrive.GoogleDriveService;
 import com.litumdesign.LitumDesign.repository.ProductEntityRepository;
-import com.litumdesign.LitumDesign.repository.ProductPhotoRepository;
 import com.litumdesign.LitumDesign.repository.ProductVersionRepository;
 import com.litumdesign.LitumDesign.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-//import org.apache.tomcat.util.http.fileupload.impl.SizeException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-//import org.springframework.data.domain.Sort;
-//import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -35,7 +29,7 @@ public class ProductEntityService {
     private final UserRepository userRepository;
     private final ProductVersionRepository productVersionRepository;
     private final GoogleDriveService googleDriveService;
-    private final ProductPhotoRepository productPhotoRepository;
+
 
 
     @Transactional
@@ -50,8 +44,6 @@ public class ProductEntityService {
 //        List<ProductPhotoEntity> emptyProductPhotos = new ArrayList<>();
 ////        ADD PHOTO LINKS TO ProductEntity
 //        productEntity.setPhotoLink(emptyProductPhotos);
-
-
 
 
 //        ADD FILE ID FROM GOOGLE DICK
@@ -206,6 +198,8 @@ public class ProductEntityService {
 
     }
 
+
+
     public ProductVersionEntity findLastVersionByProductEntity(ProductEntity productEntity) {
         List<ProductVersionEntity> productVersionEntityList = productVersionRepository.findProductVersionEntitiesByProductEntityOrderByVersion(productEntity);
 
@@ -229,7 +223,7 @@ public class ProductEntityService {
 
     public Page<ProductEntity> findAllProductsByVendorName(String name, Pageable pageable) {
 
-        return productEntityRepository.findByUploadUserIdNameAndAccess(name, pageable, Access.PUBLIC );
+        return productEntityRepository.findByUploadUserIdNameAndAccess(name, pageable, Access.PUBLIC);
     }
 
 
@@ -253,10 +247,10 @@ public class ProductEntityService {
                 .sum();
 
     }
+
     public void cleanEmptyCell(List<MultipartFile> photoLink) {
         photoLink.removeIf(item -> item == null || item.isEmpty());
     }
-
 
 
     public void updateProductEntity(Long productEntityId,
@@ -273,10 +267,7 @@ public class ProductEntityService {
                                     String versionComment) {
 
 
-
-
         ProductEntity productEntity = findProductEntityById(productEntityId);
-
 
 
         if (title != null && !title.isEmpty()) {
@@ -293,9 +284,6 @@ public class ProductEntityService {
 
 //           DELETE OLD PHOTOS
 //        productPhotoRepository.deleteByProductEntity(productEntity);
-
-
-
 
 
         if (license != null && !license.isEmpty()) {
@@ -332,7 +320,7 @@ public class ProductEntityService {
         photoLink.removeIf(item -> !Objects.requireNonNull(item.getContentType()).startsWith("image"));
     }
 
-    public void uploadProductPhotos(Long productEntityId, List<MultipartFile> photos){
+    public void uploadProductPhotos(Long productEntityId, List<MultipartFile> photos) {
 
         ProductEntity productEntity = findProductEntityById(productEntityId);
 
@@ -345,21 +333,21 @@ public class ProductEntityService {
 
 
         //       GET LINKS FOR ProductEntity photos
-        if(photoIds != null){
-        List<ProductPhotoEntity> productPhotos = productEntity.getPhotoLink();
-        photoIds.forEach(a -> {
-            ProductPhotoEntity productPhotoEntity = new ProductPhotoEntity(productEntity, a);
-            productPhotos.add(productPhotoEntity);
-        });
+        if (photoIds != null) {
+            List<ProductPhotoEntity> productPhotos = productEntity.getPhotoLink();
+            photoIds.forEach(a -> {
+                ProductPhotoEntity productPhotoEntity = new ProductPhotoEntity(productEntity, a);
+                productPhotos.add(productPhotoEntity);
+            });
 //        ADD PHOTO LINKS TO ProductEntity
-        productEntity.setPhotoLink(productPhotos);}
+            productEntity.setPhotoLink(productPhotos);
+        }
         productEntityRepository.save(productEntity);
 
     }
 
 
-
-@Transactional
+    @Transactional
     public void deleteProductEntity(Long productEntityId) {
 
         ProductEntity productEntity = findProductEntityById(productEntityId);
@@ -367,5 +355,6 @@ public class ProductEntityService {
         productEntityRepository.deleteById(productEntityId);
         System.out.println("DELETE PRODUCT -->" + productEntityId + " and " + productEntity.getGdFileId());
     }
+
 }
 

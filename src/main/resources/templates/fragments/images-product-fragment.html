@@ -1,12 +1,14 @@
 <div class="all-images-for-product" id="all-images-for-product">
     <div class="images-for-product" th:each="photolink : ${actualProductEntity.getPhotoLink()}">
-        <i class="fa-regular fa-trash-can" style="color: #ffffff;"
-           hx-post="/file/delete-image"
+        <i class="fa-regular fa-trash-can delete-img-button" style="color: #ffffff;"
+           hx-delete="/file/delete-image"
            hx-trigger="click"
            hx-swap="outerHTML"
            hx-target="#all-images-for-product"
-        ></i>
-        <img class="htmx-indicator" src="/image/spinner-loading.svg"/>
-        <img th:src="'https://drive.google.com/thumbnail?authuser=0&sz=w200&id='+${photolink.getPhotoLink()}" alt="image for product">
+           th:attr="hx-vals='{&quot;photoId&quot;: &quot;'+${photolink.getId()}+'&quot;, &quot;productId&quot;: &quot;'+${actualProductEntity.getId()}+'&quot;}'"
+        ><div><img class="htmx-indicator" src="/image/spinner-loading.svg" alt="spinner"/></div></i>
+        <img class="particular-images-for-product" th:src="'https://drive.google.com/thumbnail?authuser=0&sz=w200&id='+${photolink.getPhotoLink()}" alt="image for product">
     </div>
+
+    <div th:insert="~{fragments/toasts/success :: firstDiv}"></div>
 </div>
