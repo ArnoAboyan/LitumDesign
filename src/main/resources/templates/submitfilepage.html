@@ -90,8 +90,7 @@
         <h2 class="text-center">Submit a new file</h2>
         <br>
         <div class="form-floating mb-3 submitfile-row">
-            <input type="text" name="title" class="form-control submitfile-title" id="title" placeholder="Title"
-                   required>
+            <input type="text" name="title" class="form-control submitfile-title" id="title" placeholder="Title" required>
             <label for="title" class="form-label">Title</label>
         </div>
         <!--            <button class="submitfile-one-more-link-button" hx-get="/file/add-photo-link-input"-->
@@ -99,9 +98,30 @@
         <!--            </button>-->
         <div class="input-group mb-3">
             <!--            <label class="input-group-text" for="uploadfile">UploadFile</label>-->
-            <input type="file" class="form-control form-control-sm" name="uploadfile" id="uploadfile" required>
+            <input type="file" class="form-control form-control-sm" name="uploadfile" id="uploadfile">
         </div>
-
+        <div class="submitfile-dropdownsbox">
+            <div class="mb-3 ">
+                <select class="submitfile-dropdowns" name="gameType" id="gameType"
+                        aria-label="Default select example" required>
+                    <option selected disabled>Game</option>
+                    <option value="RUST">RUST</option>
+                    <option value="UNTURNED">UNTURNED</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <select class="submitfile-dropdowns" name="categories" id="categories"
+                        aria-label="Default select example" required>
+                    <option selected disabled>Categories</option>
+                    <option value="MAP">MAP</option>
+                    <option value="PLUGIN">PLUGIN</option>
+                    <option value="PREFAB">PREFAB</option>
+                    <option value="MONUMENT">MONUMENT</option>
+                    <option value="TOOL">TOOL</option>
+                    <option value="MOD">MOD</option>
+                </select>
+            </div>
+        </div>
         <div>
             <input type="hidden" name="version" value="1">
         </div>

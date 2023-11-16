@@ -699,6 +699,8 @@ height: 36px;
 .submitfile-row {
     border-radius: 0;
     color: white;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .submitfile-row input {
@@ -718,11 +720,14 @@ height: 36px;
 .submitfile-textaria {
     border-radius: 0;
     color: white;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 .submitfile-textaria textarea {
     background-color: #272727;
     border-bottom: 2px solid #CB321A;
     color: white;
+
 
 }
 .submitfile-textaria textarea:focus {
@@ -809,13 +814,15 @@ height: 36px;
     margin-top: 10px;
     border-radius: 0;
     border: 0;
-    background-color: #272727;
+    /* background-color: #272727; */
     color: white;
-
+    padding-left:10px;
+    padding-right:10px;
 }
 .ql-container.ql-snow {
     border: 0 !important;
     border-bottom: 2px solid #CB321A !important;
+
 }
 .ql-snow .ql-fill,
 .ql-snow .ql-stroke.ql-fill
@@ -827,19 +834,23 @@ height: 36px;
 
 .ql-snow .ql-picker {
     color: #ffffff !important;
+
 }
 
 .ql-snow .ql-picker-options {
     background-color: #323232 !important;
+
 }
 
 .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
     border-color: #CB321A !important;
+
 }
 
 
 .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label {
     border-color: #CB321A !important;
+
 }
 
 .ql-snow.ql-toolbar button:hover,
@@ -857,15 +868,20 @@ height: 36px;
 .ql-snow.ql-toolbar .ql-picker-item.ql-selected,
 .ql-snow .ql-toolbar .ql-picker-item.ql-selected {
     color: #CB321A  !important;
+
+
 }
 
 .ql-container {
     min-height:200px !important;
+    background-color:#272727;
+
 }
 
 .ql-toolbar.ql-snow {
     border: 0 !important;
     border-bottom: 2px solid #CB321A !important;
+    background-color: #272727 !important;
 }
 
 .ql-editor.ql-blank::before {
@@ -888,6 +904,7 @@ height: 36px;
     display: flex;
     position: relative;
     margin-top: 30px;
+    margin-left: 10px;
 }
 
 .submitfile-dropdowns {
@@ -963,11 +980,13 @@ height: 36px;
     max-width: 700px;
     color: white;
     background-color: transparent;
+    padding-left: 10px;
 }
 
 .video-link-row input{
     background-color: #272727;
     border-bottom: 2px solid #CB321A;
+
 }
 
 .video-link-row input:focus{
@@ -1003,6 +1022,7 @@ height: 36px;
     color: #ffffff;
     border-bottom: 2px solid #CB321A;
     background-color: #272727
+
 }
 
 .form-control:active {
@@ -1010,7 +1030,7 @@ height: 36px;
     border-radius: 0;
     color: #ffffff;
     border-bottom: 2px solid #CB321A;
-    background-color: #272727
+    background-color: #272727;
 }
 
 .form-control:focus {
@@ -1082,7 +1102,7 @@ height: 36px;
     margin-bottom: 10px;
     padding: 5px;
     background-color:#272727;
-    border-bottom:2px solid #CB321A;
+
 }
 
 .particular-images-for-product{
@@ -1580,6 +1600,11 @@ hr{
     }
 
 
-
+    .submitfile-dropdownsbox {
+        display: flex;
+        position: relative;
+        justify-content:center;
+        margin-top: 30px;
+    }
 
 }

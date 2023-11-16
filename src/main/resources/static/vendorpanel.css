@@ -148,7 +148,20 @@
 
 }
 
+.update-file-custom-col{
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+}
 
+
+.update-file-custom-col-image{
+    display: flex;
+    height: 200px;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+}
 
 .vendor-buttons{
     display: flex;
@@ -171,8 +184,11 @@
     border-bottom: 2px solid #CB321A;
 }
 
-.info-text{
+.info-text p{
     display:flex;
     position: relative;
     max-width: 1170px;
+    margin: auto;
+    font-size:13px;
+    color:#666666;
 }
