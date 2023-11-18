@@ -6,7 +6,7 @@
            hx-swap="outerHTML"
            hx-target="#all-images-for-product"
            th:attr="hx-vals='{&quot;photoId&quot;: &quot;'+${photolink.getId()}+'&quot;, &quot;productId&quot;: &quot;'+${actualProductEntity.getId()}+'&quot;}'"
-        ><div><img class="htmx-indicator" src="/image/spinner-loading.svg" alt="spinner"/></div></i>
+        ><div><img class="htmx-indicator" src="/image/spinner-loading.svg" alt="images-for-product"/></div></i>
         <img class="particular-images-for-product" th:src="'https://drive.google.com/thumbnail?authuser=0&sz=w200&id='+${photolink.getPhotoLink()}" alt="image for product">
     </div>
 

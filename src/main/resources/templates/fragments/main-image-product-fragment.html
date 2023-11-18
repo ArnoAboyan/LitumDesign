@@ -1,0 +1,31 @@
+<div class="form-floating mb-3 submitfile-row">
+    <img class="main-images-for-product"
+         th:src="${actualProductEntity.getTitleImageThumbnails()} + '?timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}">
+    <i class="fa-regular fa-trash-can delete-img-button" style="color: #ffffff;"
+       hx-delete="/file/delete-main-image"
+       hx-trigger="click"
+       hx-swap="innerHTML"
+       hx-target="#add-main-image-button"
+       th:attr="hx-vals='{&quot;mainproductId&quot;: &quot;'+${actualProductEntity.getId()}+'&quot;}'"
+    >
+        <div><img class="htmx-indicator" src="/image/spinner-loading.svg" alt="spinner"/></div>
+    </i>
+</div>
+<div class="form-floating mb-3 submitfile-row">
+    <div class="add-main-image-button">
+        <label class="form-label text-white m-1" for="titleimagelink">
+            <img src="/image/image-plus.svg" alt="Add main image for product">
+        </label>
+        <input type="file" accept="image/*" name="titleImageLink"
+               class="form-control submitfile-titleimage d-none" id="titleimagelink"
+               th:attr="hx-vals='{&quot;productEntityId&quot;: &quot;'+${actualProductEntity.getId()}+'&quot;}'"
+               hx-encoding='multipart/form-data'
+               hx-post="/file/add-main-product-photo"
+               hx-swap="innerHTML"
+               hx-trigger="change"
+               hx-target="#add-main-image-button">
+        <div>
+            <img class="htmx-indicator" src="/image/spinner-loading.svg"/>
+        </div>
+    </div>
+</div>

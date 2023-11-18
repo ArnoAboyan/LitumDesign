@@ -47,6 +47,8 @@ public class ProductEntity {
     Integer countOfView;
     @Column(name = "title_image_link", columnDefinition = "VARCHAR")
     String titleImageLink;
+    @Column(name = "title_image_thumbnails", columnDefinition = "VARCHAR")
+    String titleImageThumbnails;
     @Column(name = "license", columnDefinition = "VARCHAR")
     String license;
     @Enumerated(value = EnumType.STRING)
@@ -80,12 +82,11 @@ public class ProductEntity {
 
 
 
-    public ProductEntity(String title, String titleImageLink, Double price, String shortInfo, String license,
+    public ProductEntity(String title, Double price, String shortInfo, String license,
                          String description, Categories categories, GameType gameType,
                          Access access, String videoLink, Boolean advertising, Integer discount,
                          Integer countOfDownloads, Integer countOfReviews, Integer averageRating, Integer countOfView) {
         this.title = title;
-        this.titleImageLink = titleImageLink;
         this.price = price;
         this.shortInfo = shortInfo;
         this.license = license;

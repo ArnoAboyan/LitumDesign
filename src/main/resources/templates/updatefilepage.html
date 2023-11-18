@@ -65,7 +65,6 @@
             <div class="add-image-button">
                 <label class="form-label text-white m-1" for="multipleUploadFiles">
                     <img src="/image/image-plus.svg" alt="Add image for product">
-                    <img class="htmx-indicator" id="spinner" src="/image/spinner-loading.svg"/>
                 </label>
                 <input class="form-control d-none" type="file" accept="image/*"
                        th:attr="hx-vals='{&quot;productEntityId&quot;: &quot;'+${actualProductEntity.getId()}+'&quot;}'"
@@ -113,9 +112,10 @@
             <br>
             <div class="container text-center">
                 <div class="row">
-                    <div class="col-md-6 update-file-custom-col">
-                        <div class="form-floating mb-3 submitfile-row">
-                            <input type="text" name="title" class="form-control submitfile-title" id="title" placeholder="Title"
+                    <div class="col-md-6 update-file-custom-col" >
+                        <div  class="form-floating mb-3 submitfile-row">
+                            <input type="text" name="title" class="form-control submitfile-title" id="title"
+                                   placeholder="Title"
                                    th:value="${actualProductEntity.getTitle()}" required>
                             <label for="title" class="form-label">Title</label>
                         </div>
@@ -125,16 +125,41 @@
                             <label for="price" class="form-label">Price</label>
                         </div>
                     </div>
-                    <div class="col-md-6 update-file-custom-col-image">
+                    <div  class="col-md-6 update-file-custom-col-image" id="add-main-image-button">
+                        <div  class="form-floating mb-3 submitfile-row">
+                            <img class="main-images-for-product" th:src="${actualProductEntity.getTitleImageThumbnails()} + '?timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}">
+                            <i class="fa-regular fa-trash-can delete-img-button" style="color: #ffffff;"
+                               hx-delete="/file/delete-main-image"
+                               hx-trigger="click"
+                               hx-swap="innerHTML"
+                               hx-target="#add-main-image-button"
+                               th:attr="hx-vals='{&quot;mainproductId&quot;: &quot;'+${actualProductEntity.getId()}+'&quot;}'">
+                                <div>
+                                    <img class="htmx-indicator" src="/image/spinner-loading.svg" alt="spinner"/>
+                                </div>
+                            </i>
+                        </div>
                         <div class="form-floating mb-3 submitfile-row">
-                            <input type="url" name="titleImageLink" class="form-control submitfile-titleimage" id="titleimagelink"
-                                   placeholder="Title Image (Link)" th:value="${actualProductEntity.getTitleImageLink()}" required>
-                            <label for="titleimagelink" class="form-label">Title Image (Link)</label>
+                            <div  class="add-main-image-button" >
+                                <label class="form-label text-white m-1" for="titleimagelink">
+                                    <img src="/image/image-plus.svg" alt="Add main image for product">
+                                </label>
+                                <input type="file" accept="image/*" name="titleImageLink"
+                                       class="form-control submitfile-titleimage d-none" id="titleimagelink"
+                                       th:attr="hx-vals='{&quot;productEntityId&quot;: &quot;'+${actualProductEntity.getId()}+'&quot;}'"
+                                       hx-encoding='multipart/form-data'
+                                       hx-post="/file/add-main-product-photo"
+                                       hx-swap="innerHTML"
+                                       hx-trigger="change"
+                                       hx-target="#add-main-image-button">
+                                <div>
+                                    <img class="htmx-indicator" src="/image/spinner-loading.svg"/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
 
 
             <div class="submitfile-dropdownsbox">

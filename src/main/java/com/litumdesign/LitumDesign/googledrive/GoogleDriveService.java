@@ -14,6 +14,7 @@ import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.ServiceAccountCredentials;
+import com.litumdesign.LitumDesign.Entity.ProductEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.io.IOUtils;
@@ -186,7 +187,35 @@ public class GoogleDriveService {
         }
         return uploadedFileIds;
     }
+    public ProductEntity uploadMainProductPhotos(ProductEntity productEntity, MultipartFile photo) {
 
+        try {
+                log.info("Uploading photo: {}", photo.getOriginalFilename());
+
+                File fileMetadata = new File();
+                fileMetadata.setName(photo.getOriginalFilename());
+                fileMetadata.setParents(Collections.singletonList("1QpfYnVHb-qJlglXUoA9alEFNvLT765SW"));
+                File uploadFile = getInstance()
+                        .files()
+                        .create(fileMetadata, new InputStreamContent(
+                                photo.getContentType(),
+                                new ByteArrayInputStream(photo.getBytes()))
+                        )
+                        .setFields("id, name, thumbnailLink")
+                        .execute();
+                System.out.println("FILE CREATE -> " + uploadFile);
+
+                productEntity.setTitleImageLink(uploadFile.getId());
+                productEntity.setTitleImageThumbnails(uploadFile.getThumbnailLink());
+
+                System.out.println("PHOTOID -> " + uploadFile.getId());
+                System.out.println("ThumbnailLink -> " + uploadFile.getThumbnailLink());
+
+        } catch (Exception e) {
+            log.error("Error during file upload process", e);
+        }
+        return productEntity;
+    }
 
 
 

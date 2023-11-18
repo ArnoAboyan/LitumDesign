@@ -80,7 +80,6 @@ public class FileController {
 
         ProductEntity productEntity = new ProductEntity(
                 title,
-                null,
                 0.0,
                 null,
                 null,
@@ -268,6 +267,23 @@ public class FileController {
         return "fragments/images-product-fragment";
     }
 
+    @PostMapping("/add-main-product-photo")
+    @HxRequest
+    public String uploadMainProductPhoto(
+            @RequestParam Long productEntityId,
+            @RequestParam(value = "titleImageLink") MultipartFile titleImageLink, Model model) throws InterruptedException {
+
+        ProductEntity productEntity = productEntityService.findProductEntityById(productEntityId);
+
+
+        productEntityService.uploadMainProductPhotos(productEntityId, titleImageLink);
+
+        model.addAttribute("actualProductEntity", productEntity);
+        model.addAttribute("message", "Images has been upload success!");
+
+        return "fragments/main-image-product-fragment";
+    }
+
     @DeleteMapping("/delete-image")
     @HxRequest
     public String deleteProductImage(
@@ -285,5 +301,20 @@ public class FileController {
 
         return "fragments/images-product-fragment";
     }
+    @DeleteMapping("/delete-main-image")
+    @HxRequest
+    public String deleteMainProductImage(
+            @RequestParam("mainproductId") Long mainproductId,
+            @AuthenticationPrincipal UserDetails userDetails, Model model) {
 
+        ProductEntity productEntity = productEntityService.findProductEntityById(mainproductId);
+
+        if (productEntity.getUploadUserId().getLogin().equals(userDetails.getUsername()))
+
+            productEntityService.deleteMainPhoto(productEntity);
+
+        model.addAttribute("actualProductEntity", productEntity);
+
+        return "fragments/main-image-product-fragment";
+    }
 }

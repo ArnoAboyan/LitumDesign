@@ -347,6 +347,15 @@ public class ProductEntityService {
     }
 
 
+    public void uploadMainProductPhotos(Long productEntityId, MultipartFile photo) {
+
+        ProductEntity productEntity = findProductEntityById(productEntityId);
+
+      ProductEntity newProductEntity = googleDriveService.uploadMainProductPhotos(productEntity, photo);
+
+      productEntityRepository.save(newProductEntity);
+    }
+
     @Transactional
     public void deleteProductEntity(Long productEntityId) {
 
@@ -356,5 +365,19 @@ public class ProductEntityService {
         System.out.println("DELETE PRODUCT -->" + productEntityId + " and " + productEntity.getGdFileId());
     }
 
+    public void deleteMainPhoto(ProductEntity productEntity) {
+
+        try {
+            googleDriveService.deleteFile(productEntity.getTitleImageLink());
+            productEntity.setTitleImageLink("");
+            productEntity.setTitleImageThumbnails("");
+            log.info("Image for " + productEntity.getTitle() + " has been delete successful" );
+            productEntityRepository.save(productEntity);
+        }catch (Exception e){
+            log.error("Error while deleting main product image " + e);
+        }
+
+
+    }
 }
 
