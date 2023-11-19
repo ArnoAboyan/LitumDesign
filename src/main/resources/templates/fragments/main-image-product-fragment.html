@@ -1,0 +1,42 @@
+<div class="col-md-6 update-file-custom-col-image" id="add-main-image-button" >
+    <div th:if="${actualProductEntity.getTitleImageLink() != null and !#strings.isEmpty(actualProductEntity.getTitleImageLink())}"
+         class="form-floating mb-3 submitfile-row main-image">
+        <img class="main-images-for-product" th:src="'https://drive.google.com/thumbnail?authuser=0&sz=w320&id='+${actualProductEntity.getTitleImageLink()} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}">
+        <i class="fa-regular fa-trash-can delete-img-button" style="color: #ffffff;"
+           hx-delete="/file/delete-main-image"
+           hx-trigger="click"
+           hx-swap="outerHTML"
+           hx-target="#add-main-image-button"
+           th:attr="hx-vals='{&quot;mainproductId&quot;: &quot;'+${actualProductEntity.getId()}+'&quot;}'">
+            <div>
+                <img class="htmx-indicator" src="/image/spinner-loading.svg" alt="spinner"/>
+            </div>
+        </i>
+    </div>
+    <div class="form-floating mb-3 submitfile-row"
+         th:if="${actualProductEntity.getTitleImageLink() == null or #strings.isEmpty(actualProductEntity.getTitleImageLink())}">
+        <h3>Main product image</h3>
+        <div class="add-main-image-button">
+            <label class="form-label text-white m-1" for="titleimagelink">
+                <img class="particular-main-images-for-product" src="/image/image-plus.svg"
+                     alt="Add main image for product">
+            </label>
+            <input type="file" accept="image/*" name="titleImageLink"
+                   class="form-control submitfile-titleimage d-none" id="titleimagelink"
+                   th:attr="hx-vals='{&quot;productEntityId&quot;: &quot;'+${actualProductEntity.getId()}+'&quot;}'"
+                   hx-encoding='multipart/form-data'
+                   hx-post="/file/add-main-product-photo"
+                   hx-swap="outerHTML"
+                   hx-trigger="change"
+                   hx-indicator="closest div"
+                   hx-target="#add-main-image-button">
+            <div>
+                <img class="htmx-indicator" src="/image/spinner-loading.svg"/>
+            </div>
+        </div>
+    </div>
+    <div th:if="${message}" th:insert="~{fragments/toasts/success :: firstDiv}"></div>
+    <div th:if="${error}" th:insert="~{fragments/toasts/error :: firstDiv}"></div>
+</div>
+
+

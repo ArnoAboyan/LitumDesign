@@ -1,10 +1,10 @@
 package com.litumdesign.LitumDesign.controller;
 
 import com.litumdesign.LitumDesign.Entity.*;
-import com.litumdesign.LitumDesign.exception.GoogleDriveException;
 import com.litumdesign.LitumDesign.formaticUI.Toast;
 import com.litumdesign.LitumDesign.googledrive.GoogleDriveService;
 import com.litumdesign.LitumDesign.service.ProductEntityService;
+import com.litumdesign.LitumDesign.service.ProductPhotoService;
 import com.litumdesign.LitumDesign.service.UserEntityService;
 import io.github.wimdeblauwe.htmx.spring.boot.mvc.HxRequest;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -37,6 +38,7 @@ public class FileController {
 
     private final ProductEntityService productEntityService;
     private final UserEntityService userEntityService;
+    private final ProductPhotoService productPhotoService;
 
     private final GoogleDriveService googleDriveService;
 
@@ -59,33 +61,33 @@ public class FileController {
 
     @PostMapping("/addfile")
     @HxRequest
-    public String addProductEntity(@RequestParam String title,
-                                   @RequestParam String titleImageLink,
-//                                   @RequestParam Double price,
-                                   @RequestParam String shortInfo,
-                                   @RequestParam String license,
-                                   @RequestParam Access access,
-                                   @RequestParam String description,
-                                   @RequestParam String videoLink,
-                                   @RequestParam(value = "photoLink[]") List<String> photoLink,
+    public String addProductEntity(
+            @RequestParam String title,
+//                                   @RequestParam String titleImageLink,
+////                                   @RequestParam Double price,
+//                                   @RequestParam String shortInfo,
+//                                   @RequestParam String license,
+//                                   @RequestParam Access access,
+//                                   @RequestParam String description,
+//                                   @RequestParam String videoLink,
+//                                   @RequestParam(value = "photoLink[]") List<String> photoLink,
                                    @RequestParam Categories categories,
                                    @RequestParam GameType gameType,
-                                   @RequestParam String version,
-                                   @RequestParam("uploadfile") MultipartFile uploadfile,
-                                   Model model) {
+            @RequestParam String version,
+            @RequestParam("uploadfile") MultipartFile uploadfile,
+            Model model) {
 
 
         ProductEntity productEntity = new ProductEntity(
                 title,
-                titleImageLink,
                 0.0,
-                shortInfo,
-                license,
-                description,
+                null,
+                null,
+                null,
                 categories,
                 gameType,
-                access,
-                videoLink,
+                Access.PRIVATE,
+                null,
                 false,
                 0,
                 0,
@@ -96,14 +98,14 @@ public class FileController {
 
         try {
             String gdFileId = googleDriveService.uploadFile(uploadfile);
-            productEntityService.createProductEntity(productEntity, photoLink, gdFileId, version);
+            productEntityService.createProductEntity(productEntity, gdFileId, version);
 
 
             model.addAttribute("uploadinfo", Toast.success("Success", "Product has bean created"));
             model.addAttribute("productEntity", productEntity.getId());
             return "fragments/success-upload-fragment";
         } catch (Exception e) {
-           log.error("WE HAVE SOME PROBLEMS " + e.getMessage());
+            log.error("WE HAVE SOME PROBLEMS " + e.getMessage());
             model.addAttribute("uploadinfo", Toast.error("Error", "Failure occurred"));
             return "fragments/error-upload-fragment";
         }
@@ -140,12 +142,15 @@ public class FileController {
     @HxRequest
     public String deleteProduct(@RequestParam("productId") Long productId, @AuthenticationPrincipal UserDetails userDetails) {
 
+        ProductEntity productEntity = productEntityService.findProductEntityById(productId);
 
+        if (productEntity.getUploadUserId().getLogin().equals(userDetails.getUsername()))
             userEntityService.deleteUploadCounter(userDetails);
-            productEntityService.deleteProductEntity(productId);
+        productEntityService.deleteProductEntity(productId);
 
         return "";
     }
+
 
     @GetMapping("/download-file/{productId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String productId, @AuthenticationPrincipal UserDetails userDetails) throws GeneralSecurityException, IOException {
@@ -187,33 +192,32 @@ public class FileController {
 
         ProductEntity productEntity = productEntityService.findProductEntityById(productEntityId);
 
-        if(userDetails.getUsername().equals(productEntity.getUploadUserId().getLogin())) {
+        if (userDetails.getUsername().equals(productEntity.getUploadUserId().getLogin())) {
 
             AtomicInteger photoLinkCounter = (AtomicInteger) model.getAttribute("photoLinkCounter");
             Objects.requireNonNull(photoLinkCounter).set(2);
 
 
             model.addAttribute("actualProductEntity", productEntity);
-            model.addAttribute("lastVersion",Integer.parseInt(productEntityService.findLastVersionByProductEntity(productEntity).getVersion())+1) ;
+            model.addAttribute("lastVersion", Integer.parseInt(productEntityService.findLastVersionByProductEntity(productEntity).getVersion()) + 1);
 
             return "updatefilepage";
-        }return "errors/error-403";
+        }
+        return "errors/error-403";
     }
-
 
     @PostMapping("/updatefile")
     @HxRequest
     public String updateProductEntity(
             @RequestParam Long productEntityId,
             @RequestParam String title,
-            @RequestParam String titleImageLink,
+//            @RequestParam String titleImageLink,
 //                                 @RequestParam Double price,
             @RequestParam String shortInfo,
             @RequestParam String license,
             @RequestParam Access access,
             @RequestParam String description,
             @RequestParam String videoLink,
-            @RequestParam(value = "photoLink[]") List<String> photoLink,
             @RequestParam Categories categories,
             @RequestParam GameType gameType,
             @RequestParam String version,
@@ -221,12 +225,9 @@ public class FileController {
             Model model) {
 
 
-
         try {
-            productEntityService.updateProductEntity(productEntityId,title,
-                    titleImageLink,
+            productEntityService.updateProductEntity(productEntityId, title,
                     shortInfo,
-                    photoLink,
                     license,
                     access,
                     description,
@@ -245,10 +246,86 @@ public class FileController {
             model.addAttribute("uploadinfo", Toast.error("Error", "Failure occurred"));
             return "fragments/error-upload-fragment";
         }
-
-
     }
 
 
-}
+    @PostMapping("/addProductPhotos")
+    @HxRequest
+    public String uploadProductPhotos(
+            @RequestParam Long productEntityId,
+            @RequestParam(value = "uploadPhotos") List<MultipartFile> photo, Model model) {
 
+        try {
+            ProductEntity productEntity = productEntityService.findProductEntityById(productEntityId);
+            productEntityService.uploadProductPhotos(productEntity, photo);
+
+            ProductEntity productEntityUpdated = productEntityService.findProductEntityById(productEntityId);
+
+            model.addAttribute("actualProductEntity", productEntityUpdated);
+            model.addAttribute("message", "Images has been upload success!");
+            System.out.println("productEntity -> " + productEntityUpdated);
+        } catch (Exception e){
+        log.error("Error while adding product images" + e);
+        model.addAttribute("error", "Error while adding product images!");
+    }
+
+
+
+        return "fragments/images-product-fragment";
+    }
+
+    @PostMapping("/add-main-product-photo")
+    @HxRequest
+    public String uploadMainProductPhoto(
+            @RequestParam Long productEntityId,
+            @RequestParam(value = "titleImageLink") MultipartFile titleImageLink, Model model) {
+
+        try{
+            ProductEntity productEntity = productEntityService.findProductEntityById(productEntityId);
+            productEntityService.uploadMainProductPhotos(productEntity, titleImageLink);
+            model.addAttribute("actualProductEntity", productEntity);
+            model.addAttribute("message", "Images has been upload success!");
+            log.info("TitleImageThumbnails: " + productEntity.getTitleImageLink());
+
+        } catch (Exception e){
+            log.error("Error while adding main product photo" + e);
+            model.addAttribute("error", "Error while adding main product photo!");
+        }
+
+        return "fragments/main-image-product-fragment";
+    }
+
+    @DeleteMapping("/delete-image")
+    @HxRequest
+    public String deleteProductImage(
+            @RequestParam("photoId") Long photoId,
+            @RequestParam("productId") Long productId,
+            @AuthenticationPrincipal UserDetails userDetails, Model model) {
+
+        ProductEntity productEntity = productEntityService.findProductEntityById(productId);
+
+        if (productEntity.getUploadUserId().getLogin().equals(userDetails.getUsername()))
+
+            productPhotoService.deletePhotoEntity(photoId);
+
+        model.addAttribute("actualProductEntity", productEntity);
+
+        return "fragments/images-product-fragment";
+    }
+    @DeleteMapping("/delete-main-image")
+    @HxRequest
+    public String deleteMainProductImage(
+            @RequestParam("mainproductId") Long mainproductId,
+            @AuthenticationPrincipal UserDetails userDetails, Model model) {
+
+        ProductEntity productEntity = productEntityService.findProductEntityById(mainproductId);
+
+        if (productEntity.getUploadUserId().getLogin().equals(userDetails.getUsername()))
+
+            productEntityService.deleteMainPhoto(productEntity);
+
+        model.addAttribute("actualProductEntity", productEntity);
+
+        return "fragments/main-image-product-fragment";
+    }
+}

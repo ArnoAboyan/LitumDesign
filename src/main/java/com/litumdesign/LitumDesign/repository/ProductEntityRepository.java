@@ -13,6 +13,7 @@ public interface ProductEntityRepository extends JpaRepository<ProductEntity, Lo
 
     Page<ProductEntity> findAllByAccess(Pageable pageable, @Param("access") Access access);
 
+    List<ProductEntity> findTop5ByUploadUserIdNameAndAccessOrderByCountOfDownloadsDesc(@Param("name") String name, @Param("access") Access access);
     List<ProductEntity> findTop5ByAccessOrderByCountOfDownloadsDesc(@Param("access") Access access);
     List<ProductEntity> findTop5ByGameTypeAndAccessOrderByCountOfDownloadsDesc(@Param("GameType") GameType gameType, @Param("access") Access access);
     List<ProductEntity> findTop5ByAccessOrderByCreatedAtDesc(@Param("access") Access access);
@@ -33,6 +34,13 @@ public interface ProductEntityRepository extends JpaRepository<ProductEntity, Lo
     "LOWER(concat(p.title, p.shortInfo)) " +
     " LIKE %:searchQuery%" + "AND p.access = 'PUBLIC'")
     Page<ProductEntity> searchByInput(@Param("searchQuery") String searchQuery, Pageable pageable);
+
+
+    @Query("SELECT p from ProductEntity p where " +
+            "LOWER(concat(p.title, p.shortInfo)) " +
+            " LIKE %:searchQuery%" + "AND p.access = 'PUBLIC'" + "AND p.uploadUserId.name = :vendorname")
+    Page<ProductEntity> searchByInputAndVendor(@Param("searchQuery") String searchQuery,@Param("vendorname") String vendorname, Pageable pageable);
+
     @Query("SELECT p from ProductEntity p where " +
             "LOWER(concat(p.title, p.shortInfo)) " +
             " LIKE %:searchQuery%" + "AND p.uploadUserId = :uploadUserId")
@@ -40,7 +48,7 @@ public interface ProductEntityRepository extends JpaRepository<ProductEntity, Lo
 
 
     List<ProductEntity> findByUploadUserId(@Param("UploadUserId") UserEntity userEntity);
-
+    Page<ProductEntity> findByUploadUserIdNameAndAccess(String name, Pageable pageable, @Param("access") Access access);
     List<ProductEntity> findByUploadUserIdAndCategories(@Param("UploadUserId") UserEntity userEntity, @Param("Categories") Categories categories);
 
 }

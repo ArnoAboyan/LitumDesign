@@ -25,7 +25,7 @@
 .vendor-info-card {
     display: flex;
     max-width: 350px;
-    border-radius: 0px;
+    border-radius: 0;
     border: 1px solid #cb321a00;
     border-bottom: 3px solid #CB321A;
     font-size: 30px;
@@ -45,7 +45,7 @@
 
 .page-title{
     display: flex;
-    margin: 0px auto;
+    margin: 0 auto;
     margin-top: 50px;
     margin-bottom: 50px;
     font-size: 42px;
@@ -58,12 +58,12 @@
     margin-bottom: 15px;
 }
 .vendor-btns-underline{
-    border-radius: 0px;
+    border-radius: 0;
     border-bottom: 3px solid #272727;
     color: white;
 }
 .vendor-btns-underline:hover{
-    border-radius: 0px;
+    border-radius: 0;
     border-bottom: 3px solid #CB321A;
     transition: all 0.2s ease;
 }
@@ -148,7 +148,20 @@
 
 }
 
+.update-file-custom-col{
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+}
 
+
+.update-file-custom-col-image{
+    display: flex;
+    height: 200px;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+}
 
 .vendor-buttons{
     display: flex;
@@ -169,4 +182,13 @@
 .success-upload-file-button{
     border-radius: 0 ;
     border-bottom: 2px solid #CB321A;
+}
+
+.info-text p{
+    display:flex;
+    position: relative;
+    max-width: 1170px;
+    margin: auto;
+    font-size:13px;
+    color:#666666;
 }

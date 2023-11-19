@@ -3,23 +3,21 @@ package com.litumdesign.LitumDesign.service;
 import com.litumdesign.LitumDesign.Entity.*;
 import com.litumdesign.LitumDesign.googledrive.GoogleDriveService;
 import com.litumdesign.LitumDesign.repository.ProductEntityRepository;
-import com.litumdesign.LitumDesign.repository.ProductPhotoRepository;
 import com.litumdesign.LitumDesign.repository.ProductVersionRepository;
 import com.litumdesign.LitumDesign.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-//import org.apache.tomcat.util.http.fileupload.impl.SizeException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-//import org.springframework.data.domain.Sort;
-//import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -31,26 +29,22 @@ public class ProductEntityService {
     private final UserRepository userRepository;
     private final ProductVersionRepository productVersionRepository;
     private final GoogleDriveService googleDriveService;
-    private final ProductPhotoRepository productPhotoRepository;
+
 
 
     @Transactional
-    public void createProductEntity(ProductEntity productEntity, List<String> photoLink, String gdFileId, String version) {
+    public void createProductEntity(ProductEntity productEntity, String gdFileId, String version) {
 
 //        delete empty cells
-        cleanEmptyCell(photoLink);
+//        cleanEmptyCell(photoLink);
 //        photoLink.removeIf(item -> item == null || item.isEmpty());
 
 
-//       GET LINKS FOR ProductEntity photos
-        List<ProductPhotoEntity> productPhotos = new ArrayList<>();
-        photoLink.forEach(a -> {
-            ProductPhotoEntity productPhotoEntity = new ProductPhotoEntity(productEntity, a);
-            productPhotos.add(productPhotoEntity);
-        });
+////       CREATE EMPTY PHOTOS ArrayList
+//        List<ProductPhotoEntity> emptyProductPhotos = new ArrayList<>();
+////        ADD PHOTO LINKS TO ProductEntity
+//        productEntity.setPhotoLink(emptyProductPhotos);
 
-//        ADD PHOTO LINKS TO ProductEntity
-        productEntity.setPhotoLink(productPhotos);
 
 //        ADD FILE ID FROM GOOGLE DICK
         productEntity.setGdFileId(gdFileId);
@@ -113,6 +107,13 @@ public class ProductEntityService {
 
     }
 
+    public List<ProductEntity> getMostPopularProductByVendor(String name) {
+
+
+        return productEntityRepository.findTop5ByUploadUserIdNameAndAccessOrderByCountOfDownloadsDesc(name, Access.PUBLIC);
+
+    }
+
 
     public List<ProductEntity> getMostPopularProductWithGameType(GameType gameType) {
 
@@ -157,6 +158,12 @@ public class ProductEntityService {
         return productEntityRepository.searchByInput(searchQuery.toLowerCase(), pageable);
     }
 
+    public Page<ProductEntity> getSearchResultByVendor(String searchQuery, Pageable pageable, String vendorName) {
+
+
+        return productEntityRepository.searchByInputAndVendor(searchQuery.toLowerCase(), vendorName, pageable);
+    }
+
     public List<ProductEntity> getSearchResultForVendors(String searchQuery, UserEntity userEntity) {
 
 
@@ -191,6 +198,8 @@ public class ProductEntityService {
 
     }
 
+
+
     public ProductVersionEntity findLastVersionByProductEntity(ProductEntity productEntity) {
         List<ProductVersionEntity> productVersionEntityList = productVersionRepository.findProductVersionEntitiesByProductEntityOrderByVersion(productEntity);
 
@@ -210,6 +219,11 @@ public class ProductEntityService {
     public List<ProductEntity> findAllByVendorId(UserEntity uploadVendorId) {
 
         return productEntityRepository.findByUploadUserId(uploadVendorId);
+    }
+
+    public Page<ProductEntity> findAllProductsByVendorName(String name, Pageable pageable) {
+
+        return productEntityRepository.findByUploadUserIdNameAndAccess(name, pageable, Access.PUBLIC);
     }
 
 
@@ -233,17 +247,15 @@ public class ProductEntityService {
                 .sum();
 
     }
-    public void cleanEmptyCell(List<String> photoLink) {
+
+    public void cleanEmptyCell(List<MultipartFile> photoLink) {
         photoLink.removeIf(item -> item == null || item.isEmpty());
     }
 
 
-
     public void updateProductEntity(Long productEntityId,
                                     String title,
-                                    String titleImageLink,
                                     String shortInfo,
-                                    List<String> photoLink,
                                     String license,
                                     Access access,
                                     String description,
@@ -252,8 +264,7 @@ public class ProductEntityService {
                                     GameType gameType,
                                     String version,
                                     String versionComment) {
-        //        delete empty cells
-        cleanEmptyCell(photoLink);
+
 
         ProductEntity productEntity = findProductEntityById(productEntityId);
 
@@ -262,9 +273,6 @@ public class ProductEntityService {
             productEntity.setTitle(title);
         }
 
-        if (titleImageLink != null && !titleImageLink.isEmpty()) {
-            productEntity.setTitleImageLink(titleImageLink);
-        }
 
         if (shortInfo != null && !shortInfo.isEmpty()) {
             productEntity.setShortInfo(shortInfo);
@@ -272,17 +280,6 @@ public class ProductEntityService {
 
 //           DELETE OLD PHOTOS
 //        productPhotoRepository.deleteByProductEntity(productEntity);
-
-
-        //       GET LINKS FOR ProductEntity photos
-        List<ProductPhotoEntity> productPhotos = new ArrayList<>();
-        photoLink.forEach(a -> {
-            ProductPhotoEntity productPhotoEntity = new ProductPhotoEntity(productEntity, a);
-            productPhotos.add(productPhotoEntity);
-        });
-//        ADD PHOTO LINKS TO ProductEntity
-
-        productEntity.setPhotoLink(productPhotos);
 
 
         if (license != null && !license.isEmpty()) {
@@ -314,13 +311,65 @@ public class ProductEntityService {
         productEntityRepository.save(productEntity);
 
     }
-@Transactional
+
+    public void checkMIMEType(List<MultipartFile> photoLink) {
+        photoLink.removeIf(item -> !Objects.requireNonNull(item.getContentType()).startsWith("image"));
+    }
+
+    public void uploadProductPhotos(ProductEntity productEntity, List<MultipartFile> photos) {
+
+
+        //        delete empty cells
+        cleanEmptyCell(photos);
+        checkMIMEType(photos);
+
+
+//        List<ProductPhotoEntity> photoIds = googleDriveService.uploadProductPhotos(productEntity, photos);
+        List<ProductPhotoEntity> productPhotos = googleDriveService.uploadProductPhotos(productEntity, photos);
+
+
+        //       GET LINKS FOR ProductEntity photos
+//        if (photoIds != null) {
+//            List<ProductPhotoEntity> productPhotos = productEntity.getPhotoLink();
+//            photoIds.forEach(a -> {
+//                ProductPhotoEntity productPhotoEntity = new ProductPhotoEntity(productEntity, a);
+//                productPhotos.add(productPhotoEntity);
+//            });
+//        ADD PHOTO LINKS TO ProductEntity
+            productEntity.setPhotoLink(productPhotos);
+//
+        productEntityRepository.save(productEntity);
+    }
+
+
+    public void uploadMainProductPhotos(ProductEntity productEntity, MultipartFile photo) {
+
+      ProductEntity productEntityWithMainImage = googleDriveService.uploadMainProductPhotos(productEntity, photo);
+
+      productEntityRepository.save(productEntityWithMainImage);
+    }
+
+    @Transactional
     public void deleteProductEntity(Long productEntityId) {
 
         ProductEntity productEntity = findProductEntityById(productEntityId);
         googleDriveService.deleteFile(productEntity.getGdFileId());
         productEntityRepository.deleteById(productEntityId);
         System.out.println("DELETE PRODUCT -->" + productEntityId + " and " + productEntity.getGdFileId());
+    }
+
+    public void deleteMainPhoto(ProductEntity productEntity) {
+
+        try {
+            googleDriveService.deleteFile(productEntity.getTitleImageLink());
+            productEntity.setTitleImageLink("");
+            log.info("Image for " + productEntity.getTitle() + " has been delete successful" );
+            productEntityRepository.save(productEntity);
+        }catch (Exception e){
+            log.error("Error while deleting main product image " + e);
+        }
+
+
     }
 }
 

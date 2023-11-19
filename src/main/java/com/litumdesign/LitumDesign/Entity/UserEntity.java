@@ -3,15 +3,11 @@ package com.litumdesign.LitumDesign.Entity;
 
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.checkerframework.common.aliasing.qual.Unique;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 @Entity
@@ -29,6 +25,7 @@ public class UserEntity {
     String password;
     @Column(unique = true)
     String email;
+    @Column(unique = true)
     String name; //    Nickname
     @Column(name = "image_url")
     String imageUrl;

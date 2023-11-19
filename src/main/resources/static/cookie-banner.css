@@ -3,14 +3,17 @@
     bottom: 0;
     left: 0;
     width: 100%;
+    height: 80px;
     z-index: 999;
     border-radius: 0;
     border: 0;
     background-color: #272727;
     border-bottom: 2px solid #CB321A;
     color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
 .cookie-button{
     color: white;
     border-bottom:3px solid #585a58;

@@ -14,6 +14,8 @@ import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.ServiceAccountCredentials;
+import com.litumdesign.LitumDesign.Entity.ProductEntity;
+import com.litumdesign.LitumDesign.Entity.ProductPhotoEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.io.IOUtils;
@@ -48,7 +50,7 @@ public class GoogleDriveService {
     /**
      * Directory to store authorization tokens for this application.
      */
-    private static final String TOKENS_DIRECTORY_PATH = "tokens";
+//    private static final String TOKENS_DIRECTORY_PATH = "tokens";
 
     /**
      * Global instance of the scopes required by this quickstart.
@@ -69,6 +71,8 @@ public class GoogleDriveService {
 
 
 
+
+
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(ServiceAccountCredentials.fromPkcs8(
                 clientId, clientMail, privateKey, privateId, SCOPES).createScoped(SCOPES));
@@ -81,14 +85,14 @@ public class GoogleDriveService {
 
 
     public void main(String... args) throws IOException, GeneralSecurityException {
-        Drive service = getInstance();
+//        Drive service = getInstance();
 
 
     }
 
 
     @Transactional
-    public String uploadFile(MultipartFile file) throws GeneralSecurityException, IOException {
+    public String uploadFile(MultipartFile file) {
 
 
         try {
@@ -107,10 +111,10 @@ public class GoogleDriveService {
                     .execute();
 
 
-            String fileId = uploadFile.getId();
 
-            System.out.println("GDFILEID ->>> " + uploadFile.getName());
-            System.out.println("GDFILEID ->>> " + uploadFile.getId());
+
+//            System.out.println("GDFILEID ->>> " + uploadFile.getName());
+//            System.out.println("GDFILEID ->>> " + uploadFile.getId());
 
             return uploadFile.getId();
 
@@ -119,8 +123,68 @@ public class GoogleDriveService {
         }
         return null;
     }
-//
-//
+
+
+    public List<ProductPhotoEntity> uploadProductPhotos(ProductEntity productEntity, List<MultipartFile> photos) {
+//        List<String> uploadedFileIds = new ArrayList<>();
+        List<ProductPhotoEntity> productPhotos = productEntity.getPhotoLink();
+
+        try {
+            for (MultipartFile photo:photos) {
+
+                log.info("Uploading photo: {}", photo.getOriginalFilename());
+
+                File fileMetadata = new File();
+                fileMetadata.setName(photo.getOriginalFilename());
+                fileMetadata.setParents(Collections.singletonList("1epednn6iQdmuEW7W-uGN3Y-o64HAyuEx"));
+                File uploadFile = getInstance()
+                        .files()
+                        .create(fileMetadata, new InputStreamContent(
+                                photo.getContentType(),
+                                new ByteArrayInputStream(photo.getBytes()))
+                        )
+                        .setFields("id, name")
+                        .execute();
+                    System.out.println("FILE CREATE -> " + uploadFile);
+
+
+
+                productPhotos.add(new ProductPhotoEntity(productEntity, uploadFile.getId()));
+                System.out.println("PHOTO_LIST -> " + productPhotos);
+            }
+
+        } catch (Exception e) {
+            log.error("Error during file upload process", e);
+        }
+        return productPhotos;
+    }
+    public ProductEntity uploadMainProductPhotos(ProductEntity productEntity, MultipartFile photo) {
+
+        try {
+                log.info("Uploading photo: {}", photo.getOriginalFilename());
+
+                File fileMetadata = new File();
+                fileMetadata.setName(photo.getOriginalFilename());
+                fileMetadata.setParents(Collections.singletonList("1epednn6iQdmuEW7W-uGN3Y-o64HAyuEx"));
+                File uploadFile = getInstance()
+                        .files()
+                        .create(fileMetadata, new InputStreamContent(
+                                photo.getContentType(),
+                                new ByteArrayInputStream(photo.getBytes()))
+                        )
+                        .setFields("id, name")
+                        .execute();
+                System.out.println("FILE CREATE -> " + uploadFile);
+
+                productEntity.setTitleImageLink(uploadFile.getId());
+
+        } catch (Exception e) {
+            log.error("Error during file upload process", e);
+        }
+        return productEntity;
+    }
+
+
 
     public String getAllAudio() throws IOException, GeneralSecurityException {
         Drive service = getInstance();

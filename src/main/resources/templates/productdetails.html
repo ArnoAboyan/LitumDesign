@@ -19,6 +19,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product-LitumDesign</title>
+    <meta name="description" content="Explore detailed information about our product, including Plugins, Maps, Prefabs, Monuments, Tools, and Mods tailored for Rust and Unturned games at LitumDesign. Download for free or buy premium content.">
     <link rel="icon" th:href="@{/image/favicon.ico}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -81,7 +82,7 @@ margin-top: 25px">
                         allowfullscreen></iframe>
             </div>
             <div class="item" th:each="detailsphotos : ${productdetails.photoLink}">
-                <img th:src="${detailsphotos.getPhotoLink()}"/>
+                <img th:src="'https://drive.google.com/thumbnail?authuser=0&sz=w320&id='+${detailsphotos.getPhotoLink()} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}" alt="screens"/>
             </div>
         </div>
     </div>
@@ -107,7 +108,8 @@ margin-top: 25px">
             <div>
                 <a href="#" th:text="${productdetails.getGameType()}"></a><a>&nbsp;|&nbsp;</a><a href="#" th:text="${productdetails.getCategories()}"></a>
                 <div class="product-header-author ">
-                    <p>By: <a href="#" th:text="${productdetails.uploadUserId.getName()}"></a></p>
+                    <p class="card-by text-truncate">By: <a th:href="@{/vendor-page/{vendorName}(vendorName=${productdetails.uploadUserId.getName()})}" class="vendorname"
+                                                            th:text="${productdetails.uploadUserId.getName()}"></a></p>
                 </div>
                 <div class="product-header-price ">
                     <h2 th:if="${productdetails.getPrice() == 0}">FREE</h2>

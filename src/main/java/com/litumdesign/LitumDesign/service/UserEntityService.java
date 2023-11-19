@@ -1,6 +1,5 @@
 package com.litumdesign.LitumDesign.service;
 
-import com.litumdesign.LitumDesign.Entity.ProductEntity;
 import com.litumdesign.LitumDesign.Entity.Role;
 import com.litumdesign.LitumDesign.Entity.UserEntity;
 import com.litumdesign.LitumDesign.auth.AppUser;
@@ -44,6 +43,12 @@ public class UserEntityService {
         return userRepository.findById(userId).orElseThrow(() -> new NullPointerException("User not found...") );
     }
 
+
+    public UserEntity getUserByName(String name){
+
+        return userRepository.findByName(name);
+    }
+
     @Transactional
     public UserEntity deleteUploadCounter(UserDetails userDetails){
        UserEntity userEntity = getUserById(userDetails.getUsername());
@@ -69,6 +74,5 @@ public class UserEntityService {
     public List<UserEntity> findAllUsers(){
         return userRepository.findAll();
     }
-
 
 }
