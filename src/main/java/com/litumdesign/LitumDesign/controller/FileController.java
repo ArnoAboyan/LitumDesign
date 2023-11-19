@@ -211,7 +211,7 @@ public class FileController {
     public String updateProductEntity(
             @RequestParam Long productEntityId,
             @RequestParam String title,
-            @RequestParam String titleImageLink,
+//            @RequestParam String titleImageLink,
 //                                 @RequestParam Double price,
             @RequestParam String shortInfo,
             @RequestParam String license,
@@ -227,7 +227,6 @@ public class FileController {
 
         try {
             productEntityService.updateProductEntity(productEntityId, title,
-                    titleImageLink,
                     shortInfo,
                     license,
                     access,
@@ -254,15 +253,23 @@ public class FileController {
     @HxRequest
     public String uploadProductPhotos(
             @RequestParam Long productEntityId,
-            @RequestParam(value = "uploadPhotos") List<MultipartFile> photo, Model model,
-            RedirectAttributes redirectAttributes) {
+            @RequestParam(value = "uploadPhotos") List<MultipartFile> photo, Model model) {
 
-        ProductEntity productEntity = productEntityService.findProductEntityById(productEntityId);
-        model.addAttribute("actualProductEntity", productEntity);
+        try {
+            ProductEntity productEntity = productEntityService.findProductEntityById(productEntityId);
+            productEntityService.uploadProductPhotos(productEntity, photo);
 
-        productEntityService.uploadProductPhotos(productEntityId, photo);
+            ProductEntity productEntityUpdated = productEntityService.findProductEntityById(productEntityId);
 
-        model.addAttribute("message", "Images has been upload success!");
+            model.addAttribute("actualProductEntity", productEntityUpdated);
+            model.addAttribute("message", "Images has been upload success!");
+            System.out.println("productEntity -> " + productEntityUpdated);
+        } catch (Exception e){
+        log.error("Error while adding product images" + e);
+        model.addAttribute("error", "Error while adding product images!");
+    }
+
+
 
         return "fragments/images-product-fragment";
     }
@@ -271,15 +278,19 @@ public class FileController {
     @HxRequest
     public String uploadMainProductPhoto(
             @RequestParam Long productEntityId,
-            @RequestParam(value = "titleImageLink") MultipartFile titleImageLink, Model model) throws InterruptedException {
+            @RequestParam(value = "titleImageLink") MultipartFile titleImageLink, Model model) {
 
-        ProductEntity productEntity = productEntityService.findProductEntityById(productEntityId);
+        try{
+            ProductEntity productEntity = productEntityService.findProductEntityById(productEntityId);
+            productEntityService.uploadMainProductPhotos(productEntity, titleImageLink);
+            model.addAttribute("actualProductEntity", productEntity);
+            model.addAttribute("message", "Images has been upload success!");
+            log.info("TitleImageThumbnails: " + productEntity.getTitleImageLink());
 
-
-        productEntityService.uploadMainProductPhotos(productEntityId, titleImageLink);
-
-        model.addAttribute("actualProductEntity", productEntity);
-        model.addAttribute("message", "Images has been upload success!");
+        } catch (Exception e){
+            log.error("Error while adding main product photo" + e);
+            model.addAttribute("error", "Error while adding main product photo!");
+        }
 
         return "fragments/main-image-product-fragment";
     }

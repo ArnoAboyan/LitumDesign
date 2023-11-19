@@ -18,7 +18,7 @@
     <a th:href="@{'/product/details/' + ${product.id}}">
     <div class="card  h-100 ">
       <p class="card-count-of-downloads" th:utext="'<i class=\'fa-regular fa-circle-down\'></i>' + ${product.countOfDownloads} + ' ' + '<i class=\'fa-regular fa-eye\'></i>' + ${product.countOfView}"></p>
-      <img data-th-src="@{${product.titleImageLink}}" class="card-img-top" alt="Title image">
+      <img th:src="'https://drive.google.com/thumbnail?authuser=0&sz=w320&id='+${product.titleImageLink} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}" class="card-img-top" alt="Title image">
       <div class="card-body ">
         <h5 class="card-title text-truncate" th:text="${product.title}">></h5>
         <p class="card-game-type text-truncate " th:text="${product.gameType} + ' | ' + ${product.categories}"></p>

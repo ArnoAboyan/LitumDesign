@@ -47,8 +47,6 @@ public class ProductEntity {
     Integer countOfView;
     @Column(name = "title_image_link", columnDefinition = "VARCHAR")
     String titleImageLink;
-    @Column(name = "title_image_thumbnails", columnDefinition = "VARCHAR")
-    String titleImageThumbnails;
     @Column(name = "license", columnDefinition = "VARCHAR")
     String license;
     @Enumerated(value = EnumType.STRING)

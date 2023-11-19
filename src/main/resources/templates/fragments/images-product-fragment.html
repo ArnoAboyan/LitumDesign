@@ -1,14 +1,15 @@
 <div class="all-images-for-product" id="all-images-for-product">
     <div class="images-for-product" th:each="photolink : ${actualProductEntity.getPhotoLink()}">
-        <i class="fa-regular fa-trash-can delete-img-button" style="color: #ffffff;"
+        <i class="fa-regular fa-trash-can delete-img-button"
            hx-delete="/file/delete-image"
            hx-trigger="click"
            hx-swap="outerHTML"
            hx-target="#all-images-for-product"
            th:attr="hx-vals='{&quot;photoId&quot;: &quot;'+${photolink.getId()}+'&quot;, &quot;productId&quot;: &quot;'+${actualProductEntity.getId()}+'&quot;}'"
-        ><div><img class="htmx-indicator" src="/image/spinner-loading.svg" alt="images-for-product"/></div></i>
-        <img class="particular-images-for-product" th:src="'https://drive.google.com/thumbnail?authuser=0&sz=w200&id='+${photolink.getPhotoLink()}" alt="image for product">
+        ><img class="htmx-indicator" src="/image/spinner-loading.svg"/></i>
+        <img class="particular-images-for-product" th:src="'https://drive.google.com/thumbnail?authuser=0&sz=w320&id=' + ${photolink.getPhotoLink()} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}" alt="image for product">
     </div>
 
-    <div th:insert="~{fragments/toasts/success :: firstDiv}"></div>
+    <div th:if="${message}" th:insert="~{fragments/toasts/success :: firstDiv}"></div>
+    <div th:if="${error}" th:insert="~{fragments/toasts/error :: firstDiv}"></div>
 </div>

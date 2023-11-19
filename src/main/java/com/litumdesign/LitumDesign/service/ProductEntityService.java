@@ -255,7 +255,6 @@ public class ProductEntityService {
 
     public void updateProductEntity(Long productEntityId,
                                     String title,
-                                    String titleImageLink,
                                     String shortInfo,
                                     String license,
                                     Access access,
@@ -274,9 +273,6 @@ public class ProductEntityService {
             productEntity.setTitle(title);
         }
 
-        if (titleImageLink != null && !titleImageLink.isEmpty()) {
-            productEntity.setTitleImageLink(titleImageLink);
-        }
 
         if (shortInfo != null && !shortInfo.isEmpty()) {
             productEntity.setShortInfo(shortInfo);
@@ -320,40 +316,37 @@ public class ProductEntityService {
         photoLink.removeIf(item -> !Objects.requireNonNull(item.getContentType()).startsWith("image"));
     }
 
-    public void uploadProductPhotos(Long productEntityId, List<MultipartFile> photos) {
+    public void uploadProductPhotos(ProductEntity productEntity, List<MultipartFile> photos) {
 
-        ProductEntity productEntity = findProductEntityById(productEntityId);
 
         //        delete empty cells
         cleanEmptyCell(photos);
         checkMIMEType(photos);
 
 
-        List<String> photoIds = googleDriveService.uploadProductPhotos(photos);
+//        List<ProductPhotoEntity> photoIds = googleDriveService.uploadProductPhotos(productEntity, photos);
+        List<ProductPhotoEntity> productPhotos = googleDriveService.uploadProductPhotos(productEntity, photos);
 
 
         //       GET LINKS FOR ProductEntity photos
-        if (photoIds != null) {
-            List<ProductPhotoEntity> productPhotos = productEntity.getPhotoLink();
-            photoIds.forEach(a -> {
-                ProductPhotoEntity productPhotoEntity = new ProductPhotoEntity(productEntity, a);
-                productPhotos.add(productPhotoEntity);
-            });
+//        if (photoIds != null) {
+//            List<ProductPhotoEntity> productPhotos = productEntity.getPhotoLink();
+//            photoIds.forEach(a -> {
+//                ProductPhotoEntity productPhotoEntity = new ProductPhotoEntity(productEntity, a);
+//                productPhotos.add(productPhotoEntity);
+//            });
 //        ADD PHOTO LINKS TO ProductEntity
             productEntity.setPhotoLink(productPhotos);
-        }
+//
         productEntityRepository.save(productEntity);
-
     }
 
 
-    public void uploadMainProductPhotos(Long productEntityId, MultipartFile photo) {
+    public void uploadMainProductPhotos(ProductEntity productEntity, MultipartFile photo) {
 
-        ProductEntity productEntity = findProductEntityById(productEntityId);
+      ProductEntity productEntityWithMainImage = googleDriveService.uploadMainProductPhotos(productEntity, photo);
 
-      ProductEntity newProductEntity = googleDriveService.uploadMainProductPhotos(productEntity, photo);
-
-      productEntityRepository.save(newProductEntity);
+      productEntityRepository.save(productEntityWithMainImage);
     }
 
     @Transactional
@@ -370,7 +363,6 @@ public class ProductEntityService {
         try {
             googleDriveService.deleteFile(productEntity.getTitleImageLink());
             productEntity.setTitleImageLink("");
-            productEntity.setTitleImageThumbnails("");
             log.info("Image for " + productEntity.getTitle() + " has been delete successful" );
             productEntityRepository.save(productEntity);
         }catch (Exception e){

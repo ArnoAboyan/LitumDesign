@@ -15,6 +15,7 @@ import com.google.api.services.drive.model.FileList;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.ServiceAccountCredentials;
 import com.litumdesign.LitumDesign.Entity.ProductEntity;
+import com.litumdesign.LitumDesign.Entity.ProductPhotoEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.io.IOUtils;
@@ -29,7 +30,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.security.GeneralSecurityException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -50,7 +50,7 @@ public class GoogleDriveService {
     /**
      * Directory to store authorization tokens for this application.
      */
-    private static final String TOKENS_DIRECTORY_PATH = "tokens";
+//    private static final String TOKENS_DIRECTORY_PATH = "tokens";
 
     /**
      * Global instance of the scopes required by this quickstart.
@@ -63,42 +63,12 @@ public class GoogleDriveService {
     public Drive getInstance() throws GeneralSecurityException, IOException {
 
 
-//        String clientId = System.getenv("CLIENT_ID");
-//        String clientMail = System.getenv("CLIENT_EMAIL");
-//        String privateKey = System.getenv("CLIENT_PRIVATEKEY");
-//        String privateId = System.getenv("CLIENT_PRIVATEID");
+        String clientId = System.getenv("CLIENT_ID");
+        String clientMail = System.getenv("CLIENT_EMAIL");
+        String privateKey = System.getenv("CLIENT_PRIVATEKEY");
+        String privateId = System.getenv("CLIENT_PRIVATEID");
 
-        String clientId = "113588968404965585121";
-        String clientMail = "litum-477@litumdesign-398209.iam.gserviceaccount.com";
-        String privateKey = "-----BEGIN PRIVATE KEY-----\n" +
-                "MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDJxhEg1AR1lVez\n" +
-                "1L8WUKbGjhwiKPmgIDJ99Rjpj64fSDn4scZxVG9TLNV+zWN1upFADa7y0/SP9tuI\n" +
-                "1jvPbcHGVteovWXBjYeAm5i6jX/vI68yL47UxvguoJt1ljy2G0udMAXYK5HNvr/7\n" +
-                "ceX4DvV8QpFbwUtWIMQoXmFzHwLABQw3CuzzH0oFKphc4kbObAMNsQ1ixW3q0bmD\n" +
-                "ZbdoDV1cbhJHh9CgTFZQqUezfoV2EvgEKXxXJMy8i0JS5lNNihzODsuU00naCyQF\n" +
-                "cHqjkaiAse9lOuRcGidPfc0DYPBpbRFQ6JsWZ0wDuAlEX54cF0FECaK53iyIpiIQ\n" +
-                "63zvhkNtAgMBAAECggEAGzB+yeDwGeUuPIwoVMo48wwe0+aYHsD/9NO0j/Kd2NbL\n" +
-                "gwz3q/lgCAIEYfIs2yYxIQPHBa9Upxqxghq2VBEa+c5lgLZG8kJPVmABQHBFY1T4\n" +
-                "bIeWlGsccfIQCNQeKb77XTrlqrfSTbqM1cYHInpnj59LxaTCMWC4diUjthbhcLzw\n" +
-                "HzKxvx8wg7l04Ny1/C7AGYjqOdCDc268UdAV5Io71v1N7cdUDph6pELEKxOOZDrk\n" +
-                "KblSjJdNPtvHKyDJMH5G8WoKt5RYkiscgE6TK7gzFeJivuup6K9s9aS+nmDBley/\n" +
-                "mNDR6DMHbdiYiSUj2Z6ELA9qpK5B0Vn4KiBGzhchSQKBgQDo/NGTbcwNLzfo/0mP\n" +
-                "/e8n97brRlusaG1y+LOo94JEzdLdmwMMSHTaR/gI3CLSY/7wpE4AkY569oY4udwq\n" +
-                "8c0gC1BOLDpiHJOzVB1iuwk+cdsho07k0UfXbklIMWA192H8X1uzkFRXSKYT20o3\n" +
-                "mBsThfEvGJijcVRgMb2XCON4JQKBgQDds/5JzrIPgh90NrMIScYXzNUwEb0U1F8b\n" +
-                "vzPm7OXney/5cRuJxJTxaBKcYfq6edqt4MRsQi6KPMhfRGkeyp5BM/i3NQLo7Z4X\n" +
-                "Ox3fQ7m8WFp4d01d0qEoop8XvgbJsBql0PpDJZqb1AkKf97LZLfaU9SOUzeXo9DT\n" +
-                "WyQLTJw3qQKBgQC74YxbmBIRm785bAx1SnA+Sbs/VTh9+qQwL7AplJZ/R39A50z4\n" +
-                "7cEVeS3ibyrBgJPImKayPK6qJ/yq5+5Mzzr8GUOEFpRqI+NTnIQp5uwYaBYutRPc\n" +
-                "34tQhYYg6nhMbJaevoMjdUMeM96BargZxtYm0z9gHDSSsMQ64kGh9y//5QKBgQC2\n" +
-                "24xzB95pWCPlUHBd96tBWhrEKP1RPtCrLAr8/oupXzt0e8wA13kZm4MuJMoOIA8z\n" +
-                "tt2LhRKpxfRmTyB82xWoJduQEFM0Fzh7ZLEAwvVg2WbVUWEob1+pCmg5xuwGUg/I\n" +
-                "kBK6azuYJ0zFsi3qiEnz84yvTwfdNKo6iUOzZh668QKBgEJ2T4lVdkO7YhlzDy0K\n" +
-                "N9pM3T63uIFyByBbfe6Fo3JUo2VQWy/yG3fSssyQz5uwmL0w5Su2vhOSkK18AVPX\n" +
-                "LhLbpYgQr2JFRag+qQPbw/e73XaE6uvvaALvcNwFwBcV1CXTx+6DrG6Ty7Q0Vjqv\n" +
-                "SsV4kah3nti68VVQSDK/Wxvk\n" +
-                "-----END PRIVATE KEY-----";
-        String privateId = "6601b79b8c09f9da01abd54108aca0d5be737406";
+
 
 
 
@@ -115,14 +85,14 @@ public class GoogleDriveService {
 
 
     public void main(String... args) throws IOException, GeneralSecurityException {
-        Drive service = getInstance();
+//        Drive service = getInstance();
 
 
     }
 
 
     @Transactional
-    public String uploadFile(MultipartFile file) throws GeneralSecurityException, IOException {
+    public String uploadFile(MultipartFile file) {
 
 
         try {
@@ -141,7 +111,7 @@ public class GoogleDriveService {
                     .execute();
 
 
-            String fileId = uploadFile.getId();
+
 
 //            System.out.println("GDFILEID ->>> " + uploadFile.getName());
 //            System.out.println("GDFILEID ->>> " + uploadFile.getId());
@@ -155,8 +125,9 @@ public class GoogleDriveService {
     }
 
 
-    public List<String> uploadProductPhotos(List<MultipartFile> photos) {
-        List<String> uploadedFileIds = new ArrayList<>();
+    public List<ProductPhotoEntity> uploadProductPhotos(ProductEntity productEntity, List<MultipartFile> photos) {
+//        List<String> uploadedFileIds = new ArrayList<>();
+        List<ProductPhotoEntity> productPhotos = productEntity.getPhotoLink();
 
         try {
             for (MultipartFile photo:photos) {
@@ -176,16 +147,16 @@ public class GoogleDriveService {
                         .execute();
                     System.out.println("FILE CREATE -> " + uploadFile);
 
-                String photoId = uploadFile.getId();
-                uploadedFileIds.add(photoId);
 
-                System.out.println("PHOTOID -> " + photoId);
-            };
+
+                productPhotos.add(new ProductPhotoEntity(productEntity, uploadFile.getId()));
+                System.out.println("PHOTO_LIST -> " + productPhotos);
+            }
 
         } catch (Exception e) {
             log.error("Error during file upload process", e);
         }
-        return uploadedFileIds;
+        return productPhotos;
     }
     public ProductEntity uploadMainProductPhotos(ProductEntity productEntity, MultipartFile photo) {
 
@@ -194,22 +165,18 @@ public class GoogleDriveService {
 
                 File fileMetadata = new File();
                 fileMetadata.setName(photo.getOriginalFilename());
-                fileMetadata.setParents(Collections.singletonList("1QpfYnVHb-qJlglXUoA9alEFNvLT765SW"));
+                fileMetadata.setParents(Collections.singletonList("1epednn6iQdmuEW7W-uGN3Y-o64HAyuEx"));
                 File uploadFile = getInstance()
                         .files()
                         .create(fileMetadata, new InputStreamContent(
                                 photo.getContentType(),
                                 new ByteArrayInputStream(photo.getBytes()))
                         )
-                        .setFields("id, name, thumbnailLink")
+                        .setFields("id, name")
                         .execute();
                 System.out.println("FILE CREATE -> " + uploadFile);
 
                 productEntity.setTitleImageLink(uploadFile.getId());
-                productEntity.setTitleImageThumbnails(uploadFile.getThumbnailLink());
-
-                System.out.println("PHOTOID -> " + uploadFile.getId());
-                System.out.println("ThumbnailLink -> " + uploadFile.getThumbnailLink());
 
         } catch (Exception e) {
             log.error("Error during file upload process", e);

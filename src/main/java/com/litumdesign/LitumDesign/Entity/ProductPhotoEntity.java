@@ -20,8 +20,9 @@ public class ProductPhotoEntity {
     @ToString.Exclude
     ProductEntity productEntity;
 
-    @Column(name = "photo_link")
+    @Column(name = "photo_link", columnDefinition = "VARCHAR")
     String photoLink;
+
 
     public ProductPhotoEntity(ProductEntity productEntity, String photoLink) {
         this.productEntity = productEntity;
