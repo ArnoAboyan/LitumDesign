@@ -90,16 +90,17 @@
         <h2 class="text-center">Submit a new file</h2>
         <br>
         <div class="form-floating mb-3 submitfile-row">
-            <input type="text" name="title" class="form-control submitfile-title" id="title" placeholder="Title" required>
+                <input type="text" name="title" class="form-control submitfile-title" id="title" placeholder="Title" required>
             <label for="title" class="form-label">Title</label>
         </div>
-        <!--            <button class="submitfile-one-more-link-button" hx-get="/file/add-photo-link-input"-->
-        <!--                    hx-swap="beforeend" hx-target="#photolinks" hx-trigger="click"> + Photo (link)-->
-        <!--            </button>-->
+
+
+
         <div class="input-group mb-3">
-            <!--            <label class="input-group-text" for="uploadfile">UploadFile</label>-->
-            <input type="file" class="form-control form-control-sm" name="uploadfile" id="uploadfile">
+            <input type="file" class="form-control form-control-sm add-file-input"  name="uploadfile" id="uploadfile">
         </div>
+
+
         <div class="submitfile-dropdownsbox">
             <div class="mb-3 ">
                 <select class="submitfile-dropdowns" name="gameType" id="gameType"

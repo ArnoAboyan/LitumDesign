@@ -29,6 +29,8 @@ public class UserEntity {
     String name; //    Nickname
     @Column(name = "image_url")
     String imageUrl;
+    @Column(name = "banner")
+    String banner;
     @Enumerated(value = EnumType.STRING)
     LoginProvider provider;
     @Column(name = "created_at")
@@ -56,6 +58,12 @@ public class UserEntity {
     String discordTag;
     @Column(name = "telegram_tag")
     String telegramTag;
+    @Column(name = "facebook_tag")
+    String facebookTag;
+    @Column(name = "twitter_tag")
+    String twitterTag;
+    @Column(name = "youtube_tag")
+    String youtubeTag;
     @Column(name = "count_of_downloads")
     Integer countOfDownloads;
     @Column(name = "count_of_uploads")

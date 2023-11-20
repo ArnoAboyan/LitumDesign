@@ -7,7 +7,14 @@
            hx-target="#all-images-for-product"
            th:attr="hx-vals='{&quot;photoId&quot;: &quot;'+${photolink.getId()}+'&quot;, &quot;productId&quot;: &quot;'+${actualProductEntity.getId()}+'&quot;}'"
         ><img class="htmx-indicator" src="/image/spinner-loading.svg"/></i>
-        <img class="particular-images-for-product" th:src="'https://drive.google.com/thumbnail?authuser=0&sz=w320&id=' + ${photolink.getPhotoLink()} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}" alt="image for product">
+        <img class="particular-images-for-product"
+             th:src="'https://drive.google.com/uc?id=' + ${photolink.getPhotoLink()} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}" th:alt="${actualProductEntity.getGameType()} + ${actualProductEntity.getTitle()} + ${actualProductEntity.getCategories()}"
+             th:title="${actualProductEntity.getTitle()}"
+             decoding="async"
+             th:href="'https://drive.google.com/uc?id='+${photolink.getId()}"
+             th:attr="srcset='https://drive.google.com/thumbnail?authuser=0&amp;sz=w640&amp;id=' + ${photolink.getId()} + '&timestamp=' +  ${#dates.format(#dates.createNow(),'YYYY/MM/dd' + 'HH:mm')} + ' 640w, ' +
+                                            'https://drive.google.com/thumbnail?authuser=0&amp;sz=w720&amp;id=' + ${photolink.getId()} + '&timestamp=' +  ${#dates.format(#dates.createNow(),'YYYY/MM/dd' + 'HH:mm')} + ' 720w'"
+             sizes="(max-width: 600px) 640px, 720px"/>
     </div>
 
     <div th:if="${message}" th:insert="~{fragments/toasts/success :: firstDiv}"></div>

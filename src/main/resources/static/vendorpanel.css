@@ -192,3 +192,8 @@
     font-size:13px;
     color:#666666;
 }
+
+.add-file-input{
+    max-width: 510px;
+    margin:auto;
+}

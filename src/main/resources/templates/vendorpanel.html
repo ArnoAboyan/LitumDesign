@@ -163,7 +163,18 @@
             <tbody>
             <tr class="tr-custom" th:each="vendorproduct, iterStat : ${allvendorproducts}">
                 <td th:text="${iterStat.count}"></td>
-                <td class="td-photo "><img class="table-image" th:src="'https://drive.google.com/thumbnail?authuser=0&sz=w320&id='+${vendorproduct.getTitleImageLink()} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}"></td>
+                <td class="td-photo ">
+                    <img class="table-image" th:src="'https://drive.google.com/uc?id='+${vendorproduct.getTitleImageLink()} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}"
+                         th:alt="${vendorproduct.getGameType()} + ${vendorproduct.getTitle()} + ${vendorproduct.getCategories()}"
+                         th:title="${vendorproduct.getTitle()}"
+                         decoding="async"
+                         th:href="'https://drive.google.com/uc?id='+${vendorproduct.getTitleImageLink()}"
+                         th:attr="srcset='https://drive.google.com/thumbnail?authuser=0&amp;sz=w640&amp;id=' + ${vendorproduct.getTitleImageLink()} + '&timestamp=' +  ${#dates.format(#dates.createNow(),'YYYY/MM/dd' + 'HH:mm')} + ' 640w, ' +
+            'https://drive.google.com/thumbnail?authuser=0&amp;sz=w720&amp;id=' + ${vendorproduct.getTitleImageLink()} + '&timestamp=' +  ${#dates.format(#dates.createNow(),'YYYY/MM/dd' + 'HH:mm')} + ' 720w'"
+                         sizes="(max-width: 600px) 640px, 720px"/>
+                </td>
+
+
                 <td><a th:text="${vendorproduct.getTitle()} + ' ' + '[' +  ${vendorproduct.getAccess()} + ']'"
                        th:href="@{'/product/details/' + ${vendorproduct.getId()}}"></a></td>
                 <td th:text="${vendorproduct.getCategories()}"></td>

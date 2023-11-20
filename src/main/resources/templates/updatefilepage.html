@@ -90,7 +90,13 @@
                 <div class="col-md-6 update-file-custom-col-image" id="add-main-image-button">
                     <div th:if="${actualProductEntity.getTitleImageLink() != null and !#strings.isEmpty(actualProductEntity.getTitleImageLink())}"
                          class="form-floating mb-3 submitfile-row main-image">
-                        <img class="main-images-for-product" th:src="'https://drive.google.com/thumbnail?authuser=0&sz=w320&id='+${actualProductEntity.getTitleImageLink()} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}" alt="main product image">
+                        <img class="main-images-for-product" th:src="'https://drive.google.com/uc?id='+${actualProductEntity.getTitleImageLink()} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}" th:alt="${actualProductEntity.getGameType()} + ${actualProductEntity.getTitle()} + ${actualProductEntity.getCategories()}"
+                             th:title="${actualProductEntity.getTitle()}"
+                             decoding="async"
+                             th:href="'https://drive.google.com/uc?id='+${actualProductEntity.getTitleImageLink()}"
+                             th:attr="srcset='https://drive.google.com/thumbnail?authuser=0&amp;sz=w640&amp;id=' + ${actualProductEntity.getTitleImageLink()} + '&timestamp=' +  ${#dates.format(#dates.createNow(),'YYYY/MM/dd' + 'HH:mm')} + ' 640w, ' +
+            'https://drive.google.com/thumbnail?authuser=0&amp;sz=w720&amp;id=' + ${actualProductEntity.getTitleImageLink()} + '&timestamp=' +  ${#dates.format(#dates.createNow(),'YYYY/MM/dd' + 'HH:mm')} + ' 720w'"
+                             sizes="(max-width: 600px) 640px, 720px"/>
                         <i class="fa-regular fa-trash-can delete-img-button" style="color: #ffffff;"
                            hx-delete="/file/delete-main-image"
                            hx-trigger="click"
@@ -106,10 +112,7 @@
                          th:if="${actualProductEntity.getTitleImageLink() == null or #strings.isEmpty(actualProductEntity.getTitleImageLink())}">
                         <h3>Main product image</h3>
                         <div class="add-main-image-button">
-                            <label class="form-label text-white m-1" for="titleimagelink">
-                                <img class="particular-main-images-for-product" src="/image/image-plus.svg"
-                                     alt="Add main image for product">
-                            </label>
+
                             <input type="file" accept="image/*" name="titleImageLink"
                                    class="form-control submitfile-titleimage d-none" id="titleimagelink"
                                    th:attr="hx-vals='{&quot;productEntityId&quot;: &quot;'+${actualProductEntity.getId()}+'&quot;}'"
@@ -166,8 +169,7 @@
 
         <div class="form-floating mb-3 submitfile-textaria">
             <textarea class="form-control submitfile-shortInfo" id="shortInfo" name="shortInfo" rows="3"
-                      placeholder="Title Image (Link)" th:text="${actualProductEntity.getShortInfo()}"
-                      required></textarea>
+                      placeholder="Title Image (Link)" th:text="${actualProductEntity.getShortInfo()}"></textarea>
             <label for="shortInfo" class="form-label ">Short Info</label>
         </div>
         <div class="mb-3 submitfile-description">
@@ -308,7 +310,13 @@
                        th:attr="hx-vals='{&quot;photoId&quot;: &quot;'+${photolink.getId()}+'&quot;, &quot;productId&quot;: &quot;'+${actualProductEntity.getId()}+'&quot;}'"
                     ><img class="htmx-indicator" src="/image/spinner-loading.svg" alt="spinner"/></i>
                     <img class="particular-images-for-product"
-                         th:src="'https://drive.google.com/thumbnail?authuser=0&sz=w320&id=' + ${photolink.getPhotoLink()} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}" alt="image for product">
+                         th:src="'https://drive.google.com/uc?id=' + ${photolink.getPhotoLink()} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}" th:alt="${actualProductEntity.getGameType()} + ${actualProductEntity.getTitle()} + ${actualProductEntity.getCategories()}"
+                         th:title="${actualProductEntity.getTitle()}"
+                         decoding="async"
+                         th:href="'https://drive.google.com/uc?id='+${photolink.getId()}"
+                         th:attr="srcset='https://drive.google.com/thumbnail?authuser=0&amp;sz=w640&amp;id=' + ${photolink.getPhotoLink()} + '&timestamp=' +  ${#dates.format(#dates.createNow(),'YYYY/MM/dd' + 'HH:mm')} + ' 640w, ' +
+                                            'https://drive.google.com/thumbnail?authuser=0&amp;sz=w720&amp;id=' + ${photolink.getPhotoLink()} + '&timestamp=' +  ${#dates.format(#dates.createNow(),'YYYY/MM/dd' + 'HH:mm')} + ' 720w'"
+                         sizes="(max-width: 600px) 640px, 720px"/>
                 </div>
             </div>
         </div>

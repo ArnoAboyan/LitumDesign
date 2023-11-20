@@ -1,7 +1,13 @@
 <div class="col-md-6 update-file-custom-col-image" id="add-main-image-button" >
     <div th:if="${actualProductEntity.getTitleImageLink() != null and !#strings.isEmpty(actualProductEntity.getTitleImageLink())}"
          class="form-floating mb-3 submitfile-row main-image">
-        <img class="main-images-for-product" th:src="'https://drive.google.com/thumbnail?authuser=0&sz=w320&id='+${actualProductEntity.getTitleImageLink()} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}">
+        <img class="main-images-for-product" th:src="'https://drive.google.com/uc?id='+${actualProductEntity.getTitleImageLink()} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}" th:alt="${actualProductEntity.getGameType()} + ${actualProductEntity.getTitle()} + ${actualProductEntity.getCategories()}"
+             th:title="${actualProductEntity.getTitle()}"
+             decoding="async"
+             th:href="'https://drive.google.com/uc?id='+${actualProductEntity.getTitleImageLink()}"
+             th:attr="srcset='https://drive.google.com/thumbnail?authuser=0&amp;sz=w640&amp;id=' + ${actualProductEntity.getTitleImageLink()} + '&timestamp=' +  ${#dates.format(#dates.createNow(),'YYYY/MM/dd' + 'HH:mm')} + ' 640w, ' +
+            'https://drive.google.com/thumbnail?authuser=0&amp;sz=w720&amp;id=' + ${actualProductEntity.getTitleImageLink()} + '&timestamp=' +  ${#dates.format(#dates.createNow(),'YYYY/MM/dd' + 'HH:mm')} + ' 720w'"
+             sizes="(max-width: 600px) 640px, 720px"/>
         <i class="fa-regular fa-trash-can delete-img-button" style="color: #ffffff;"
            hx-delete="/file/delete-main-image"
            hx-trigger="click"

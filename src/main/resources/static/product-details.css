@@ -4,6 +4,7 @@
 .container-carousel{
     max-width: 1170px;
     padding-bottom: 10px;
+    height: 280px;
     /*border-bottom:3px solid #CB321A;*/
 
 }
@@ -272,6 +273,9 @@ span.img-text {
 
 
 @media screen and (max-width: 991px) {
+    .container-carousel{
+        height: 380px;
+    }
 
     .owl-carousel .prev-slide{
         display: none;
