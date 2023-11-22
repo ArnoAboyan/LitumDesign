@@ -62,7 +62,7 @@
                       hx-target="#hxupdateform"
                       hx-swap="outerHTML"
                 >
-                    <img class="htmx-indicator" src="/image/spinner-loading.svg"/>
+                    <img class="htmx-indicator" src="/image/spinner-loading.svg" alt="spinner"/>
                     <div class="modal-body">
                         <div class="col-md-12 col-xs-12">
                             <div class="form-floating mb-3">
@@ -130,7 +130,7 @@
                       hx-swap="outerHTML"
                       hx-encoding='multipart/form-data'
                 >
-                    <img class="htmx-indicator" src="/image/spinner-loading.svg"/>
+                    <img class="htmx-indicator" src="/image/spinner-loading.svg" alt="spinner"/>
                     <div class="modal-body">
                         <input type="file" accept="image/*" name="uploadAvatar">                       >
                         <input type="hidden" name="vendorName" th:value="${vendor.getName()}">
@@ -192,4 +192,6 @@
             </div>
         </div>
     </div>
+    <div th:if="${message}" th:insert="~{fragments/toasts/success :: firstDiv}"></div>
+    <div th:if="${error}" th:insert="~{fragments/toasts/error :: firstDiv}"></div>
 </section>

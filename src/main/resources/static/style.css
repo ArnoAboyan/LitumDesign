@@ -1415,6 +1415,9 @@ height: 36px;
 
 }
 
+.text-center{
+    color: white;
+}
 @media screen and (max-width: 991px) {
     .links-nav {
         display: flex;
