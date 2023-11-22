@@ -1,0 +1,165 @@
+body {
+    padding: 0;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    font-size: 16px;
+    background-color: #161616;
+}
+
+p{
+    color: white;
+}
+
+hr{
+    color: white;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    padding: 0;
+    margin: 0;
+    color: white;
+}
+
+a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+
+.container{
+    margin-top: 20px;
+}
+
+.container-title {
+    display: flex;
+    position: relative;
+    margin: 0 auto;
+    margin-top: 30px;
+    justify-content: center;
+}
+
+.dropdown-menu {
+    border-radius: 0;
+    background-color: #272727;
+}
+
+.dropdown-item {
+    color:white;
+    font-size: 18px;
+    border-bottom: 2px solid #3a3a3a00;
+    border-radius: 0;
+
+}
+
+.dropdown-item:hover {
+    color:white;
+    font-size: 18px;
+    border-bottom: 2px solid #CB321A;
+    border-radius: 0;
+    background-color: #272727;
+
+}
+
+
+.navbar-underline-border{
+    border-bottom: 5px solid #CB321A;
+
+}
+
+.brand{
+    color: white;
+}
+
+.brand:hover{
+    color: white;
+}
+
+.buttons-container{
+    display: flex;
+    position: relative;
+    justify-content: start;
+    padding: 0;
+    margin: 0 auto;
+
+}
+
+.custom-btn{
+    border: 0;
+    border-radius: 0;
+    color: white;
+    border-bottom: 2px solid #CB321A;
+    font-size: 18px;
+}
+
+.custom-btn:hover{
+    border: 0;
+    border-radius: 0;
+    color: white;
+    background-color: transparent;
+    border-bottom: 2px solid #CB321A;
+    background: linear-gradient(#27272700, 90%, #CB321A);
+}
+
+.input-custom{
+    border: 0 ;
+    background-color: #272727;
+    border-radius: 0;
+    border-bottom: 2px solid #CB321A;
+    color: white;
+}
+
+.input-custom:hover{
+    border-bottom: 2px solid #CB321A;
+}
+
+.input-custom:focus{
+    outline: none;
+    box-shadow: none;
+    background: linear-gradient(#27272700, 98%, #CB321A);
+    background-color: #272727;
+    border-bottom: 2px solid #CB321A;
+    color: white;
+}
+
+.email-container{
+    display: flex;
+    margin: 0 auto;
+    position: relative;
+    justify-content: center;
+}
+
+
+
+.email-input{
+    display: flex;
+    position: relative;
+    justify-content: center;
+}
+
+.submit-button-container{
+    display: flex;
+    margin: 0 auto;
+    margin-top: 20px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-submit-button{
+    background-color: #272727;
+    color: white;
+    border: 2px solid #CB321A;
+    height: 50px;
+}
+.custom-submit-button:hover{
+    color: white;
+    border: 2px solid #CB321A;
+    background: #272727 linear-gradient(#27272700, 95%, #CB321A);
+}
+
+.custom-submit-button:active{
+    background: #444444 linear-gradient(#27272700, 95%, #CB321A);
+}

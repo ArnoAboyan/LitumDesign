@@ -18,7 +18,14 @@
     <a th:href="@{'/product/details/' + ${product.id}}">
     <div class="card  h-100 ">
       <p class="card-count-of-downloads" th:utext="'<i class=\'fa-regular fa-circle-down\'></i>' + ${product.countOfDownloads} + ' ' + '<i class=\'fa-regular fa-eye\'></i>' + ${product.countOfView}"></p>
-      <img th:src="'https://drive.google.com/thumbnail?authuser=0&sz=w320&id='+${product.titleImageLink} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}" class="card-img-top" alt="Title image">
+      <img th:src="'https://drive.google.com/uc?id='+${product.titleImageLink} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}"
+           class="card-img-top" th:alt="${product.getGameType()} + ${product.getTitle()} + ${product.getCategories()}"
+           th:title="${product.getTitle()}"
+           decoding="async"
+           th:href="'https://drive.google.com/uc?id='+${product.titleImageLink}"
+           th:attr="srcset='https://drive.google.com/thumbnail?authuser=0&amp;sz=w640&amp;id=' + ${product.titleImageLink} + '&timestamp=' +  ${#dates.format(#dates.createNow(),'YYYY/MM/dd' + 'HH:mm')} + ' 640w, ' +
+            'https://drive.google.com/thumbnail?authuser=0&amp;sz=w720&amp;id=' + ${product.titleImageLink} + '&timestamp=' +  ${#dates.format(#dates.createNow(),'YYYY/MM/dd' + 'HH:mm')} + ' 720w'"
+           sizes="(max-width: 600px) 640px, 720px"/>
       <div class="card-body ">
         <h5 class="card-title text-truncate" th:text="${product.title}">></h5>
         <p class="card-game-type text-truncate " th:text="${product.gameType} + ' | ' + ${product.categories}"></p>

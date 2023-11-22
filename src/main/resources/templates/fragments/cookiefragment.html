@@ -1,53 +1,38 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
-
-<!--<div id="cb-cookie-banner" class="alert cookie-alert alert-dark text-center fixed-bottom mb-0" th:fragment="firstDiv" role="alert">-->
-<!--  &#x1F36A; This website uses cookies to ensure you get the best experience on our website.-->
-<!--  <a href="/information/privacypolicy" target="blank">Learn more</a>-->
-<!--  <button type="button" class="btn btn-sm ms-3 cookie-button">-->
-<!--    I Got It-->
-<!--  </button>-->
-<!--</div>-->
-
-<!--data-sec-authorize="isAuthenticated()"-->
-
-
 <div th:fragment="firstDiv" id="cookie-div">
     <!-- Отображаем блок только если сессия пользователя существует и значение cookie равно true -->
     <div data-sec-authorize="!isAuthenticated()">
         <div class="cookie-alert alert-dark text-center fixed-bottom mb-0" role="alert"
              th:if="${session.cookiecheck == null}">
-        <div class="cookie-alert-body">&#x1F36A; This website uses cookies to ensure you get the best experience on our website.
-            <a href="/information/privacypolicy" target="blank">&nbsp;Learn more</a>
-            <button type="button" class="btn btn-sm ms-3 cookie-button"
-                    hx-post="/cookiecheckenoauthorizations"
-                    hx-target="#cookie-div"
-                    hx-swap="outerHTML"
-            >
-                I Got It
-            </button>
-        </div>
+            <div class="cookie-alert-body">&#x1F36A; This website uses cookies to ensure you get the best experience on
+                our website.
+                <a href="/information/privacypolicy" target="blank">&nbsp;Learn more</a>
+                <button type="button" class="btn btn-sm ms-3 cookie-button"
+                        hx-post="/cookiecheckenoauthorizations"
+                        hx-target="#cookie-div"
+                        hx-swap="outerHTML"
+                >
+                    I Got It
+                </button>
+            </div>
         </div>
     </div>
 
-    <div data-sec-authorize="isAuthenticated()" >
+    <div data-sec-authorize="isAuthenticated()">
         <div th:if="${#authentication.principal.cookie == false}">
             <div class="cookie-alert alert-dark text-center fixed-bottom mb-0" role="alert"
                  th:if="${session.cookiecheck == null}">
-               <div class="cookie-alert-body"> &#x1F36A; This website uses cookies to ensure you get the best experience on our website.
-                <a href="/information/privacypolicy" target="blank">&nbsp;Learn more</a>
-            </div>
-            <button type="button" class="btn btn-sm ms-3 cookie-button"
-                    hx-post="/cookiechecker"
-                    hx-target="#cookie-div"
-                    hx-swap="outerHTML"
-            >
-                I Got It
-            </button>
+                <div class="cookie-alert-body"> &#x1F36A; This website uses cookies to ensure you get the best
+                    experience on our website.
+                    <a href="/information/privacypolicy" target="blank">&nbsp;Learn more</a>
+                    <button type="button" class="btn btn-sm ms-3 cookie-button"
+                            hx-post="/cookiechecker"
+                            hx-target="#cookie-div"
+                            hx-swap="outerHTML"
+                    >
+                        I Got It
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-
-</html>

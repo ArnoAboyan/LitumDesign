@@ -31,6 +31,8 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/product-details.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/alert.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/htmx-indicator.css}">
     <script src="https://unpkg.com/htmx.org@1.9.5"
             integrity="sha384-xcuj3WpfgjlKF+FXhSQFQ0ZNr39ln+hwjN3npfM9VBnUskLolQAcN80McRIVOPuO"
             crossorigin="anonymous"></script>
@@ -82,7 +84,13 @@ margin-top: 25px">
                         allowfullscreen></iframe>
             </div>
             <div class="item" th:each="detailsphotos : ${productdetails.photoLink}">
-                <img th:src="'https://drive.google.com/thumbnail?authuser=0&sz=w520&id='+${detailsphotos.getPhotoLink()} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}" alt="screens"/>
+                <img th:src="'https://drive.google.com/uc?id='+${detailsphotos.getPhotoLink()} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}" th:alt="${productdetails.getGameType()} + ${productdetails.getTitle()} + ${productdetails.getCategories()}"
+                     th:title="${productdetails.getTitle()}"
+                     decoding="async"
+                     th:href="'https://drive.google.com/uc?id='+${detailsphotos.getPhotoLink()}"
+                     th:attr="srcset='https://drive.google.com/thumbnail?authuser=0&amp;sz=w640&amp;id=' + ${detailsphotos.getPhotoLink()} + '&timestamp=' +  ${#dates.format(#dates.createNow(),'YYYY/MM/dd' + 'HH:mm')} + ' 640w, ' +
+                                'https://drive.google.com/thumbnail?authuser=0&amp;sz=w720&amp;id=' + ${detailsphotos.getPhotoLink()} + '&timestamp=' +  ${#dates.format(#dates.createNow(),'YYYY/MM/dd' + 'HH:mm')} + ' 720w'"
+                     sizes="(max-width: 600px) 640px, 720px"/>
             </div>
         </div>
     </div>

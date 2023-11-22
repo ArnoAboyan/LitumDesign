@@ -1,19 +1,22 @@
 package com.litumdesign.LitumDesign.controller;
 
+import com.litumdesign.LitumDesign.Entity.Role;
+import com.litumdesign.LitumDesign.Entity.UserEntity;
 import com.litumdesign.LitumDesign.service.ProductEntityService;
 import com.litumdesign.LitumDesign.service.UserEntityService;
 import io.github.wimdeblauwe.htmx.spring.boot.mvc.HxRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -22,6 +25,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/vendor-page")
+@Log4j2
 public class VendorPageController {
 
     private final ProductEntityService productEntityService;
@@ -32,11 +36,14 @@ public class VendorPageController {
             @PathVariable("vendorName") String vendorName,
             Model model,
             @PageableDefault(size = 20) Pageable pageable,
-            RedirectAttributes redirectAttributes) {
+            RedirectAttributes redirectAttributes,
+            @AuthenticationPrincipal UserDetails userDetails) {
+        UserEntity userEntity = userEntityService.getUserByName(vendorName);
 
 
-
-        try {
+            if(!userEntity.getAuthorities().equals(Role.VENDOR) && !userEntity.getAuthorities().equals(Role.ADMIN)){
+                return "errors/error-404";
+            } try {
             Sort sort = pageable.getSort();
             List<Sort.Order> orders = sort.toList();
 
@@ -44,10 +51,17 @@ public class VendorPageController {
                 String sortName = order.getProperty();
                 model.addAttribute("sortName", sortName);
             }
-            model.addAttribute("vendor",  userEntityService.getUserByName(vendorName));
+
+
+            model.addAttribute("vendor", userEntity );
             model.addAttribute("allProducts", productEntityService.findAllProductsByVendorName(vendorName, pageable));
             model.addAttribute("products", productEntityService.getMostPopularProductByVendor(vendorName));
+            if (userDetails != null && userEntity.getLogin().equals(userDetails.getUsername())){
+                return "editable-vendor-page";
+            }
+
             return "vendor-page";
+
         } catch (PropertyReferenceException e) {
 
             e.printStackTrace();
@@ -57,6 +71,64 @@ public class VendorPageController {
         }
     }
 
+    @PostMapping("/edit-social")
+    @HxRequest
+    public String editSocialLinks(
+            @RequestParam String discord,
+            @RequestParam String telegram,
+            @RequestParam String twitter,
+            @RequestParam String facebook,
+            @RequestParam String linkedIn,
+            @RequestParam String youTube,
+            @RequestParam String vendorName,
+            Model model,
+            @AuthenticationPrincipal UserDetails userDetails){
+
+        UserEntity userEntity = userEntityService.getUserById(userDetails.getUsername());
+
+        try{
+            if (vendorName.equals(userEntity.getName())) {
+
+                userEntityService.setUserSocialLinks(discord, telegram, twitter, facebook, linkedIn, youTube, userEntity);
+                model.addAttribute("vendor", userEntity );
+                model.addAttribute("message", "Changes applied successfully!");
+
+            }
+
+        }catch (Exception e){
+            log.error("Error while editing social links " + e);
+            model.addAttribute("error", "Error! No changes applied!");
+
+        }
+
+        return  "fragments/editable-vendor-page-fragment";
+    }
+
+    @PostMapping("/edit-avatar")
+    @HxRequest
+    public String editAvatarLinks(
+            @RequestParam(value = "uploadAvatar") MultipartFile avatar,
+            @RequestParam String vendorName,
+            Model model,
+            @AuthenticationPrincipal UserDetails userDetails){
+
+        UserEntity userEntity = userEntityService.getUserById(userDetails.getUsername());
+
+        try{
+            if (vendorName.equals(userEntity.getName())) {
+
+                 userEntityService.uploadUserAvatar(userEntity, avatar);
+
+                model.addAttribute("vendor", userEntity);
+                model.addAttribute("message", "Avatar has been upload success!");
+
+            }
+        }catch (Exception e){
+        log.error("Error while adding avatar" + e);
+        model.addAttribute("error", "Error while adding avatar!");
+    }
+        return  "fragments/editable-vendor-page-fragment";
+    }
 
 
     @GetMapping("/search")

@@ -1,0 +1,121 @@
+<html>
+<head>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PB08DZRH5C"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-PB08DZRH5C');
+  </script>
+  <meta charset="UTF-8" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile-LitumDesign</title>
+  <meta name="description" content="Explore Plugins, Maps, Prefabs, Monuments, Tools, and Mods tailored for Rust and Unturned games at LitumDesign. Download for free or buy premium content to boost the enjoyment of your gaming adventures on servers. Suited for game server administrators and product creators contributing to enriching server gameplay.">
+  <link rel="icon" th:href="@{/image/favicon.ico}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+          crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" th:href="@{/userprofile.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/alert.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/htmx-indicator.css}">
+  <script src="https://unpkg.com/htmx.org@1.9.5"
+          integrity="sha384-xcuj3WpfgjlKF+FXhSQFQ0ZNr39ln+hwjN3npfM9VBnUskLolQAcN80McRIVOPuO"
+          crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/b343836130.js" crossorigin="anonymous"></script>
+
+
+  <!-- Cookie Banner -->
+  <link rel="stylesheet" th:href="@{/cookie-banner.css}">
+</head>
+
+<body th:attr="hx-headers='{&quot;'+${_csrf.getHeaderName()}+'&quot;: &quot;'+${_csrf.getToken()}+'&quot;}'">
+
+<header >
+  <nav class="navbar profile-navbar ">
+    <div class="container  navbar-underline-border">
+      <a th:href="@{/admin/adminpanel}" class="navbar-brand brand" href="#"> < Back to home page </a>
+
+      <div class="dropdown dropstart">
+        <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa-regular fa-user" style="color: #ffffff;"></i>
+        </a>
+
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <!-- <li><a class="dropdown-item admin-btns-underline" href="#"> </a></li> -->
+          <li><a class="dropdown-item admin-btns-underline" href="/">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<section>
+  <div class="profile-container ">
+    <div class="container ">
+      <div class="btn-group shadow-0 buttons-container " role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-outline-secondary custom-btn" data-mdb-color="dark"><i class="fa-regular fa-user" style="color: #ffffff;"></i>&nbsp;&nbsp;Account details</button>
+        <button type="button" class="btn btn-outline-secondary custom-btn disabled" data-mdb-color="dark"></button>
+        <button type="button" class="btn btn-outline-secondary custom-btn disabled" data-mdb-color="dark"></button>
+        <button type="button" class="btn btn-outline-secondary custom-btn disabled" data-mdb-color="dark"></button>
+      </div>
+    </div>
+    <form hx-post="/profile/update-account-details" id="hx-update-form"
+            hx-swap="outerHTML"
+            hx-target="#hx-update-form">
+      <img class="htmx-indicator" src="/image/spinner-loading.svg"/>
+      <h1 class="container-title">
+        User account details
+      </h1>
+      <div class="container ">
+        <div>
+          <div class="container ">
+            <div class="row justify-content-evenly ">
+              <div class="col-md-4 col-xs-12">
+                <div class="form-floating mb-3">
+                  <input type="text" name="fullName" class="form-control  input-custom"
+                         id="fullname" placeholder="Full name"
+                         th:value="${user.getFullName()}" required>
+                  <label for="fullname" class="form-label" >Full name</label>
+                </div>
+              </div>
+               <div class="col-md-4 col-xs-12">
+                <div class="form-floating mb-3">
+                  <input type="text" name="displayName" class="form-control  input-custom"
+                         id="displayName" placeholder="Display name"
+                         th:value="${user.getName()}" required>
+                  <label for="displayName" class="form-label">Display name</label>
+                </div>
+              </div>
+              <div class="col-md-4 col-xs-12 ">
+                <div class="form-floating mb-3 email-input-div">
+                  <input type="email" name="email" class="form-control  email-input input-custom"
+                         id="email" placeholder="email"
+                         th:value="${user.getEmail()}" required>
+                  <label for="email" class="form-label">Email</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="submit-button-container">
+          <button type="submit" class="custom-submit-button">Save changes</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- Cookie Banner -->
+<div th:insert="~{fragments/cookiefragment :: firstDiv}"></div>
+<!-- End of Cookie Banner -->
+</body>
+
+</html>
