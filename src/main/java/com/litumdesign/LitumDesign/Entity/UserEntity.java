@@ -14,7 +14,6 @@ import java.util.List;
 @Table(name = "users")
 @Data
 @NoArgsConstructor
-
 public class UserEntity {
 
     @Id
@@ -54,16 +53,18 @@ public class UserEntity {
     @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     List<CommentProductEntity> comment = new ArrayList<>();
 
-    @Column(name = "discord_tag")
-    String discordTag;
-    @Column(name = "telegram_tag")
-    String telegramTag;
-    @Column(name = "facebook_tag")
-    String facebookTag;
-    @Column(name = "twitter_tag")
-    String twitterTag;
-    @Column(name = "youtube_tag")
-    String youtubeTag;
+    @Column(name = "discord_link")
+    String discord_link;
+    @Column(name = "telegram_link")
+    String telegram_link;
+    @Column(name = "facebook_link")
+    String facebook_link;
+    @Column(name = "twitter_link")
+    String twitter_link;
+    @Column(name = "youtube_link")
+    String youtube_link;
+    @Column(name = "linkedin_link")
+    String linkedIn_link;
     @Column(name = "count_of_downloads")
     Integer countOfDownloads;
     @Column(name = "count_of_uploads")
@@ -93,8 +94,6 @@ public class UserEntity {
                       Rank rank,
                       String fullName,
                       Role authorities,
-                      String discordTag,
-                      String telegramTag,
                       Integer countOfDownloads,
                       Integer countOfUploads,
                       Boolean cookie,
@@ -111,8 +110,6 @@ public class UserEntity {
         this.rank = rank;
         this.fullName = fullName;
         this.authorities = authorities;
-        this.discordTag = discordTag;
-        this.telegramTag = telegramTag;
         this.countOfDownloads = countOfDownloads;
         this.countOfUploads = countOfUploads;
         this.cookie = cookie;

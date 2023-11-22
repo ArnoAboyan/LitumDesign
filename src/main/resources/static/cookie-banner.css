@@ -14,6 +14,10 @@
     justify-content: center;
     align-items: center;
 }
+
+.cookie-alert a{
+    color: #CB321A
+}
 .cookie-button{
     color: white;
     border-bottom:3px solid #585a58;
@@ -22,5 +26,12 @@
 
 }
 .cookie-button:hover{
-    border-bottom:3px solid #cc513e;
+    border-bottom:3px solid #CB321A;
+}
+
+@media screen and (max-width: 991px) {
+
+    .cookie-alert {
+        height:100px;
+    }
 }

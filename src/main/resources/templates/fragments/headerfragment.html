@@ -123,6 +123,11 @@
                                 </a>
                             </li>
                             <li>
+                                <a class="dropdown-item " sec:authorize="hasAnyRole('USER','ADMIN','VENDOR')" th:href="@{/profile/account-details}">
+                                    Profile
+                                </a>
+                            </li>
+                            <li>
                                 <a class="dropdown-item " sec:authorize="hasAnyRole('ADMIN', 'VENDOR')" th:href="@{/vendor/vendorpanel}">
                                     Vendor panel
                                 </a>

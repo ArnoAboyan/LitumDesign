@@ -3,12 +3,14 @@ package com.litumdesign.LitumDesign.service;
 import com.litumdesign.LitumDesign.Entity.Role;
 import com.litumdesign.LitumDesign.Entity.UserEntity;
 import com.litumdesign.LitumDesign.auth.AppUser;
+import com.litumdesign.LitumDesign.googledrive.GoogleDriveService;
 import com.litumdesign.LitumDesign.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -18,6 +20,7 @@ import java.util.List;
 public class UserEntityService {
 
     private final UserRepository userRepository;
+    private final GoogleDriveService googleDriveService;
 
     public void userDownloadCounter(UserDetails userDetailsSession){
 
@@ -75,4 +78,42 @@ public class UserEntityService {
         return userRepository.findAll();
     }
 
+    public UserEntity updateUserAccountDetails(UserDetails userDetails, String fullName, String displayName, String email) {
+
+        UserEntity userEntity = userRepository.findById(userDetails.getUsername()).orElseThrow(() -> new NullPointerException("User with username " + userDetails.getUsername() + " not found!"));
+
+        if (fullName != null) {
+            userEntity.setFullName(fullName);
+        }
+        if (displayName != null) {
+            userEntity.setName(displayName);
+        }
+        if (email != null) {
+            userEntity.setEmail(email);
+        }
+
+        userRepository.save(userEntity);
+    return userEntity;
+    }
+
+    public void setUserSocialLinks(String discord, String telegram, String twitter, String facebook, String linkedIn, String youTube, UserEntity userEntity) {
+
+            userEntity.setLinkedIn_link(linkedIn);
+            userEntity.setDiscord_link(discord);
+            userEntity.setTelegram_link(telegram);
+            userEntity.setTwitter_link(twitter);
+            userEntity.setFacebook_link(facebook);
+            userEntity.setYoutube_link(youTube);
+
+        userRepository.save(userEntity);
+    }
+
+    public UserEntity uploadUserAvatar(UserEntity userEntity, MultipartFile avatar) {
+
+        googleDriveService.uploadUserAvatar(userEntity, avatar);
+
+
+
+        return userRepository.save(userEntity);
+    }
 }

@@ -10,7 +10,6 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -41,7 +40,8 @@ public class WebSecurityConfig {
         return http
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                         .requestMatchers("/news/submitnews", "/news/addnews", "/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/vendor/**", "/file/addfile/**", "/file/updatefile/**").hasAnyRole("VENDOR", "ADMIN")
+                        .requestMatchers("/vendor/**", "/file/addfile/**", "/file/updatefile/**","/vendor-page/edit-social").hasAnyRole("VENDOR", "ADMIN")
+                        .requestMatchers("/profile/**").hasAnyRole("USER", "VENDOR", "ADMIN")
 //                        .requestMatchers("/user-page").hasRole(USER)
 //                        .requestMatchers("/", "/login","/auth", "/public-page").permitAll()
                         .requestMatchers("/**", "/products", "/login","/logout", "/error", "/news/**", "/information/**", "/serverlist","/product/**").permitAll()

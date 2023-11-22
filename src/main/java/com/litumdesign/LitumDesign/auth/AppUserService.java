@@ -1,17 +1,13 @@
 package com.litumdesign.LitumDesign.auth;
 
 import com.litumdesign.LitumDesign.Entity.*;
-//import com.litumdesign.LitumDesign.repository.AuthorityEntityRepository;
 import com.litumdesign.LitumDesign.repository.UserRepository;
 import com.litumdesign.LitumDesign.repository.UserShopRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import lombok.experimental.NonFinal;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,7 +17,6 @@ import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
-import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,8 +54,6 @@ public class AppUserService implements UserDetailsManager {
                         .locale(ue.getLocale())
                         .rank(ue.getRank().name())
                         .fullName(ue.getFullName())
-                        .discordTag(ue.getDiscordTag())
-                        .telegramTag(ue.getTelegramTag())
                         .email(ue.getEmail())
                         .countOfDownloads(ue.getCountOfDownloads())
                         .countOfUploads(ue.getCountOfUploads())
@@ -90,7 +83,7 @@ public class AppUserService implements UserDetailsManager {
             LoginProvider provider = getProvider(userRequest);
             OidcUserService delegate = new OidcUserService();
             OidcUser oidcUser = delegate.loadUser(userRequest);
-            AppUser appUser = null;
+            AppUser appUser;
 
             if (userExists(oidcUser.getEmail())) {
 //                System.out.println("GETTING ======> " + oidcUser);
@@ -135,7 +128,7 @@ public class AppUserService implements UserDetailsManager {
     private void createUser(AppUser user) {
         UserEntity userEntity = saveUserIfNotExists(user);
 
-//        System.out.println("STEP -2 userEntity create -> " + userEntity);
+
     }
 
     private void saveShopEntity(UserEntity userEntity, String shopUrl, String shopName) {
@@ -164,8 +157,6 @@ public class AppUserService implements UserDetailsManager {
                                 Rank.NEWBIE,
                                 user.getFullName(),
                                 Role.USER,
-                                user.getDiscordTag(),
-                                user.getTelegramTag(),
                                 user.getCountOfDownloads(),
                                 user.getCountOfUploads(),
                                 false,

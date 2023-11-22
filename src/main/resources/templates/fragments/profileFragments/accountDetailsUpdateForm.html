@@ -1,0 +1,47 @@
+<form hx-post="/profile/update-account-details" id="hx-update-form"
+      hx-swap="outerHTML"
+      hx-target="#hx-update-form">
+  <img class="htmx-indicator" src="/image/spinner-loading.svg"/>
+  <h1 class="container-title">
+    User account details
+  </h1>
+  <div class="container ">
+    <div>
+      <div class="container ">
+        <div class="row justify-content-evenly ">
+          <div class="col-md-4 col-xs-12">
+            <div class="form-floating mb-3">
+              <input type="text" name="fullName" class="form-control  input-custom"
+                     id="fullname" placeholder="Full name"
+                     th:value="${user.getFullName()}" required>
+              <label for="fullname" class="form-label" >Full name</label>
+            </div>
+          </div>
+          <div class="col-md-4 col-xs-12">
+            <div class="form-floating mb-3">
+              <input type="text" name="displayName" class="form-control  input-custom"
+                     id="displayName" placeholder="Display name"
+                     th:value="${user.getName()}" required>
+              <label for="displayName" class="form-label">Display name</label>
+            </div>
+          </div>
+          <div class="col-md-4 col-xs-12 ">
+            <div class="form-floating mb-3 email-input-div">
+              <input type="email" name="email" class="form-control  email-input input-custom"
+                     id="email" placeholder="email"
+                     th:value="${user.getEmail()}" required>
+              <label for="email" class="form-label">Email</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div th:if="${message}" th:insert="~{fragments/toasts/success :: firstDiv}"></div>
+      <div th:if="${error}" th:insert="~{fragments/toasts/error :: firstDiv}"></div>
+    </div>
+
+    <div class="submit-button-container">
+      <button type="submit" class="custom-submit-button">Save changes</button>
+    </div>
+  </div>
+</form>
+

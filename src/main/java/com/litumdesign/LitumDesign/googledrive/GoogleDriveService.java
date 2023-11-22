@@ -16,6 +16,7 @@ import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.ServiceAccountCredentials;
 import com.litumdesign.LitumDesign.Entity.ProductEntity;
 import com.litumdesign.LitumDesign.Entity.ProductPhotoEntity;
+import com.litumdesign.LitumDesign.Entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.io.IOUtils;
@@ -67,7 +68,6 @@ public class GoogleDriveService {
         String clientMail = System.getenv("CLIENT_EMAIL");
         String privateKey = System.getenv("CLIENT_PRIVATEKEY");
         String privateId = System.getenv("CLIENT_PRIVATEID");
-
 
 
 
@@ -184,54 +184,79 @@ public class GoogleDriveService {
         return productEntity;
     }
 
-
-
-    public String getAllAudio() throws IOException, GeneralSecurityException {
-        Drive service = getInstance();
-
+    public UserEntity uploadUserAvatar(UserEntity userEntity, MultipartFile photo) {
 
         try {
-            FileList result = service.files().list()
-                    .setPageSize(10)
-                    .setFields("nextPageToken, files(id, name)")
+            log.info("Uploading photo: {}", photo.getOriginalFilename());
+
+            File fileMetadata = new File();
+            fileMetadata.setName(photo.getOriginalFilename());
+            fileMetadata.setParents(Collections.singletonList("1QpfYnVHb-qJlglXUoA9alEFNvLT765SW"));
+            File uploadFile = getInstance()
+                    .files()
+                    .create(fileMetadata, new InputStreamContent(
+                            photo.getContentType(),
+                            new ByteArrayInputStream(photo.getBytes()))
+                    )
+                    .setFields("id, name")
                     .execute();
-            System.out.println(result.getFiles().toString());
-            return result.toString();
+            System.out.println("FILE CREATE -> " + uploadFile);
+
+            userEntity.setImageUrl(uploadFile.getId());
+
         } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
+            log.error("Error during file upload process", e);
         }
+        return userEntity;
     }
 
-    public Drive.Files.Get getFileById(String fileId) throws IOException, GeneralSecurityException {
-        Drive service = getInstance();
 
-        try {
+//    public String getAllAudio() throws IOException, GeneralSecurityException {
+//        Drive service = getInstance();
+//
+//
+//        try {
+//            FileList result = service.files().list()
+//                    .setPageSize(10)
+//                    .setFields("nextPageToken, files(id, name)")
+//                    .execute();
+//            System.out.println(result.getFiles().toString());
+//            return result.toString();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            throw e;
+//        }
+//    }
 
-            Drive.Files.Get result = service.files().get(fileId);
+//    public Drive.Files.Get getFileById(String fileId) throws IOException, GeneralSecurityException {
+//        Drive service = getInstance();
+//
+//        try {
+//
+//            Drive.Files.Get result = service.files().get(fileId);
+//
+//            System.out.println(result.toString());
+//            return result;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            throw e;
+//        }
+//    }
 
-            System.out.println(result.toString());
-            return result;
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        }
-    }
-
-    public static ByteArrayOutputStream getFile(String realFileId, Drive service) throws IOException {
-        try {
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
-            service.files().get(realFileId)
-                    .executeMediaAndDownloadTo(outputStream);
-
-            return outputStream;
-        } catch (GoogleJsonResponseException e) {
-            // TODO(developer) - handle error appropriately
-            System.err.println("Unable to move file: " + e.getDetails());
-            throw e;
-        }
-    }
+//    public static ByteArrayOutputStream getFile(String realFileId, Drive service) throws IOException {
+//        try {
+//            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//
+//            service.files().get(realFileId)
+//                    .executeMediaAndDownloadTo(outputStream);
+//
+//            return outputStream;
+//        } catch (GoogleJsonResponseException e) {
+//            // TODO(developer) - handle error appropriately
+//            System.err.println("Unable to move file: " + e.getDetails());
+//            throw e;
+//        }
+//    }
 
 
 //    public void downloadFile() throws IOException, GeneralSecurityException {

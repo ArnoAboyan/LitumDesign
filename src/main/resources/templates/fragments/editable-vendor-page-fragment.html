@@ -1,0 +1,195 @@
+<section id="hxupdateform">
+    <div class="vendor-header-container ">
+        <div class="vendor-page-banner-image ">
+            <img src="/image/banner.jpg" alt="banner image">
+        </div>
+        <div class="vendor-page-avatar" data-bs-toggle="modal" data-bs-target="#avatarmodal">
+            <img class="rounded-circle" th:src="'https://drive.google.com/uc?id='+${vendor.imageUrl} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}" alt="Avatar"
+                 title="User avatar"
+                 decoding="async"
+                 th:href="'https://drive.google.com/uc?id='+${vendor.imageUrl}"
+                 th:attr="srcset='https://drive.google.com/thumbnail?authuser=0&amp;sz=w640&amp;id=' + ${vendor.imageUrl} + '&timestamp=' +  ${#dates.format(#dates.createNow(),'YYYY/MM/dd' + 'HH:mm')} + ' 640w, ' +
+            'https://drive.google.com/thumbnail?authuser=0&amp;sz=w720&amp;id=' + ${vendor.imageUrl} + '&timestamp=' +  ${#dates.format(#dates.createNow(),'YYYY/MM/dd' + 'HH:mm')} + ' 720w'"
+                 sizes="(max-width: 600px) 640px, 720px"
+            />
+        </div>
+        <div class="vendor-page-info justify-content-start">
+            <h1 class="vendor-page-info-name text-break" th:text="${vendor.getName()}"></h1>
+            <div class="social-links-container">
+                <a th:if="${vendor.getDiscord_link() != null and !#strings.isEmpty(vendor.getDiscord_link())}"
+                   class="active social vendor-social " aria-current="page" th:href="${vendor.getDiscord_link()}">
+                    <i class="fa-brands fa-discord fa-lg" style="color: #ffffff;"></i>
+                </a>
+                <a th:if="${vendor.getTelegram_link() != null and !#strings.isEmpty(vendor.getTelegram_link())}"
+                   class="active social vendor-social" aria-current="page" th:href="${vendor.getTelegram_link()}">
+                    <i class="fa-brands fa-telegram fa-lg" style="color: #ffffff;"></i>
+                </a>
+                <a th:if="${vendor.getTwitter_link() != null and !#strings.isEmpty(vendor.getTwitter_link())}"
+                   class="active social vendor-social" aria-current="page" th:href="${vendor.getTwitter_link()}">
+                    <i class="fa-brands fa-twitter fa-lg" style="color: #ffffff;"></i>
+                </a>
+                <a th:if="${vendor.getFacebook_link() != null and !#strings.isEmpty(vendor.getFacebook_link())}"
+                   class="active social vendor-social" aria-current="page" th:href="${vendor.getFacebook_link()}">
+                    <i class="fa-brands fa-facebook fa-lg" style="color: #ffffff;"></i>
+                </a>
+                <a th:if="${vendor.getYoutube_link() != null and !#strings.isEmpty(vendor.getYoutube_link())}"
+                   class="active social vendor-social" aria-current="page" th:href="${vendor.getYoutube_link()}">
+                    <i class="fa-brands fa-youtube fa-lg" style="color: #ffffff;"></i>
+                </a>
+                <a th:if="${vendor.getLinkedIn_link() != null and !#strings.isEmpty(vendor.getLinkedIn_link())}"
+                   class="active social vendor-social" aria-current="page" th:href="${vendor.getLinkedIn_link()}">
+                    <i class="fa-brands fa-linkedin fa-lg" style="color: #ffffff;"></i>
+                </a>
+                <!--        MODAL TRIGGER-->
+                <button class="active edit-social-button" type="button" aria-current="page" data-bs-toggle="modal"
+                        data-bs-target="#socialmodal">
+                    <i class="fa-regular fa-pen-to-square" style="color: #ffffff;"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!--Social links Modal -->
+    <div class="modal fade" id="socialmodal" tabindex="-1" aria-labelledby="socialmodalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content custom-modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title modal-custom-title" id="socialmodalLabel">Edit social links</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <form hx-post="/vendor-page/edit-social"
+                      hx-target="#hxupdateform"
+                      hx-swap="outerHTML"
+                >
+                    <img class="htmx-indicator" src="/image/spinner-loading.svg"/>
+                    <div class="modal-body">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="form-floating mb-3">
+                                <input type="url" name="discord" class="form-control "
+                                       id="discord" placeholder="Discord" th:value="${vendor.getDiscord_link()}">
+                                <label for="discord" class="form-label">Discord(link)</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-xs-12 ">
+                            <div class="form-floating mb-3">
+                                <input type="url" name="telegram" class="form-control "
+                                       id="telegram" placeholder="Telegram" th:value="${vendor.getTelegram_link()}">
+                                <label for="telegram" class="form-label">Telegram(link)</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-xs-12 ">
+                            <div class="form-floating mb-3">
+                                <input type="url" name="twitter" class="form-control "
+                                       id="twitter" placeholder="Twitter" th:value="${vendor.getTwitter_link()}">
+                                <label for="twitter" class="form-label">Twitter(link)</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-xs-12 ">
+                            <div class="form-floating mb-3">
+                                <input type="url" name="facebook" class="form-control "
+                                       id="facebook" placeholder="Facebook" th:value="${vendor.getFacebook_link()}">
+                                <label for="facebook" class="form-label">Facebook(link)</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-xs-12 ">
+                            <div class="form-floating mb-3">
+                                <input type="url" name="linkedIn" class="form-control "
+                                       id="linkedIn" placeholder="LinkedIn" th:value="${vendor.getLinkedIn_link()}">
+                                <label for="linkedIn" class="form-label">LinkedIn(link)</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-xs-12 ">
+                            <div class="form-floating mb-3">
+                                <input type="url" name="youTube" class="form-control "
+                                       id="youTube" placeholder="YouTube" th:value="${vendor.getYoutube_link()}">
+                                <label for="youTube" class="form-label">YouTube(link)</label>
+                            </div>
+                        </div>
+                        <input type="hidden" name="vendorName" th:value="${vendor.getName()}">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary " data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="avatarmodal" tabindex="-1" aria-labelledby="avatarLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content custom-modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title modal-custom-title" id="avatarmodalLabel">Change avatar</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <form hx-post="/vendor-page/edit-avatar"
+                      hx-target="#hxupdateform"
+                      hx-swap="outerHTML"
+                      hx-encoding='multipart/form-data'
+                >
+                    <img class="htmx-indicator" src="/image/spinner-loading.svg"/>
+                    <div class="modal-body">
+                        <input type="file" accept="image/*" name="uploadAvatar">                       >
+                        <input type="hidden" name="vendorName" th:value="${vendor.getName()}">
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary " data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="vendor-action-panel-container ">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col vendor-action-column">
+                    <div class="d-flex " role="search">
+                        <input class="searchfar vendor-page-search" type="search" placeholder="Find here..."
+                               aria-label="Search"
+                               name="searchquery"
+                               hx-get="/vendor-page/search"
+                               th:attr="hx-vals='{&quot;vendorname&quot;: &quot;'+${vendor.getName()}+'&quot;}'"
+                               hx-trigger="keyup[key=='Enter']"
+                               hx-target="#allgoods"><img class="htmx-indicator" src="/image/spinner-loading.svg"
+                                                          alt="spinner">
+                    </div>
+                </div>
+                <div class="col vendor-action-column">
+                </div>
+                <div class="col vendor-action-column">
+                    <div class="dropdown">
+                        <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span th:if="${sortName == null}">Sort by:</span>
+                            <span th:if="${sortName == 'countOfDownloads'}">Sort by: Popular</span>
+                            <span th:if="${sortName == 'price'}">Sort by: price Low-High</span>
+                            <span th:if="${sortName == 'createdAt'}">Sort by: Latest</span>
+                            <span th:if="${sortName == 'price,desc'}">Sort by: price High-Low</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item"
+                                   th:href="@{${#ctx.springRequestContext.requestUri}(sort='countOfDownloads,desc')}">Popular</a>
+                            </li>
+                            <li><a class="dropdown-item"
+                                   th:href="@{${#ctx.springRequestContext.requestUri}(sort='price')}">price Low-High</a>
+                            </li>
+                            <li><a class="dropdown-item"
+                                   th:href="@{${#ctx.springRequestContext.requestUri}(sort='createdAt,desc')}">Latest</a>
+                            </li>
+                            <li><a class="dropdown-item"
+                                   th:href="@{${#ctx.springRequestContext.requestUri}(sort='price,desc')}">price
+                                High-Low</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
