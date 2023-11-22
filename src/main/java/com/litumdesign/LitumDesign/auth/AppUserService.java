@@ -151,7 +151,7 @@ public class AppUserService implements UserDetailsManager {
                                 user.getPassword(),
                                 user.getEmail(),
                                 generateUniqueNickname(),
-                                user.getImageUrl(),
+                                "1WchL6igy3gy9_TgQOLz-uLxPZCGt_2eZ",
                                 user.getProvider(),
                                 user.getCreatedAt(),
                                 Rank.NEWBIE,
