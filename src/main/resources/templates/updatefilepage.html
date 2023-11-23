@@ -114,7 +114,10 @@
                          th:if="${actualProductEntity.getTitleImageLink() == null or #strings.isEmpty(actualProductEntity.getTitleImageLink())}">
                         <h3>Main product image</h3>
                         <div class="add-main-image-button">
-
+                            <label class="form-label text-white m-1" for="titleimagelink">
+                                <img class="particular-main-images-for-product" src="/image/image-plus.svg"
+                                     alt="Add main image for product">
+                            </label>
                             <input type="file" accept="image/*" name="titleImageLink"
                                    class="form-control submitfile-titleimage d-none" id="titleimagelink"
                                    th:attr="hx-vals='{&quot;productEntityId&quot;: &quot;'+${actualProductEntity.getId()}+'&quot;}'"
