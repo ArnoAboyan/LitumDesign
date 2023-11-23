@@ -318,7 +318,7 @@
                          th:src="'https://drive.google.com/uc?id=' + ${photolink.getPhotoLink()} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}" th:alt="${actualProductEntity.getGameType()} + ${actualProductEntity.getTitle()} + ${actualProductEntity.getCategories()}"
                          th:title="${actualProductEntity.getTitle()}"
                          decoding="async"
-                         th:href="'https://drive.google.com/uc?id='+${photolink.getId()}"
+                         th:href="'https://drive.google.com/uc?id='+${photolink.getPhotoLink()}"
                          th:attr="srcset='https://drive.google.com/thumbnail?authuser=0&amp;sz=w640&amp;id=' + ${photolink.getPhotoLink()} + '&timestamp=' +  ${#dates.format(#dates.createNow(),'YYYY/MM/dd' + 'HH:mm')} + ' 640w, ' +
                                             'https://drive.google.com/thumbnail?authuser=0&amp;sz=w720&amp;id=' + ${photolink.getPhotoLink()} + '&timestamp=' +  ${#dates.format(#dates.createNow(),'YYYY/MM/dd' + 'HH:mm')} + ' 720w'"
                          sizes="(max-width: 600px) 640px, 720px"/>
