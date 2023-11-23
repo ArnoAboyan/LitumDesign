@@ -65,7 +65,7 @@
         <!-- ALL GOODS -->
         <div class="row  row-cols-2   row-cols-lg-5  row-cols-md-4   py-0">
             <div class="col " th:each="product : ${allProducts}">
-                <a th:href="@{'/product/details/' + ${product.id}}">
+                <a th:href="@{'/product/details/' + ${product.id} + '/' + ${product.getTitle().replaceAll('[^a-zA-Z0-9-]', '-')}}">
                 <div class="card  h-100 ">
                     <p class="card-count-of-downloads" th:utext="'<i class=\'fa-regular fa-circle-down\'></i>' + ${product.countOfDownloads} + ' ' + '<i class=\'fa-regular fa-eye\'></i>' + ${product.countOfView}"></p>
                     <img th:src="'https://drive.google.com/uc?id='+${product.titleImageLink} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}"

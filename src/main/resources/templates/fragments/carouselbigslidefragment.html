@@ -24,7 +24,7 @@
   <div class="carousel-inner">
     <div class="carousel-item" data-bs-interval="5000" th:each="product, index : ${sliderproductList}" th:classappend ="${index.first} ? 'active' : ''" >
       <div>
-      <a th:href="@{'/product/details/' + ${product.id}}">
+      <a th:href="@{'/product/details/' + ${product.id} + '/' + ${product.getTitle().replaceAll('[^a-zA-Z0-9-]', '-')}}">
 
         <img class="d-block w-100" th:src="'https://drive.google.com/uc?id='+${product.titleImageLink} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}"
              th:alt="${product.getGameType()} + ${product.getTitle()} + ${product.getCategories()}"

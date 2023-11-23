@@ -19,8 +19,9 @@ public class ProductDetailsController {
 
     private final ProductEntityService productEntityService;
 
-    @GetMapping("/details/{productId}")
-    public String findProductById(@PathVariable Long productId, Model model, @AuthenticationPrincipal UserDetails userDetails) {
+    @GetMapping("/details/{productId}/{productName}")
+    public String findProductById(@PathVariable Long productId,
+                                  Model model, @AuthenticationPrincipal UserDetails userDetails) {
 
        ProductEntity productDetails =  productEntityService.findProductEntityById(productId);
 

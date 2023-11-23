@@ -77,7 +77,9 @@ margin-top: 25px">
 <div class="container container-carousel">
     <div class="carousel-wrap">
         <div class="owl-carousel owl-theme">
-            <div class="ratio ratio-4x3" th:if="${!productdetails.videoLink.isBlank()}">
+            <div class="ratio ratio-4x3"
+                 th:if="${productdetails.getVideoLink() != null and !#strings.isEmpty(productdetails.getVideoLink())}"
+            >
                 <iframe width="560" height="315" th:src="${productdetails.getVideoLink()}" title="YouTube video player"
                         frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -160,7 +162,6 @@ margin-top: 25px">
     <!--    </div>-->
 
 
-    <p>
     <div class="container main-product-navigation">
         <div class="d-flex flex-column flex-md-row">
             <a data-bs-toggle="collapse" href="#Description" role="button"
@@ -185,7 +186,6 @@ margin-top: 25px">
             </a>
         </div>
     </div>
-    </p>
 
     <!-- DIVIDE LINE -->
     <div class="container dividingline ">

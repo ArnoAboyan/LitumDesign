@@ -22,7 +22,7 @@
                      sizes="(max-width: 600px) 640px, 720px"/>
             </td>
             <td><a th:text="${vendorproduct.getTitle()} + ' ' + '[' +  ${vendorproduct.getAccess()} + ']'"
-                   th:href="@{'/product/details/' + ${vendorproduct.getId()}}"></a></td>
+                   th:href="@{'/product/details/' + ${vendorproduct.id} + '/' + ${vendorproduct.getTitle().replaceAll('[^a-zA-Z0-9-]', '-')}}"></a></td>
             <td th:text="${vendorproduct.getCategories()}"></td>
             <td class="td-custom">
                 <a type="button"
