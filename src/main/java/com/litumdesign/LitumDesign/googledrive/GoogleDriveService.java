@@ -1,7 +1,6 @@
 package com.litumdesign.LitumDesign.googledrive;
 
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.InputStreamContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -11,7 +10,6 @@ import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
-import com.google.api.services.drive.model.FileList;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.ServiceAccountCredentials;
 import com.litumdesign.LitumDesign.Entity.ProductEntity;
@@ -31,6 +29,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.security.GeneralSecurityException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 
@@ -73,14 +73,15 @@ public class GoogleDriveService {
 
 
 
+
+
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(ServiceAccountCredentials.fromPkcs8(
                 clientId, clientMail, privateKey, privateId, SCOPES).createScoped(SCOPES));
 
-        Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, requestInitializer)
+        return new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, requestInitializer)
                 .setApplicationName(APPLICATION_NAME)
                 .build();
-        return service;
     }
 
 
@@ -187,10 +188,11 @@ public class GoogleDriveService {
     public UserEntity uploadUserAvatar(UserEntity userEntity, MultipartFile photo) {
 
         try {
+
             log.info("Uploading photo: {}", photo.getOriginalFilename());
 
             File fileMetadata = new File();
-            fileMetadata.setName(photo.getOriginalFilename());
+            fileMetadata.setName("Avatar " + userEntity.getName() + "_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd_MM_yyyy | HH:mm:ss")));
             fileMetadata.setParents(Collections.singletonList("1QpfYnVHb-qJlglXUoA9alEFNvLT765SW"));
             File uploadFile = getInstance()
                     .files()
@@ -314,17 +316,36 @@ public class GoogleDriveService {
 
     public void deleteFile(String fileId)  {
 
-        Drive service = null;
+        Drive service;
         try {
             service = getInstance();
             service.files().delete(fileId).execute();
             System.out.println("DELETE GD FILE -->" + fileId);
         } catch (GeneralSecurityException | IOException e) {
-            log.error("Error occurred while getting the Google Drive instance", e);
-            throw new RuntimeException("Error initializing Google Drive service: " + e.getMessage(), e);
+            log.error("Error occurred while deleting file" + e.getMessage(), e);
         }
 
     }
+
+
+//    public void renameFileToUnused(String fileId)  {
+//
+//        Drive service = null;
+//        try {
+//            service = getInstance();
+//            File file = service.files().get(fileId).execute();
+//
+//            file.setName("UNUSED");
+//
+//            service.files().update(fileId, file).execute();
+//
+//            System.out.println("File has bean rename to UNUSED successful");
+//        } catch (GeneralSecurityException | IOException e) {
+//            log.error("Error occurred while renaming file"+ e.getMessage(), e);
+//        }
+//
+//    }
+
 }
 
 

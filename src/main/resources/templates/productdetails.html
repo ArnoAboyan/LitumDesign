@@ -116,7 +116,7 @@ margin-top: 25px">
            th:text="${#temporals.format(productdetails.getCreatedAt(), 'dd-MMM-yyyy')}"></a>
         <div class="product-header-category-info">
             <div>
-                <a href="#" th:text="${productdetails.getGameType()}"></a><a>&nbsp;|&nbsp;</a><a href="#" th:text="${productdetails.getCategories()}"></a>
+                <a th:href="@{'/'+ ${#strings.toLowerCase(productdetails.getGameType())}}" th:text="${productdetails.getGameType()}"></a><a>&nbsp;|&nbsp;</a><a th:href="@{'/' + ${#strings.toLowerCase(productdetails.getGameType())} + '/' + ${productdetails.getCategories()}}" th:text="${productdetails.getCategories()}"></a>
                 <div class="product-header-author ">
                     <p class="card-by text-truncate">By: <a th:href="@{/vendor-page/{vendorName}(vendorName=${productdetails.uploadUserId.getName()})}" class="vendorname"
                                                             th:text="${productdetails.uploadUserId.getName()}"></a></p>
