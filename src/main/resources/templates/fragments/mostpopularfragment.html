@@ -1,7 +1,7 @@
 <div class="row  row-cols-2   row-cols-lg-5  row-cols-md-4   py-0 " th:fragment="firstDiv"
      th:with="productList=${products}">
     <div class="col " th:each="product : ${productList}">
-        <a th:href="@{'/product/details/' + ${product.id}}">
+        <a th:href="@{'/product/details/' + ${product.id} + '/' + ${product.getTitle().replaceAll('[^a-zA-Z0-9-]', '-')}}">
             <div class="card  h-100 ">
                 <p class="card-count-of-downloads"
                    th:utext="'<i class=\'fa-regular fa-circle-down\'></i>' + ${product.countOfDownloads} + ' ' + '<i class=\'fa-regular fa-eye\'></i>' + ${product.countOfView}"></p>

@@ -126,7 +126,7 @@ public class AppUserService implements UserDetailsManager {
 
 
     private void createUser(AppUser user) {
-        UserEntity userEntity = saveUserIfNotExists(user);
+        saveUserIfNotExists(user);
 
 
     }
@@ -151,7 +151,7 @@ public class AppUserService implements UserDetailsManager {
                                 user.getPassword(),
                                 user.getEmail(),
                                 generateUniqueNickname(),
-                                "1seNh45eSN1IUIS2JVmlOZHVzTfz7Dg0O",
+                                "1T2Zpim34BgVlVO8oQkInl-bG57pKZ82G",
                                 user.getProvider(),
                                 user.getCreatedAt(),
                                 Rank.NEWBIE,

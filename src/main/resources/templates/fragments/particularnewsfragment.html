@@ -1,13 +1,13 @@
-    <div class="particularnewscontainer">
+    <div class="particularnewscontainer" th:fragment="firstDiv">
         <h5 class="particular-title-news text-break"  th:text="${particularnews.getTitle()}"></h5>
         <img data-th-src="@{${particularnews.getPhotoLink()}}" class="mx-auto" alt="...">
         <div class="text-break" >
-        <p type="text" class="particular-news-text " th:utext="${particularnews.getText()}"></p>
+        <p class="particular-news-text " th:utext="${particularnews.getText()}"></p>
         </div>
         <hr>
             <div class="container d-flex justify-content-between">
-                <p type="text" th:text="'by: ' + ${particularnews.getAuthor()}"></p>
-                <p type="text" th:text="${particularnews.getCreatedAt().toLocalDate()}"></p>
+                <p th:text="'by: ' + ${particularnews.getAuthor()}"></p>
+                <p th:text="${particularnews.getCreatedAt().toLocalDate()}"></p>
             </div>
     </div>
 
