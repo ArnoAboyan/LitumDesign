@@ -59,21 +59,6 @@
 <div th:insert="~{fragments/headerfragment :: header}"></div>
 
 
-<div style="border: 3px solid #d04f3b;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: auto;
-    max-width: 1150px; /* Максимальная ширина */
-    margin: 0 auto;
-    text-align: center;
-margin-top: 25px">
-    <div style="color: #d04f3b; font-size: 22px;"> !!! The website is still a work in progress, things might not render
-        correctly or not work, so please bear with me.
-    </div>
-</div>
-
 <div class="container container-carousel">
     <div class="carousel-wrap">
         <div class="owl-carousel owl-theme">
@@ -85,8 +70,8 @@ margin-top: 25px">
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen></iframe>
             </div>
-            <div class="item" th:each="detailsphotos : ${productdetails.photoLink}">
-                <img th:src="'https://drive.google.com/uc?id='+${detailsphotos.getPhotoLink()} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}" th:alt="${productdetails.getGameType()} + ${productdetails.getTitle()} + ${productdetails.getCategories()}"
+            <div class="item" th:each="detailsphotos, iterStat : ${productdetails.photoLink}" data-bs-toggle="modal" th:data-bs-target="'#modalBigImage' + ${iterStat.index}"  >
+                <img  th:src="'https://drive.google.com/uc?id='+${detailsphotos.getPhotoLink()} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}" th:alt="${productdetails.getGameType()} + ${productdetails.getTitle()} + ${productdetails.getCategories()}"
                      th:title="${productdetails.getTitle()}"
                      decoding="async"
                      th:href="'https://drive.google.com/uc?id='+${detailsphotos.getPhotoLink()}"
@@ -97,6 +82,27 @@ margin-top: 25px">
         </div>
     </div>
 </div>
+
+
+
+
+<!--BIG IMAGE MODAL-->
+<div class="modal fade" th:each="detailsphotos, iterStat : ${productdetails.photoLink}" th:id="'modalBigImage' + ${iterStat.index}"  tabindex="-1" aria-labelledby="modalBigImage" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-custom modal-xl">
+        <div class="modal-content">
+<!--            <div class="modal-header">-->
+<!--            </div>-->
+            <div class="big-image-modal-body">
+                <button type="button" class="btn-close btn-close-white big-image-btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <img th:src="'https://drive.google.com/uc?id='+${detailsphotos.getPhotoLink()} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}" th:alt="${productdetails.getGameType()} + ${productdetails.getTitle()} + ${productdetails.getCategories()}"
+                     th:title="${productdetails.getTitle()}"
+                     decoding="async"
+                     th:href="'https://drive.google.com/uc?id='+${detailsphotos.getPhotoLink()}"/>
+            </div>
+        </div>
+    </div>
+</div>
+<!--BIG IMAGE MODAL END-->
 
 <section>
     <div class="container product-header">
@@ -127,10 +133,6 @@ margin-top: 25px">
                 </div>
             </div>
             <div>
-<!--                <div>-->
-<!--                    <h2 th:if="${productdetails.getPrice() == 0}">FREE</h2>-->
-<!--                    <h2 th:if="${productdetails.getPrice() != 0}" th:text="'$' + ${productdetails.getPrice()}"></h2>-->
-<!--                </div>-->
                 <div class="product-header-downloadfile-container ">
                     <div class="product-header-bybutton ">
                         <a th:href="@{'/file/download-file/' + ${productdetails.getId()}}"><i class="fa-solid fa-cloud-arrow-down" style="color: #ffffff;"></i> &nbsp; Download</a>
@@ -146,20 +148,6 @@ margin-top: 25px">
     </div>
 
 
-    <!--    <div class="container main-product-navigation">-->
-    <!--        <div class="d-flex flex-column flex-md-row">-->
-    <!--            <img class="htmx-indicator" src="/image/spinner-loading.svg">-->
-    <!--            <a hx-get="/product/description"-->
-    <!--                 hx-trigger="click"-->
-    <!--                 hx-swap="innerHTML"-->
-    <!--                 hx-target="#product-info">Description-->
-    <!--            </a>-->
-    <!--            <a href="">License</a>-->
-    <!--            <a href="">Updates</a>-->
-    <!--            <a href="">Comments</a>-->
-    <!--            <a href="">Support</a>-->
-    <!--        </div>-->
-    <!--    </div>-->
 
 
     <div class="container main-product-navigation">
@@ -262,5 +250,10 @@ margin-top: 25px">
     });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+
+
+
+
 </body>
 </html>

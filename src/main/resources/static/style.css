@@ -1475,6 +1475,27 @@ height: 36px;
 .text-center{
     color: white;
 }
+
+.modal-dialog-custom{
+    margin-top: 150px;
+}
+
+.big-image-modal-body img{
+    display: flex;
+    object-fit: cover;
+    width: 100%;
+    background-color: #272727;
+    max-height: 700px
+}
+
+
+.big-image-btn-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px; /* установите отступ, который вам нравится */
+}
+
 @media screen and (max-width: 991px) {
     .links-nav {
         display: flex;
@@ -1637,6 +1658,17 @@ height: 36px;
         position: relative;
         justify-content:center;
         margin-top: 30px;
+    }
+
+
+
+    .modal-dialog-custom{
+        margin-top: 200px;
+        max-width: 100%;
+    }
+    .big-image-modal-body img{
+        object-fit: contain;
+        background-color: #272727;
     }
 
 }
