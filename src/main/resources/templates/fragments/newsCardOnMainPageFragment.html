@@ -1,0 +1,16 @@
+<div>
+    <div class="row-news  row-cols-2   row-cols-lg-5  row-cols-md-4   py-0 " th:fragment="firstDiv">
+        <div class="col-news" th:each="news : ${newsList}">
+            <a th:href="@{'/news/getparticularnews/' + ${news.getTitle().replaceAll('[^a-zA-Z0-9-]', '-')} + '?id=' + ${news.getId()}}">
+            <div class="card-news">
+                    <div class="card-body-news-mini ">
+                        <div class="title-card-news-custom">
+                            <i class="fa-regular fa-newspaper"></i>
+                            <h5 class="title-card-news-custom-h5" th:text="${news.title}"></h5>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

@@ -45,7 +45,7 @@ public class NewsController {
                                    @RequestParam String text,
                                    @RequestParam String about,
                                    @AuthenticationPrincipal AppUser appUser,
-                                   Model model, @PageableDefault(size = 1) Pageable pageable) throws GeneralSecurityException, IOException {
+                                   Model model, @PageableDefault(size = 1) Pageable pageable) {
 
 
 
@@ -98,7 +98,8 @@ public class NewsController {
 
 
     @GetMapping("/getparticularnews")
-    public String getAllNewsHx(Model model, @RequestParam("newsId") Long newsId){
+    @HxRequest
+    public String getParticularNewsHx(Model model, @RequestParam("newsId") Long newsId){
 
         System.out.println(newsId);
 
@@ -106,6 +107,18 @@ public class NewsController {
 
                 return "fragments/particularnewsfragment";
     }
+
+
+    @GetMapping("/getparticularnews/{newsName}")
+    public String getParticularNews(Model model, @RequestParam("id")  Long newsId){
+
+        System.out.println(newsId);
+
+        model.addAttribute("particularnews", newsEntityService.getParticularNews(newsId));
+
+        return "news/particularNewsPage";
+    }
+
 }
 
 

@@ -9,7 +9,6 @@ body {
     font-size: 16px;
     background-color: #161616;
 }
-
 p{
     color: white;
 }
@@ -181,6 +180,7 @@ a {
     margin-top: -9px;
     margin-bottom: -9px;
     padding-bottom: 3px;
+
 }
 
 .unturned:hover {
@@ -345,12 +345,12 @@ a {
     max-width: 1170px; /* ÃÅ“ÃÂ°ÃÂºÃ‘ÂÃÂ¸ÃÂ¼ÃÂ°ÃÂ»Ã‘Å’ÃÂ½ÃÂ°Ã‘Â Ã‘Ë†ÃÂ¸Ã‘â‚¬ÃÂ¸ÃÂ½ÃÂ° */
     margin: 0 auto; /* ÃÂ¦ÃÂµÃÂ½Ã‘â€šÃ‘â‚¬ÃÂ¸Ã‘â‚¬ÃÂ¾ÃÂ²ÃÂ°ÃÂ½ÃÂ¸ÃÂµ ÃÂ¿ÃÂ¾ ÃÂ³ÃÂ¾Ã‘â‚¬ÃÂ¸ÃÂ·ÃÂ¾ÃÂ½Ã‘â€šÃÂ°ÃÂ»ÃÂ¸ */
     margin-top: 30px;
-    height: 475px;
+    height: 275px;
 }
 
 .carousel-inner img {
     object-fit: cover;
-    height: 475px;
+    height: 275px;
 
 
 }
@@ -464,6 +464,14 @@ a {
     margin: 0 auto;
 }
 
+.row-news {
+    display: flex;
+    max-width: 1170px;
+    margin: 0 auto;
+    flex-wrap:wrap;
+
+}
+
 .col {
     margin: 0 auto;
     height: 380px;
@@ -476,6 +484,44 @@ a {
     transition: all .1s cubic-bezier(0.18, 0.97, 0.5, 1.01);
 }
 
+.col-news {
+    height: 40px;
+    border-bottom: 2px solid #272727;
+    margin-right: 10px;
+    max-width: 223px;
+    opacity: 1;
+}
+
+.col-news:hover {
+    height: 40px;
+    background: linear-gradient(transparent, #272727);
+    border-bottom: 2px solid #CB321A;
+    margin-right: 10px;
+    max-width: 223px;
+    transition: all .3s ease-out;
+    opacity: 1.0;
+}
+.card-body-news-mini{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+
+}
+.title-card-news-custom{
+    display:flex;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 20px;
+    font-weight: 400;
+    margin-left: 5px;
+}
+
+.title-card-news-custom i{
+    margin-right: 5px;
+    color: #CB321A;
+}
 
 .card {
     border: none;
@@ -605,6 +651,17 @@ height: 36px;
 .buybutton:active {
     border: 0;
     background-color: #272727;
+}
+
+.card-news{
+    border: none;
+    border-radius: 0;
+    display: flex;
+    max-height: 100px;
+    margin: 0 auto;
+    margin-top: 10px;
+    background: rgba(255, 255, 255, 0);
+    color: #fff;
 }
 
 .showmorebutton {
@@ -1534,7 +1591,9 @@ height: 36px;
         color: white;
     }
 
-
+    .row-news {
+        display: none;
+    }
 
     .user-login {
         display: flex;
