@@ -41,7 +41,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                         .requestMatchers("/news/submitnews", "/news/addnews", "/admin/**").hasRole("ADMIN")
                         .requestMatchers("/vendor/**", "/file/addfile/**", "/file/updatefile/**","/vendor-page/edit-social").hasAnyRole("VENDOR", "ADMIN")
-                        .requestMatchers("/profile/**").hasAnyRole("USER", "VENDOR", "ADMIN")
+                        .requestMatchers("/profile/**", "/product/comment/**").hasAnyRole("USER", "VENDOR", "ADMIN")
 //                        .requestMatchers("/user-page").hasRole(USER)
 //                        .requestMatchers("/", "/login","/auth", "/public-page").permitAll()
                         .requestMatchers("/**", "/products", "/login","/logout", "/error", "/news/**", "/information/**", "/serverlist","/product/**").permitAll()
@@ -51,7 +51,7 @@ public class WebSecurityConfig {
                 .formLogin(c->c.loginPage("/login").loginProcessingUrl("/authenticate")
                         .usernameParameter("user")
                         .passwordParameter("pass")
-                        .defaultSuccessUrl("/")
+                        .defaultSuccessUrl("/", true)
                 )
                .oauth2Login(oc -> oc.loginPage("/login")
                        .userInfoEndpoint(ui -> ui.oidcUserService(appUserService.oidcLoginHandler()))
@@ -77,6 +77,7 @@ public class WebSecurityConfig {
         };
 
     }
+
 
 
 }

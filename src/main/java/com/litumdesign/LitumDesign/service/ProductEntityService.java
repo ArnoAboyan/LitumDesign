@@ -2,6 +2,7 @@ package com.litumdesign.LitumDesign.service;
 
 import com.litumdesign.LitumDesign.Entity.*;
 import com.litumdesign.LitumDesign.googledrive.GoogleDriveService;
+import com.litumdesign.LitumDesign.repository.CommentProductRepository;
 import com.litumdesign.LitumDesign.repository.ProductEntityRepository;
 import com.litumdesign.LitumDesign.repository.ProductVersionRepository;
 import com.litumdesign.LitumDesign.repository.UserRepository;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,6 +31,7 @@ public class ProductEntityService {
     private final UserRepository userRepository;
     private final ProductVersionRepository productVersionRepository;
     private final GoogleDriveService googleDriveService;
+    private final CommentProductRepository commentProductRepository;
 
 
 
@@ -198,7 +201,11 @@ public class ProductEntityService {
 
     }
 
-
+//    public ProductEntity findProductEntityByIdAndCommentParentIsNull(Long productId) {
+//
+//        return productEntityRepository.findById(productId).orElseThrow(() -> new NullPointerException("Product not find"));
+//
+//    }
 
     public ProductVersionEntity findLastVersionByProductEntity(ProductEntity productEntity) {
         List<ProductVersionEntity> productVersionEntityList = productVersionRepository.findProductVersionEntitiesByProductEntityOrderByVersion(productEntity);
@@ -207,9 +214,9 @@ public class ProductEntityService {
     }
 
 
-    public ProductEntity findByGdFileId(String gdFileId) {
-        return productEntityRepository.findByGdFileId(gdFileId);
-    }
+//    public ProductEntity findByGdFileId(String gdFileId) {
+//        return productEntityRepository.findByGdFileId(gdFileId);
+//    }
 
     public List<ProductEntity> findAll() {
 
@@ -370,6 +377,61 @@ public class ProductEntityService {
         }
 
 
+    }
+@Transactional
+    public Boolean addNewReview(String review, Long productId, UserDetails userDetails) {
+
+        if (userDetails == null) {
+            return false;
+        }
+        try {
+            UserEntity userEntity = userRepository.findById(userDetails.getUsername()).orElseThrow(() -> new NullPointerException("User not found!"));
+            ProductEntity productEntity = productEntityRepository.findById(productId).orElseThrow(() -> new NullPointerException("Product not found!"));
+            CommentProductEntity commentProductEntity = new CommentProductEntity(productEntity, userEntity, review);
+
+            commentProductRepository.save(commentProductEntity);
+
+            return true;
+        }catch (Exception e){
+            log.error("Error while adding new review " + e.getMessage(), e);
+            return false;
+        }
+    }
+
+    @Transactional
+    public Boolean addNewChildReview(String review, Long productId,Long parentId, UserDetails userDetails) {
+
+        try {
+            UserEntity userEntity = userRepository.findById(userDetails.getUsername()).orElseThrow(() -> new NullPointerException("User not found!"));
+            CommentProductEntity commentProductEntity = commentProductRepository.findById(parentId).orElseThrow(() -> new NullPointerException("Parent comment not found!"));
+            ProductEntity productEntity = productEntityRepository.findById(productId).orElseThrow(() -> new NullPointerException("Product not found!"));
+
+//          CREATE CHILD COMMENT
+            CommentProductEntity childComment = new CommentProductEntity();
+            childComment.setProductEntity(productEntity);
+            childComment.setComment(review);
+            childComment.setParent(commentProductEntity);
+            childComment.setUserEntity(userEntity);
+
+            commentProductEntity.getChildren().add(childComment);
+
+            commentProductRepository.save(commentProductEntity);
+
+            return true;
+        }catch (Exception e){
+            log.error("Error while adding new review " + e.getMessage(), e);
+            return false;
+        }
+    }
+@Transactional
+    public void deleteReview(Long reviewId) {
+        commentProductRepository.deleteById(reviewId);
+    }
+
+    public List<CommentProductEntity> findAllByProductEntityIdAndParentIsNull(Long productId) {
+
+//        System.out.println("findAllByProductEntityIdAndParentIsNull _ " + commentProductRepository.findAllByProductEntityIdAndParentIsNull(productId).toString());
+           return commentProductRepository.findAllByProductEntityIdAndParentIsNull(productId);
     }
 }
 
