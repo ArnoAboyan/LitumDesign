@@ -28,7 +28,7 @@ public interface ProductEntityRepository extends JpaRepository<ProductEntity, Lo
 
     Page<ProductEntity> findAllByGameTypeAndCategoriesAndAccess(@Param("GameType") GameType gameType, @Param("Categories") Categories categories, Pageable pageable, @Param("access") Access access);
 //    List<ProductEntity> findAllByAdvertisingTrueAndAccessAndGameType(@Param("access") Access access, @Param("GameType") GameType gameType);
-    ProductEntity findByGdFileId(String fieldId);
+//    ProductEntity findByGdFileId(String fieldId);
 
     @Query("SELECT p from ProductEntity p where " +
     "LOWER(concat(p.title, p.shortInfo)) " +
@@ -50,6 +50,7 @@ public interface ProductEntityRepository extends JpaRepository<ProductEntity, Lo
     List<ProductEntity> findByUploadUserId(@Param("UploadUserId") UserEntity userEntity);
     Page<ProductEntity> findByUploadUserIdNameAndAccess(String name, Pageable pageable, @Param("access") Access access);
     List<ProductEntity> findByUploadUserIdAndCategories(@Param("UploadUserId") UserEntity userEntity, @Param("Categories") Categories categories);
+
 
 }
 

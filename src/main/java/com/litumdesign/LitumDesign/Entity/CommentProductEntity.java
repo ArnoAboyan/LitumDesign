@@ -1,14 +1,16 @@
 package com.litumdesign.LitumDesign.Entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
-import org.springframework.transaction.annotation.Transactional;
+import lombok.*;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @RequiredArgsConstructor
-@Data
+@Getter
+@Setter
 @Table(name = "comment_product")
 public class CommentProductEntity {
 
@@ -29,11 +31,40 @@ public class CommentProductEntity {
     @Column(name = "comment", length = 0)
     String comment;
 
-    public CommentProductEntity(ProductEntity productEntity, UserEntity userEntity, String photoLink) {
-        this.productEntity = productEntity;
-        this.userEntity = userEntity;
-        this.comment = photoLink;
+
+    @Column(name = "created_at")
+    LocalDateTime createdAt;
+    @PrePersist
+    void assignCreatedAt() {
+        this.createdAt = LocalDateTime.now();
     }
 
+
+    @ManyToOne
+    @JoinColumn(name = "parent_id")
+    private CommentProductEntity parent;
+
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<CommentProductEntity> children = new ArrayList<>();
+
+
+    public CommentProductEntity(ProductEntity productEntity, UserEntity userEntity, String comment) {
+        this.productEntity = productEntity;
+        this.userEntity = userEntity;
+        this.comment = comment;
+    }
+
+    @Override
+    public String toString() {
+        return "CommentProductEntity{" +
+                "id=" + id +
+                ", productEntity=" + productEntity +
+                ", userEntity=" + userEntity +
+                ", comment='" + comment + '\'' +
+                ", createdAt=" + createdAt +
+                ", parent=" + (parent != null ? parent.getId() : null) +
+                ", children=" + children +
+                '}';
+    }
 
 }

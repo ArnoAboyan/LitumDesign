@@ -20,7 +20,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -111,21 +110,21 @@ public class FileController {
         }
     }
 
-    @GetMapping("/add-photo-link-input")
-    @HxRequest
-    public String addOneMorePhotoLinkInput(Model model) {
-
-        AtomicInteger photoLinkCounter = (AtomicInteger) model.getAttribute("photoLinkCounter");
-
-        if (Objects.requireNonNull(photoLinkCounter).get() <= 100) {
-            model.addAttribute("photolinkcounter", photoLinkCounter);
-            photoLinkCounter.incrementAndGet();
-            return "fragments/photoInputfragment";
-        } else {
-            model.addAttribute("toast", Toast.success("Success", "you can add no more than 15 photos"));
-            return "fragments/toasts/errormessagefragment";
-        }
-    }
+//    @GetMapping("/add-photo-link-input")
+//    @HxRequest
+//    public String addOneMorePhotoLinkInput(Model model) {
+//
+//        AtomicInteger photoLinkCounter = (AtomicInteger) model.getAttribute("photoLinkCounter");
+//
+//        if (Objects.requireNonNull(photoLinkCounter).get() <= 100) {
+//            model.addAttribute("photolinkcounter", photoLinkCounter);
+//            photoLinkCounter.incrementAndGet();
+//            return "fragments/photoInputfragment";
+//        } else {
+//            model.addAttribute("toast", Toast.success("Success", "you can add no more than 15 photos"));
+//            return "fragments/toasts/errormessagefragment";
+//        }
+//    }
 
     @ResponseBody
     @DeleteMapping("/delete-photo-link-input")
@@ -262,7 +261,7 @@ public class FileController {
             ProductEntity productEntityUpdated = productEntityService.findProductEntityById(productEntityId);
 
             model.addAttribute("actualProductEntity", productEntityUpdated);
-            model.addAttribute("message", "Images has been upload success!");
+            model.addAttribute("message", "Images has been upload successfully!");
             System.out.println("productEntity -> " + productEntityUpdated);
         } catch (Exception e){
         log.error("Error while adding product images" + e);
@@ -284,7 +283,7 @@ public class FileController {
             ProductEntity productEntity = productEntityService.findProductEntityById(productEntityId);
             productEntityService.uploadMainProductPhotos(productEntity, titleImageLink);
             model.addAttribute("actualProductEntity", productEntity);
-            model.addAttribute("message", "Images has been upload success!");
+            model.addAttribute("message", "Images has been upload successfully!");
             log.info("TitleImageThumbnails: " + productEntity.getTitleImageLink());
 
         } catch (Exception e){

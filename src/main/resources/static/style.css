@@ -648,6 +648,10 @@ height: 36px;
 
 }
 
+.childComment{
+    margin-left: 3%;
+}
+
 .buybutton:active {
     border: 0;
     background-color: #272727;
@@ -1115,7 +1119,7 @@ height: 36px;
     text-decoration: none;
     background-color: #27272700;
     color: #F1F1F1;
-    width: 300px;
+    max-width: 300px;
     height: 40px;
     font-size: 20px;
 }

@@ -1,0 +1,174 @@
+<div id="all-product-navigation">
+    <div class="container main-product-navigation">
+        <div class="d-flex flex-column flex-md-row">
+            <a data-bs-toggle="collapse" href="#Description" role="button"
+               aria-expanded="false">
+                Description
+            </a>
+            <a data-bs-toggle="collapse" href="#License" role="button"
+               aria-expanded="false">
+                License
+            </a>
+            <a data-bs-toggle="collapse" href="#Version" role="button"
+               aria-expanded="false">
+                Version
+            </a>
+            <!--            <a data-bs-toggle="collapse" href="#Updates" role="button"-->
+            <!--               aria-expanded="false">-->
+            <!--                Updates-->
+            <!--            </a>-->
+            <a data-bs-toggle="collapse" href="#Reviews" role="button"
+               aria-expanded="true">
+                Reviews
+            </a>
+        </div>
+    </div>
+
+    <!-- DIVIDE LINE -->
+    <div class="container dividingline ">
+    </div>
+
+    <div id="detailsGroup" class="details-container">
+        <div class="collapse " id="Description" data-bs-parent="#detailsGroup">
+            <div class="product-details text-break active">
+                <p class="" th:utext="${productdetails.getDescription()}"></p>
+            </div>
+        </div>
+        <div class="collapse" id="License" data-bs-parent="#detailsGroup">
+            <div class="product-details text-break">
+                <p th:text="${productdetails.getLicense()}"></p>
+            </div>
+        </div>
+        <!--        <div class="collapse" id="Updates" data-bs-parent="#detailsGroup">-->
+        <!--            <div class="card card-body">-->
+        <!--                in progress-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <div class="collapse show" id="Reviews" data-bs-parent="#detailsGroup">
+
+            <!--            ADD MAIN   COMMENT-->
+            <div class="add-new-comment" data-sec-authorize="!isAuthenticated()">
+                <h5>Write a review &nbsp;<a th:href="@{/login}" style="color: #CB321A;">Login</a></h5>
+            </div>
+            <div class="add-new-comment" data-sec-authorize="isAuthenticated()">
+                <h5> Add review:</h5>
+                <form hx-post="/product/comment/add-new-comment"
+                      hx-target="#all-product-navigation"
+                      hx-swap="outerHTML">
+                    <div>
+                <textarea class="form-control comment-textarea" name="review">
+                </textarea>
+                    </div>
+                    <input type="hidden" name="productid" th:value="${productdetails.getId()}">
+                    <img class="htmx-indicator" src="/image/spinner-loading.svg">
+                    <button type="submit" class="submitfile-submit-button">Add review</button>
+                </form>
+            </div>
+            <!--          / ADD MAIN   COMMENT-->
+
+            <div class="product-details text-break ">
+                <th:block th:each="comment : ${comments}">
+                        <span class="name-date-space">
+                        <span class="d-flex"><i class="fa-solid fa-feather" style="color: #cb321a;"></i>&nbsp;
+                        <h5 class="comment-user-name" th:text="${comment.getUserEntity().getName()}"></h5>
+                        </span>
+                        <p style="color: #595959;"
+                           th:text="${#temporals.format(comment.getCreatedAt(), 'dd-MMM-yyyy')}"></p>
+                            </span>
+                    <p th:text="${comment.getComment()}"></p>
+                    <span data-sec-authorize="isAuthenticated()" class="comment-action">
+                        <form hx-post="/product/comment/add-child-comment"
+                              hx-target="#all-product-navigation"
+                              hx-swap="outerHTML">
+                            <input type="hidden" name="productid" th:value="${productdetails.getId()}">
+                            <input type="hidden" name="parentId" th:value="${comment.getId()}">
+                            <img class="htmx-indicator" src="/image/spinner-loading.svg">
+                            <button class="comment-reply-button" hx-get="/product/comment/reply"
+                                    hx-trigger="click"
+                                    hx-target="closest button"
+                                    hx-swap="outerHTML"
+                            >
+                            <i class="fa-solid fa-turn-up fa-rotate-90" style="color: #ffffff;"></i>&nbsp;Reply
+                            </button>
+                        </form>
+                            <div class="delete-button-container">
+                        <button class="delete-button"
+                                th:if="${#authorization.expression('isAuthenticated()')} and ${comment.getUserEntity().getLogin()} == ${#authentication.principal.username}"
+                                hx-delete="/product/comment/delete-comment"
+                                th:attr="hx-vals='{&quot;reviewId&quot;: &quot;'+${comment.id}+'&quot;, &quot;productId&quot;: &quot;'+${productdetails.getId()}+'&quot;}'"
+                                hx-confirm="Are you sure you wish to delete review?"
+                                hx-target="#all-product-navigation"
+                                hx-trigger="click"
+                                hx-swap="outerHTML"
+                        ><i class="fa-solid fa-eraser" style="color: #ffffff;"></i>&nbsp;DELETE
+                            <img class="htmx-indicator" src="/image/spinner-loading.svg" alt="spinner">
+                        </button>
+
+                            </div>
+                        </span>
+                    <hr style="color:#cb321a;">
+                    <div th:unless="${#lists.isEmpty(comment.getChildren())}"
+                         th:fragment="f_call(comment)">
+                        <div class="childComment" th:each="child : ${comment.getChildren()}">
+                            <i class="fa-solid fa-turn-up fa-rotate-90" style="color: #cb321a;"></i>
+                            <span class="name-date-space">
+                                <h6 class="comment-user-name"
+                                    th:text="${child.getUserEntity().getName()} + ' -> ' + ${child.getParent().getUserEntity().getName()} ">
+                                    <i class="fa-solid fa-feather" style="color: #cb321a;"></i></h6>
+                                <p style="color: #595959;"
+                                   th:text="${#temporals.format(child.getCreatedAt(), 'dd-MMM-yyyy')}"></p>
+                                    </span>
+                            <p class="reply-parent-comment-text" th:text="${child.getParent().comment}"></p>
+                            <p th:text="${child.getComment()}"></p>
+                            <span data-sec-authorize="isAuthenticated()" class="comment-action">
+                                    <form hx-post="/product/comment/add-child-comment"
+                                          hx-target="#all-product-navigation"
+                                          hx-swap="outerHTML">
+                                    <input type="hidden" name="productid" th:value="${productdetails.getId()}">
+                                    <input type="hidden" name="parentId" th:value="${child.getId()}">
+                                    <img class="htmx-indicator" src="/image/spinner-loading.svg">
+                                    <button class="comment-reply-button" hx-get="/product/comment/reply"
+                                            hx-trigger="click"
+                                            hx-target="closest button"
+                                            hx-swap="outerHTML"
+                                    >
+                                      <i class="fa-solid fa-turn-up fa-rotate-90" style="color: #ffffff;"></i>&nbsp;Reply
+                                    </button>
+                                </form>
+                                    <div class="delete-button-container">
+                                    <button class="delete-button"
+                                            th:if="${#authorization.expression('isAuthenticated()')} and ${child.getUserEntity().getLogin()} == ${#authentication.principal.username}"
+                                            hx-delete="/product/comment/delete-comment"
+                                            th:attr="hx-vals='{&quot;reviewId&quot;: &quot;'+${child.id}+'&quot;, &quot;productId&quot;: &quot;'+${productdetails.getId()}+'&quot;}'"
+                                            hx-confirm="Are you sure you wish to delete review?"
+                                            hx-target="#all-product-navigation"
+                                            hx-trigger="click"
+                                            hx-swap="outerHTML"
+                                    ><i class="fa-solid fa-eraser" style="color: #ffffff;"></i>&nbsp;DELETE
+                                    <img class="htmx-indicator" src="/image/spinner-loading.svg" alt="spinner">
+                                </button>
+                                        </div>
+                                   </span>
+                            <hr style="color:#cb321a;">
+                            <div th:replace="~{this::f_call(${child})}"></div>
+                        </div>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+        <div class="collapse" id="Version" data-bs-parent="#detailsGroup">
+            <div class="product-details text-break">
+                <div th:each="version : ${productdetails.getProductVersion()}">
+                    <p th:text="'V.' + ${version.getVersion()} + ' ' + ${version.getVersionComment()}"></p>
+                    <p class="version-date"
+                       th:text="${#temporals.format(version.getCreatedAt(), 'dd-MMM-yyyy')}"></p>
+
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${message}" th:insert="~{fragments/toasts/success :: firstDiv}"></div>
+    <div th:if="${error}" th:insert="~{fragments/toasts/error :: firstDiv}"></div>
+</div>
+

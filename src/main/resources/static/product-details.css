@@ -5,8 +5,6 @@
     max-width: 1170px;
     padding-bottom: 10px;
     height: 280px;
-    /*border-bottom:3px solid #CB321A;*/
-
 }
 
 
@@ -18,7 +16,7 @@
 }
 .owl-carousel .owl-nav{
     overflow: hidden;
-    height: 0px;
+    height: 0;
 }
 
 .owl-carousel .owl-stage {
@@ -28,9 +26,7 @@
     object-fit: cover;
     height: 280px; !important;
 }
-/*.owl-carousel .item {*/
-/*    text-align: center;*/
-/*}*/
+
 
 
 
@@ -54,11 +50,11 @@
     left: -33px;
 }
 .owl-carousel .next-slide{
-    background: url(image/nav-icon.png) no-repeat scroll -24px 0px;
+    background: url(image/nav-icon.png) no-repeat scroll -24px 0;
     right: -33px;
 }
 .owl-carousel .prev-slide:hover{
-    background-position: 0px -53px;
+    background-position: 0 -53px;
 }
 .owl-carousel .next-slide:hover{
     background-position: -24px -53px;
@@ -242,10 +238,7 @@ span.img-text {
     max-width: 1170px;
 }
 
-.product-details img{
-    max-width: 95%;
-    object-fit: cover;
-}
+
 
 .product-details-count-downloads{
     font-size: 15px;
@@ -269,6 +262,89 @@ span.img-text {
     font-size: 12px;
     font-weight: 100;
     color: white;
+}
+
+.product-details{
+    padding: 10px;
+}
+/*.product-details img{*/
+/*    max-width: 95%;*/
+/*    object-fit: cover;*/
+/*}*/
+.name-date-space{
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+}
+
+.add-new-comment{
+    margin: 10px auto 20px;
+}
+.reply-parent-comment-text{
+    color: #a8a8a8;
+    max-width: 90%;
+    background-color: #272727;
+    font-size: 16px;
+}
+.comment-reply-button{
+    background-color: transparent;
+    border: 1px solid rgba(203, 50, 26, 0);
+    color: white;
+
+}
+
+.comment-reply-button:hover{
+    border: 1px solid rgba(203, 50, 26, 0);
+    border-bottom: 1px solid #CB321A;
+}
+.comment-textarea {
+    margin-top: 10px;
+    border-radius: 0;
+    border: 2px solid #272727;
+    margin-bottom: 10px;
+}
+
+.comment-textarea:focus {
+    outline: none;
+    box-shadow: none;
+    border: 3px solid #CB321A;
+
+}
+.comment-user-name{
+    color:#c6c6c6;
+}
+.comment-action{
+    justify-content:  space-between;
+    align-items: center;
+}
+
+.delete-button-container{
+    display: flex;
+justify-content: end;
+}
+
+
+.delete-button {
+    border-radius: 0;
+    display: flex;
+    position: relative;
+    max-width: 100px;
+    height: 36px;
+    background-color: transparent;
+    border: 2px solid #00000000;
+    border-bottom: 2px solid #272727;
+    color: white;
+    justify-content: center;
+    align-items: center;
+}
+
+.delete-button:hover {
+    border-bottom: 2px solid #CB321A;
+}
+
+.delete-button:active {
+    border: 0;
+    background-color: #272727;
 }
 
 

@@ -19,7 +19,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product-LitumDesign</title>
-    <meta name="description" content="Explore detailed information about our product, including Plugins, Maps, Prefabs, Monuments, Tools, and Mods tailored for Rust and Unturned games at LitumDesign. Download for free or buy premium content.">
+    <meta name="description"
+          content="Explore detailed information about our product, including Plugins, Maps, Prefabs, Monuments, Tools, and Mods tailored for Rust and Unturned games at LitumDesign. Download for free or buy premium content.">
     <link rel="icon" th:href="@{/image/favicon.ico}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,7 +53,8 @@
 </head>
 
 
-<body id="searchresult" th:attr="hx-headers='{&quot;'+${_csrf.getHeaderName()}+'&quot;: &quot;'+${_csrf.getToken()}+'&quot;}'">
+<body id="searchresult"
+      th:attr="hx-headers='{&quot;'+${_csrf.getHeaderName()}+'&quot;: &quot;'+${_csrf.getToken()}+'&quot;}'">
 
 
 <!--HEADER-->
@@ -70,8 +72,10 @@
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen></iframe>
             </div>
-            <div class="item" th:each="detailsphotos, iterStat : ${productdetails.photoLink}" data-bs-toggle="modal" th:data-bs-target="'#modalBigImage' + ${iterStat.index}"  >
-                <img  th:src="'https://drive.google.com/uc?id='+${detailsphotos.getPhotoLink()} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}" th:alt="${productdetails.getGameType()} + ${productdetails.getTitle()} + ${productdetails.getCategories()}"
+            <div class="item" th:each="detailsphotos, iterStat : ${productdetails.photoLink}" data-bs-toggle="modal"
+                 th:data-bs-target="'#modalBigImage' + ${iterStat.index}">
+                <img th:src="'https://drive.google.com/uc?id='+${detailsphotos.getPhotoLink()} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}"
+                     th:alt="${productdetails.getGameType()} + ${productdetails.getTitle()} + ${productdetails.getCategories()}"
                      th:title="${productdetails.getTitle()}"
                      decoding="async"
                      th:href="'https://drive.google.com/uc?id='+${detailsphotos.getPhotoLink()}"
@@ -84,17 +88,18 @@
 </div>
 
 
-
-
 <!--BIG IMAGE MODAL-->
-<div class="modal fade" th:each="detailsphotos, iterStat : ${productdetails.photoLink}" th:id="'modalBigImage' + ${iterStat.index}"  tabindex="-1" aria-labelledby="modalBigImage" aria-hidden="true">
+<div class="modal fade" th:each="detailsphotos, iterStat : ${productdetails.photoLink}"
+     th:id="'modalBigImage' + ${iterStat.index}" tabindex="-1" aria-labelledby="modalBigImage" aria-hidden="true">
     <div class="modal-dialog modal-dialog-custom modal-xl">
         <div class="modal-content">
-<!--            <div class="modal-header">-->
-<!--            </div>-->
+            <!--            <div class="modal-header">-->
+            <!--            </div>-->
             <div class="big-image-modal-body">
-                <button type="button" class="btn-close btn-close-white big-image-btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                <img th:src="'https://drive.google.com/uc?id='+${detailsphotos.getPhotoLink()} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}" th:alt="${productdetails.getGameType()} + ${productdetails.getTitle()} + ${productdetails.getCategories()}"
+                <button type="button" class="btn-close btn-close-white big-image-btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                <img th:src="'https://drive.google.com/uc?id='+${detailsphotos.getPhotoLink()} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}"
+                     th:alt="${productdetails.getGameType()} + ${productdetails.getTitle()} + ${productdetails.getCategories()}"
                      th:title="${productdetails.getTitle()}"
                      decoding="async"
                      th:href="'https://drive.google.com/uc?id='+${detailsphotos.getPhotoLink()}"/>
@@ -122,10 +127,15 @@
            th:text="${#temporals.format(productdetails.getCreatedAt(), 'dd-MMM-yyyy')}"></a>
         <div class="product-header-category-info">
             <div>
-                <a th:href="@{'/'+ ${#strings.toLowerCase(productdetails.getGameType())}}" th:text="${productdetails.getGameType()}"></a><a>&nbsp;|&nbsp;</a><a th:href="@{'/' + ${#strings.toLowerCase(productdetails.getGameType())} + '/' + ${productdetails.getCategories()}}" th:text="${productdetails.getCategories()}"></a>
+                <a th:href="@{'/'+ ${#strings.toLowerCase(productdetails.getGameType())}}"
+                   th:text="${productdetails.getGameType()}"></a><a>&nbsp;|&nbsp;</a><a
+                    th:href="@{'/' + ${#strings.toLowerCase(productdetails.getGameType())} + '/' + ${productdetails.getCategories()}}"
+                    th:text="${productdetails.getCategories()}"></a>
                 <div class="product-header-author ">
-                    <p class="card-by text-truncate">By: <a th:href="@{/vendor-page/{vendorName}(vendorName=${productdetails.uploadUserId.getName()})}" class="vendorname"
-                                                            th:text="${productdetails.uploadUserId.getName()}"></a></p>
+                    <p class="card-by text-truncate">By: <a
+                            th:href="@{/vendor-page/{vendorName}(vendorName=${productdetails.uploadUserId.getName()})}"
+                            class="vendorname"
+                            th:text="${productdetails.uploadUserId.getName()}"></a></p>
                 </div>
                 <div class="product-header-price ">
                     <h2 th:if="${productdetails.getPrice() == 0}">FREE</h2>
@@ -135,7 +145,8 @@
             <div>
                 <div class="product-header-downloadfile-container ">
                     <div class="product-header-bybutton ">
-                        <a th:href="@{'/file/download-file/' + ${productdetails.getId()}}"><i class="fa-solid fa-cloud-arrow-down" style="color: #ffffff;"></i> &nbsp; Download</a>
+                        <a th:href="@{'/file/download-file/' + ${productdetails.getId()}}"><i
+                                class="fa-solid fa-cloud-arrow-down" style="color: #ffffff;"></i> &nbsp; Download</a>
                     </div>
                 </div>
             </div>
@@ -147,74 +158,191 @@
         </div>
     </div>
 
-
-
-
-    <div class="container main-product-navigation">
-        <div class="d-flex flex-column flex-md-row">
-            <a data-bs-toggle="collapse" href="#Description" role="button"
-               aria-expanded="true">
-                Description
-            </a>
-            <a data-bs-toggle="collapse" href="#License" role="button"
-               aria-expanded="false">
-                License
-            </a>
-            <a data-bs-toggle="collapse" href="#Version" role="button"
-               aria-expanded="false">
-                Version
-            </a>
-            <a data-bs-toggle="collapse" href="#Updates" role="button"
-               aria-expanded="false">
-                Updates
-            </a>
-            <a data-bs-toggle="collapse" href="#Comments" role="button"
-               aria-expanded="false">
-                Comments
-            </a>
-        </div>
-    </div>
-
-    <!-- DIVIDE LINE -->
-    <div class="container dividingline ">
-    </div>
-
-    <div id="detailsGroup" class="details-container">
-        <div class="collapse show" id="Description" data-bs-parent="#detailsGroup">
-            <div class="product-details text-break active">
-                <p class="" th:utext="${productdetails.getDescription()}"></p>
+    <div id="all-product-navigation">
+        <div class="container main-product-navigation">
+            <div class="d-flex flex-column flex-md-row">
+                <a data-bs-toggle="collapse" href="#Description" role="button"
+                   aria-expanded="true">
+                    Description
+                </a>
+                <a data-bs-toggle="collapse" href="#License" role="button"
+                   aria-expanded="false">
+                    License
+                </a>
+                <a data-bs-toggle="collapse" href="#Version" role="button"
+                   aria-expanded="false">
+                    Version
+                </a>
+                <!--            <a data-bs-toggle="collapse" href="#Updates" role="button"-->
+                <!--               aria-expanded="false">-->
+                <!--                Updates-->
+                <!--            </a>-->
+                <a data-bs-toggle="collapse" href="#Reviews" role="button"
+                   aria-expanded="false">
+                    Reviews
+                </a>
             </div>
         </div>
-        <div class="collapse" id="License" data-bs-parent="#detailsGroup">
-            <div class="card card-body">
-                <p th:text="${productdetails.getLicense()}"></p>
-            </div>
+
+        <!-- DIVIDE LINE -->
+        <div class="container dividingline ">
         </div>
-        <div class="collapse" id="Updates" data-bs-parent="#detailsGroup">
-            <div class="card card-body">
-                in progress
+
+        <div id="detailsGroup" class="details-container">
+            <div class="collapse show" id="Description" data-bs-parent="#detailsGroup">
+                <div class="product-details text-break active">
+                    <p class="" th:utext="${productdetails.getDescription()}"></p>
+                </div>
             </div>
-        </div>
-        <div class="collapse" id="Comments" data-bs-parent="#detailsGroup">
-            <div class="card card-body">
-                in progress
+            <div class="collapse" id="License" data-bs-parent="#detailsGroup">
+                <div class="product-details text-break">
+                    <p th:text="${productdetails.getLicense()}"></p>
+                </div>
             </div>
-        </div>
-        <div class="collapse" id="Version" data-bs-parent="#detailsGroup">
-            <div class="card card-body">
-                <div th:each="version : ${productdetails.getProductVersion()}">
-                    <p th:text="'V.' + ${version.getVersion()} + ' ' + ${version.getVersionComment()}"></p>
-                    <p class="version-date" th:text="${#temporals.format(version.getCreatedAt(), 'dd-MMM-yyyy')}"></p>
-                    <hr>
+            <!--        <div class="collapse" id="Updates" data-bs-parent="#detailsGroup">-->
+            <!--            <div class="card card-body">-->
+            <!--                in progress-->
+            <!--            </div>-->
+            <!--        </div>-->
+            <div class="collapse" id="Reviews" data-bs-parent="#detailsGroup">
+
+                <!--            ADD MAIN   COMMENT-->
+                <div class="add-new-comment" data-sec-authorize="!isAuthenticated()">
+                    <h5>Write a review &nbsp;<a th:href="@{/login}" style="color: #CB321A;">Login</a></h5>
+                </div>
+                <div class="add-new-comment" data-sec-authorize="isAuthenticated()">
+                    <h5> Add review:</h5>
+                    <form hx-post="/product/comment/add-new-comment"
+                          hx-target="#all-product-navigation"
+                          hx-swap="outerHTML">
+                        <div>
+                <textarea class="form-control comment-textarea" name="review">
+                </textarea>
+                        </div>
+                        <input type="hidden" name="productid" th:value="${productdetails.getId()}">
+                        <img class="htmx-indicator" src="/image/spinner-loading.svg">
+                        <button type="submit" class="submitfile-submit-button">Add review</button>
+                    </form>
+                </div>
+                <!--          / ADD MAIN   COMMENT-->
+
+                <div class="product-details text-break ">
+                    <th:block th:each="comment : ${comments}">
+                        <span class="name-date-space">
+                        <span class="d-flex"><i class="fa-solid fa-feather" style="color: #cb321a;"></i>&nbsp;
+                        <h5 class="comment-user-name" th:text="${comment.getUserEntity().getName()}"></h5>
+                        </span>
+                        <p style="color: #595959;"
+                           th:text="${#temporals.format(comment.getCreatedAt(), 'dd-MMM-yyyy')}"></p>
+                            </span>
+                        <p th:text="${comment.getComment()}"></p>
+                        <span data-sec-authorize="isAuthenticated()" class="comment-action">
+                        <form hx-post="/product/comment/add-child-comment"
+                              hx-target="#all-product-navigation"
+                              hx-swap="outerHTML">
+                            <input type="hidden" name="productid" th:value="${productdetails.getId()}">
+                            <input type="hidden" name="parentId" th:value="${comment.getId()}">
+                            <img class="htmx-indicator" src="/image/spinner-loading.svg">
+                            <button class="comment-reply-button" hx-get="/product/comment/reply"
+                                    hx-trigger="click"
+                                    hx-target="closest button"
+                                    hx-swap="outerHTML"
+                            >
+                            <i class="fa-solid fa-turn-up fa-rotate-90" style="color: #ffffff;"></i>&nbsp;Reply
+                            </button>
+                        </form>
+                            <div class="delete-button-container">
+                        <button class="delete-button"
+                                th:if="${#authorization.expression('isAuthenticated()')} and ${comment.getUserEntity().getLogin()} == ${#authentication.principal.username}"
+                                hx-delete="/product/comment/delete-comment"
+                                th:attr="hx-vals='{&quot;reviewId&quot;: &quot;'+${comment.id}+'&quot;, &quot;productId&quot;: &quot;'+${productdetails.getId()}+'&quot;}'"
+                                hx-confirm="Are you sure you wish to delete review?"
+                                hx-target="#all-product-navigation"
+                                hx-trigger="click"
+                                hx-swap="outerHTML"
+                        ><i class="fa-solid fa-eraser" style="color: #ffffff;"></i>&nbsp;DELETE
+                            <img class="htmx-indicator" src="/image/spinner-loading.svg" alt="spinner">
+                        </button>
+
+                            </div>
+                        </span>
+                        <hr style="color:#cb321a;">
+                        <div th:unless="${#lists.isEmpty(comment.getChildren())}"
+                             th:fragment="f_call(comment)">
+                            <div class="childComment" th:each="child : ${comment.getChildren()}">
+                                <i class="fa-solid fa-turn-up fa-rotate-90" style="color: #cb321a;"></i>
+                                <span class="name-date-space">
+                                <h6 class="comment-user-name"
+                                    th:text="${child.getUserEntity().getName()} + ' -> ' + ${child.getParent().getUserEntity().getName()} ">
+                                    <i class="fa-solid fa-feather" style="color: #cb321a;"></i></h6>
+                                <p style="color: #595959;"
+                                   th:text="${#temporals.format(child.getCreatedAt(), 'dd-MMM-yyyy')}"></p>
+                                    </span>
+                                <p class="reply-parent-comment-text" th:text="${child.getParent().comment}"></p>
+                                <p th:text="${child.getComment()}"></p>
+                                <span data-sec-authorize="isAuthenticated()" class="comment-action">
+                                    <form hx-post="/product/comment/add-child-comment"
+                                          hx-target="#all-product-navigation"
+                                          hx-swap="outerHTML">
+                                    <input type="hidden" name="productid" th:value="${productdetails.getId()}">
+                                    <input type="hidden" name="parentId" th:value="${child.getId()}">
+                                    <img class="htmx-indicator" src="/image/spinner-loading.svg">
+                                    <button class="comment-reply-button" hx-get="/product/comment/reply"
+                                            hx-trigger="click"
+                                            hx-target="closest button"
+                                            hx-swap="outerHTML"
+                                    >
+                                      <i class="fa-solid fa-turn-up fa-rotate-90" style="color: #ffffff;"></i>&nbsp;Reply
+                                    </button>
+                                </form>
+                                    <div class="delete-button-container">
+                                    <button class="delete-button"
+                                            th:if="${#authorization.expression('isAuthenticated()')} and ${child.getUserEntity().getLogin()} == ${#authentication.principal.username}"
+                                            hx-delete="/product/comment/delete-comment"
+                                            th:attr="hx-vals='{&quot;reviewId&quot;: &quot;'+${child.id}+'&quot;, &quot;productId&quot;: &quot;'+${productdetails.getId()}+'&quot;}'"
+                                            hx-confirm="Are you sure you wish to delete review?"
+                                            hx-target="#all-product-navigation"
+                                            hx-trigger="click"
+                                            hx-swap="outerHTML"
+                                    ><i class="fa-solid fa-eraser" style="color: #ffffff;"></i>&nbsp;DELETE
+                                    <img class="htmx-indicator" src="/image/spinner-loading.svg" alt="spinner">
+                                </button>
+                                        </div>
+                                   </span>
+                                <hr style="color:#cb321a;">
+                                <div th:replace="~{this::f_call(${child})}"></div>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+            <div class="collapse" id="Version" data-bs-parent="#detailsGroup">
+                <div class="product-details text-break">
+                    <div th:each="version : ${productdetails.getProductVersion()}">
+                        <p th:text="'V.' + ${version.getVersion()} + ' ' + ${version.getVersionComment()}"></p>
+                        <p class="version-date"
+                           th:text="${#temporals.format(version.getCreatedAt(), 'dd-MMM-yyyy')}"></p>
+
+                        <hr>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <hr>
-    <!--    <div class="container main-product-description">-->
 
-    <!--    </div>-->
 </section>
+
+<!--<th:block th:each="comment : ${comments}">-->
+<!--    <p th:text="${comment.getComment()}">comment</p>-->
+<!--    <div th:unless="${#lists.isEmpty(comment.getChildren())}"-->
+<!--         th:fragment="f_call(comment)">-->
+<!--        <div class="childComment" th:each="child : ${comment.getChildren()}">-->
+<!--            <p th:text="${child.getComment()}">child comment</p>-->
+<!--            <div th:replace="this::f_call(${child})"></div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</th:block>-->
 
 
 <div id="product-info"></div>
@@ -250,9 +378,6 @@
     });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-
-
-
 
 
 </body>
