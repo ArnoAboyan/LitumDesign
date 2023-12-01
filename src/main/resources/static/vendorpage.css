@@ -14,22 +14,51 @@
 
 .vendor-page-banner-image{
     height: 80%;
-    max-width: 100%;
+    width: 100%;
     display: flex;
     position: relative;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     margin-top: -50px;
+    object-fit: cover;
 
 }
+
+
+/*.vendor-page-banner-image{*/
+/*    height: 80%;*/
+/*    max-width: 100%;*/
+/*    display: flex;*/
+/*    position: relative;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    overflow: hidden;*/
+/*    margin-top: -50px;*/
+
+/*}*/
 
 
 .vendor-page-banner-image img{
     max-width: 100%;
     height: auto;
-    object-fit: cover;
 }
+.edit-banner-button{
+    display: flex;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    font-size: 20px;
+    background-color: transparent;
+    border: 0 solid #cb321a00;
+}
+
+.edit-banner-button:hover{
+    background-color: transparent;
+    border: 0 solid #cb321a00;
+    border-bottom: 1px solid #cb321a;
+}
+
 
 .vendor-page-avatar .rounded-circle{
     position: absolute;
@@ -39,6 +68,7 @@
     left: 10px;
     border-radius: 50px;
     object-fit:cover;
+    cursor: pointer;
 }
 
 

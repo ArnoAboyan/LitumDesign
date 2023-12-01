@@ -58,7 +58,22 @@
 <section id="hxupdateform">
     <div class="vendor-header-container ">
         <div class="vendor-page-banner-image ">
-            <img src="/image/banner.jpg" alt="banner image">
+            <button class="edit-banner-button" data-bs-toggle="modal" data-bs-target="#bannermodal">
+                <i class="fa-solid fa-brush" style="color: #ffffff;"></i>
+            </button>
+            <div th:if="${vendor.getBanner() == null}">
+                <img src="/image/banner.jpg" alt="banner image">
+            </div>
+            <div th:if="${vendor.getBanner() != null}">
+                <img th:src="'https://drive.google.com/uc?id='+${vendor.getBanner()} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}" alt="Banner"
+                     title="Banner image"
+                     decoding="async"
+                     th:href="'https://drive.google.com/uc?id='+${vendor.getBanner()}"
+                     th:attr="srcset='https://drive.google.com/thumbnail?authuser=0&amp;sz=w640&amp;id=' + ${vendor.getBanner()} + '&timestamp=' +  ${#dates.format(#dates.createNow(),'YYYY/MM/dd' + 'HH:mm')} + ' 640w, ' +
+            'https://drive.google.com/thumbnail?authuser=0&amp;sz=w1920&amp;id=' + ${vendor.getBanner()} + '&timestamp=' +  ${#dates.format(#dates.createNow(),'YYYY/MM/dd' + 'HH:mm')} + ' 1920w'"
+                     sizes="(max-width: 600px) 640px, 1920px"
+                />
+            </div>
         </div>
         <div class="vendor-page-avatar" data-bs-toggle="modal" data-bs-target="#avatarmodal">
             <img class="rounded-circle" th:src="'https://drive.google.com/uc?id='+${vendor.getImageUrl()} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}" alt="Avatar"
@@ -206,6 +221,39 @@
         </div>
     </div>
 
+    <!--    BANNER MODAL-->
+    <div class="modal fade" id="bannermodal" tabindex="-1" aria-labelledby="bannerLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content custom-modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title modal-custom-title" id="bannerModalLabel">Change banner</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <form hx-post="/vendor-page/edit-banner"
+                      hx-target="#hxupdateform"
+                      hx-swap="outerHTML"
+                      hx-encoding='multipart/form-data'
+                >
+                    <div>
+                        <img class="htmx-indicator" src="/image/spinner-loading.svg" alt="spinner"/>
+                    </div>
+                    <div class="modal-body">
+                        <p>Recommended size 1920x1080</p>
+                        <div class="add-image-button">
+                            <input type="file" class="form-control" accept="image/*" id="uploadBanner" name="uploadBanner">
+                        </div>
+                        <input type="hidden" name="vendorName" th:value="${vendor.getName()}">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn custom-close-button" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn custom-submit-button" data-bs-dismiss="modal">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--/BANNER MODAL-->
 
     <div class="vendor-action-panel-container ">
         <div class="container text-center">

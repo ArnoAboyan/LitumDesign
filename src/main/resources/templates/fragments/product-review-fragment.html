@@ -18,8 +18,7 @@
             <!--                Updates-->
             <!--            </a>-->
             <a data-bs-toggle="collapse" href="#Reviews" role="button"
-               aria-expanded="true">
-                Reviews
+               aria-expanded="true" th:text="Reviews + ' ' + ${productdetails.getComment().size()} ">
             </a>
         </div>
     </div>

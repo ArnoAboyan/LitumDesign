@@ -131,6 +131,33 @@ public class VendorPageController {
     }
 
 
+    @PostMapping("/edit-banner")
+    @HxRequest
+    public String editBannerLinks(
+            @RequestParam(value = "uploadBanner") MultipartFile banner,
+            @RequestParam String vendorName,
+            Model model,
+            @AuthenticationPrincipal UserDetails userDetails){
+
+        UserEntity userEntity = userEntityService.getUserById(userDetails.getUsername());
+
+        try{
+            if (vendorName.equals(userEntity.getName())) {
+
+                 userEntityService.uploadUserBanner(userEntity, banner);
+
+                model.addAttribute("vendor", userEntity);
+                model.addAttribute("message", "Banner has been upload successfully!");
+
+            }
+        }catch (Exception e){
+        log.error("Error while adding banner" + e);
+        model.addAttribute("error", "Error while adding banner!");
+    }
+        return  "fragments/editable-vendor-page-fragment";
+    }
+
+
     @GetMapping("/search")
     @HxRequest
     public String addProductEntity(@RequestParam String searchquery,
