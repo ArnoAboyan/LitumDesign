@@ -72,7 +72,7 @@
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen></iframe>
             </div>
-            <div class="item" th:each="detailsphotos, iterStat : ${productdetails.photoLink}" data-bs-toggle="modal"
+            <div class="item" style="cursor: pointer;" th:each="detailsphotos, iterStat : ${productdetails.photoLink}" data-bs-toggle="modal"
                  th:data-bs-target="'#modalBigImage' + ${iterStat.index}">
                 <img th:src="'https://drive.google.com/uc?id='+${detailsphotos.getPhotoLink()} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}"
                      th:alt="${productdetails.getGameType()} + ${productdetails.getTitle()} + ${productdetails.getCategories()}"
