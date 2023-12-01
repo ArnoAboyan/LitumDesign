@@ -57,7 +57,19 @@
 <section>
     <div class="vendor-header-container ">
         <div class="vendor-page-banner-image ">
-            <img src="/image/banner.jpg" alt="banner image">
+            <div th:if="${vendor.getBanner() == null}">
+                <img src="/image/banner.jpg" alt="banner image">
+            </div>
+            <div th:if="${vendor.getBanner() != null}">
+                <img th:src="'https://drive.google.com/uc?id='+${vendor.getBanner()} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}" alt="Banner"
+                     title="Banner image"
+                     decoding="async"
+                     th:href="'https://drive.google.com/uc?id='+${vendor.getBanner()}"
+                     th:attr="srcset='https://drive.google.com/thumbnail?authuser=0&amp;sz=w640&amp;id=' + ${vendor.getBanner()} + '&timestamp=' +  ${#dates.format(#dates.createNow(),'YYYY/MM/dd' + 'HH:mm')} + ' 640w, ' +
+            'https://drive.google.com/thumbnail?authuser=0&amp;sz=w1920&amp;id=' + ${vendor.getBanner()} + '&timestamp=' +  ${#dates.format(#dates.createNow(),'YYYY/MM/dd' + 'HH:mm')} + ' 1920w'"
+                     sizes="(max-width: 600px) 640px, 1920px"
+                />
+            </div>
         </div>
         <div class="vendor-page-avatar">
             <img class="rounded-circle" th:src="'https://drive.google.com/uc?id='+${vendor.getImageUrl()} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}" alt="Avatar"

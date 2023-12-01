@@ -74,7 +74,6 @@ public class GoogleDriveService {
 
 
 
-
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(ServiceAccountCredentials.fromPkcs8(
                 clientId, clientMail, privateKey, privateId, SCOPES).createScoped(SCOPES));
@@ -212,6 +211,32 @@ public class GoogleDriveService {
         return userEntity;
     }
 
+
+    public void uploadUserBanner(UserEntity userEntity, MultipartFile photo) {
+
+        try {
+
+            log.info("Uploading photo: {}", photo.getOriginalFilename());
+
+            File fileMetadata = new File();
+            fileMetadata.setName("Banner " + userEntity.getName() + "_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd_MM_yyyy | HH:mm:ss")));
+            fileMetadata.setParents(Collections.singletonList("1dj7SYK4WfWjVoJSQWW-D0_s5jCgH-nhz"));
+            File uploadFile = getInstance()
+                    .files()
+                    .create(fileMetadata, new InputStreamContent(
+                            photo.getContentType(),
+                            new ByteArrayInputStream(photo.getBytes()))
+                    )
+                    .setFields("id, name")
+                    .execute();
+            System.out.println("FILE CREATE -> " + uploadFile);
+
+            userEntity.setBanner(uploadFile.getId());
+
+        } catch (Exception e) {
+            log.error("Error during file upload process", e);
+        }
+    }
 
 //    public String getAllAudio() throws IOException, GeneralSecurityException {
 //        Drive service = getInstance();

@@ -116,4 +116,13 @@ public class UserEntityService {
 
         return userRepository.save(userEntity);
     }
+
+    public UserEntity uploadUserBanner(UserEntity userEntity, MultipartFile banner) {
+
+        googleDriveService.uploadUserBanner(userEntity, banner);
+
+
+
+        return userRepository.save(userEntity);
+    }
 }
