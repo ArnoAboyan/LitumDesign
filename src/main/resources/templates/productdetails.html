@@ -42,7 +42,7 @@
 
     <meta property="og:title"  th:content="${productdetails.getTitle()}" />
     <meta property="og:type" content="website" />
-    <meta property="og:url"  th:content="${'https://litumdesign.com//product/details/' + ${productdetails.getId()} + '/' + ${productdetails.getTitle().replaceAll('[^a-zA-Z0-9-]', '-')}}" />
+<!--    <meta property="og:url"  th:content="${'https://litumdesign.com//product/details/' + ${productdetails.getId()} + '/' + ${productdetails.getTitle().replaceAll('[^a-zA-Z0-9-]', '-')}}" />-->
     <meta property="og:image"  th:content="'https://drive.google.com/thumbnail?authuser=0&amp;sz=w720&amp;id=' + ${productdetails.getTitleImageLink()}" />
     <meta property="og:description"  th:content="${productdetails.getShortInfo()}" />
     <meta property="og:image:width" content="388">
