@@ -43,6 +43,7 @@
 
     <meta property="og:title"  th:content="${productdetails.getTitle()}" />
     <meta property="og:site_name" content="Litum Design">
+    <meta property="og:url" th:content="@{'https://litumdesign.com/product/details/'+ ${productdetails.id} + '/' + ${productdetails.getTitle().replaceAll('[^a-zA-Z0-9-]', '-')}}">
     <meta property="og:description"  th:content="${productdetails.getShortInfo()}" />
     <meta property="og:type" content="website" />
     <meta property="og:image"  th:content="'https://drive.google.com/thumbnail?authuser=0&amp;sz=w640&amp;id=' + ${productdetails.getTitleImageLink()}" />
@@ -51,6 +52,15 @@
     <meta property="og:image:height" content="640">
     <meta property="og:image:alt" th:content="${productdetails.getGameType()} + ' ' + ${productdetails.getTitle()} + ' ' + ${productdetails.getCategories()}">
     <meta property="og:image:type" content="image/gif">
+    <meta name="twitter:site" content="Litum Design">
+    <meta name="twitter:title" th:content="${productdetails.getTitle()}">
+    <meta name="twitter:description" th:content="${productdetails.getShortInfo()}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src" th:content="'https://drive.google.com/thumbnail?authuser=0&amp;sz=w640&amp;id=' + ${productdetails.getTitleImageLink()}">
+    <meta name="theme-color" content="#FD0054">
+
+
+
     <!-- Owl Carousel CSS -->
     <link
             rel="stylesheet"
