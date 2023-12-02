@@ -42,10 +42,13 @@
 
     <meta property="og:title"  th:content="${productdetails.getTitle()}" />
     <meta property="og:type" content="website" />
-<!--    <meta property="og:url"  th:content="${'/product/details/' + ${productdetails.getId()} + '/' + ${productdetails.getTitle().replaceAll('[^a-zA-Z0-9-]', '-')}}" />-->
+    <meta property="og:url"  th:content="${'https://litumdesign.com//product/details/' + ${productdetails.getId()} + '/' + ${productdetails.getTitle().replaceAll('[^a-zA-Z0-9-]', '-')}}" />
     <meta property="og:image"  th:content="'https://drive.google.com/thumbnail?authuser=0&amp;sz=w720&amp;id=' + ${productdetails.getTitleImageLink()}" />
     <meta property="og:description"  th:content="${productdetails.getShortInfo()}" />
-
+    <meta property="og:image:width" content="388">
+    <meta property="og:image:height" content="277">
+    <meta property="og:image:alt" th:content="${productdetails.getGameType()} + ${productdetails.getTitle()} + ${productdetails.getCategories()}">
+    <meta property="og:image:type" content="image/gif">
     <!-- Owl Carousel CSS -->
     <link
             rel="stylesheet"
