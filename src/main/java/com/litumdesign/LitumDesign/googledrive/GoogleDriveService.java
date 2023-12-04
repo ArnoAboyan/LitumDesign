@@ -73,7 +73,6 @@ public class GoogleDriveService {
 
 
 
-
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(ServiceAccountCredentials.fromPkcs8(
                 clientId, clientMail, privateKey, privateId, SCOPES).createScoped(SCOPES));
@@ -91,7 +90,6 @@ public class GoogleDriveService {
     }
 
 
-    @Transactional
     public String uploadFile(MultipartFile file) {
 
 
