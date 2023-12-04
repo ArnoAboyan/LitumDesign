@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 
 @Controller
 @RequiredArgsConstructor
@@ -97,16 +95,16 @@ public class NewsController {
     }
 
 
-    @GetMapping("/getparticularnews")
-    @HxRequest
-    public String getParticularNewsHx(Model model, @RequestParam("newsId") Long newsId){
-
-        System.out.println(newsId);
-
-        model.addAttribute("particularnews", newsEntityService.getParticularNews(newsId));
-
-                return "fragments/particularnewsfragment";
-    }
+//    @GetMapping("/getparticularnews")
+//    @HxRequest
+//    public String getParticularNewsHx(Model model, @RequestParam("newsId") Long newsId){
+//
+//        System.out.println(newsId);
+//
+//        model.addAttribute("particularnews", newsEntityService.getParticularNews(newsId));
+//
+//                return "fragments/particularnewsfragment";
+//    }
 
 
     @GetMapping("/getparticularnews/{newsName}")

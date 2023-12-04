@@ -7,13 +7,17 @@
 
   <th:block th:each="news, number : ${allNews}">
 
-    <a class="card newscontainer mb-5" id="newscontainer" data-bs-toggle="modal" th:data-bs-target="'#newsModal' + ${news.getId} "
-    th:hx-get="@{/news/getparticularnews(newsId=${news.getId()})}" hx-target="#newscontainer" hx-swap="outerHTML"
+<!--    <a class="card newscontainer mb-5" id="newscontainer" data-bs-toggle="modal" th:data-bs-target="'#newsModal' + ${news.getId} "-->
+<!--    th:hx-get="@{/news/getparticularnews(newsId=${news.getId()})}" hx-target="#newscontainer" hx-swap="outerHTML"-->
+<!--    >-->
+
+      <a class="card newscontainer mb-5" id="newscontainer"
+         th:href="@{'/news/getparticularnews/' + ${news.getTitle().replaceAll('[^a-zA-Z0-9-]', '-')} + '?id=' + ${news.getId()}}"
     >
-      <img class="htmx-indicator" src="/image/spinner-loading.svg">
+      <img class="htmx-indicator" src="/image/spinner-loading.svg" alt="spinner">
 
       <p class="news-about" th:text="${news.getAbout()}"  ></p>
-      <img data-th-src="@{${news.getPhotoLink()}}" class="card-img-top " alt="...">
+      <img data-th-src="@{${news.getPhotoLink()}}" class="card-img-top " alt="Photo">
       <div class="card-body">
         <h5 class="card-text card-title-news  text-truncate" th:text="${news.getTitle()}"></h5>
         <p class="card-text short-text-news text-truncate" th:text="${news.shortText}"></p>
@@ -42,6 +46,6 @@
   <div th:hx-get="${link}"
            hx-trigger="revealed"
            hx-swap="outerHTML"
-           hx-target="#replaceNews"><img class="htmx-indicator" src="/image/spinner-loading.svg">
+           hx-target="#replaceNews"><img class="htmx-indicator" src="/image/spinner-loading.svg" alt="spinner">
   </div>
 </div>
