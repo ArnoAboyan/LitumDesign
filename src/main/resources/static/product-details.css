@@ -267,10 +267,10 @@ span.img-text {
 .product-details{
     padding: 10px;
 }
-/*.product-details img{*/
-/*    max-width: 95%;*/
-/*    object-fit: cover;*/
-/*}*/
+.description img{
+    max-width: 95%;
+    object-fit: cover;
+}
 .name-date-space{
     display: flex;
     position: relative;

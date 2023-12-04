@@ -57,7 +57,8 @@
     <meta name="twitter:description" th:content="${productdetails.getShortInfo()}">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image:src" th:content="'https://drive.google.com/thumbnail?authuser=0&amp;sz=w640&amp;id=' + ${productdetails.getTitleImageLink()}">
-    <meta name="theme-color" content="#FD0054">
+    <meta name="theme-color" content="#CB321A">
+
 
 
 
@@ -95,7 +96,7 @@
             <div class="item" style="cursor: pointer;" th:each="detailsphotos, iterStat : ${productdetails.photoLink}" data-bs-toggle="modal"
                  th:data-bs-target="'#modalBigImage' + ${iterStat.index}">
                 <img th:src="'https://drive.google.com/uc?id='+${detailsphotos.getPhotoLink()} + '&timestamp=' + ${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}"
-                     th:alt="${productdetails.getGameType()} + ${productdetails.getTitle()} + ${productdetails.getCategories()}"
+                     th:alt="'Download' + ' ' + ${productdetails.getGameType()} +' '+ ${productdetails.getTitle()} +' '+ ${productdetails.getCategories()}"
                      th:title="${productdetails.getTitle()}"
                      decoding="async"
                      th:href="'https://drive.google.com/uc?id='+${detailsphotos.getPhotoLink()}"
