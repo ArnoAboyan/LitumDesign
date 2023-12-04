@@ -712,9 +712,7 @@ height: 36px;
     margin-bottom: 40px;
 }
 
-/*.page-link.active{*/
-/*    background-color: #CB321A;*/
-/*}*/
+
 
 .active > .page-link, .page-link.active {
     color: white;
@@ -740,6 +738,23 @@ height: 36px;
     /*margin-top: 1px;*/
     border-bottom: 2px solid #CB321A;
 }
+
+
+.breadcrumb-container {
+    margin: 0 auto;
+    max-width: 1170px;
+}
+.breadcrumb-item{
+    color: #ffffff;
+    text-decoration: underline;
+
+
+}
+.breadcrumb-item.active{
+    color: #CB321A;
+    text-decoration: none;
+}
+
 
 .aboutustext {
     color: #ffffff;
