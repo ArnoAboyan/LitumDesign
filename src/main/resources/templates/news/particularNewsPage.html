@@ -34,6 +34,24 @@
   <script src="https://kit.fontawesome.com/b343836130.js" crossorigin="anonymous"></script>
 
 
+  <meta property="og:title"  th:content="${particularnews.getTitle()}" />
+  <meta property="og:site_name" content="Litum Design">
+  <meta property="og:url" th:content="@{'https://litumdesign.com/news/getparticularnews'+  '/' + ${particularnews.getTitle().replaceAll('[^a-zA-Z0-9-]', '-')} + '&' + 'id=' + ${particularnews.id}}">
+  <meta property="og:description"  th:content="${particularnews.shortText}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image"  th:content="${particularnews.getPhotoLink()}" />
+  <meta property="og:image:secure_url" th:content="${particularnews.getPhotoLink()}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="640">
+  <meta property="og:image:alt" th:content="${particularnews.getAbout()} + ' ' + ${particularnews.getTitle()}">
+  <meta property="og:image:type" content="image/gif">
+  <meta name="twitter:site" content="Litum Design">
+  <meta name="twitter:title" th:content="${particularnews.getTitle()}">
+  <meta name="twitter:description" th:content="${particularnews.shortText}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image:src" th:content="${particularnews.getPhotoLink()}">
+  <meta name="theme-color" content="#CB321A">
+
   <!-- Cookie Banner -->
   <link rel="stylesheet" th:href="@{/cookie-banner.css}">
 </head>

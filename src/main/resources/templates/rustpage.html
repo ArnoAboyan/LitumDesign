@@ -48,7 +48,21 @@
 
 
 
+<div class="breadcrumb-container">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="https://litumdesign.com">Home</a></li>
+      <span class="breadcrumb-divider">&nbsp; > &nbsp;</span>
+      <li th:if="${category} == null" class="breadcrumb-item active" aria-current="page">RUST</li>
+      <span th:if="${category} != null" style="display: flex;">
+                <li class="breadcrumb-item"><a th:href="'/' + 'rust'">RUST</a></li>
+                <span class="breadcrumb-divider">&nbsp; > &nbsp;</span>
+                <li class="breadcrumb-item active" aria-current="page" th:text="${category}"></li>
+            </span>
 
+    </ol>
+  </nav>
+</div>
 
 <!-- RUST HEADER TEXT -->
 <div class="container headergame ">

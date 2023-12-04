@@ -82,6 +82,21 @@
 <div th:insert="~{fragments/headerfragment :: header}"></div>
 
 
+<div class="breadcrumb-container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="https://litumdesign.com">Home</a></li>
+            <span class="breadcrumb-divider">&nbsp; > &nbsp;</span>
+            <li class="breadcrumb-item"><a th:href="'/' + ${#strings.toLowerCase(productdetails.getGameType())}" th:text="${productdetails.getGameType()}"></a></li>
+            <span class="breadcrumb-divider">&nbsp; > &nbsp;</span>
+            <li class="breadcrumb-item"><a th:href="'/' + ${#strings.toLowerCase(productdetails.getGameType())}+'/' +${productdetails.getCategories()}" th:text="${productdetails.getCategories()}"></a></li>
+            <span class="breadcrumb-divider">&nbsp; > &nbsp;</span>
+            <li class="breadcrumb-item active" aria-current="page" th:text="${productdetails.getTitle()}"></li>
+        </ol>
+    </nav>
+</div>
+
+
 <div class="container container-carousel">
     <div class="carousel-wrap">
         <div class="owl-carousel owl-theme">
@@ -210,7 +225,7 @@
 
         <div id="detailsGroup" class="details-container">
             <div class="collapse show" id="Description" data-bs-parent="#detailsGroup">
-                <div class="product-details text-break active">
+                <div class="product-details description text-break active">
                     <p class="" th:utext="${productdetails.getDescription()}"></p>
                 </div>
             </div>
