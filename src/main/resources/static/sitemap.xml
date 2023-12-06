@@ -6,139 +6,204 @@
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
 
-<url>
+  <url>
     <loc>https://litumdesign.com/</loc>
-    <lastmod>2023-11-26T11:01:42+00:00</lastmod>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
     <priority>1.00</priority>
   </url>
   <url>
     <loc>https://litumdesign.com/news</loc>
-    <lastmod>2023-11-26T11:01:42+00:00</lastmod>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://litumdesign.com/serverlist</loc>
-    <lastmod>2023-11-26T11:01:42+00:00</lastmod>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://litumdesign.com/rust</loc>
-    <lastmod>2023-11-26T11:01:42+00:00</lastmod>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://litumdesign.com/unturned</loc>
-    <lastmod>2023-11-26T11:01:42+00:00</lastmod>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://litumdesign.com/news/getparticularnews/3-23-13-0-Update-Notes-Server-Browser-Upgrade?id=3</loc>
-    <lastmod>2023-11-26T11:01:42+00:00</lastmod>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://litumdesign.com/news/getparticularnews/Testing-phase-?id=2</loc>
-    <lastmod>2023-11-26T11:01:42+00:00</lastmod>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://litumdesign.com/product/details/44/Rime-Vanilla-Arsenal</loc>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://litumdesign.com/product/details/22/Concrete-Bridge</loc>
-    <lastmod>2023-11-26T11:01:42+00:00</lastmod>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://litumdesign.com/product/details/40/Elver</loc>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://litumdesign.com/product/details/38/-Forester-2004</loc>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://litumdesign.com/product/details/7/Backpacks</loc>
-    <lastmod>2023-11-26T11:01:42+00:00</lastmod>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://litumdesign.com/vendor-page/Yanabo</loc>
-    <lastmod>2023-11-26T11:01:42+00:00</lastmod>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://litumdesign.com/product/details/4/Stack-Size-Controller</loc>
-    <lastmod>2023-11-26T11:01:42+00:00</lastmod>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://litumdesign.com/product/details/6/Vanish</loc>
-    <lastmod>2023-11-26T11:01:42+00:00</lastmod>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://litumdesign.com/product/details/1/Infinite-Vending-Stock</loc>
-    <lastmod>2023-11-26T11:01:42+00:00</lastmod>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://litumdesign.com/vendor-page/Wonder_Fox</loc>
-    <lastmod>2023-11-26T11:01:42+00:00</lastmod>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://litumdesign.com/product/details/49/Gather-Manager</loc>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://litumdesign.com/product/details/48/Advanced-Grenades</loc>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://litumdesign.com/vendor-page/SteamWorkshop</loc>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://litumdesign.com/product/details/47/Platform-Gun</loc>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://litumdesign.com/product/details/46/-Skins</loc>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://litumdesign.com/product/details/45/Trade</loc>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://litumdesign.com/product/details/39/Small-locker-Unturned-Mod</loc>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://litumdesign.com/product/details/37/Lofoten-Objects</loc>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://litumdesign.com/product/details/41/Compact-Truck-</loc>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://litumdesign.com/product/details/43/Rust-Kits</loc>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://litumdesign.com/product/details/24/Image-Library</loc>
-    <lastmod>2023-11-26T11:01:42+00:00</lastmod>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://litumdesign.com/rust/PLUGIN</loc>
-    <lastmod>2023-11-26T11:01:42+00:00</lastmod>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
     <priority>0.64</priority>
   </url>
   <url>
     <loc>https://litumdesign.com/rust/MAP</loc>
-    <lastmod>2023-11-26T11:01:42+00:00</lastmod>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
     <priority>0.64</priority>
   </url>
   <url>
     <loc>https://litumdesign.com/rust/PREFAB</loc>
-    <lastmod>2023-11-26T11:01:42+00:00</lastmod>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
     <priority>0.64</priority>
   </url>
   <url>
     <loc>https://litumdesign.com/rust/MONUMENT</loc>
-    <lastmod>2023-11-26T11:01:42+00:00</lastmod>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
     <priority>0.64</priority>
   </url>
   <url>
     <loc>https://litumdesign.com/rust/TOOL</loc>
-    <lastmod>2023-11-26T11:01:42+00:00</lastmod>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
     <priority>0.64</priority>
   </url>
   <url>
     <loc>https://litumdesign.com/rust/MOD</loc>
-    <lastmod>2023-11-26T11:01:42+00:00</lastmod>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
     <priority>0.64</priority>
   </url>
   <url>
     <loc>https://litumdesign.com/unturned/PLUGIN</loc>
-    <lastmod>2023-11-26T11:01:42+00:00</lastmod>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
     <priority>0.64</priority>
   </url>
   <url>
     <loc>https://litumdesign.com/unturned/MAP</loc>
-    <lastmod>2023-11-26T11:01:42+00:00</lastmod>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
     <priority>0.64</priority>
   </url>
   <url>
     <loc>https://litumdesign.com/unturned/PREFAB</loc>
-    <lastmod>2023-11-26T11:01:42+00:00</lastmod>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
     <priority>0.64</priority>
   </url>
   <url>
     <loc>https://litumdesign.com/unturned/MONUMENT</loc>
-    <lastmod>2023-11-26T11:01:42+00:00</lastmod>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
     <priority>0.64</priority>
   </url>
   <url>
     <loc>https://litumdesign.com/unturned/TOOL</loc>
-    <lastmod>2023-11-26T11:01:42+00:00</lastmod>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
     <priority>0.64</priority>
   </url>
   <url>
     <loc>https://litumdesign.com/unturned/MOD</loc>
-    <lastmod>2023-11-26T11:01:42+00:00</lastmod>
+    <lastmod>2023-12-06T09:07:51+00:00</lastmod>
     <priority>0.64</priority>
   </url>
 </urlset>
