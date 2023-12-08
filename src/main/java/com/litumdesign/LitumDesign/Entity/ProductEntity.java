@@ -61,6 +61,8 @@ public class ProductEntity {
     List<CommentProductEntity> comment;
     @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     List<ProductVersionEntity> productVersion;
+    @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    List<UserCartEntity> userCart;
 
     @Column(name = "video_link", columnDefinition = "VARCHAR")
     String videoLink;
