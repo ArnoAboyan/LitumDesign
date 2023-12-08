@@ -53,6 +53,9 @@ public class UserEntity {
     @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     List<CommentProductEntity> comment = new ArrayList<>();
 
+    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    List<UserCartEntity> userCart = new ArrayList<>();
+
     @Column(name = "discord_link")
     String discord_link;
     @Column(name = "telegram_link")

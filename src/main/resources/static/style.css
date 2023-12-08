@@ -698,7 +698,7 @@ height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: none; /* ÃÂ£ÃÂ±Ã‘â‚¬ÃÂ°Ã‘â€šÃ‘Å’ Ã‘â‚¬ÃÂ°ÃÂ¼ÃÂºÃ‘Æ’ */
+    border: none; /* ÃƒÂÃ‚Â£ÃƒÂÃ‚Â±Ãƒâ€˜Ã¢â€šÂ¬ÃƒÂÃ‚Â°Ãƒâ€˜Ã¢â‚¬Å¡Ãƒâ€˜Ã…â€™ Ãƒâ€˜Ã¢â€šÂ¬ÃƒÂÃ‚Â°ÃƒÂÃ‚Â¼ÃƒÂÃ‚ÂºÃƒâ€˜Ã†â€™ */
     border-radius: 0;
 }
 
@@ -728,15 +728,18 @@ height: 36px;
     font-size: 18px;
     font-weight: 500;
     margin: 0 auto;
-    border: none; /* ÃÂ£ÃÂ±Ã‘â‚¬ÃÂ°Ã‘â€šÃ‘Å’ Ã‘â‚¬ÃÂ°ÃÂ¼ÃÂºÃ‘Æ’ */
+    border: none; /* ÃƒÂÃ‚Â£ÃƒÂÃ‚Â±Ãƒâ€˜Ã¢â€šÂ¬ÃƒÂÃ‚Â°Ãƒâ€˜Ã¢â‚¬Å¡Ãƒâ€˜Ã…â€™ Ãƒâ€˜Ã¢â€šÂ¬ÃƒÂÃ‚Â°ÃƒÂÃ‚Â¼ÃƒÂÃ‚ÂºÃƒâ€˜Ã†â€™ */
     border-radius: 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0);
+    background-color: rgba(255, 255, 255, 0);
+
 }
 
 .pagination a:hover {
     color: white;
     /*margin-top: 1px;*/
     border-bottom: 2px solid #CB321A;
+    background: linear-gradient(transparent, #272727);
 }
 
 
@@ -1514,7 +1517,7 @@ height: 36px;
     position: absolute;
     top: 0;
     right: 0;
-    margin: 10px; /* установите отступ, который вам нравится */
+    margin: 10px; /* ÑƒÑÑ‚Ð°Ð½Ð¾Ð²Ð¸Ñ‚Ðµ Ð¾Ñ‚ÑÑ‚ÑƒÐ¿, ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ð¹ Ð²Ð°Ð¼ Ð½Ñ€Ð°Ð²Ð¸Ñ‚ÑÑ */
 }
 
 @media screen and (max-width: 991px) {

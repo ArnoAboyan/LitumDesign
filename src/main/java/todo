@@ -7,8 +7,13 @@ decide wat to do with photo links and thumbnails
 https://drive.google.com/thumbnail?authuser=0&sz=w320&id=[fileid]
 
 
-Update constraints for enums
-
+//Update constraints for enums
 ALTER TABLE product
     ADD CONSTRAINT product_categories_check
         CHECK (categories IN ('MAP', 'PLUGIN'));
+//
+
+
+///// unique USER-PRODUCT tables
+ALTER TABLE user_cart ADD CONSTRAINT unique_user_product UNIQUE (user_entity, product_entity);
+///
