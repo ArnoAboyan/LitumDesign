@@ -152,7 +152,11 @@ margin-top: 25px">
                      th:alt="${productdetails.getGameType()} + ${productdetails.getTitle()} + ${productdetails.getCategories()}"
                      th:title="${productdetails.getTitle()}"
                      decoding="async"
-                     th:href="'https://drive.google.com/uc?id='+${detailsphotos.getPhotoLink()}"/>
+                     th:href="'https://drive.google.com/uc?id='+${detailsphotos.getPhotoLink()}"
+                     th:attr="srcset='https://drive.google.com/thumbnail?authuser=0&amp;sz=w640&amp;id=' + ${detailsphotos.getPhotoLink()} + '&timestamp=' +  ${#dates.format(#dates.createNow(),'YYYY/MM/dd' + 'HH:mm')} + ' 640w, ' +
+                                'https://drive.google.com/thumbnail?authuser=0&amp;sz=w720&amp;id=' + ${detailsphotos.getPhotoLink()} + '&timestamp=' +  ${#dates.format(#dates.createNow(),'YYYY/MM/dd' + 'HH:mm')} + ' 720w'"
+                     sizes="(max-width: 600px) 640px, 720px"
+                />
             </div>
         </div>
     </div>
