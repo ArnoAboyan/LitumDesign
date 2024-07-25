@@ -24,7 +24,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -68,7 +67,6 @@ public class GoogleDriveService {
         String clientMail = System.getenv("CLIENT_EMAIL");
         String privateKey = System.getenv("CLIENT_PRIVATEKEY");
         String privateId = System.getenv("CLIENT_PRIVATEID");
-
 
 
 
