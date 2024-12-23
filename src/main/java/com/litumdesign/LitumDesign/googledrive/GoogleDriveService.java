@@ -96,7 +96,7 @@ public class GoogleDriveService {
 
             File fileMetadata = new File();
             fileMetadata.setName(file.getOriginalFilename());
-            fileMetadata.setParents(Collections.singletonList("1stc_iqTpWk7hJJwn7y95X3DUoonfSMy2"));
+            fileMetadata.setParents(Collections.singletonList("xxxxxxxxxxxxxxxxxxxxxxx"));
             File uploadFile = getInstance()
                     .files()
                     .create(fileMetadata, new InputStreamContent(
@@ -132,7 +132,7 @@ public class GoogleDriveService {
 
                 File fileMetadata = new File();
                 fileMetadata.setName(photo.getOriginalFilename());
-                fileMetadata.setParents(Collections.singletonList("1epednn6iQdmuEW7W-uGN3Y-o64HAyuEx"));
+                fileMetadata.setParents(Collections.singletonList("xxxxxxxxxxxxxxxxxxxxxxxx"));
                 File uploadFile = getInstance()
                         .files()
                         .create(fileMetadata, new InputStreamContent(
@@ -161,7 +161,7 @@ public class GoogleDriveService {
 
                 File fileMetadata = new File();
                 fileMetadata.setName(photo.getOriginalFilename());
-                fileMetadata.setParents(Collections.singletonList("1epednn6iQdmuEW7W-uGN3Y-o64HAyuEx"));
+                fileMetadata.setParents(Collections.singletonList("xxxxxxxxxxxxxxxxxxxx"));
                 File uploadFile = getInstance()
                         .files()
                         .create(fileMetadata, new InputStreamContent(
@@ -188,7 +188,7 @@ public class GoogleDriveService {
 
             File fileMetadata = new File();
             fileMetadata.setName("Avatar " + userEntity.getName() + "_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd_MM_yyyy | HH:mm:ss")));
-            fileMetadata.setParents(Collections.singletonList("1QpfYnVHb-qJlglXUoA9alEFNvLT765SW"));
+            fileMetadata.setParents(Collections.singletonList("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"));
             File uploadFile = getInstance()
                     .files()
                     .create(fileMetadata, new InputStreamContent(
@@ -216,7 +216,7 @@ public class GoogleDriveService {
 
             File fileMetadata = new File();
             fileMetadata.setName("Banner " + userEntity.getName() + "_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd_MM_yyyy | HH:mm:ss")));
-            fileMetadata.setParents(Collections.singletonList("1dj7SYK4WfWjVoJSQWW-D0_s5jCgH-nhz"));
+            fileMetadata.setParents(Collections.singletonList("xxxxxxxxxxxxxxxxxxxxxxxxx"));
             File uploadFile = getInstance()
                     .files()
                     .create(fileMetadata, new InputStreamContent(
@@ -234,77 +234,8 @@ public class GoogleDriveService {
         }
     }
 
-//    public String getAllAudio() throws IOException, GeneralSecurityException {
-//        Drive service = getInstance();
-//
-//
-//        try {
-//            FileList result = service.files().list()
-//                    .setPageSize(10)
-//                    .setFields("nextPageToken, files(id, name)")
-//                    .execute();
-//            System.out.println(result.getFiles().toString());
-//            return result.toString();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            throw e;
-//        }
-//    }
-
-//    public Drive.Files.Get getFileById(String fileId) throws IOException, GeneralSecurityException {
-//        Drive service = getInstance();
-//
-//        try {
-//
-//            Drive.Files.Get result = service.files().get(fileId);
-//
-//            System.out.println(result.toString());
-//            return result;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            throw e;
-//        }
-//    }
-
-//    public static ByteArrayOutputStream getFile(String realFileId, Drive service) throws IOException {
-//        try {
-//            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-//
-//            service.files().get(realFileId)
-//                    .executeMediaAndDownloadTo(outputStream);
-//
-//            return outputStream;
-//        } catch (GoogleJsonResponseException e) {
-//            // TODO(developer) - handle error appropriately
-//            System.err.println("Unable to move file: " + e.getDetails());
-//            throw e;
-//        }
-//    }
-
-
-//    public void downloadFile() throws IOException, GeneralSecurityException {
-//        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-//        Drive service = getInstance();
-//        service.files().get("1gLh3ZVQpJl494jnT9L1keJm1bb1xiGPN")
-//                .executeMediaAndDownloadTo(outputStream);
-//
-//        String filePath = "E:";
-//        String fileName = "5e3bd17765e820213981ad5d80fbce34_L.jpg";
-//
-//
-//
-//
-//
-//        try (FileOutputStream fos = new FileOutputStream(fileName)) {
-//            outputStream.writeTo(fos);
-//            System.out.println("Файл успешно сохранен: ");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
     public ResponseEntity<Resource> downloadFile(String fileId) throws IOException, GeneralSecurityException {
-        // Загрузите файл с помощью вашей службы
+        
         Drive service = getInstance();
 
         System.out.println(service.about().toString());
@@ -347,25 +278,6 @@ public class GoogleDriveService {
         }
 
     }
-
-
-//    public void renameFileToUnused(String fileId)  {
-//
-//        Drive service = null;
-//        try {
-//            service = getInstance();
-//            File file = service.files().get(fileId).execute();
-//
-//            file.setName("UNUSED");
-//
-//            service.files().update(fileId, file).execute();
-//
-//            System.out.println("File has bean rename to UNUSED successful");
-//        } catch (GeneralSecurityException | IOException e) {
-//            log.error("Error occurred while renaming file"+ e.getMessage(), e);
-//        }
-//
-//    }
 
 }
 
